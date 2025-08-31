@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|c:\\users\\azs90\\onedrive\\documentos\\telebip-erp\\telebip-erp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|solutionrelative:telebip-erp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|c:\\users\\azs90\\onedrive\\documentos\\telebip-erp\\telebip-erp\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|solutionrelative:telebip-erp\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|c:\\users\\azs90\\onedrive\\documentos\\telebip-erp\\telebip-erp\\formbase.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|solutionrelative:telebip-erp\\formbase.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|c:\\users\\azs90\\onedrive\\documentos\\telebip-erp\\telebip-erp\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|solutionrelative:telebip-erp\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\Form1.cs",
-              "RelativeDocumentMoniker": "telebip-erp\\Form1.cs",
-              "ToolTip": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\Form1.cs [Design]",
-              "RelativeToolTip": "telebip-erp\\Form1.cs [Design]",
+              "DocumentIndex": 2,
+              "Title": "FormBase.cs [Projeto]",
+              "DocumentMoniker": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\FormBase.cs",
+              "RelativeDocumentMoniker": "telebip-erp\\FormBase.cs",
+              "ToolTip": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\FormBase.cs [Projeto]",
+              "RelativeToolTip": "telebip-erp\\FormBase.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-03T18:48:34.229Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-08-28T17:06:23.355Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FormBase.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\FormBase.Designer.cs",
+              "RelativeDocumentMoniker": "telebip-erp\\FormBase.Designer.cs",
+              "ToolTip": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\FormBase.Designer.cs",
+              "RelativeToolTip": "telebip-erp\\FormBase.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-28T16:57:28.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FormBase.cs",
+              "DocumentMoniker": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\FormBase.cs",
+              "RelativeDocumentMoniker": "telebip-erp\\FormBase.cs",
+              "ToolTip": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\FormBase.cs",
+              "RelativeToolTip": "telebip-erp\\FormBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-28T16:57:20.389Z",
+              "EditorCaption": ""
             }
           ]
         }
