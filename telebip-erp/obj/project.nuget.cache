@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "accdlhkqvB4=",
+  "dgSpecHash": "AO6Aer1Omvs=",
   "success": true,
   "projectFilePath": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\telebip-erp.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\azs90\\.nuget\\packages\\realtaiizor\\3.8.1.3\\realtaiizor.3.8.1.3.nupkg.sha512"
+  ],
   "logs": []
 }

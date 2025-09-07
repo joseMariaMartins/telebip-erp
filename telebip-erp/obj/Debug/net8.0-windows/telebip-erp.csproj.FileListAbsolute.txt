@@ -1,3 +1,11 @@
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Auth.FormLogin.resources
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.FormBase.resources
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Main.FormInicial.resources
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Modules.FormEstoque.resources
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Modules.FormFuncionarios.resources
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Modules.FormRelatorios.resources
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Modules.FormVendas.resources
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Properties.Resources.resources
 C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-erp.csproj.GenerateResource.cache
 C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-erp.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-erp.AssemblyInfoInputs.cache
@@ -14,11 +22,6 @@ C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-wind
 C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-erp.pdb
 C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-erp.genruntimeconfig.cache
 C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\ref\telebip-erp.dll
-C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.FormBase.resources
-C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Properties.Resources.resources
-C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Auth.FormLogin.resources
-C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Main.FormInicial.resources
-C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Modules.FormEstoque.resources
-C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Modules.FormFuncionarios.resources
-C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Modules.FormRelatorios.resources
-C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Modules.FormVendas.resources
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\ReaLTaiizor.dll
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-erp.csproj.AssemblyReference.cache
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-.0CB5E185.Up2Date

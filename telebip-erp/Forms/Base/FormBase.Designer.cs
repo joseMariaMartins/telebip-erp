@@ -28,257 +28,505 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBase));
-            pnlMenu = new Panel();
-            lblOrganizer = new Label();
-            btnLogout = new Button();
-            btnConfiguracoes = new Button();
-            lblTelebip = new Label();
-            btnFuncionarios = new Button();
-            btnRelatorios = new Button();
-            btnEstoque = new Button();
+            panel1 = new Panel();
+            nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
+            btnHam = new PictureBox();
+            pnlSidebar = new FlowLayoutPanel();
+            panel7 = new Panel();
+            button5 = new Button();
+            vendasContainer = new Panel();
+            panel3 = new Panel();
             btnVendas = new Button();
-            pnlContent = new Panel();
-            lblVersao = new Label();
-            lblNome = new Label();
-            pnlMenu.SuspendLayout();
-            pnlContent.SuspendLayout();
+            panel5 = new Panel();
+            rmvVenda = new Button();
+            panel2 = new Panel();
+            addVenda = new Button();
+            estoqueContainer = new Panel();
+            panel10 = new Panel();
+            btnEstoque = new Button();
+            panel11 = new Panel();
+            rmvEstoque = new Button();
+            panel12 = new Panel();
+            addEstoque = new Button();
+            relatoriosContainer = new Panel();
+            panel6 = new Panel();
+            btnRelatorios = new Button();
+            containerFuncionarios = new Panel();
+            panel9 = new Panel();
+            btnFuncionarios = new Button();
+            configuracoesContainer = new Panel();
+            panel8 = new Panel();
+            btnConfiguracoes = new Button();
+            menuTransition = new System.Windows.Forms.Timer(components);
+            sidebarTransition = new System.Windows.Forms.Timer(components);
+            menuTransitionEstoque = new System.Windows.Forms.Timer(components);
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnHam).BeginInit();
+            pnlSidebar.SuspendLayout();
+            panel7.SuspendLayout();
+            vendasContainer.SuspendLayout();
+            panel3.SuspendLayout();
+            panel5.SuspendLayout();
+            panel2.SuspendLayout();
+            estoqueContainer.SuspendLayout();
+            panel10.SuspendLayout();
+            panel11.SuspendLayout();
+            panel12.SuspendLayout();
+            relatoriosContainer.SuspendLayout();
+            panel6.SuspendLayout();
+            containerFuncionarios.SuspendLayout();
+            panel9.SuspendLayout();
+            configuracoesContainer.SuspendLayout();
+            panel8.SuspendLayout();
             SuspendLayout();
             // 
-            // pnlMenu
+            // panel1
             // 
-            pnlMenu.Controls.Add(lblOrganizer);
-            pnlMenu.Controls.Add(btnLogout);
-            pnlMenu.Controls.Add(btnConfiguracoes);
-            pnlMenu.Controls.Add(lblTelebip);
-            pnlMenu.Controls.Add(btnFuncionarios);
-            pnlMenu.Controls.Add(btnRelatorios);
-            pnlMenu.Controls.Add(btnEstoque);
-            pnlMenu.Controls.Add(btnVendas);
-            pnlMenu.Dock = DockStyle.Left;
-            pnlMenu.Location = new Point(0, 0);
-            pnlMenu.Name = "pnlMenu";
-            pnlMenu.Size = new Size(232, 700);
-            pnlMenu.TabIndex = 0;
+            panel1.BackColor = Color.White;
+            panel1.Controls.Add(nightControlBox1);
+            panel1.Controls.Add(btnHam);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1578, 28);
+            panel1.TabIndex = 0;
             // 
-            // lblOrganizer
+            // nightControlBox1
             // 
-            lblOrganizer.AutoSize = true;
-            lblOrganizer.BackColor = Color.Transparent;
-            lblOrganizer.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
-            lblOrganizer.ForeColor = Color.White;
-            lblOrganizer.Location = new Point(18, 73);
-            lblOrganizer.Name = "lblOrganizer";
-            lblOrganizer.Size = new Size(198, 51);
-            lblOrganizer.TabIndex = 8;
-            lblOrganizer.Text = "Organizer";
+            nightControlBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            nightControlBox1.BackColor = Color.Transparent;
+            nightControlBox1.CloseHoverColor = Color.FromArgb(199, 80, 80);
+            nightControlBox1.CloseHoverForeColor = Color.White;
+            nightControlBox1.DefaultLocation = true;
+            nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
+            nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
+            nightControlBox1.EnableCloseColor = Color.FromArgb(160, 160, 160);
+            nightControlBox1.EnableMaximizeButton = true;
+            nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
+            nightControlBox1.EnableMinimizeButton = true;
+            nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
+            nightControlBox1.Location = new Point(1439, 0);
+            nightControlBox1.MaximizeHoverColor = Color.FromArgb(15, 255, 255, 255);
+            nightControlBox1.MaximizeHoverForeColor = Color.White;
+            nightControlBox1.MinimizeHoverColor = Color.FromArgb(15, 255, 255, 255);
+            nightControlBox1.MinimizeHoverForeColor = Color.White;
+            nightControlBox1.Name = "nightControlBox1";
+            nightControlBox1.Size = new Size(139, 31);
+            nightControlBox1.TabIndex = 2;
             // 
-            // btnLogout
+            // btnHam
             // 
-            btnLogout.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnLogout.BackColor = Color.Transparent;
-            btnLogout.BackgroundImage = (Image)resources.GetObject("btnLogout.BackgroundImage");
-            btnLogout.BackgroundImageLayout = ImageLayout.Zoom;
-            btnLogout.FlatAppearance.BorderSize = 0;
-            btnLogout.FlatStyle = FlatStyle.Flat;
-            btnLogout.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            btnLogout.ForeColor = Color.White;
-            btnLogout.Image = Properties.Resources.configurações;
-            btnLogout.Location = new Point(60, 646);
-            btnLogout.Name = "btnLogout";
-            btnLogout.RightToLeft = RightToLeft.No;
-            btnLogout.Size = new Size(40, 40);
-            btnLogout.TabIndex = 7;
-            btnLogout.UseVisualStyleBackColor = false;
+            btnHam.BackColor = Color.Transparent;
+            btnHam.Image = (Image)resources.GetObject("btnHam.Image");
+            btnHam.Location = new Point(5, 3);
+            btnHam.Name = "btnHam";
+            btnHam.Size = new Size(30, 23);
+            btnHam.SizeMode = PictureBoxSizeMode.Zoom;
+            btnHam.TabIndex = 1;
+            btnHam.TabStop = false;
+            btnHam.Click += btnHam_Click;
             // 
-            // btnConfiguracoes
+            // pnlSidebar
             // 
-            btnConfiguracoes.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnConfiguracoes.BackColor = Color.Transparent;
-            btnConfiguracoes.BackgroundImage = Properties.Resources.configurações;
-            btnConfiguracoes.BackgroundImageLayout = ImageLayout.Zoom;
-            btnConfiguracoes.FlatAppearance.BorderSize = 0;
-            btnConfiguracoes.FlatStyle = FlatStyle.Flat;
-            btnConfiguracoes.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            btnConfiguracoes.ForeColor = Color.White;
-            btnConfiguracoes.Image = Properties.Resources.configurações;
-            btnConfiguracoes.Location = new Point(14, 646);
-            btnConfiguracoes.Name = "btnConfiguracoes";
-            btnConfiguracoes.RightToLeft = RightToLeft.No;
-            btnConfiguracoes.Size = new Size(40, 40);
-            btnConfiguracoes.TabIndex = 6;
-            btnConfiguracoes.UseVisualStyleBackColor = false;
+            pnlSidebar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            pnlSidebar.BackColor = Color.FromArgb(23, 24, 29);
+            pnlSidebar.Controls.Add(panel7);
+            pnlSidebar.Controls.Add(vendasContainer);
+            pnlSidebar.Controls.Add(estoqueContainer);
+            pnlSidebar.Controls.Add(relatoriosContainer);
+            pnlSidebar.Controls.Add(containerFuncionarios);
+            pnlSidebar.Controls.Add(configuracoesContainer);
+            pnlSidebar.Location = new Point(0, 27);
+            pnlSidebar.Name = "pnlSidebar";
+            pnlSidebar.Size = new Size(60, 668);
+            pnlSidebar.TabIndex = 1;
             // 
-            // lblTelebip
+            // panel7
             // 
-            lblTelebip.AutoSize = true;
-            lblTelebip.BackColor = Color.Transparent;
-            lblTelebip.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
-            lblTelebip.ForeColor = Color.White;
-            lblTelebip.Location = new Point(45, 22);
-            lblTelebip.Name = "lblTelebip";
-            lblTelebip.Size = new Size(153, 51);
-            lblTelebip.TabIndex = 4;
-            lblTelebip.Text = "Telebip";
+            panel7.Controls.Add(button5);
+            panel7.Location = new Point(3, 50);
+            panel7.Margin = new Padding(3, 50, 3, 3);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(277, 50);
+            panel7.TabIndex = 6;
             // 
-            // btnFuncionarios
+            // button5
             // 
-            btnFuncionarios.BackColor = Color.FromArgb(20, 20, 20);
-            btnFuncionarios.FlatAppearance.BorderSize = 0;
-            btnFuncionarios.FlatStyle = FlatStyle.Flat;
-            btnFuncionarios.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            btnFuncionarios.ForeColor = Color.White;
-            btnFuncionarios.Location = new Point(10, 369);
-            btnFuncionarios.Name = "btnFuncionarios";
-            btnFuncionarios.Size = new Size(212, 57);
-            btnFuncionarios.TabIndex = 3;
-            btnFuncionarios.Text = "Funcionários";
-            btnFuncionarios.UseVisualStyleBackColor = false;
+            button5.BackColor = Color.FromArgb(23, 24, 29);
+            button5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button5.ForeColor = SystemColors.ControlLight;
+            button5.Image = (Image)resources.GetObject("button5.Image");
+            button5.ImageAlign = ContentAlignment.MiddleLeft;
+            button5.Location = new Point(-10, -9);
+            button5.Name = "button5";
+            button5.Padding = new Padding(13, 0, 0, 0);
+            button5.Size = new Size(305, 63);
+            button5.TabIndex = 3;
+            button5.Text = "              Home";
+            button5.TextAlign = ContentAlignment.MiddleLeft;
+            button5.UseVisualStyleBackColor = false;
             // 
-            // btnRelatorios
+            // vendasContainer
             // 
-            btnRelatorios.BackColor = Color.FromArgb(20, 20, 20);
-            btnRelatorios.FlatAppearance.BorderSize = 0;
-            btnRelatorios.FlatStyle = FlatStyle.Flat;
-            btnRelatorios.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            btnRelatorios.ForeColor = Color.White;
-            btnRelatorios.Location = new Point(10, 306);
-            btnRelatorios.Name = "btnRelatorios";
-            btnRelatorios.Size = new Size(212, 57);
-            btnRelatorios.TabIndex = 2;
-            btnRelatorios.Text = "Relatórios";
-            btnRelatorios.UseVisualStyleBackColor = false;
+            vendasContainer.BackColor = Color.FromArgb(23, 24, 29);
+            vendasContainer.Controls.Add(panel3);
+            vendasContainer.Controls.Add(panel5);
+            vendasContainer.Controls.Add(panel2);
+            vendasContainer.ForeColor = Color.Transparent;
+            vendasContainer.Location = new Point(3, 123);
+            vendasContainer.Margin = new Padding(3, 20, 3, 20);
+            vendasContainer.Name = "vendasContainer";
+            vendasContainer.Size = new Size(276, 50);
+            vendasContainer.TabIndex = 7;
             // 
-            // btnEstoque
+            // panel3
             // 
-            btnEstoque.BackColor = Color.FromArgb(20, 20, 20);
-            btnEstoque.FlatAppearance.BorderSize = 0;
-            btnEstoque.FlatStyle = FlatStyle.Flat;
-            btnEstoque.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            btnEstoque.ForeColor = Color.White;
-            btnEstoque.Location = new Point(10, 243);
-            btnEstoque.Name = "btnEstoque";
-            btnEstoque.Size = new Size(212, 57);
-            btnEstoque.TabIndex = 1;
-            btnEstoque.Text = "Estoque";
-            btnEstoque.UseVisualStyleBackColor = false;
+            panel3.Controls.Add(btnVendas);
+            panel3.Location = new Point(3, 3);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(228, 47);
+            panel3.TabIndex = 3;
             // 
             // btnVendas
             // 
-            btnVendas.BackColor = Color.FromArgb(20, 20, 20);
-            btnVendas.FlatAppearance.BorderSize = 0;
-            btnVendas.FlatStyle = FlatStyle.Flat;
-            btnVendas.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            btnVendas.ForeColor = Color.White;
-            btnVendas.Location = new Point(10, 180);
+            btnVendas.BackColor = Color.FromArgb(23, 24, 29);
+            btnVendas.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnVendas.ForeColor = SystemColors.ControlLight;
+            btnVendas.Image = (Image)resources.GetObject("btnVendas.Image");
+            btnVendas.ImageAlign = ContentAlignment.MiddleLeft;
+            btnVendas.Location = new Point(-13, -10);
             btnVendas.Name = "btnVendas";
-            btnVendas.Size = new Size(212, 57);
-            btnVendas.TabIndex = 0;
-            btnVendas.Text = "Vendas";
+            btnVendas.Padding = new Padding(13, 0, 0, 0);
+            btnVendas.Size = new Size(251, 69);
+            btnVendas.TabIndex = 4;
+            btnVendas.Text = "              Vendas";
+            btnVendas.TextAlign = ContentAlignment.MiddleLeft;
             btnVendas.UseVisualStyleBackColor = false;
+            btnVendas.Click += btnVendas_Click;
             // 
-            // pnlContent
+            // panel5
             // 
-            pnlContent.Controls.Add(lblVersao);
-            pnlContent.Controls.Add(lblNome);
-            pnlContent.Dock = DockStyle.Fill;
-            pnlContent.Location = new Point(232, 0);
-            pnlContent.Name = "pnlContent";
-            pnlContent.Size = new Size(1346, 700);
-            pnlContent.TabIndex = 1;
+            panel5.Controls.Add(rmvVenda);
+            panel5.Location = new Point(2, 101);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(274, 50);
+            panel5.TabIndex = 6;
             // 
-            // lblVersao
+            // rmvVenda
             // 
-            lblVersao.AutoSize = true;
-            lblVersao.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblVersao.ForeColor = Color.White;
-            lblVersao.Location = new Point(1196, 837);
-            lblVersao.Name = "lblVersao";
-            lblVersao.Size = new Size(103, 15);
-            lblVersao.TabIndex = 10;
-            lblVersao.Text = "Telebip Organizer:";
+            rmvVenda.BackColor = Color.FromArgb(33, 36, 46);
+            rmvVenda.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            rmvVenda.ForeColor = SystemColors.ControlLight;
+            rmvVenda.Image = (Image)resources.GetObject("rmvVenda.Image");
+            rmvVenda.ImageAlign = ContentAlignment.MiddleLeft;
+            rmvVenda.Location = new Point(-12, -8);
+            rmvVenda.Name = "rmvVenda";
+            rmvVenda.Padding = new Padding(13, 0, 0, 0);
+            rmvVenda.Size = new Size(293, 62);
+            rmvVenda.TabIndex = 4;
+            rmvVenda.Text = "              Remover";
+            rmvVenda.TextAlign = ContentAlignment.MiddleLeft;
+            rmvVenda.UseVisualStyleBackColor = false;
             // 
-            // lblNome
+            // panel2
             // 
-            lblNome.AutoSize = true;
-            lblNome.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNome.ForeColor = Color.White;
-            lblNome.Location = new Point(12, 837);
-            lblNome.Name = "lblNome";
-            lblNome.Size = new Size(73, 15);
-            lblNome.TabIndex = 9;
-            lblNome.Text = "Funcionário:";
-
-            // BOTÃO CONFIGURAÇÕES (USANDO RECURSOS)
-            btnConfiguracoes = new Button();
-            btnConfiguracoes.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnConfiguracoes.BackColor = Color.Transparent;
-            btnConfiguracoes.FlatAppearance.BorderSize = 0;
-            btnConfiguracoes.FlatStyle = FlatStyle.Flat;
-            btnConfiguracoes.Font = new Font("Segoe UI", 10F);
-            btnConfiguracoes.ForeColor = Color.White;
-            btnConfiguracoes.Location = new Point(14, 646);
+            panel2.Controls.Add(addVenda);
+            panel2.Location = new Point(2, 53);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(274, 50);
+            panel2.TabIndex = 2;
+            // 
+            // addVenda
+            // 
+            addVenda.BackColor = Color.FromArgb(33, 36, 46);
+            addVenda.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            addVenda.ForeColor = SystemColors.ControlLight;
+            addVenda.Image = (Image)resources.GetObject("addVenda.Image");
+            addVenda.ImageAlign = ContentAlignment.MiddleLeft;
+            addVenda.Location = new Point(-12, -10);
+            addVenda.Name = "addVenda";
+            addVenda.Padding = new Padding(13, 0, 0, 0);
+            addVenda.Size = new Size(293, 69);
+            addVenda.TabIndex = 3;
+            addVenda.Text = "              Adicionar";
+            addVenda.TextAlign = ContentAlignment.MiddleLeft;
+            addVenda.UseVisualStyleBackColor = false;
+            // 
+            // estoqueContainer
+            // 
+            estoqueContainer.BackColor = Color.FromArgb(23, 24, 29);
+            estoqueContainer.Controls.Add(panel10);
+            estoqueContainer.Controls.Add(panel11);
+            estoqueContainer.Controls.Add(panel12);
+            estoqueContainer.ForeColor = Color.Transparent;
+            estoqueContainer.Location = new Point(3, 196);
+            estoqueContainer.Margin = new Padding(3, 3, 3, 20);
+            estoqueContainer.Name = "estoqueContainer";
+            estoqueContainer.Size = new Size(276, 49);
+            estoqueContainer.TabIndex = 8;
+            // 
+            // panel10
+            // 
+            panel10.Controls.Add(btnEstoque);
+            panel10.Location = new Point(3, 3);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(228, 47);
+            panel10.TabIndex = 3;
+            // 
+            // btnEstoque
+            // 
+            btnEstoque.BackColor = Color.FromArgb(23, 24, 29);
+            btnEstoque.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEstoque.ForeColor = SystemColors.ControlLight;
+            btnEstoque.Image = (Image)resources.GetObject("btnEstoque.Image");
+            btnEstoque.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEstoque.Location = new Point(-13, -10);
+            btnEstoque.Name = "btnEstoque";
+            btnEstoque.Padding = new Padding(13, 0, 0, 0);
+            btnEstoque.Size = new Size(251, 69);
+            btnEstoque.TabIndex = 4;
+            btnEstoque.Text = "              Estoque";
+            btnEstoque.TextAlign = ContentAlignment.MiddleLeft;
+            btnEstoque.UseVisualStyleBackColor = false;
+            btnEstoque.Click += btnEstoque_Click;
+            // 
+            // panel11
+            // 
+            panel11.Controls.Add(rmvEstoque);
+            panel11.Location = new Point(2, 101);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(274, 50);
+            panel11.TabIndex = 6;
+            // 
+            // rmvEstoque
+            // 
+            rmvEstoque.BackColor = Color.FromArgb(33, 36, 46);
+            rmvEstoque.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            rmvEstoque.ForeColor = SystemColors.ControlLight;
+            rmvEstoque.Image = (Image)resources.GetObject("rmvEstoque.Image");
+            rmvEstoque.ImageAlign = ContentAlignment.MiddleLeft;
+            rmvEstoque.Location = new Point(-12, -7);
+            rmvEstoque.Name = "rmvEstoque";
+            rmvEstoque.Padding = new Padding(13, 0, 0, 0);
+            rmvEstoque.Size = new Size(293, 62);
+            rmvEstoque.TabIndex = 4;
+            rmvEstoque.Text = "              Remover";
+            rmvEstoque.TextAlign = ContentAlignment.MiddleLeft;
+            rmvEstoque.UseVisualStyleBackColor = false;
+            // 
+            // panel12
+            // 
+            panel12.Controls.Add(addEstoque);
+            panel12.Location = new Point(2, 53);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(274, 50);
+            panel12.TabIndex = 2;
+            // 
+            // addEstoque
+            // 
+            addEstoque.BackColor = Color.FromArgb(33, 36, 46);
+            addEstoque.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            addEstoque.ForeColor = SystemColors.ControlLight;
+            addEstoque.Image = (Image)resources.GetObject("addEstoque.Image");
+            addEstoque.ImageAlign = ContentAlignment.MiddleLeft;
+            addEstoque.Location = new Point(-12, -11);
+            addEstoque.Name = "addEstoque";
+            addEstoque.Padding = new Padding(13, 0, 0, 0);
+            addEstoque.Size = new Size(293, 69);
+            addEstoque.TabIndex = 3;
+            addEstoque.Text = "              Adicionar";
+            addEstoque.TextAlign = ContentAlignment.MiddleLeft;
+            addEstoque.UseVisualStyleBackColor = false;
+            // 
+            // relatoriosContainer
+            // 
+            relatoriosContainer.BackColor = Color.FromArgb(23, 24, 29);
+            relatoriosContainer.Controls.Add(panel6);
+            relatoriosContainer.ForeColor = Color.Transparent;
+            relatoriosContainer.Location = new Point(3, 268);
+            relatoriosContainer.Margin = new Padding(3, 3, 3, 20);
+            relatoriosContainer.Name = "relatoriosContainer";
+            relatoriosContainer.Size = new Size(276, 51);
+            relatoriosContainer.TabIndex = 9;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(btnRelatorios);
+            panel6.Location = new Point(3, 3);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(228, 47);
+            panel6.TabIndex = 3;
+            // 
+            // btnRelatorios
+            // 
+            btnRelatorios.BackColor = Color.FromArgb(23, 24, 29);
+            btnRelatorios.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRelatorios.ForeColor = SystemColors.ControlLight;
+            btnRelatorios.Image = (Image)resources.GetObject("btnRelatorios.Image");
+            btnRelatorios.ImageAlign = ContentAlignment.MiddleLeft;
+            btnRelatorios.Location = new Point(-13, -10);
+            btnRelatorios.Name = "btnRelatorios";
+            btnRelatorios.Padding = new Padding(13, 0, 0, 0);
+            btnRelatorios.Size = new Size(251, 69);
+            btnRelatorios.TabIndex = 4;
+            btnRelatorios.Text = "              Relatórios";
+            btnRelatorios.TextAlign = ContentAlignment.MiddleLeft;
+            btnRelatorios.UseVisualStyleBackColor = false;
+            // 
+            // containerFuncionarios
+            // 
+            containerFuncionarios.BackColor = Color.FromArgb(23, 24, 29);
+            containerFuncionarios.Controls.Add(panel9);
+            containerFuncionarios.ForeColor = Color.Transparent;
+            containerFuncionarios.Location = new Point(3, 342);
+            containerFuncionarios.Margin = new Padding(3, 3, 3, 20);
+            containerFuncionarios.Name = "containerFuncionarios";
+            containerFuncionarios.Size = new Size(276, 51);
+            containerFuncionarios.TabIndex = 10;
+            // 
+            // panel9
+            // 
+            panel9.Controls.Add(btnFuncionarios);
+            panel9.Location = new Point(3, 3);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(228, 47);
+            panel9.TabIndex = 3;
+            // 
+            // btnFuncionarios
+            // 
+            btnFuncionarios.BackColor = Color.FromArgb(23, 24, 29);
+            btnFuncionarios.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnFuncionarios.ForeColor = SystemColors.ControlLight;
+            btnFuncionarios.Image = (Image)resources.GetObject("btnFuncionarios.Image");
+            btnFuncionarios.ImageAlign = ContentAlignment.MiddleLeft;
+            btnFuncionarios.Location = new Point(-13, -10);
+            btnFuncionarios.Name = "btnFuncionarios";
+            btnFuncionarios.Padding = new Padding(13, 0, 0, 0);
+            btnFuncionarios.Size = new Size(251, 69);
+            btnFuncionarios.TabIndex = 4;
+            btnFuncionarios.Text = "              Funcionários";
+            btnFuncionarios.TextAlign = ContentAlignment.MiddleLeft;
+            btnFuncionarios.UseVisualStyleBackColor = false;
+            // 
+            // configuracoesContainer
+            // 
+            configuracoesContainer.BackColor = Color.FromArgb(23, 24, 29);
+            configuracoesContainer.Controls.Add(panel8);
+            configuracoesContainer.ForeColor = Color.Transparent;
+            configuracoesContainer.Location = new Point(3, 416);
+            configuracoesContainer.Name = "configuracoesContainer";
+            configuracoesContainer.Size = new Size(276, 51);
+            configuracoesContainer.TabIndex = 11;
+            // 
+            // panel8
+            // 
+            panel8.Controls.Add(btnConfiguracoes);
+            panel8.Location = new Point(3, 3);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(228, 47);
+            panel8.TabIndex = 3;
+            // 
+            // btnConfiguracoes
+            // 
+            btnConfiguracoes.BackColor = Color.FromArgb(23, 24, 29);
+            btnConfiguracoes.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnConfiguracoes.ForeColor = SystemColors.ControlLight;
+            btnConfiguracoes.Image = (Image)resources.GetObject("btnConfiguracoes.Image");
+            btnConfiguracoes.ImageAlign = ContentAlignment.MiddleLeft;
+            btnConfiguracoes.Location = new Point(-13, -10);
             btnConfiguracoes.Name = "btnConfiguracoes";
-            btnConfiguracoes.Size = new Size(40, 40);
-            btnConfiguracoes.TabIndex = 6;
+            btnConfiguracoes.Padding = new Padding(13, 0, 0, 0);
+            btnConfiguracoes.Size = new Size(251, 69);
+            btnConfiguracoes.TabIndex = 4;
+            btnConfiguracoes.Text = "              Configurações";
+            btnConfiguracoes.TextAlign = ContentAlignment.MiddleLeft;
             btnConfiguracoes.UseVisualStyleBackColor = false;
-
-            //FALTA COLOCAR A IMAGEM CORRETAMENTE AQUI
-
-            // USA IMAGEM DOS RECURSOS
-            btnConfiguracoes.Image = Properties.Resources.configurações;
-            btnConfiguracoes.ImageAlign = ContentAlignment.MiddleCenter;
-
-            // BOTÃO LOGOUT (USANDO RECURSOS)
-            btnLogout = new Button();
-            btnLogout.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnLogout.BackColor = Color.Transparent;
-            btnLogout.FlatAppearance.BorderSize = 0;
-            btnLogout.FlatStyle = FlatStyle.Flat;
-            btnLogout.Font = new Font("Segoe UI", 10F);
-            btnLogout.ForeColor = Color.White;
-            btnLogout.Location = new Point(60, 646);
-            btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(40, 40);
-            btnLogout.TabIndex = 7;
-            btnLogout.UseVisualStyleBackColor = false;
-
-            // USA IMAGEM DOS RECURSOS
-            btnLogout.ImageAlign = ContentAlignment.MiddleCenter;
+            // 
+            // menuTransition
+            // 
+            menuTransition.Interval = 10;
+            menuTransition.Tick += menuTransition_Tick;
+            // 
+            // sidebarTransition
+            // 
+            sidebarTransition.Interval = 10;
+            sidebarTransition.Tick += sidebarTransition_Tick;
+            // 
+            // menuTransitionEstoque
+            // 
+            menuTransitionEstoque.Interval = 10;
+            // 
             // FormBase
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1578, 700);
-            Controls.Add(pnlContent);
-            Controls.Add(pnlMenu);
+            ClientSize = new Size(1578, 694);
+            Controls.Add(pnlSidebar);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
             MaximumSize = new Size(1598, 894);
             MinimumSize = new Size(1198, 694);
             Name = "FormBase";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
-            pnlMenu.ResumeLayout(false);
-            pnlMenu.PerformLayout();
-            pnlContent.ResumeLayout(false);
-            pnlContent.PerformLayout();
+            Text = "FormBase";
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)btnHam).EndInit();
+            pnlSidebar.ResumeLayout(false);
+            panel7.ResumeLayout(false);
+            vendasContainer.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            estoqueContainer.ResumeLayout(false);
+            panel10.ResumeLayout(false);
+            panel11.ResumeLayout(false);
+            panel12.ResumeLayout(false);
+            relatoriosContainer.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            containerFuncionarios.ResumeLayout(false);
+            panel9.ResumeLayout(false);
+            configuracoesContainer.ResumeLayout(false);
+            panel8.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-        private Label lblVersao;
-        private Label lblNome;
-        private Button btnConfiguracoes;
-        private Button btnLogout;
-        protected Panel pnlMenu;
-        protected Panel pnlContent;
         protected DataGridView dgvDados;
-        protected Button btnVendas;
-        protected Button btnFuncionarios;
-        protected Button btnRelatorios;
-        protected Button btnEstoque;
         protected Label label4;
-        protected Label lblTelebip;
-        protected Label lblOrganizer;
+        private Panel panel1;
+        private PictureBox btnHam;
+        private FlowLayoutPanel pnlSidebar;
+        private Panel panel2;
+        private Button addVenda;
+        private Panel panel3;
+        private Button btnVendas;
+        private Panel panel5;
+        private Button rmvVenda;
+        private Button button5;
+        private Panel vendasContainer;
+        private System.Windows.Forms.Timer menuTransition;
+        private Panel panel7;
+        private System.Windows.Forms.Timer sidebarTransition;
+        private ReaLTaiizor.Controls.NightControlBox nightControlBox1;
+        private Panel estoqueContainer;
+        private Panel panel10;
+        private Button btnEstoque;
+        private Panel panel11;
+        private Button rmvEstoque;
+        private Panel panel12;
+        private Button addEstoque;
+        private Panel relatoriosContainer;
+        private Panel panel6;
+        private Button btnRelatorios;
+        private Panel containerFuncionarios;
+        private Panel panel9;
+        private Button btnFuncionarios;
+        private Panel configuracoesContainer;
+        private Panel panel8;
+        private Button btnConfiguracoes;
+        private System.Windows.Forms.Timer menuTransitionEstoque;
     }
 }

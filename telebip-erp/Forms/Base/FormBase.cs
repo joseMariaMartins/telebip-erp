@@ -6,95 +6,97 @@ namespace telebip_erp
 {
     public partial class FormBase : Form
     {
-        // Todas as configurações de estilo estão aqui
-        protected Color CorFundoCabecalho = Color.FromArgb(30, 30, 30);
-        protected Color CorFundoMenu = Color.FromArgb(30, 30, 30);
-        protected Color CorFundoConteudo = Color.FromArgb(30, 30, 30);
-        protected Color CorTexto = Color.White;
-        protected Font FontePadrao = new Font("Segoe UI", 10);
-
         public FormBase()
         {
             InitializeComponent();
-            ConfigurarEstiloBase();
+            // Inicializar os containers com altura mínima
+            vendasContainer.Height = 58;
+            estoqueContainer.Height = 58;
         }
 
-        // ?? MÉTODO QUE CONFIGURA O ESTILO PARA TODAS AS TELAS
-        protected virtual void ConfigurarEstiloBase()
+        bool menuExpand = false;
+        bool estoqueExpand = false;
+        bool sidebarExpand = true;
+
+        private void menuTransition_Tick(object sender, EventArgs e)
         {
-            // Configurações básicas do formulário
-            this.BackColor = CorFundoConteudo;
-            this.ForeColor = CorTexto;
-            this.Font = FontePadrao;
-
-            // Configura o estilo dos controles herdados
-            ConfigurarEstiloMenu();
-            ConfigurarEstiloConteudo();
-
-            // Hook para ações adicionais nas telas filhas
-            OnEstiloAplicado();
-        }
-
-        // ?? CONFIGURA ESTILO DO MENU
-        private void ConfigurarEstiloMenu()
-        {
-            if (pnlMenu != null)
+            if (menuExpand == false)
             {
-                pnlMenu.BackColor = CorFundoMenu;
-                pnlMenu.ForeColor = CorTexto;
+                vendasContainer.Height += 10;
+                if (vendasContainer.Height >= 153)
+                {
+                    menuTransition.Stop();
+                    menuExpand = true;
+                }
             }
-
-            // Configura botões do menu
-            ConfigurarEstiloBotao(btnVendas);
-            ConfigurarEstiloBotao(btnEstoque);
-            ConfigurarEstiloBotao(btnRelatorios);
-            ConfigurarEstiloBotao(btnFuncionarios);
-            ConfigurarEstiloBotao(btnConfiguracoes);
-            ConfigurarEstiloBotao(btnLogout);
-        }
-
-        // ?? CONFIGURA ESTILO DA ÁREA DE CONTEÚDO
-        private void ConfigurarEstiloConteudo()
-        {
-            if (pnlContent != null)
+            else
             {
-                pnlContent.BackColor = CorFundoConteudo;
-                pnlContent.ForeColor = CorTexto;
-            }
-            ConfigurarEstiloLabel(lblNome);
-            ConfigurarEstiloLabel(lblVersao);
-            ConfigurarEstiloLabel(lblTelebip);
-            ConfigurarEstiloLabel(label4);
-        }
-
-        // ?? MÉTODOS AUXILIARES PARA CONFIGURAR ESTILOS
-        private void ConfigurarEstiloBotao(Button btn)
-        {
-            if (btn != null)
-            {
-                btn.BackColor = Color.FromArgb(20, 20, 20);
-                btn.ForeColor = CorTexto;
-                btn.FlatStyle = FlatStyle.Flat;
-                btn.FlatAppearance.BorderColor = Color.FromArgb(20, 20, 20);
-                btn.FlatAppearance.BorderSize = 0;
-                btn.Cursor = Cursors.Hand;
+                vendasContainer.Height -= 10;
+                if (vendasContainer.Height <= 58)
+                {
+                    menuTransition.Stop();
+                    menuExpand = false;
+                }
             }
         }
 
-        private void ConfigurarEstiloLabel(Label lbl)
+        private void menuTransitionEstoque_Tick(object sender, EventArgs e)
         {
-            if (lbl != null)
+            if (estoqueExpand == false)
             {
-                lbl.ForeColor = CorTexto;
-                lbl.BackColor = Color.Transparent;
+                estoqueContainer.Height += 10;
+                if (estoqueContainer.Height >= 153)
+                {
+                    menuTransitionEstoque.Stop();
+                    estoqueExpand = true;
+                }
+            }
+            else
+            {
+                estoqueContainer.Height -= 10;
+                if (estoqueContainer.Height <= 58)
+                {
+                    menuTransitionEstoque.Stop();
+                    estoqueExpand = false;
+                }
             }
         }
 
-        // ?? MÉTODO QUE PODE SER SOBRESCRITO PELAS TELAS FILHAS
-        protected virtual void OnEstiloAplicado()
+        private void btnVendas_Click(object sender, EventArgs e)
         {
-            // Método vazio - pode ser sobrescrito pelas telas filhas
-            // para adicionar configurações específicas
+            menuTransition.Start();
+        }
+
+        private void sidebarTransition_Tick(object sender, EventArgs e)
+        {
+            if (sidebarExpand)
+            {
+                pnlSidebar.Width -= 10;
+                if (pnlSidebar.Width <= 57)
+                {
+                    sidebarExpand = false;
+                    sidebarTransition.Stop(); // CORREÇÃO AQUI: era menuTransition.Stop()
+                }
+            }
+            else
+            {
+                pnlSidebar.Width += 10;
+                if (pnlSidebar.Width >= 265)
+                {
+                    sidebarExpand = true;
+                    sidebarTransition.Stop(); // CORREÇÃO AQUI: era menuTransition.Stop()
+                }
+            }
+        }
+
+        private void btnHam_Click(object sender, EventArgs e)
+        {
+            sidebarTransition.Start();
+        }
+
+        private void btnEstoque_Click(object sender, EventArgs e)
+        {
+            menuTransitionEstoque.Start();
         }
     }
 }
