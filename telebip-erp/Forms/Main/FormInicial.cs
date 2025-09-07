@@ -1,23 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace telebip_erp.Forms.Main
 {
-    public partial class FormInicial : FormBase
+    public partial class FormInicial : Form
     {
         public FormInicial()
         {
             InitializeComponent();
-
-            // Exemplo de conteúdo inicial no panelContent
-            Label lbl = new Label();
-            lbl.Text = "Logo Telebip";
-            lbl.Font = new Font("Segoe UI", 24, FontStyle.Bold);
-            lbl.ForeColor = Color.Gray;
-            lbl.Dock = DockStyle.Fill;
-            lbl.TextAlign = ContentAlignment.MiddleCenter;
-
-            this.pnlContent.Controls.Add(lbl);
         }
     }
 }
