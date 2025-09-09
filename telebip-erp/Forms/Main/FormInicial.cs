@@ -10,11 +10,24 @@ using System.Windows.Forms;
 
 namespace telebip_erp.Forms.Main
 {
-    public partial class FormInicial : Form
+    public partial class FormInicial : FormBase
     {
         public FormInicial()
         {
             InitializeComponent();
+            HerdarEstilo();
+        }
+
+        private void InitializeComponent()
+        {
+            SuspendLayout();
+            // 
+            // FormInicial
+            // 
+            ClientSize = new Size(1078, 244);
+            Name = "FormInicial";
+            ResumeLayout(false);
+
         }
     }
 }

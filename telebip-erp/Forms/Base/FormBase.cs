@@ -6,17 +6,35 @@ namespace telebip_erp
 {
     public partial class FormBase : Form
     {
+        // Variáveis de controle da animação
+        bool menuExpand = false;
+        bool estoqueExpand = false;
+        bool sidebarExpand = true;
+
         public FormBase()
         {
             InitializeComponent();
+
             // Inicializar os containers com altura mínima
             vendasContainer.Height = 58;
             estoqueContainer.Height = 58;
         }
 
-        bool menuExpand = false;
-        bool estoqueExpand = false;
-        bool sidebarExpand = true;
+        // Estilo da sidebar
+        protected void HerdarEstilo()
+        {
+            panel1.BackColor = Color.White;
+
+            pnlSidebar.BackColor = Color.FromArgb(23, 24, 29);
+
+            vendasContainer.BackColor = Color.FromArgb(23, 24, 29);
+            estoqueContainer.BackColor = Color.FromArgb(23, 24, 29);
+            relatoriosContainer.BackColor = Color.FromArgb(23, 24, 29);
+            containerFuncionarios.BackColor = Color.FromArgb(23, 24, 29);
+            configuracoesContainer.BackColor = Color.FromArgb(23, 24, 29);
+        }
+
+        // -------------------- EVENTOS --------------------
 
         private void menuTransition_Tick(object sender, EventArgs e)
         {
@@ -75,7 +93,7 @@ namespace telebip_erp
                 if (pnlSidebar.Width <= 57)
                 {
                     sidebarExpand = false;
-                    sidebarTransition.Stop(); // CORREÇÃO AQUI: era menuTransition.Stop()
+                    sidebarTransition.Stop();
                 }
             }
             else
@@ -84,7 +102,7 @@ namespace telebip_erp
                 if (pnlSidebar.Width >= 265)
                 {
                     sidebarExpand = true;
-                    sidebarTransition.Stop(); // CORREÇÃO AQUI: era menuTransition.Stop()
+                    sidebarTransition.Stop();
                 }
             }
         }
