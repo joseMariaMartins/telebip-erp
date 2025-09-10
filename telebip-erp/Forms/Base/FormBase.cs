@@ -7,8 +7,8 @@ namespace telebip_erp
     public partial class FormBase : Form
     {
         // Variáveis de controle da animação
-        bool menuExpand = false;
-        bool estoqueExpand = false;
+        bool menuExpandVendas = false;
+        bool menuExpandEstoque = false;
         bool sidebarExpand = true;
 
         public FormBase()
@@ -16,8 +16,8 @@ namespace telebip_erp
             InitializeComponent();
 
             // Inicializar os containers com altura mínima
-            vendasContainer.Height = 58;
-            estoqueContainer.Height = 58;
+            vendasContainer.Height = 50;
+            estoqueContainer.Height = 50;
         }
 
         // Estilo da sidebar
@@ -36,53 +36,32 @@ namespace telebip_erp
 
         // -------------------- EVENTOS --------------------
 
-        private void menuTransition_Tick(object sender, EventArgs e)
+        private void menuTransitionVendas_Tick(object sender, EventArgs e)
         {
-            if (menuExpand == false)
+            if (menuExpandVendas == false)
             {
                 vendasContainer.Height += 10;
-                if (vendasContainer.Height >= 153)
+                if (vendasContainer.Height >= 150)
                 {
-                    menuTransition.Stop();
-                    menuExpand = true;
+                    menuTransitionVendas.Stop();
+                    menuExpandVendas = true;
                 }
             }
             else
             {
                 vendasContainer.Height -= 10;
-                if (vendasContainer.Height <= 58)
+                if (vendasContainer.Height <= 50)
                 {
-                    menuTransition.Stop();
-                    menuExpand = false;
+                    menuTransitionVendas.Stop();
+                    menuExpandVendas = false;
                 }
             }
         }
 
-        private void menuTransitionEstoque_Tick(object sender, EventArgs e)
-        {
-            if (estoqueExpand == false)
-            {
-                estoqueContainer.Height += 10;
-                if (estoqueContainer.Height >= 153)
-                {
-                    menuTransitionEstoque.Stop();
-                    estoqueExpand = true;
-                }
-            }
-            else
-            {
-                estoqueContainer.Height -= 10;
-                if (estoqueContainer.Height <= 58)
-                {
-                    menuTransitionEstoque.Stop();
-                    estoqueExpand = false;
-                }
-            }
-        }
 
         private void btnVendas_Click(object sender, EventArgs e)
         {
-            menuTransition.Start();
+            menuTransitionVendas.Start();
         }
 
         private void sidebarTransition_Tick(object sender, EventArgs e)
@@ -90,7 +69,7 @@ namespace telebip_erp
             if (sidebarExpand)
             {
                 pnlSidebar.Width -= 10;
-                if (pnlSidebar.Width <= 57)
+                if (pnlSidebar.Width <= 44)
                 {
                     sidebarExpand = false;
                     sidebarTransition.Stop();
@@ -99,7 +78,7 @@ namespace telebip_erp
             else
             {
                 pnlSidebar.Width += 10;
-                if (pnlSidebar.Width >= 265)
+                if (pnlSidebar.Width >= 260)
                 {
                     sidebarExpand = true;
                     sidebarTransition.Stop();
@@ -114,7 +93,30 @@ namespace telebip_erp
 
         private void btnEstoque_Click(object sender, EventArgs e)
         {
-            menuTransitionEstoque.Start();
+            MenuTransitionEstoque.Start();
+        }
+
+        private void MenuTransitionEstoque_Tick(object sender, EventArgs e)
+        {
+            if (menuExpandEstoque == false)
+            {
+                estoqueContainer.Height += 10;
+                if (estoqueContainer.Height >= 150)
+                {
+                    MenuTransitionEstoque.Stop();
+                    menuExpandEstoque = true;
+                }
+            }
+            else
+            {
+                estoqueContainer.Height -= 10;
+                if (estoqueContainer.Height <= 50)
+                {
+                    MenuTransitionEstoque.Stop();
+                    menuExpandEstoque = false;
+                }
+            }
+
         }
     }
 }
