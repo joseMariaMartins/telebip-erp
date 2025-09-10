@@ -89,8 +89,9 @@
             panel1.Controls.Add(btnHam);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(4, 4, 4, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1578, 28);
+            panel1.Size = new Size(1946, 42);
             panel1.TabIndex = 0;
             // 
             // nightControlBox1
@@ -107,7 +108,7 @@
             nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
             nightControlBox1.EnableMinimizeButton = true;
             nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
-            nightControlBox1.Location = new Point(1439, 0);
+            nightControlBox1.Location = new Point(1803, 4);
             nightControlBox1.MaximizeHoverColor = Color.FromArgb(15, 255, 255, 255);
             nightControlBox1.MaximizeHoverForeColor = Color.White;
             nightControlBox1.MinimizeHoverColor = Color.FromArgb(15, 255, 255, 255);
@@ -120,9 +121,10 @@
             // 
             btnHam.BackColor = Color.Transparent;
             btnHam.Image = (Image)resources.GetObject("btnHam.Image");
-            btnHam.Location = new Point(5, 3);
+            btnHam.Location = new Point(8, 4);
+            btnHam.Margin = new Padding(4, 4, 4, 4);
             btnHam.Name = "btnHam";
-            btnHam.Size = new Size(30, 23);
+            btnHam.Size = new Size(45, 34);
             btnHam.SizeMode = PictureBoxSizeMode.Zoom;
             btnHam.TabIndex = 1;
             btnHam.TabStop = false;
@@ -138,18 +140,19 @@
             pnlSidebar.Controls.Add(relatoriosContainer);
             pnlSidebar.Controls.Add(containerFuncionarios);
             pnlSidebar.Controls.Add(configuracoesContainer);
-            pnlSidebar.Location = new Point(0, 27);
+            pnlSidebar.Location = new Point(0, 40);
+            pnlSidebar.Margin = new Padding(4, 4, 4, 4);
             pnlSidebar.Name = "pnlSidebar";
-            pnlSidebar.Size = new Size(60, 668);
+            pnlSidebar.Size = new Size(90, 1002);
             pnlSidebar.TabIndex = 1;
             // 
             // panel7
             // 
             panel7.Controls.Add(button5);
-            panel7.Location = new Point(3, 50);
-            panel7.Margin = new Padding(3, 50, 3, 3);
+            panel7.Location = new Point(4, 75);
+            panel7.Margin = new Padding(4, 75, 4, 4);
             panel7.Name = "panel7";
-            panel7.Size = new Size(277, 50);
+            panel7.Size = new Size(416, 75);
             panel7.TabIndex = 6;
             // 
             // button5
@@ -159,10 +162,11 @@
             button5.ForeColor = SystemColors.ControlLight;
             button5.Image = (Image)resources.GetObject("button5.Image");
             button5.ImageAlign = ContentAlignment.MiddleLeft;
-            button5.Location = new Point(-10, -9);
+            button5.Location = new Point(-15, -14);
+            button5.Margin = new Padding(4, 4, 4, 4);
             button5.Name = "button5";
-            button5.Padding = new Padding(13, 0, 0, 0);
-            button5.Size = new Size(305, 63);
+            button5.Padding = new Padding(20, 0, 0, 0);
+            button5.Size = new Size(458, 94);
             button5.TabIndex = 3;
             button5.Text = "              Home";
             button5.TextAlign = ContentAlignment.MiddleLeft;
@@ -175,18 +179,19 @@
             vendasContainer.Controls.Add(panel5);
             vendasContainer.Controls.Add(panel2);
             vendasContainer.ForeColor = Color.Transparent;
-            vendasContainer.Location = new Point(3, 123);
-            vendasContainer.Margin = new Padding(3, 20, 3, 20);
+            vendasContainer.Location = new Point(4, 184);
+            vendasContainer.Margin = new Padding(4, 30, 4, 30);
             vendasContainer.Name = "vendasContainer";
-            vendasContainer.Size = new Size(276, 50);
+            vendasContainer.Size = new Size(414, 75);
             vendasContainer.TabIndex = 7;
             // 
             // panel3
             // 
             panel3.Controls.Add(btnVendas);
-            panel3.Location = new Point(3, 3);
+            panel3.Location = new Point(4, 4);
+            panel3.Margin = new Padding(4, 4, 4, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(228, 47);
+            panel3.Size = new Size(342, 70);
             panel3.TabIndex = 3;
             // 
             // btnVendas
@@ -196,10 +201,11 @@
             btnVendas.ForeColor = SystemColors.ControlLight;
             btnVendas.Image = (Image)resources.GetObject("btnVendas.Image");
             btnVendas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnVendas.Location = new Point(-13, -10);
+            btnVendas.Location = new Point(-20, -15);
+            btnVendas.Margin = new Padding(4, 4, 4, 4);
             btnVendas.Name = "btnVendas";
-            btnVendas.Padding = new Padding(13, 0, 0, 0);
-            btnVendas.Size = new Size(251, 69);
+            btnVendas.Padding = new Padding(20, 0, 0, 0);
+            btnVendas.Size = new Size(376, 104);
             btnVendas.TabIndex = 4;
             btnVendas.Text = "              Vendas";
             btnVendas.TextAlign = ContentAlignment.MiddleLeft;
@@ -209,9 +215,10 @@
             // panel5
             // 
             panel5.Controls.Add(rmvVenda);
-            panel5.Location = new Point(2, 101);
+            panel5.Location = new Point(3, 152);
+            panel5.Margin = new Padding(4, 4, 4, 4);
             panel5.Name = "panel5";
-            panel5.Size = new Size(274, 50);
+            panel5.Size = new Size(411, 75);
             panel5.TabIndex = 6;
             // 
             // rmvVenda
@@ -221,10 +228,11 @@
             rmvVenda.ForeColor = SystemColors.ControlLight;
             rmvVenda.Image = (Image)resources.GetObject("rmvVenda.Image");
             rmvVenda.ImageAlign = ContentAlignment.MiddleLeft;
-            rmvVenda.Location = new Point(-12, -8);
+            rmvVenda.Location = new Point(-18, -12);
+            rmvVenda.Margin = new Padding(4, 4, 4, 4);
             rmvVenda.Name = "rmvVenda";
-            rmvVenda.Padding = new Padding(13, 0, 0, 0);
-            rmvVenda.Size = new Size(293, 62);
+            rmvVenda.Padding = new Padding(20, 0, 0, 0);
+            rmvVenda.Size = new Size(440, 93);
             rmvVenda.TabIndex = 4;
             rmvVenda.Text = "              Remover";
             rmvVenda.TextAlign = ContentAlignment.MiddleLeft;
@@ -233,9 +241,10 @@
             // panel2
             // 
             panel2.Controls.Add(addVenda);
-            panel2.Location = new Point(2, 53);
+            panel2.Location = new Point(3, 80);
+            panel2.Margin = new Padding(4, 4, 4, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(274, 50);
+            panel2.Size = new Size(411, 75);
             panel2.TabIndex = 2;
             // 
             // addVenda
@@ -245,10 +254,11 @@
             addVenda.ForeColor = SystemColors.ControlLight;
             addVenda.Image = (Image)resources.GetObject("addVenda.Image");
             addVenda.ImageAlign = ContentAlignment.MiddleLeft;
-            addVenda.Location = new Point(-12, -10);
+            addVenda.Location = new Point(-18, -15);
+            addVenda.Margin = new Padding(4, 4, 4, 4);
             addVenda.Name = "addVenda";
-            addVenda.Padding = new Padding(13, 0, 0, 0);
-            addVenda.Size = new Size(293, 69);
+            addVenda.Padding = new Padding(20, 0, 0, 0);
+            addVenda.Size = new Size(440, 104);
             addVenda.TabIndex = 3;
             addVenda.Text = "              Adicionar";
             addVenda.TextAlign = ContentAlignment.MiddleLeft;
@@ -261,18 +271,19 @@
             estoqueContainer.Controls.Add(panel11);
             estoqueContainer.Controls.Add(panel12);
             estoqueContainer.ForeColor = Color.Transparent;
-            estoqueContainer.Location = new Point(3, 196);
-            estoqueContainer.Margin = new Padding(3, 3, 3, 20);
+            estoqueContainer.Location = new Point(4, 293);
+            estoqueContainer.Margin = new Padding(4, 4, 4, 30);
             estoqueContainer.Name = "estoqueContainer";
-            estoqueContainer.Size = new Size(276, 49);
+            estoqueContainer.Size = new Size(414, 74);
             estoqueContainer.TabIndex = 8;
             // 
             // panel10
             // 
             panel10.Controls.Add(btnEstoque);
-            panel10.Location = new Point(3, 3);
+            panel10.Location = new Point(4, 4);
+            panel10.Margin = new Padding(4, 4, 4, 4);
             panel10.Name = "panel10";
-            panel10.Size = new Size(228, 47);
+            panel10.Size = new Size(342, 70);
             panel10.TabIndex = 3;
             // 
             // btnEstoque
@@ -282,10 +293,11 @@
             btnEstoque.ForeColor = SystemColors.ControlLight;
             btnEstoque.Image = (Image)resources.GetObject("btnEstoque.Image");
             btnEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEstoque.Location = new Point(-13, -10);
+            btnEstoque.Location = new Point(-20, -15);
+            btnEstoque.Margin = new Padding(4, 4, 4, 4);
             btnEstoque.Name = "btnEstoque";
-            btnEstoque.Padding = new Padding(13, 0, 0, 0);
-            btnEstoque.Size = new Size(251, 69);
+            btnEstoque.Padding = new Padding(20, 0, 0, 0);
+            btnEstoque.Size = new Size(376, 104);
             btnEstoque.TabIndex = 4;
             btnEstoque.Text = "              Estoque";
             btnEstoque.TextAlign = ContentAlignment.MiddleLeft;
@@ -295,9 +307,10 @@
             // panel11
             // 
             panel11.Controls.Add(rmvEstoque);
-            panel11.Location = new Point(2, 101);
+            panel11.Location = new Point(3, 152);
+            panel11.Margin = new Padding(4, 4, 4, 4);
             panel11.Name = "panel11";
-            panel11.Size = new Size(274, 50);
+            panel11.Size = new Size(411, 75);
             panel11.TabIndex = 6;
             // 
             // rmvEstoque
@@ -307,10 +320,11 @@
             rmvEstoque.ForeColor = SystemColors.ControlLight;
             rmvEstoque.Image = (Image)resources.GetObject("rmvEstoque.Image");
             rmvEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            rmvEstoque.Location = new Point(-12, -7);
+            rmvEstoque.Location = new Point(-18, -10);
+            rmvEstoque.Margin = new Padding(4, 4, 4, 4);
             rmvEstoque.Name = "rmvEstoque";
-            rmvEstoque.Padding = new Padding(13, 0, 0, 0);
-            rmvEstoque.Size = new Size(293, 62);
+            rmvEstoque.Padding = new Padding(20, 0, 0, 0);
+            rmvEstoque.Size = new Size(440, 93);
             rmvEstoque.TabIndex = 4;
             rmvEstoque.Text = "              Remover";
             rmvEstoque.TextAlign = ContentAlignment.MiddleLeft;
@@ -319,9 +333,10 @@
             // panel12
             // 
             panel12.Controls.Add(addEstoque);
-            panel12.Location = new Point(2, 53);
+            panel12.Location = new Point(3, 80);
+            panel12.Margin = new Padding(4, 4, 4, 4);
             panel12.Name = "panel12";
-            panel12.Size = new Size(274, 50);
+            panel12.Size = new Size(411, 75);
             panel12.TabIndex = 2;
             // 
             // addEstoque
@@ -331,10 +346,11 @@
             addEstoque.ForeColor = SystemColors.ControlLight;
             addEstoque.Image = (Image)resources.GetObject("addEstoque.Image");
             addEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            addEstoque.Location = new Point(-12, -11);
+            addEstoque.Location = new Point(-18, -16);
+            addEstoque.Margin = new Padding(4, 4, 4, 4);
             addEstoque.Name = "addEstoque";
-            addEstoque.Padding = new Padding(13, 0, 0, 0);
-            addEstoque.Size = new Size(293, 69);
+            addEstoque.Padding = new Padding(20, 0, 0, 0);
+            addEstoque.Size = new Size(440, 104);
             addEstoque.TabIndex = 3;
             addEstoque.Text = "              Adicionar";
             addEstoque.TextAlign = ContentAlignment.MiddleLeft;
@@ -345,18 +361,19 @@
             relatoriosContainer.BackColor = Color.FromArgb(23, 24, 29);
             relatoriosContainer.Controls.Add(panel6);
             relatoriosContainer.ForeColor = Color.Transparent;
-            relatoriosContainer.Location = new Point(3, 268);
-            relatoriosContainer.Margin = new Padding(3, 3, 3, 20);
+            relatoriosContainer.Location = new Point(4, 401);
+            relatoriosContainer.Margin = new Padding(4, 4, 4, 30);
             relatoriosContainer.Name = "relatoriosContainer";
-            relatoriosContainer.Size = new Size(276, 51);
+            relatoriosContainer.Size = new Size(414, 76);
             relatoriosContainer.TabIndex = 9;
             // 
             // panel6
             // 
             panel6.Controls.Add(btnRelatorios);
-            panel6.Location = new Point(3, 3);
+            panel6.Location = new Point(4, 4);
+            panel6.Margin = new Padding(4, 4, 4, 4);
             panel6.Name = "panel6";
-            panel6.Size = new Size(228, 47);
+            panel6.Size = new Size(342, 70);
             panel6.TabIndex = 3;
             // 
             // btnRelatorios
@@ -366,10 +383,11 @@
             btnRelatorios.ForeColor = SystemColors.ControlLight;
             btnRelatorios.Image = (Image)resources.GetObject("btnRelatorios.Image");
             btnRelatorios.ImageAlign = ContentAlignment.MiddleLeft;
-            btnRelatorios.Location = new Point(-13, -10);
+            btnRelatorios.Location = new Point(-20, -15);
+            btnRelatorios.Margin = new Padding(4, 4, 4, 4);
             btnRelatorios.Name = "btnRelatorios";
-            btnRelatorios.Padding = new Padding(13, 0, 0, 0);
-            btnRelatorios.Size = new Size(251, 69);
+            btnRelatorios.Padding = new Padding(20, 0, 0, 0);
+            btnRelatorios.Size = new Size(376, 104);
             btnRelatorios.TabIndex = 4;
             btnRelatorios.Text = "              Relatórios";
             btnRelatorios.TextAlign = ContentAlignment.MiddleLeft;
@@ -380,18 +398,19 @@
             containerFuncionarios.BackColor = Color.FromArgb(23, 24, 29);
             containerFuncionarios.Controls.Add(panel9);
             containerFuncionarios.ForeColor = Color.Transparent;
-            containerFuncionarios.Location = new Point(3, 342);
-            containerFuncionarios.Margin = new Padding(3, 3, 3, 20);
+            containerFuncionarios.Location = new Point(4, 511);
+            containerFuncionarios.Margin = new Padding(4, 4, 4, 30);
             containerFuncionarios.Name = "containerFuncionarios";
-            containerFuncionarios.Size = new Size(276, 51);
+            containerFuncionarios.Size = new Size(414, 76);
             containerFuncionarios.TabIndex = 10;
             // 
             // panel9
             // 
             panel9.Controls.Add(btnFuncionarios);
-            panel9.Location = new Point(3, 3);
+            panel9.Location = new Point(4, 4);
+            panel9.Margin = new Padding(4, 4, 4, 4);
             panel9.Name = "panel9";
-            panel9.Size = new Size(228, 47);
+            panel9.Size = new Size(342, 70);
             panel9.TabIndex = 3;
             // 
             // btnFuncionarios
@@ -401,10 +420,11 @@
             btnFuncionarios.ForeColor = SystemColors.ControlLight;
             btnFuncionarios.Image = (Image)resources.GetObject("btnFuncionarios.Image");
             btnFuncionarios.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFuncionarios.Location = new Point(-13, -10);
+            btnFuncionarios.Location = new Point(-20, -15);
+            btnFuncionarios.Margin = new Padding(4, 4, 4, 4);
             btnFuncionarios.Name = "btnFuncionarios";
-            btnFuncionarios.Padding = new Padding(13, 0, 0, 0);
-            btnFuncionarios.Size = new Size(251, 69);
+            btnFuncionarios.Padding = new Padding(20, 0, 0, 0);
+            btnFuncionarios.Size = new Size(376, 104);
             btnFuncionarios.TabIndex = 4;
             btnFuncionarios.Text = "              Funcionários";
             btnFuncionarios.TextAlign = ContentAlignment.MiddleLeft;
@@ -415,17 +435,19 @@
             configuracoesContainer.BackColor = Color.FromArgb(23, 24, 29);
             configuracoesContainer.Controls.Add(panel8);
             configuracoesContainer.ForeColor = Color.Transparent;
-            configuracoesContainer.Location = new Point(3, 416);
+            configuracoesContainer.Location = new Point(4, 621);
+            configuracoesContainer.Margin = new Padding(4, 4, 4, 4);
             configuracoesContainer.Name = "configuracoesContainer";
-            configuracoesContainer.Size = new Size(276, 51);
+            configuracoesContainer.Size = new Size(414, 76);
             configuracoesContainer.TabIndex = 11;
             // 
             // panel8
             // 
             panel8.Controls.Add(btnConfiguracoes);
-            panel8.Location = new Point(3, 3);
+            panel8.Location = new Point(4, 4);
+            panel8.Margin = new Padding(4, 4, 4, 4);
             panel8.Name = "panel8";
-            panel8.Size = new Size(228, 47);
+            panel8.Size = new Size(342, 70);
             panel8.TabIndex = 3;
             // 
             // btnConfiguracoes
@@ -435,10 +457,11 @@
             btnConfiguracoes.ForeColor = SystemColors.ControlLight;
             btnConfiguracoes.Image = (Image)resources.GetObject("btnConfiguracoes.Image");
             btnConfiguracoes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnConfiguracoes.Location = new Point(-13, -10);
+            btnConfiguracoes.Location = new Point(-20, -15);
+            btnConfiguracoes.Margin = new Padding(4, 4, 4, 4);
             btnConfiguracoes.Name = "btnConfiguracoes";
-            btnConfiguracoes.Padding = new Padding(13, 0, 0, 0);
-            btnConfiguracoes.Size = new Size(251, 69);
+            btnConfiguracoes.Padding = new Padding(20, 0, 0, 0);
+            btnConfiguracoes.Size = new Size(376, 104);
             btnConfiguracoes.TabIndex = 4;
             btnConfiguracoes.Text = "              Configurações";
             btnConfiguracoes.TextAlign = ContentAlignment.MiddleLeft;
@@ -460,15 +483,16 @@
             // 
             // FormBase
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleDimensions = new SizeF(144F, 144F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1578, 694);
+            ClientSize = new Size(1946, 1041);
             Controls.Add(pnlSidebar);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            MaximumSize = new Size(1598, 894);
-            MinimumSize = new Size(1198, 694);
+            Margin = new Padding(4, 4, 4, 4);
+            MaximumSize = new Size(2397, 1341);
+            MinimumSize = new Size(1797, 1006);
             Name = "FormBase";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormBase";
@@ -496,37 +520,37 @@
         #endregion
         protected DataGridView dgvDados;
         protected Label label4;
-        private Panel panel1;
-        private PictureBox btnHam;
-        private FlowLayoutPanel pnlSidebar;
         private Panel panel2;
         private Button addVenda;
-        private Panel panel3;
         private Button btnVendas;
-        private Panel panel5;
         private Button rmvVenda;
         private Button button5;
         private Panel vendasContainer;
         private System.Windows.Forms.Timer menuTransition;
-        private Panel panel7;
         private System.Windows.Forms.Timer sidebarTransition;
-        private ReaLTaiizor.Controls.NightControlBox nightControlBox1;
         private Panel estoqueContainer;
-        private Panel panel10;
         private Button btnEstoque;
-        private Panel panel11;
         private Button rmvEstoque;
-        private Panel panel12;
         private Button addEstoque;
         private Panel relatoriosContainer;
-        private Panel panel6;
         private Button btnRelatorios;
         private Panel containerFuncionarios;
-        private Panel panel9;
         private Button btnFuncionarios;
         private Panel configuracoesContainer;
-        private Panel panel8;
         private Button btnConfiguracoes;
         private System.Windows.Forms.Timer menuTransitionEstoque;
+        protected Panel panel1;
+        protected PictureBox btnHam;
+        protected FlowLayoutPanel pnlSidebar;
+        protected ReaLTaiizor.Controls.NightControlBox nightControlBox1;
+        protected Panel panel3;
+        protected Panel panel5;
+        protected Panel panel7;
+        protected Panel panel10;
+        protected Panel panel11;
+        protected Panel panel12;
+        protected Panel panel6;
+        protected Panel panel9;
+        protected Panel panel8;
     }
 }

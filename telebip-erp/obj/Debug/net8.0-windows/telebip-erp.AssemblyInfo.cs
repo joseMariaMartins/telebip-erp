@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("telebip-erp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6588dafc602cb21c157af7c3189fc7ba59358a71")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66cdad2280c2b80b1f097d64a9b3814e4bd83b75")]
 [assembly: System.Reflection.AssemblyProductAttribute("telebip-erp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("telebip-erp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

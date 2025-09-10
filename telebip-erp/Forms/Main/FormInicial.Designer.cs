@@ -1,6 +1,6 @@
 ﻿namespace telebip_erp.Forms.Main
 {
-    partial class FormInicial
+    public partial class FormVendas : FormBase
     {
         /// <summary>
         /// Required designer variable.
