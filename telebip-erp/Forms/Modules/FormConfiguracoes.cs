@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace telebip_erp.Forms.Main
+namespace telebip_erp.Forms.Modules
 {
-    public partial class FormInicial : Form
+    public partial class FormConfiguracoes : Form
     {
-        public FormInicial()
+        public FormConfiguracoes()
         {
             InitializeComponent();
-        }
-
-        private void fomInicialLoad(object sender, EventArgs e)
-        {
-            this.ControlBox = false;
         }
     }
 }

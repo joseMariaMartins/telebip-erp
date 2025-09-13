@@ -30,68 +30,76 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBase));
-            panel1 = new Panel();
+            pnlControlBox = new Panel();
             nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             btnHam = new PictureBox();
             pnlSidebar = new FlowLayoutPanel();
             pnlHome = new Panel();
-            button5 = new Button();
-            vendasContainer = new Panel();
+            btnHome = new Button();
+            pnlVendas = new Panel();
             panel3 = new Panel();
             btnVendas = new Button();
             panel5 = new Panel();
             rmvVenda = new Button();
             panel2 = new Panel();
             addVenda = new Button();
-            estoqueContainer = new Panel();
+            pnlEstoque = new Panel();
             panel10 = new Panel();
             btnEstoque = new Button();
             panel11 = new Panel();
             rmvEstoque = new Button();
             panel12 = new Panel();
             addEstoque = new Button();
-            relatoriosContainer = new Panel();
+            pnlRelatorios = new Panel();
             panel6 = new Panel();
             btnRelatorios = new Button();
-            containerFuncionarios = new Panel();
+            pnlFuncionarios = new Panel();
             panel9 = new Panel();
             btnFuncionarios = new Button();
-            configuracoesContainer = new Panel();
+            pnlConfiguracoes = new Panel();
             panel8 = new Panel();
             btnConfiguracoes = new Button();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            flowLayoutPanel2 = new FlowLayoutPanel();
+            pnlSair = new Panel();
+            btnSair = new Button();
             menuTransitionVendas = new System.Windows.Forms.Timer(components);
             sidebarTransition = new System.Windows.Forms.Timer(components);
             MenuTransitionEstoque = new System.Windows.Forms.Timer(components);
-            panel1.SuspendLayout();
+            pnlControlBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnHam).BeginInit();
             pnlSidebar.SuspendLayout();
             pnlHome.SuspendLayout();
-            vendasContainer.SuspendLayout();
+            pnlVendas.SuspendLayout();
             panel3.SuspendLayout();
             panel5.SuspendLayout();
             panel2.SuspendLayout();
-            estoqueContainer.SuspendLayout();
+            pnlEstoque.SuspendLayout();
             panel10.SuspendLayout();
             panel11.SuspendLayout();
             panel12.SuspendLayout();
-            relatoriosContainer.SuspendLayout();
+            pnlRelatorios.SuspendLayout();
             panel6.SuspendLayout();
-            containerFuncionarios.SuspendLayout();
+            pnlFuncionarios.SuspendLayout();
             panel9.SuspendLayout();
-            configuracoesContainer.SuspendLayout();
+            pnlConfiguracoes.SuspendLayout();
             panel8.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            flowLayoutPanel2.SuspendLayout();
+            pnlSair.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // pnlControlBox
             // 
-            panel1.BackColor = Color.FromArgb(18, 19, 24);
-            panel1.Controls.Add(nightControlBox1);
-            panel1.Controls.Add(btnHam);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1598, 32);
-            panel1.TabIndex = 0;
+            pnlControlBox.BackColor = Color.FromArgb(18, 19, 24);
+            pnlControlBox.Controls.Add(nightControlBox1);
+            pnlControlBox.Controls.Add(btnHam);
+            pnlControlBox.Dock = DockStyle.Top;
+            pnlControlBox.Location = new Point(0, 0);
+            pnlControlBox.Name = "pnlControlBox";
+            pnlControlBox.Size = new Size(1598, 31);
+            pnlControlBox.TabIndex = 0;
+            pnlControlBox.MouseDown += pnlControlBox_MouseDown;
             // 
             // nightControlBox1
             // 
@@ -132,54 +140,57 @@
             // 
             pnlSidebar.BackColor = Color.FromArgb(23, 24, 29);
             pnlSidebar.Controls.Add(pnlHome);
-            pnlSidebar.Controls.Add(vendasContainer);
-            pnlSidebar.Controls.Add(estoqueContainer);
-            pnlSidebar.Controls.Add(relatoriosContainer);
-            pnlSidebar.Controls.Add(containerFuncionarios);
-            pnlSidebar.Controls.Add(configuracoesContainer);
+            pnlSidebar.Controls.Add(pnlVendas);
+            pnlSidebar.Controls.Add(pnlEstoque);
+            pnlSidebar.Controls.Add(pnlRelatorios);
+            pnlSidebar.Controls.Add(pnlFuncionarios);
+            pnlSidebar.Controls.Add(pnlConfiguracoes);
+            pnlSidebar.Controls.Add(flowLayoutPanel1);
             pnlSidebar.Dock = DockStyle.Left;
-            pnlSidebar.Location = new Point(0, 32);
+            pnlSidebar.Location = new Point(0, 31);
             pnlSidebar.Name = "pnlSidebar";
-            pnlSidebar.Size = new Size(44, 862);
+            pnlSidebar.Size = new Size(277, 1049);
             pnlSidebar.TabIndex = 1;
             // 
             // pnlHome
             // 
-            pnlHome.Controls.Add(button5);
+            pnlHome.Controls.Add(btnHome);
             pnlHome.Location = new Point(3, 30);
             pnlHome.Margin = new Padding(3, 30, 3, 0);
             pnlHome.Name = "pnlHome";
-            pnlHome.Size = new Size(257, 50);
+            pnlHome.Size = new Size(270, 50);
             pnlHome.TabIndex = 6;
             // 
-            // button5
+            // btnHome
             // 
-            button5.BackColor = Color.FromArgb(23, 24, 29);
-            button5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            button5.ForeColor = SystemColors.ControlLight;
-            button5.Image = (Image)resources.GetObject("button5.Image");
-            button5.ImageAlign = ContentAlignment.MiddleLeft;
-            button5.Location = new Point(-5, -8);
-            button5.Name = "button5";
-            button5.Padding = new Padding(7, 0, 0, 0);
-            button5.Size = new Size(278, 63);
-            button5.TabIndex = 3;
-            button5.Text = "                    Home";
-            button5.TextAlign = ContentAlignment.MiddleLeft;
-            button5.UseVisualStyleBackColor = false;
+            btnHome.BackColor = Color.FromArgb(23, 24, 29);
+            btnHome.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            btnHome.ForeColor = SystemColors.ControlLight;
+            btnHome.Image = (Image)resources.GetObject("btnHome.Image");
+            btnHome.ImageAlign = ContentAlignment.MiddleLeft;
+            btnHome.Location = new Point(-5, -8);
+            btnHome.Name = "btnHome";
+            btnHome.Padding = new Padding(7, 0, 0, 0);
+            btnHome.Size = new Size(287, 63);
+            btnHome.TabIndex = 3;
+            btnHome.Text = "                    Home";
+            btnHome.TextAlign = ContentAlignment.MiddleLeft;
+            btnHome.UseVisualStyleBackColor = false;
+            btnHome.Click += btnHome_Click;
             // 
-            // vendasContainer
+            // pnlVendas
             // 
-            vendasContainer.BackColor = Color.FromArgb(23, 24, 29);
-            vendasContainer.Controls.Add(panel3);
-            vendasContainer.Controls.Add(panel5);
-            vendasContainer.Controls.Add(panel2);
-            vendasContainer.ForeColor = Color.Transparent;
-            vendasContainer.Location = new Point(0, 90);
-            vendasContainer.Margin = new Padding(0, 10, 0, 0);
-            vendasContainer.Name = "vendasContainer";
-            vendasContainer.Size = new Size(260, 51);
-            vendasContainer.TabIndex = 7;
+            pnlVendas.BackColor = Color.FromArgb(23, 24, 29);
+            pnlVendas.Controls.Add(panel3);
+            pnlVendas.Controls.Add(panel5);
+            pnlVendas.Controls.Add(panel2);
+            pnlVendas.Dock = DockStyle.Top;
+            pnlVendas.ForeColor = Color.Transparent;
+            pnlVendas.Location = new Point(0, 90);
+            pnlVendas.Margin = new Padding(0, 10, 0, 0);
+            pnlVendas.Name = "pnlVendas";
+            pnlVendas.Size = new Size(270, 148);
+            pnlVendas.TabIndex = 7;
             // 
             // panel3
             // 
@@ -259,18 +270,18 @@
             addVenda.TextAlign = ContentAlignment.MiddleLeft;
             addVenda.UseVisualStyleBackColor = false;
             // 
-            // estoqueContainer
+            // pnlEstoque
             // 
-            estoqueContainer.BackColor = Color.FromArgb(23, 24, 29);
-            estoqueContainer.Controls.Add(panel10);
-            estoqueContainer.Controls.Add(panel11);
-            estoqueContainer.Controls.Add(panel12);
-            estoqueContainer.ForeColor = Color.Transparent;
-            estoqueContainer.Location = new Point(3, 151);
-            estoqueContainer.Margin = new Padding(3, 10, 3, 0);
-            estoqueContainer.Name = "estoqueContainer";
-            estoqueContainer.Size = new Size(257, 56);
-            estoqueContainer.TabIndex = 8;
+            pnlEstoque.BackColor = Color.FromArgb(23, 24, 29);
+            pnlEstoque.Controls.Add(panel10);
+            pnlEstoque.Controls.Add(panel11);
+            pnlEstoque.Controls.Add(panel12);
+            pnlEstoque.ForeColor = Color.Transparent;
+            pnlEstoque.Location = new Point(0, 248);
+            pnlEstoque.Margin = new Padding(0, 10, 0, 0);
+            pnlEstoque.Name = "pnlEstoque";
+            pnlEstoque.Size = new Size(267, 152);
+            pnlEstoque.TabIndex = 8;
             // 
             // panel10
             // 
@@ -308,14 +319,15 @@
             // rmvEstoque
             // 
             rmvEstoque.BackColor = Color.FromArgb(32, 33, 36);
+            rmvEstoque.FlatStyle = FlatStyle.Popup;
             rmvEstoque.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             rmvEstoque.ForeColor = SystemColors.ControlLight;
             rmvEstoque.Image = (Image)resources.GetObject("rmvEstoque.Image");
             rmvEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            rmvEstoque.Location = new Point(-4, -7);
+            rmvEstoque.Location = new Point(0, -7);
             rmvEstoque.Name = "rmvEstoque";
             rmvEstoque.Padding = new Padding(13, 0, 0, 0);
-            rmvEstoque.Size = new Size(275, 62);
+            rmvEstoque.Size = new Size(271, 62);
             rmvEstoque.TabIndex = 4;
             rmvEstoque.Text = "                    Remover";
             rmvEstoque.TextAlign = ContentAlignment.MiddleLeft;
@@ -332,29 +344,30 @@
             // addEstoque
             // 
             addEstoque.BackColor = Color.FromArgb(32, 33, 36);
+            addEstoque.FlatStyle = FlatStyle.Popup;
             addEstoque.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             addEstoque.ForeColor = SystemColors.ControlLight;
             addEstoque.Image = (Image)resources.GetObject("addEstoque.Image");
             addEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            addEstoque.Location = new Point(-4, -11);
+            addEstoque.Location = new Point(0, -11);
             addEstoque.Name = "addEstoque";
             addEstoque.Padding = new Padding(13, 0, 0, 0);
-            addEstoque.Size = new Size(275, 69);
+            addEstoque.Size = new Size(271, 69);
             addEstoque.TabIndex = 3;
             addEstoque.Text = "                    Adicionar";
             addEstoque.TextAlign = ContentAlignment.MiddleLeft;
             addEstoque.UseVisualStyleBackColor = false;
             // 
-            // relatoriosContainer
+            // pnlRelatorios
             // 
-            relatoriosContainer.BackColor = Color.FromArgb(23, 24, 29);
-            relatoriosContainer.Controls.Add(panel6);
-            relatoriosContainer.ForeColor = Color.Transparent;
-            relatoriosContainer.Location = new Point(3, 217);
-            relatoriosContainer.Margin = new Padding(3, 10, 3, 0);
-            relatoriosContainer.Name = "relatoriosContainer";
-            relatoriosContainer.Size = new Size(257, 51);
-            relatoriosContainer.TabIndex = 9;
+            pnlRelatorios.BackColor = Color.FromArgb(23, 24, 29);
+            pnlRelatorios.Controls.Add(panel6);
+            pnlRelatorios.ForeColor = Color.Transparent;
+            pnlRelatorios.Location = new Point(0, 410);
+            pnlRelatorios.Margin = new Padding(0, 10, 0, 0);
+            pnlRelatorios.Name = "pnlRelatorios";
+            pnlRelatorios.Size = new Size(267, 51);
+            pnlRelatorios.TabIndex = 9;
             // 
             // panel6
             // 
@@ -371,7 +384,7 @@
             btnRelatorios.ForeColor = SystemColors.ControlLight;
             btnRelatorios.Image = (Image)resources.GetObject("btnRelatorios.Image");
             btnRelatorios.ImageAlign = ContentAlignment.MiddleLeft;
-            btnRelatorios.Location = new Point(-6, -11);
+            btnRelatorios.Location = new Point(-7, -11);
             btnRelatorios.Name = "btnRelatorios";
             btnRelatorios.Padding = new Padding(10, 0, 0, 0);
             btnRelatorios.Size = new Size(251, 69);
@@ -380,16 +393,16 @@
             btnRelatorios.TextAlign = ContentAlignment.MiddleLeft;
             btnRelatorios.UseVisualStyleBackColor = false;
             // 
-            // containerFuncionarios
+            // pnlFuncionarios
             // 
-            containerFuncionarios.BackColor = Color.FromArgb(23, 24, 29);
-            containerFuncionarios.Controls.Add(panel9);
-            containerFuncionarios.ForeColor = Color.Transparent;
-            containerFuncionarios.Location = new Point(3, 278);
-            containerFuncionarios.Margin = new Padding(3, 10, 3, 0);
-            containerFuncionarios.Name = "containerFuncionarios";
-            containerFuncionarios.Size = new Size(257, 51);
-            containerFuncionarios.TabIndex = 10;
+            pnlFuncionarios.BackColor = Color.FromArgb(23, 24, 29);
+            pnlFuncionarios.Controls.Add(panel9);
+            pnlFuncionarios.ForeColor = Color.Transparent;
+            pnlFuncionarios.Location = new Point(0, 471);
+            pnlFuncionarios.Margin = new Padding(0, 10, 0, 0);
+            pnlFuncionarios.Name = "pnlFuncionarios";
+            pnlFuncionarios.Size = new Size(267, 51);
+            pnlFuncionarios.TabIndex = 10;
             // 
             // panel9
             // 
@@ -406,7 +419,7 @@
             btnFuncionarios.ForeColor = SystemColors.ControlLight;
             btnFuncionarios.Image = (Image)resources.GetObject("btnFuncionarios.Image");
             btnFuncionarios.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFuncionarios.Location = new Point(-8, -10);
+            btnFuncionarios.Location = new Point(-9, -10);
             btnFuncionarios.Name = "btnFuncionarios";
             btnFuncionarios.Padding = new Padding(10, 0, 0, 0);
             btnFuncionarios.Size = new Size(251, 69);
@@ -415,16 +428,16 @@
             btnFuncionarios.TextAlign = ContentAlignment.MiddleLeft;
             btnFuncionarios.UseVisualStyleBackColor = false;
             // 
-            // configuracoesContainer
+            // pnlConfiguracoes
             // 
-            configuracoesContainer.BackColor = Color.FromArgb(23, 24, 29);
-            configuracoesContainer.Controls.Add(panel8);
-            configuracoesContainer.ForeColor = Color.Transparent;
-            configuracoesContainer.Location = new Point(3, 339);
-            configuracoesContainer.Margin = new Padding(3, 10, 3, 0);
-            configuracoesContainer.Name = "configuracoesContainer";
-            configuracoesContainer.Size = new Size(257, 51);
-            configuracoesContainer.TabIndex = 11;
+            pnlConfiguracoes.BackColor = Color.FromArgb(23, 24, 29);
+            pnlConfiguracoes.Controls.Add(panel8);
+            pnlConfiguracoes.ForeColor = Color.Transparent;
+            pnlConfiguracoes.Location = new Point(0, 532);
+            pnlConfiguracoes.Margin = new Padding(0, 10, 0, 0);
+            pnlConfiguracoes.Name = "pnlConfiguracoes";
+            pnlConfiguracoes.Size = new Size(267, 51);
+            pnlConfiguracoes.TabIndex = 11;
             // 
             // panel8
             // 
@@ -450,6 +463,53 @@
             btnConfiguracoes.TextAlign = ContentAlignment.MiddleLeft;
             btnConfiguracoes.UseVisualStyleBackColor = false;
             // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            flowLayoutPanel1.Controls.Add(flowLayoutPanel2);
+            flowLayoutPanel1.FlowDirection = FlowDirection.BottomUp;
+            flowLayoutPanel1.Location = new Point(3, 586);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(267, 463);
+            flowLayoutPanel1.TabIndex = 12;
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Controls.Add(pnlSair);
+            flowLayoutPanel2.FlowDirection = FlowDirection.BottomUp;
+            flowLayoutPanel2.Location = new Point(3, 413);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(228, 47);
+            flowLayoutPanel2.TabIndex = 13;
+            // 
+            // pnlSair
+            // 
+            pnlSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            pnlSair.BackColor = Color.FromArgb(23, 24, 29);
+            pnlSair.Controls.Add(btnSair);
+            pnlSair.ForeColor = Color.Transparent;
+            pnlSair.Location = new Point(0, -4);
+            pnlSair.Margin = new Padding(0);
+            pnlSair.Name = "pnlSair";
+            pnlSair.Size = new Size(267, 51);
+            pnlSair.TabIndex = 12;
+            // 
+            // btnSair
+            // 
+            btnSair.BackColor = Color.FromArgb(23, 24, 29);
+            btnSair.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            btnSair.ForeColor = SystemColors.ControlLight;
+            btnSair.Image = (Image)resources.GetObject("btnSair.Image");
+            btnSair.ImageAlign = ContentAlignment.MiddleLeft;
+            btnSair.Location = new Point(-11, -4);
+            btnSair.Name = "btnSair";
+            btnSair.Padding = new Padding(10, 0, 0, 0);
+            btnSair.Size = new Size(251, 69);
+            btnSair.TabIndex = 4;
+            btnSair.Text = "                    Sair";
+            btnSair.TextAlign = ContentAlignment.MiddleLeft;
+            btnSair.UseVisualStyleBackColor = false;
+            // 
             // menuTransitionVendas
             // 
             menuTransitionVendas.Interval = 10;
@@ -469,34 +529,39 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1598, 894);
+            ClientSize = new Size(1598, 1080);
             Controls.Add(pnlSidebar);
-            Controls.Add(panel1);
+            Controls.Add(pnlControlBox);
+            DoubleBuffered = true;
             Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
-            MaximumSize = new Size(1598, 894);
+            IsMdiContainer = true;
+            MaximumSize = new Size(1920, 1080);
             MinimumSize = new Size(1198, 671);
             Name = "FormBase";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormBase";
-            panel1.ResumeLayout(false);
+            pnlControlBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnHam).EndInit();
             pnlSidebar.ResumeLayout(false);
             pnlHome.ResumeLayout(false);
-            vendasContainer.ResumeLayout(false);
+            pnlVendas.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            estoqueContainer.ResumeLayout(false);
+            pnlEstoque.ResumeLayout(false);
             panel10.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel12.ResumeLayout(false);
-            relatoriosContainer.ResumeLayout(false);
+            pnlRelatorios.ResumeLayout(false);
             panel6.ResumeLayout(false);
-            containerFuncionarios.ResumeLayout(false);
+            pnlFuncionarios.ResumeLayout(false);
             panel9.ResumeLayout(false);
-            configuracoesContainer.ResumeLayout(false);
+            pnlConfiguracoes.ResumeLayout(false);
             panel8.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel2.ResumeLayout(false);
+            pnlSair.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -507,21 +572,21 @@
         private Button addVenda;
         private Button btnVendas;
         private Button rmvVenda;
-        private Button button5;
-        private Panel vendasContainer;
+        private Button btnHome;
+        private Panel pnlVendas;
         private System.Windows.Forms.Timer menuTransitionVendas;
         private System.Windows.Forms.Timer sidebarTransition;
-        private Panel estoqueContainer;
+        private Panel pnlEstoque;
         private Button btnEstoque;
         private Button rmvEstoque;
         private Button addEstoque;
-        private Panel relatoriosContainer;
+        private Panel pnlRelatorios;
         private Button btnRelatorios;
-        private Panel containerFuncionarios;
+        private Panel pnlFuncionarios;
         private Button btnFuncionarios;
-        private Panel configuracoesContainer;
+        private Panel pnlConfiguracoes;
         private Button btnConfiguracoes;
-        protected Panel panel1;
+        protected Panel pnlControlBox;
         protected PictureBox btnHam;
         protected FlowLayoutPanel pnlSidebar;
         protected ReaLTaiizor.Controls.NightControlBox nightControlBox1;
@@ -535,5 +600,9 @@
         protected Panel panel9;
         protected Panel panel8;
         private System.Windows.Forms.Timer MenuTransitionEstoque;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Panel pnlSair;
+        private Button btnSair;
+        private FlowLayoutPanel flowLayoutPanel2;
     }
 }

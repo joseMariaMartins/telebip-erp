@@ -52,3 +52,4 @@ C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\r
 C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-erp.pdb
 C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-erp.genruntimeconfig.cache
 C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\ref\telebip-erp.dll
+C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Modules.FormConfiguracoes.resources
