@@ -100,7 +100,27 @@ namespace telebip_erp
         private void btnVendas_Click(object sender, EventArgs e)
         {
             menuTransitionVendas.Start();
+
+            if (vendas == null)
+            {
+                vendas = new FormVendas();
+                vendas.FormClosed += Vendas_FormClosed;
+                vendas.MdiParent = this;
+                vendas.WindowState = FormWindowState.Maximized;
+                vendas.Dock = DockStyle.Fill;
+                vendas.Show();
+            }
+            else
+            {
+                vendas.Activate();
+            }
         }
+
+        private void Vendas_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            vendas = null;
+        }
+        
 
         private void sidebarTransition_Tick(object sender, EventArgs e)
         {

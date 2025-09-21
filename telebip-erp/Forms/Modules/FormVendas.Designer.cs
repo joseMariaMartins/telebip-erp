@@ -28,12 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "FormVendas";
+            dgvVendas = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvVendas).BeginInit();
+            SuspendLayout();
+            // 
+            // dgvVendas
+            // 
+            dgvVendas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvVendas.Location = new Point(95, 126);
+            dgvVendas.Name = "dgvVendas";
+            dgvVendas.Size = new Size(563, 288);
+            dgvVendas.TabIndex = 0;
+            // 
+            // FormVendas
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(dgvVendas);
+            Name = "FormVendas";
+            Text = "FormVendas";
+            ((System.ComponentModel.ISupportInitialize)dgvVendas).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private DataGridView dgvVendas;
     }
 }
