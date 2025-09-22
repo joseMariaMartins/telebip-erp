@@ -97,7 +97,7 @@
             pnlControlBox.Dock = DockStyle.Top;
             pnlControlBox.Location = new Point(0, 0);
             pnlControlBox.Name = "pnlControlBox";
-            pnlControlBox.Size = new Size(1598, 31);
+            pnlControlBox.Size = new Size(1483, 31);
             pnlControlBox.TabIndex = 0;
             pnlControlBox.MouseDown += pnlControlBox_MouseDown;
             // 
@@ -115,7 +115,7 @@
             nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
             nightControlBox1.EnableMinimizeButton = true;
             nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
-            nightControlBox1.Location = new Point(1459, 0);
+            nightControlBox1.Location = new Point(1344, 0);
             nightControlBox1.MaximizeHoverColor = Color.FromArgb(15, 255, 255, 255);
             nightControlBox1.MaximizeHoverForeColor = Color.White;
             nightControlBox1.MinimizeHoverColor = Color.FromArgb(15, 255, 255, 255);
@@ -149,7 +149,7 @@
             pnlSidebar.Dock = DockStyle.Left;
             pnlSidebar.Location = new Point(0, 31);
             pnlSidebar.Name = "pnlSidebar";
-            pnlSidebar.Size = new Size(277, 1049);
+            pnlSidebar.Size = new Size(277, 675);
             pnlSidebar.TabIndex = 1;
             // 
             // pnlHome
@@ -529,7 +529,7 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1598, 1080);
+            ClientSize = new Size(1483, 706);
             Controls.Add(pnlSidebar);
             Controls.Add(pnlControlBox);
             DoubleBuffered = true;
