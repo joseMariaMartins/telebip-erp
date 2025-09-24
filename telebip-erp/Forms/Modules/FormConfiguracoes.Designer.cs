@@ -28,12 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "FormConfiguracoes";
+            label1 = new Label();
+            SuspendLayout();
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 22F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(534, 221);
+            label1.Name = "label1";
+            label1.Size = new Size(304, 60);
+            label1.TabIndex = 0;
+            label1.Text = "Configurações";
+            // 
+            // FormConfiguracoes
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(23, 24, 29);
+            ClientSize = new Size(1305, 612);
+            ControlBox = false;
+            Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FormConfiguracoes";
+            Text = "FormConfiguracoes";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label label1;
     }
 }

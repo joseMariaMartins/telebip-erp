@@ -17,6 +17,11 @@ namespace telebip_erp.Forms.Modules
         {
             InitializeComponent();
             CarregarFuncionarios();
+            this.FormBorderStyle = FormBorderStyle.None; // Remove completamente a borda
+            this.ControlBox = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Text = ""; // Remove o texto da barra de título
         }
         private void CarregarFuncionarios()
         {

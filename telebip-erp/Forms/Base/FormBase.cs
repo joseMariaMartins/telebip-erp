@@ -18,7 +18,6 @@ namespace telebip_erp
         FormRelatorios? relatorios = null;
         FormFuncionarios? funcionarios = null;
         FormConfiguracoes? configuracoes = null;
-
         bool menuExpandVendas = false;
         bool menuExpandEstoque = false;
         bool sidebarExpand = false;
@@ -26,10 +25,8 @@ namespace telebip_erp
         // ========== ARRASTAR JANELA ==========
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
-
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
 
@@ -38,11 +35,8 @@ namespace telebip_erp
         {
             InitializeComponent();
             mdiProp();
-
             pnlVendas.Height = 50;
             pnlEstoque.Height = 50;
-
-            // Conectar evento de arrasto
             pnlControlBox.MouseDown += pnlControlBox_MouseDown;
         }
 
@@ -51,17 +45,6 @@ namespace telebip_erp
         {
             this.SetBevel(false);
             Controls.OfType<MdiClient>().FirstOrDefault().BackColor = Color.FromArgb(232, 234, 237);
-        }
-
-        protected void HerdarEstilo()
-        {
-            pnlControlBox.BackColor = Color.White;
-            pnlSidebar.BackColor = Color.FromArgb(23, 24, 29);
-            pnlVendas.BackColor = Color.FromArgb(23, 24, 29);
-            pnlEstoque.BackColor = Color.FromArgb(23, 24, 29);
-            pnlRelatorios.BackColor = Color.FromArgb(23, 24, 29);
-            pnlFuncionarios.BackColor = Color.FromArgb(23, 24, 29);
-            pnlConfiguracoes.BackColor = Color.FromArgb(23, 24, 29);
         }
 
         // ========== ARRASTAR JANELA ==========
@@ -99,14 +82,18 @@ namespace telebip_erp
 
         private void btnVendas_Click(object sender, EventArgs e)
         {
-            menuTransitionVendas.Start();
+            // Só expande o dropdown se a sidebar estiver expandida
+            if (sidebarExpand)
+            {
+                menuTransitionVendas.Start();
+            }
 
+            // Sempre abre o formulário, independente do estado da sidebar
             if (vendas == null)
             {
                 vendas = new FormVendas();
                 vendas.FormClosed += Vendas_FormClosed;
                 vendas.MdiParent = this;
-                vendas.WindowState = FormWindowState.Maximized;
                 vendas.Dock = DockStyle.Fill;
                 vendas.Show();
             }
@@ -120,7 +107,6 @@ namespace telebip_erp
         {
             vendas = null;
         }
-        
 
         private void sidebarTransition_Tick(object sender, EventArgs e)
         {
@@ -146,12 +132,37 @@ namespace telebip_erp
 
         private void btnHam_Click(object sender, EventArgs e)
         {
+            // Se a sidebar está expandida, fecha os dropdowns antes de recolher
+            if (sidebarExpand)
+            {
+                if (menuExpandVendas) menuTransitionVendas.Start();
+                if (menuExpandEstoque) MenuTransitionEstoque.Start();
+            }
+
+            // Recolhe/expande a sidebar normalmente
             sidebarTransition.Start();
         }
 
         private void btnEstoque_Click(object sender, EventArgs e)
         {
-            MenuTransitionEstoque.Start();
+            // Só expande o dropdown se a sidebar estiver expandida
+            if (sidebarExpand)
+            {
+                MenuTransitionEstoque.Start();
+            }
+
+            if (estoque == null)
+            {
+                estoque = new FormEstoque();
+                estoque.FormClosed += Estoque_FormClosed;
+                estoque.MdiParent = this;
+                estoque.Dock = DockStyle.Fill;
+                estoque.Show();
+            }
+            else
+            {
+                estoque.Activate();
+            }
         }
 
         private void MenuTransitionEstoque_Tick(object sender, EventArgs e)
@@ -194,9 +205,127 @@ namespace telebip_erp
             }
         }
 
+        private void btnRelatorios_Click(object sender, EventArgs e)
+        {
+            if (relatorios == null)
+            {
+                relatorios = new FormRelatorios();
+                relatorios.FormClosed += Relatorios_FormClosed;
+                relatorios.MdiParent = this;
+                relatorios.Dock = DockStyle.Fill;
+                relatorios.Show();
+            }
+            else
+            {
+                relatorios.Activate();
+            }
+        }
+
+        private void btnFuncionarios_Click(object sender, EventArgs e)
+        {
+            if (funcionarios == null)
+            {
+                funcionarios = new FormFuncionarios();
+                funcionarios.FormClosed += Funcionarios_FormClosed;
+                funcionarios.MdiParent = this;
+                funcionarios.Dock = DockStyle.Fill;
+                funcionarios.Show();
+            }
+            else
+            {
+                funcionarios.Activate();
+            }
+        }
+
+        private void btnConfiguracoes_Click(object sender, EventArgs e)
+        {
+            if (configuracoes == null)
+            {
+                configuracoes = new FormConfiguracoes();
+                configuracoes.FormClosed += Configuracoes_FormClosed;
+                configuracoes.MdiParent = this;
+                configuracoes.Dock = DockStyle.Fill;
+                configuracoes.Show();
+            }
+            else
+            {
+                configuracoes.Activate();
+            }
+        }
+
+        // ========== EVENTOS FORM CLOSED ==========
         private void Inicial_FormClosed(object? sender, FormClosedEventArgs e)
         {
             inicial = null;
+        }
+
+        private void Estoque_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            estoque = null;
+        }
+
+        private void Relatorios_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            relatorios = null;
+        }
+
+        private void Funcionarios_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            funcionarios = null;
+        }
+
+        private void Configuracoes_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            configuracoes = null;
+        }
+
+        private void btnRelatorios_Click_1(object sender, EventArgs e)
+        {
+            if (relatorios == null)
+            {
+                relatorios = new FormRelatorios();
+                relatorios.FormClosed += Relatorios_FormClosed;
+                relatorios.MdiParent = this;
+                relatorios.Dock = DockStyle.Fill;
+                relatorios.Show();
+            }
+            else
+            {
+                relatorios.Activate();
+            }
+        }
+
+        private void btnConfiguracoes_Click_1(object sender, EventArgs e)
+        {
+            if (configuracoes == null)
+            {
+                configuracoes = new FormConfiguracoes();
+                configuracoes.FormClosed += Configuracoes_FormClosed;
+                configuracoes.MdiParent = this;
+                configuracoes.Dock = DockStyle.Fill;
+                configuracoes.Show();
+            }
+            else
+            {
+                configuracoes.Activate();
+            }
+        }
+
+        private void btnFuncionarios_Click_1(object sender, EventArgs e)
+        {
+            if (funcionarios == null)
+            {
+                funcionarios = new FormFuncionarios();
+                funcionarios.FormClosed += Funcionarios_FormClosed;
+                funcionarios.MdiParent = this;
+                funcionarios.Dock = DockStyle.Fill;
+                funcionarios.Show();
+            }
+            else
+            {
+                funcionarios.Activate();
+            }
+
         }
     }
 }

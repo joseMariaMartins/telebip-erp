@@ -29,31 +29,52 @@
         private void InitializeComponent()
         {
             dgvVendas = new DataGridView();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvVendas).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvVendas
             // 
             dgvVendas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvVendas.Location = new Point(95, 126);
+            dgvVendas.Dock = DockStyle.Fill;
+            dgvVendas.Location = new Point(0, 0);
+            dgvVendas.Margin = new Padding(4, 5, 4, 5);
             dgvVendas.Name = "dgvVendas";
-            dgvVendas.Size = new Size(563, 288);
+            dgvVendas.RowHeadersWidth = 62;
+            dgvVendas.Size = new Size(1119, 663);
             dgvVendas.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(dgvVendas);
+            panel1.Location = new Point(12, 61);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1119, 663);
+            panel1.TabIndex = 1;
             // 
             // FormVendas
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(dgvVendas);
+            BackColor = Color.FromArgb(23, 24, 29);
+            ClientSize = new Size(1143, 750);
+            ControlBox = false;
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 5, 4, 5);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FormVendas";
             Text = "FormVendas";
             ((System.ComponentModel.ISupportInitialize)dgvVendas).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private DataGridView dgvVendas;
+        private Panel panel1;
     }
 }

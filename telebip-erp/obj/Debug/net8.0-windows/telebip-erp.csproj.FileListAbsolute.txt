@@ -93,3 +93,16 @@ C:\Users\Usuario\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\r
 C:\Users\Usuario\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-erp.pdb
 C:\Users\Usuario\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-erp.genruntimeconfig.cache
 C:\Users\Usuario\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\ref\telebip-erp.dll
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.Modules.FormConfiguracoes.resources
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\Database\TeleBipDB.db
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\telebip-erp.dll.config
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\System.Data.SQLite.dll
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\System.Configuration.ConfigurationManager.dll
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\System.Diagnostics.EventLog.dll
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\System.Security.Cryptography.ProtectedData.dll
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\runtimes\linux-x64\native\SQLite.Interop.dll
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\runtimes\osx-x64\native\SQLite.Interop.dll
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\runtimes\win-x64\native\SQLite.Interop.dll
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\runtimes\win-x86\native\SQLite.Interop.dll
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.Messages.dll
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll

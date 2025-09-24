@@ -10,12 +10,11 @@ using System.Windows.Forms;
 
 namespace telebip_erp.Forms.Modules
 {
-    public partial class FormEstoque : FormBase
+    public partial class FormEstoque : Form
     {
         public FormEstoque()
         {
             InitializeComponent();
-            HerdarEstilo();
         }
     }
 }
