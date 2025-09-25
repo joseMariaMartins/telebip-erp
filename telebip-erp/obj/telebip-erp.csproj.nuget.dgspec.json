@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\LabInfo\\Source\\Repos\\telebip-erp\\telebip-erp\\telebip-erp.csproj": {}
+    "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\telebip-erp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\LabInfo\\Source\\Repos\\telebip-erp\\telebip-erp\\telebip-erp.csproj": {
+    "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\telebip-erp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LabInfo\\Source\\Repos\\telebip-erp\\telebip-erp\\telebip-erp.csproj",
+        "projectUniqueName": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\telebip-erp.csproj",
         "projectName": "telebip-erp",
-        "projectPath": "C:\\Users\\LabInfo\\Source\\Repos\\telebip-erp\\telebip-erp\\telebip-erp.csproj",
-        "packagesPath": "C:\\Users\\LabInfo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LabInfo\\Source\\Repos\\telebip-erp\\telebip-erp\\obj\\",
+        "projectPath": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\telebip-erp.csproj",
+        "packagesPath": "C:\\Users\\azs90\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\LabInfo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\azs90\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -51,6 +50,10 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "dependencies": {
+            "MaterialSkin.2": {
+              "target": "Package",
+              "version": "[2.3.1, )"
+            },
             "ReaLTaiizor": {
               "target": "Package",
               "version": "[3.8.1.3, )"
@@ -75,7 +78,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

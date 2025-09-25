@@ -30,9 +30,12 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBase));
+<<<<<<< Updated upstream
             panel1 = new Panel();
             nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             btnHam = new PictureBox();
+=======
+>>>>>>> Stashed changes
             pnlSidebar = new FlowLayoutPanel();
             pnlHome = new Panel();
             button5 = new Button();
@@ -62,8 +65,12 @@
             menuTransitionVendas = new System.Windows.Forms.Timer(components);
             sidebarTransition = new System.Windows.Forms.Timer(components);
             MenuTransitionEstoque = new System.Windows.Forms.Timer(components);
+<<<<<<< Updated upstream
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnHam).BeginInit();
+=======
+            btnHam = new PictureBox();
+>>>>>>> Stashed changes
             pnlSidebar.SuspendLayout();
             pnlHome.SuspendLayout();
             vendasContainer.SuspendLayout();
@@ -80,6 +87,7 @@
             panel9.SuspendLayout();
             configuracoesContainer.SuspendLayout();
             panel8.SuspendLayout();
+<<<<<<< Updated upstream
             SuspendLayout();
             // 
             // panel1
@@ -128,10 +136,16 @@
             btnHam.TabStop = false;
             btnHam.Click += btnHam_Click;
             // 
+=======
+            ((System.ComponentModel.ISupportInitialize)btnHam).BeginInit();
+            SuspendLayout();
+            // 
+>>>>>>> Stashed changes
             // pnlSidebar
             // 
             pnlSidebar.BackColor = Color.FromArgb(23, 24, 29);
             pnlSidebar.Controls.Add(pnlHome);
+<<<<<<< Updated upstream
             pnlSidebar.Controls.Add(vendasContainer);
             pnlSidebar.Controls.Add(estoqueContainer);
             pnlSidebar.Controls.Add(relatoriosContainer);
@@ -141,6 +155,17 @@
             pnlSidebar.Location = new Point(0, 32);
             pnlSidebar.Name = "pnlSidebar";
             pnlSidebar.Size = new Size(44, 862);
+=======
+            pnlSidebar.Controls.Add(pnlVendas);
+            pnlSidebar.Controls.Add(pnlEstoque);
+            pnlSidebar.Controls.Add(pnlRelatorios);
+            pnlSidebar.Controls.Add(pnlFuncionarios);
+            pnlSidebar.Controls.Add(pnlConfiguracoes);
+            pnlSidebar.Dock = DockStyle.Left;
+            pnlSidebar.Location = new Point(3, 24);
+            pnlSidebar.Name = "pnlSidebar";
+            pnlSidebar.Size = new Size(277, 776);
+>>>>>>> Stashed changes
             pnlSidebar.TabIndex = 1;
             // 
             // pnlHome
@@ -154,6 +179,7 @@
             // 
             // button5
             // 
+<<<<<<< Updated upstream
             button5.BackColor = Color.FromArgb(23, 24, 29);
             button5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             button5.ForeColor = SystemColors.ControlLight;
@@ -167,6 +193,22 @@
             button5.Text = "                    Home";
             button5.TextAlign = ContentAlignment.MiddleLeft;
             button5.UseVisualStyleBackColor = false;
+=======
+            btnHome.BackColor = Color.FromArgb(23, 24, 29);
+            btnHome.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            btnHome.ForeColor = SystemColors.ControlLight;
+            btnHome.Image = (Image)resources.GetObject("btnHome.Image");
+            btnHome.ImageAlign = ContentAlignment.MiddleLeft;
+            btnHome.Location = new Point(-4, -8);
+            btnHome.Name = "btnHome";
+            btnHome.Padding = new Padding(3, 0, 0, 0);
+            btnHome.Size = new Size(287, 63);
+            btnHome.TabIndex = 3;
+            btnHome.Text = "                    Home";
+            btnHome.TextAlign = ContentAlignment.MiddleLeft;
+            btnHome.UseVisualStyleBackColor = false;
+            btnHome.Click += btnHome_Click;
+>>>>>>> Stashed changes
             // 
             // vendasContainer
             // 
@@ -196,10 +238,10 @@
             btnVendas.ForeColor = SystemColors.ControlLight;
             btnVendas.Image = (Image)resources.GetObject("btnVendas.Image");
             btnVendas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnVendas.Location = new Point(-5, -4);
+            btnVendas.Location = new Point(-4, -4);
             btnVendas.Margin = new Padding(0);
             btnVendas.Name = "btnVendas";
-            btnVendas.Padding = new Padding(10, 0, 0, 0);
+            btnVendas.Padding = new Padding(3, 0, 0, 0);
             btnVendas.Size = new Size(251, 55);
             btnVendas.TabIndex = 4;
             btnVendas.Text = "                    Vendas";
@@ -287,9 +329,9 @@
             btnEstoque.ForeColor = SystemColors.ControlLight;
             btnEstoque.Image = (Image)resources.GetObject("btnEstoque.Image");
             btnEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEstoque.Location = new Point(-7, -10);
+            btnEstoque.Location = new Point(-4, -10);
             btnEstoque.Name = "btnEstoque";
-            btnEstoque.Padding = new Padding(10, 0, 0, 0);
+            btnEstoque.Padding = new Padding(3, 0, 0, 0);
             btnEstoque.Size = new Size(251, 69);
             btnEstoque.TabIndex = 4;
             btnEstoque.Text = "                    Estoque";
@@ -371,9 +413,13 @@
             btnRelatorios.ForeColor = SystemColors.ControlLight;
             btnRelatorios.Image = (Image)resources.GetObject("btnRelatorios.Image");
             btnRelatorios.ImageAlign = ContentAlignment.MiddleLeft;
+<<<<<<< Updated upstream
             btnRelatorios.Location = new Point(-6, -11);
+=======
+            btnRelatorios.Location = new Point(-4, -11);
+>>>>>>> Stashed changes
             btnRelatorios.Name = "btnRelatorios";
-            btnRelatorios.Padding = new Padding(10, 0, 0, 0);
+            btnRelatorios.Padding = new Padding(3, 0, 0, 0);
             btnRelatorios.Size = new Size(251, 69);
             btnRelatorios.TabIndex = 4;
             btnRelatorios.Text = "                    Relatórios";
@@ -406,9 +452,13 @@
             btnFuncionarios.ForeColor = SystemColors.ControlLight;
             btnFuncionarios.Image = (Image)resources.GetObject("btnFuncionarios.Image");
             btnFuncionarios.ImageAlign = ContentAlignment.MiddleLeft;
+<<<<<<< Updated upstream
             btnFuncionarios.Location = new Point(-8, -10);
+=======
+            btnFuncionarios.Location = new Point(-4, -10);
+>>>>>>> Stashed changes
             btnFuncionarios.Name = "btnFuncionarios";
-            btnFuncionarios.Padding = new Padding(10, 0, 0, 0);
+            btnFuncionarios.Padding = new Padding(3, 0, 0, 0);
             btnFuncionarios.Size = new Size(251, 69);
             btnFuncionarios.TabIndex = 4;
             btnFuncionarios.Text = "                    Funcionários";
@@ -441,14 +491,18 @@
             btnConfiguracoes.ForeColor = SystemColors.ControlLight;
             btnConfiguracoes.Image = (Image)resources.GetObject("btnConfiguracoes.Image");
             btnConfiguracoes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnConfiguracoes.Location = new Point(-8, -10);
+            btnConfiguracoes.Location = new Point(-4, -10);
             btnConfiguracoes.Name = "btnConfiguracoes";
-            btnConfiguracoes.Padding = new Padding(10, 0, 0, 0);
+            btnConfiguracoes.Padding = new Padding(3, 0, 0, 0);
             btnConfiguracoes.Size = new Size(251, 69);
             btnConfiguracoes.TabIndex = 4;
             btnConfiguracoes.Text = "                    Configurações";
             btnConfiguracoes.TextAlign = ContentAlignment.MiddleLeft;
             btnConfiguracoes.UseVisualStyleBackColor = false;
+<<<<<<< Updated upstream
+=======
+            btnConfiguracoes.Click += btnConfiguracoes_Click_1;
+>>>>>>> Stashed changes
             // 
             // menuTransitionVendas
             // 
@@ -465,22 +519,49 @@
             MenuTransitionEstoque.Interval = 10;
             MenuTransitionEstoque.Tick += MenuTransitionEstoque_Tick;
             // 
+            // btnHam
+            // 
+            btnHam.Image = (Image)resources.GetObject("btnHam.Image");
+            btnHam.Location = new Point(0, 2);
+            btnHam.Name = "btnHam";
+            btnHam.Size = new Size(40, 23);
+            btnHam.SizeMode = PictureBoxSizeMode.Zoom;
+            btnHam.TabIndex = 5;
+            btnHam.TabStop = false;
+            btnHam.Click += btnHam_Click_1;
+            // 
             // FormBase
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(30, 30, 30);
+<<<<<<< Updated upstream
             ClientSize = new Size(1598, 894);
             Controls.Add(pnlSidebar);
             Controls.Add(panel1);
             Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
             MaximumSize = new Size(1598, 894);
+=======
+            ClientSize = new Size(1483, 803);
+            Controls.Add(btnHam);
+            Controls.Add(pnlSidebar);
+            Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ForeColor = Color.FromArgb(30, 30, 30);
+            FormStyle = FormStyles.ActionBar_None;
+            IsMdiContainer = true;
+            MaximumSize = new Size(1920, 1080);
+>>>>>>> Stashed changes
             MinimumSize = new Size(1198, 671);
             Name = "FormBase";
+            Padding = new Padding(3, 24, 3, 3);
             StartPosition = FormStartPosition.CenterScreen;
+<<<<<<< Updated upstream
             Text = "FormBase";
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnHam).EndInit();
+=======
+            TransparencyKey = Color.Transparent;
+>>>>>>> Stashed changes
             pnlSidebar.ResumeLayout(false);
             pnlHome.ResumeLayout(false);
             vendasContainer.ResumeLayout(false);
@@ -497,6 +578,10 @@
             panel9.ResumeLayout(false);
             configuracoesContainer.ResumeLayout(false);
             panel8.ResumeLayout(false);
+<<<<<<< Updated upstream
+=======
+            ((System.ComponentModel.ISupportInitialize)btnHam).EndInit();
+>>>>>>> Stashed changes
             ResumeLayout(false);
         }
 
@@ -521,10 +606,12 @@
         private Button btnFuncionarios;
         private Panel configuracoesContainer;
         private Button btnConfiguracoes;
+<<<<<<< Updated upstream
         protected Panel panel1;
         protected PictureBox btnHam;
+=======
+>>>>>>> Stashed changes
         protected FlowLayoutPanel pnlSidebar;
-        protected ReaLTaiizor.Controls.NightControlBox nightControlBox1;
         protected Panel panel3;
         protected Panel panel5;
         protected Panel pnlHome;
@@ -535,5 +622,9 @@
         protected Panel panel9;
         protected Panel panel8;
         private System.Windows.Forms.Timer MenuTransitionEstoque;
+<<<<<<< Updated upstream
+=======
+        private PictureBox btnHam;
+>>>>>>> Stashed changes
     }
 }
