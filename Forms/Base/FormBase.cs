@@ -34,6 +34,22 @@ namespace telebip_erp
         public FormBase()
         {
             InitializeComponent();
+
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.EnforceBackcolorOnAllComponents = true;
+
+            // Tema escuro
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+
+            // Esquema de cores (ControlBox, título e borda)
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Color.Black,     // Barra superior (ControlBox / TitleBar)
+                Color.Black,     // Barra inferior
+                Color.Black,     // Bordas/acento
+                Color.Red,       // Destaque (ex: slider, switch, etc.)
+                TextShade.WHITE  // Texto (botões da controlbox)
+                );
+
             mdiProp();
             pnlVendas.Height = 50;
             pnlEstoque.Height = 50;

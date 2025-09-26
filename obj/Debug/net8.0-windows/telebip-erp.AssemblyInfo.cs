@@ -14,7 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("telebip-erp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< Updated upstream:obj/Debug/net8.0-windows/telebip-erp.AssemblyInfo.cs
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+413cac11701811db163819481e2ec8fc222e9c1b")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c60fbe72fabd9a85f04d86e46af537251eddb455")]
+>>>>>>> Stashed changes:telebip-erp/obj/Debug/net8.0-windows/telebip-erp.AssemblyInfo.cs
 [assembly: System.Reflection.AssemblyProductAttribute("telebip-erp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("telebip-erp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
