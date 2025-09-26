@@ -57,13 +57,10 @@
             pnlConfiguracoes = new Panel();
             panel8 = new Panel();
             btnConfiguracoes = new Button();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            flowLayoutPanel2 = new FlowLayoutPanel();
-            pnlSair = new Panel();
-            btnSair = new Button();
             menuTransitionVendas = new System.Windows.Forms.Timer(components);
             sidebarTransition = new System.Windows.Forms.Timer(components);
             MenuTransitionEstoque = new System.Windows.Forms.Timer(components);
+            pnlContainer = new Panel();
             ((System.ComponentModel.ISupportInitialize)btnHam).BeginInit();
             pnlSidebar.SuspendLayout();
             pnlHome.SuspendLayout();
@@ -81,16 +78,13 @@
             panel9.SuspendLayout();
             pnlConfiguracoes.SuspendLayout();
             panel8.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
-            flowLayoutPanel2.SuspendLayout();
-            pnlSair.SuspendLayout();
             SuspendLayout();
             // 
             // btnHam
             // 
             btnHam.BackColor = Color.Transparent;
             btnHam.Image = (Image)resources.GetObject("btnHam.Image");
-            btnHam.Location = new Point(9, 3);
+            btnHam.Location = new Point(13, 3);
             btnHam.Name = "btnHam";
             btnHam.Size = new Size(25, 20);
             btnHam.SizeMode = PictureBoxSizeMode.Zoom;
@@ -107,7 +101,6 @@
             pnlSidebar.Controls.Add(pnlRelatorios);
             pnlSidebar.Controls.Add(pnlFuncionarios);
             pnlSidebar.Controls.Add(pnlConfiguracoes);
-            pnlSidebar.Controls.Add(flowLayoutPanel1);
             pnlSidebar.Dock = DockStyle.Left;
             pnlSidebar.Location = new Point(3, 24);
             pnlSidebar.Name = "pnlSidebar";
@@ -130,9 +123,9 @@
             btnHome.ForeColor = SystemColors.ControlLight;
             btnHome.Image = (Image)resources.GetObject("btnHome.Image");
             btnHome.ImageAlign = ContentAlignment.MiddleLeft;
-            btnHome.Location = new Point(-5, -8);
+            btnHome.Location = new Point(-4, -8);
             btnHome.Name = "btnHome";
-            btnHome.Padding = new Padding(7, 0, 0, 0);
+            btnHome.Padding = new Padding(9, 0, 0, 0);
             btnHome.Size = new Size(287, 63);
             btnHome.TabIndex = 3;
             btnHome.Text = "                    Home";
@@ -169,10 +162,10 @@
             btnVendas.ForeColor = SystemColors.ControlLight;
             btnVendas.Image = (Image)resources.GetObject("btnVendas.Image");
             btnVendas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnVendas.Location = new Point(-5, -4);
+            btnVendas.Location = new Point(-4, -4);
             btnVendas.Margin = new Padding(0);
             btnVendas.Name = "btnVendas";
-            btnVendas.Padding = new Padding(10, 0, 0, 0);
+            btnVendas.Padding = new Padding(9, 0, 0, 0);
             btnVendas.Size = new Size(251, 55);
             btnVendas.TabIndex = 4;
             btnVendas.Text = "                    Vendas";
@@ -260,9 +253,9 @@
             btnEstoque.ForeColor = SystemColors.ControlLight;
             btnEstoque.Image = (Image)resources.GetObject("btnEstoque.Image");
             btnEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEstoque.Location = new Point(-7, -10);
+            btnEstoque.Location = new Point(-4, -10);
             btnEstoque.Name = "btnEstoque";
-            btnEstoque.Padding = new Padding(10, 0, 0, 0);
+            btnEstoque.Padding = new Padding(9, 0, 0, 0);
             btnEstoque.Size = new Size(251, 69);
             btnEstoque.TabIndex = 4;
             btnEstoque.Text = "                    Estoque";
@@ -346,9 +339,9 @@
             btnRelatorios.ForeColor = SystemColors.ControlLight;
             btnRelatorios.Image = (Image)resources.GetObject("btnRelatorios.Image");
             btnRelatorios.ImageAlign = ContentAlignment.MiddleLeft;
-            btnRelatorios.Location = new Point(-7, -11);
+            btnRelatorios.Location = new Point(-4, -11);
             btnRelatorios.Name = "btnRelatorios";
-            btnRelatorios.Padding = new Padding(10, 0, 0, 0);
+            btnRelatorios.Padding = new Padding(9, 0, 0, 0);
             btnRelatorios.Size = new Size(251, 69);
             btnRelatorios.TabIndex = 4;
             btnRelatorios.Text = "                    Relatórios";
@@ -382,9 +375,9 @@
             btnFuncionarios.ForeColor = SystemColors.ControlLight;
             btnFuncionarios.Image = (Image)resources.GetObject("btnFuncionarios.Image");
             btnFuncionarios.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFuncionarios.Location = new Point(-9, -10);
+            btnFuncionarios.Location = new Point(-4, -10);
             btnFuncionarios.Name = "btnFuncionarios";
-            btnFuncionarios.Padding = new Padding(10, 0, 0, 0);
+            btnFuncionarios.Padding = new Padding(9, 0, 0, 0);
             btnFuncionarios.Size = new Size(251, 69);
             btnFuncionarios.TabIndex = 4;
             btnFuncionarios.Text = "                    Funcionários";
@@ -418,62 +411,15 @@
             btnConfiguracoes.ForeColor = SystemColors.ControlLight;
             btnConfiguracoes.Image = (Image)resources.GetObject("btnConfiguracoes.Image");
             btnConfiguracoes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnConfiguracoes.Location = new Point(-8, -10);
+            btnConfiguracoes.Location = new Point(-4, -10);
             btnConfiguracoes.Name = "btnConfiguracoes";
-            btnConfiguracoes.Padding = new Padding(10, 0, 0, 0);
+            btnConfiguracoes.Padding = new Padding(9, 0, 0, 0);
             btnConfiguracoes.Size = new Size(251, 69);
             btnConfiguracoes.TabIndex = 4;
             btnConfiguracoes.Text = "                    Configurações";
             btnConfiguracoes.TextAlign = ContentAlignment.MiddleLeft;
             btnConfiguracoes.UseVisualStyleBackColor = false;
             btnConfiguracoes.Click += btnConfiguracoes_Click_1;
-            // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            flowLayoutPanel1.Controls.Add(flowLayoutPanel2);
-            flowLayoutPanel1.FlowDirection = FlowDirection.BottomUp;
-            flowLayoutPanel1.Location = new Point(3, 586);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(267, 463);
-            flowLayoutPanel1.TabIndex = 12;
-            // 
-            // flowLayoutPanel2
-            // 
-            flowLayoutPanel2.Controls.Add(pnlSair);
-            flowLayoutPanel2.FlowDirection = FlowDirection.BottomUp;
-            flowLayoutPanel2.Location = new Point(3, 413);
-            flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(228, 47);
-            flowLayoutPanel2.TabIndex = 13;
-            // 
-            // pnlSair
-            // 
-            pnlSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            pnlSair.BackColor = Color.FromArgb(23, 24, 29);
-            pnlSair.Controls.Add(btnSair);
-            pnlSair.ForeColor = Color.Transparent;
-            pnlSair.Location = new Point(0, -4);
-            pnlSair.Margin = new Padding(0);
-            pnlSair.Name = "pnlSair";
-            pnlSair.Size = new Size(267, 51);
-            pnlSair.TabIndex = 12;
-            // 
-            // btnSair
-            // 
-            btnSair.BackColor = Color.FromArgb(23, 24, 29);
-            btnSair.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            btnSair.ForeColor = SystemColors.ControlLight;
-            btnSair.Image = (Image)resources.GetObject("btnSair.Image");
-            btnSair.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSair.Location = new Point(-11, -4);
-            btnSair.Name = "btnSair";
-            btnSair.Padding = new Padding(10, 0, 0, 0);
-            btnSair.Size = new Size(251, 69);
-            btnSair.TabIndex = 4;
-            btnSair.Text = "                    Sair";
-            btnSair.TextAlign = ContentAlignment.MiddleLeft;
-            btnSair.UseVisualStyleBackColor = false;
             // 
             // menuTransitionVendas
             // 
@@ -490,11 +436,21 @@
             MenuTransitionEstoque.Interval = 10;
             MenuTransitionEstoque.Tick += MenuTransitionEstoque_Tick;
             // 
+            // pnlContainer
+            // 
+            pnlContainer.BackColor = Color.FromArgb(34, 33, 39);
+            pnlContainer.Dock = DockStyle.Fill;
+            pnlContainer.Location = new Point(280, 24);
+            pnlContainer.Name = "pnlContainer";
+            pnlContainer.Size = new Size(1200, 679);
+            pnlContainer.TabIndex = 3;
+            // 
             // FormBase
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(1483, 706);
+            Controls.Add(pnlContainer);
             Controls.Add(pnlSidebar);
             Controls.Add(btnHam);
             Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -522,9 +478,6 @@
             panel9.ResumeLayout(false);
             pnlConfiguracoes.ResumeLayout(false);
             panel8.ResumeLayout(false);
-            flowLayoutPanel1.ResumeLayout(false);
-            flowLayoutPanel2.ResumeLayout(false);
-            pnlSair.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -561,9 +514,6 @@
         protected Panel panel9;
         protected Panel panel8;
         private System.Windows.Forms.Timer MenuTransitionEstoque;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Panel pnlSair;
-        private Button btnSair;
-        private FlowLayoutPanel flowLayoutPanel2;
+        private Panel pnlContainer;
     }
 }

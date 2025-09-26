@@ -28,53 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
+            pnlTop = new Panel();
+            pnlDgv = new Panel();
             dgvVendas = new DataGridView();
-            panel1 = new Panel();
+            pnlDgv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvVendas).BeginInit();
-            panel1.SuspendLayout();
             SuspendLayout();
+            // 
+            // pnlTop
+            // 
+            pnlTop.Dock = DockStyle.Top;
+            pnlTop.Location = new Point(0, 0);
+            pnlTop.Name = "pnlTop";
+            pnlTop.Size = new Size(1512, 81);
+            pnlTop.TabIndex = 3;
+            // 
+            // pnlDgv
+            // 
+            pnlDgv.Controls.Add(dgvVendas);
+            pnlDgv.Dock = DockStyle.Fill;
+            pnlDgv.Location = new Point(0, 81);
+            pnlDgv.Name = "pnlDgv";
+            pnlDgv.Padding = new Padding(0, 12, 12, 12);
+            pnlDgv.Size = new Size(1512, 655);
+            pnlDgv.TabIndex = 4;
             // 
             // dgvVendas
             // 
             dgvVendas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvVendas.Dock = DockStyle.Fill;
-            dgvVendas.Location = new Point(0, 0);
-            dgvVendas.Margin = new Padding(4, 5, 4, 5);
+            dgvVendas.Location = new Point(0, 12);
             dgvVendas.Name = "dgvVendas";
             dgvVendas.RowHeadersWidth = 62;
-            dgvVendas.Size = new Size(1119, 663);
+            dgvVendas.Size = new Size(1500, 631);
             dgvVendas.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(dgvVendas);
-            panel1.Location = new Point(12, 61);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1119, 663);
-            panel1.TabIndex = 1;
             // 
             // FormVendas
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 24, 29);
-            ClientSize = new Size(1143, 750);
+            ClientSize = new Size(1512, 736);
             ControlBox = false;
-            Controls.Add(panel1);
+            Controls.Add(pnlDgv);
+            Controls.Add(pnlTop);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormVendas";
             Text = "FormVendas";
+            pnlDgv.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvVendas).EndInit();
-            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
+        private Panel pnlTop;
+        private Panel pnlDgv;
         private DataGridView dgvVendas;
-        private Panel panel1;
     }
 }

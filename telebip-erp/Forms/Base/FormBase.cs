@@ -1,13 +1,13 @@
 using System;
 using System.Drawing;
-using System.Windows.Forms;
-using telebip_erp.Forms.Main;
-using telebip_erp.Forms.Modules;
 using System.Linq;
-using telebip_erp.Forms.Base;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using telebip_erp.Forms.Base;
+using telebip_erp.Forms.Main;
+using telebip_erp.Forms.Modules;
 
 namespace telebip_erp
 {
@@ -20,48 +20,61 @@ namespace telebip_erp
         FormRelatorios? relatorios = null;
         FormFuncionarios? funcionarios = null;
         FormConfiguracoes? configuracoes = null;
+
         bool menuExpandVendas = false;
         bool menuExpandEstoque = false;
         bool sidebarExpand = false;
-
-        // ========== ARRASTAR JANELA ==========
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-        private const int WM_NCLBUTTONDOWN = 0xA1;
-        private const int HT_CAPTION = 0x2;
 
         // ========== CONSTRUTOR ==========
         public FormBase()
         {
             InitializeComponent();
+
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.EnforceBackcolorOnAllComponents = true;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Color.Black,
+                Color.Black,
+                Color.Black,
+                Color.Red,
+                TextShade.WHITE
+            );
+
             mdiProp();
+
+            pnlSidebar.Width = 47;
             pnlVendas.Height = 50;
             pnlEstoque.Height = 50;
         }
 
-        // ========== MDI E ESTILO ==========
+        // ========== ESTILO ==========
         private void mdiProp()
         {
             this.SetBevel(false);
             Controls.OfType<MdiClient>().FirstOrDefault().BackColor = Color.FromArgb(232, 234, 237);
         }
 
-        // ========== ARRASTAR JANELA ==========
-        private void pnlControlBox_MouseDown(object sender, MouseEventArgs e)
+        // ========== MÉTODO BASE PARA ABRIR FORMULÁRIOS ==========
+        private void AbrirFormNoPanel(Form form)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
+            // Limpa o panel antes de adicionar novo form
+            pnlContainer.Controls.Clear();
+
+            // Configura o form para abrir dentro do panel
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+
+            // Adiciona o form ao panel e mostra
+            pnlContainer.Controls.Add(form);
+            form.Show();
         }
 
-        // ========== EVENTOS DA SIDEBAR ==========
+        // ========== EVENTOS DE TRANSIÇÃO ==========
         private void menuTransitionVendas_Tick(object sender, EventArgs e)
         {
-            if (menuExpandVendas == false)
+            if (!menuExpandVendas)
             {
                 pnlVendas.Height += 10;
                 if (pnlVendas.Height >= 150)
@@ -81,94 +94,9 @@ namespace telebip_erp
             }
         }
 
-        private void btnVendas_Click(object sender, EventArgs e)
-        {
-            // Só expande o dropdown se a sidebar estiver expandida
-            if (sidebarExpand)
-            {
-                menuTransitionVendas.Start();
-            }
-
-            // Sempre abre o formulário, independente do estado da sidebar
-            if (vendas == null)
-            {
-                vendas = new FormVendas();
-                vendas.FormClosed += Vendas_FormClosed;
-                vendas.MdiParent = this;
-                vendas.Dock = DockStyle.Fill;
-                vendas.Show();
-            }
-            else
-            {
-                vendas.Activate();
-            }
-        }
-
-        private void Vendas_FormClosed(object? sender, FormClosedEventArgs e)
-        {
-            vendas = null;
-        }
-
-        private void sidebarTransition_Tick(object sender, EventArgs e)
-        {
-            if (sidebarExpand)
-            {
-                pnlSidebar.Width -= 10;
-                if (pnlSidebar.Width <= 46)
-                {
-                    sidebarExpand = false;
-                    sidebarTransition.Stop();
-                }
-            }
-            else
-            {
-                pnlSidebar.Width += 10;
-                if (pnlSidebar.Width >= 260)
-                {
-                    sidebarExpand = true;
-                    sidebarTransition.Stop();
-                }
-            }
-        }
-
-        private void btnHam_Click(object sender, EventArgs e)
-        {
-            // Se a sidebar está expandida, fecha os dropdowns antes de recolher
-            if (sidebarExpand)
-            {
-                if (menuExpandVendas) menuTransitionVendas.Start();
-                if (menuExpandEstoque) MenuTransitionEstoque.Start();
-            }
-
-            // Recolhe/expande a sidebar normalmente
-            sidebarTransition.Start();
-        }
-
-        private void btnEstoque_Click(object sender, EventArgs e)
-        {
-            // Só expande o dropdown se a sidebar estiver expandida
-            if (sidebarExpand)
-            {
-                MenuTransitionEstoque.Start();
-            }
-
-            if (estoque == null)
-            {
-                estoque = new FormEstoque();
-                estoque.FormClosed += Estoque_FormClosed;
-                estoque.MdiParent = this;
-                estoque.Dock = DockStyle.Fill;
-                estoque.Show();
-            }
-            else
-            {
-                estoque.Activate();
-            }
-        }
-
         private void MenuTransitionEstoque_Tick(object sender, EventArgs e)
         {
-            if (menuExpandEstoque == false)
+            if (!menuExpandEstoque)
             {
                 pnlEstoque.Height += 10;
                 if (pnlEstoque.Height >= 150)
@@ -188,81 +116,210 @@ namespace telebip_erp
             }
         }
 
-        // ========== NAVEGAÇÃO ==========
-        private void btnHome_Click(object sender, EventArgs e)
+        private void sidebarTransition_Tick(object sender, EventArgs e)
         {
-            if (inicial == null)
+            if (sidebarExpand)
             {
-                inicial = new FormInicial();
-                inicial.FormClosed += Inicial_FormClosed;
-                inicial.MdiParent = this;
-                inicial.WindowState = FormWindowState.Maximized;
-                inicial.Dock = DockStyle.Fill;
-                inicial.Show();
+                pnlSidebar.Width -= 10;
+                if (pnlSidebar.Width <= 47)
+                {
+                    sidebarExpand = false;
+                    sidebarTransition.Stop();
+                }
             }
             else
             {
-                inicial.Activate();
+                pnlSidebar.Width += 10;
+                if (pnlSidebar.Width >= 260)
+                {
+                    sidebarExpand = true;
+                    sidebarTransition.Stop();
+                }
+            }
+        }
+
+        // ========== EVENTOS DOS BOTÕES - INDIVIDUAL PARA CADA UM ==========
+        private void btnHam_Click(object sender, EventArgs e)
+        {
+            if (sidebarExpand)
+            {
+                if (menuExpandVendas) menuTransitionVendas.Start();
+                if (menuExpandEstoque) MenuTransitionEstoque.Start();
+            }
+            sidebarTransition.Start();
+        }
+
+        private void btnVendas_Click(object sender, EventArgs e)
+        {
+            // Expande menu se sidebar estiver expandida
+            if (sidebarExpand)
+                menuTransitionVendas.Start();
+
+            // Lógica individual para Vendas
+            if (vendas == null || vendas.IsDisposed)
+            {
+                vendas = new FormVendas();
+                vendas.FormClosed += (s, e) => { vendas = null; };
+                AbrirFormNoPanel(vendas);
+            }
+            else
+            {
+                // Se o form já existe, traz para frente
+                if (!pnlContainer.Controls.Contains(vendas))
+                {
+                    AbrirFormNoPanel(vendas);
+                }
+                else
+                {
+                    vendas.BringToFront();
+                }
+            }
+        }
+
+        private void btnEstoque_Click(object sender, EventArgs e)
+        {
+            // Expande menu se sidebar estiver expandida
+            if (sidebarExpand)
+                MenuTransitionEstoque.Start();
+
+            // Lógica individual para Estoque
+            if (estoque == null || estoque.IsDisposed)
+            {
+                estoque = new FormEstoque();
+                estoque.FormClosed += (s, e) => { estoque = null; };
+                AbrirFormNoPanel(estoque);
+            }
+            else
+            {
+                if (!pnlContainer.Controls.Contains(estoque))
+                {
+                    AbrirFormNoPanel(estoque);
+                }
+                else
+                {
+                    estoque.BringToFront();
+                }
+            }
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            // Lógica individual para Home
+            if (inicial == null || inicial.IsDisposed)
+            {
+                inicial = new FormInicial();
+                inicial.FormClosed += (s, e) => { inicial = null; };
+                AbrirFormNoPanel(inicial);
+            }
+            else
+            {
+                if (!pnlContainer.Controls.Contains(inicial))
+                {
+                    AbrirFormNoPanel(inicial);
+                }
+                else
+                {
+                    inicial.BringToFront();
+                }
             }
         }
 
         private void btnRelatorios_Click(object sender, EventArgs e)
         {
-            if (relatorios == null)
+            // Lógica individual para Relatórios
+            if (relatorios == null || relatorios.IsDisposed)
             {
                 relatorios = new FormRelatorios();
-                relatorios.FormClosed += Relatorios_FormClosed;
-                relatorios.MdiParent = this;
-                relatorios.Dock = DockStyle.Fill;
-                relatorios.Show();
+                relatorios.FormClosed += (s, e) => { relatorios = null; };
+                AbrirFormNoPanel(relatorios);
             }
             else
             {
-                relatorios.Activate();
+                if (!pnlContainer.Controls.Contains(relatorios))
+                {
+                    AbrirFormNoPanel(relatorios);
+                }
+                else
+                {
+                    relatorios.BringToFront();
+                }
             }
         }
 
         private void btnFuncionarios_Click(object sender, EventArgs e)
         {
-            if (funcionarios == null)
+            // Lógica individual para Funcionários
+            if (funcionarios == null || funcionarios.IsDisposed)
             {
                 funcionarios = new FormFuncionarios();
-                funcionarios.FormClosed += Funcionarios_FormClosed;
-                funcionarios.MdiParent = this;
-                funcionarios.Dock = DockStyle.Fill;
-                funcionarios.Show();
+                funcionarios.FormClosed += (s, e) => { funcionarios = null; };
+                AbrirFormNoPanel(funcionarios);
             }
             else
             {
-                funcionarios.Activate();
+                if (!pnlContainer.Controls.Contains(funcionarios))
+                {
+                    AbrirFormNoPanel(funcionarios);
+                }
+                else
+                {
+                    funcionarios.BringToFront();
+                }
             }
         }
 
         private void btnConfiguracoes_Click(object sender, EventArgs e)
         {
-            if (configuracoes == null)
+            // Lógica individual para Configurações
+            if (configuracoes == null || configuracoes.IsDisposed)
             {
                 configuracoes = new FormConfiguracoes();
-                configuracoes.FormClosed += Configuracoes_FormClosed;
-                configuracoes.MdiParent = this;
-                configuracoes.Dock = DockStyle.Fill;
-                configuracoes.Show();
+                configuracoes.FormClosed += (s, e) => { configuracoes = null; };
+                AbrirFormNoPanel(configuracoes);
             }
             else
             {
-                configuracoes.Activate();
+                if (!pnlContainer.Controls.Contains(configuracoes))
+                {
+                    AbrirFormNoPanel(configuracoes);
+                }
+                else
+                {
+                    configuracoes.BringToFront();
+                }
             }
         }
 
-        // ========== EVENTOS FORM CLOSED ==========
-        private void Inicial_FormClosed(object? sender, FormClosedEventArgs e)
+        // ========== MÉTODOS PARA BOTÕES DUPLICADOS ==========
+        private void btnRelatorios_Click_1(object sender, EventArgs e)
         {
-            inicial = null;
+            btnRelatorios_Click(sender, e);
+        }
+
+        private void btnFuncionarios_Click_1(object sender, EventArgs e)
+        {
+            btnFuncionarios_Click(sender, e);
+        }
+
+        private void btnConfiguracoes_Click_1(object sender, EventArgs e)
+        {
+            btnConfiguracoes_Click(sender, e);
+        }
+
+        // ========== EVENTOS FORM CLOSED ==========
+        private void Vendas_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            vendas = null;
         }
 
         private void Estoque_FormClosed(object? sender, FormClosedEventArgs e)
         {
             estoque = null;
+        }
+
+        private void Inicial_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            inicial = null;
         }
 
         private void Relatorios_FormClosed(object? sender, FormClosedEventArgs e)
@@ -278,55 +335,6 @@ namespace telebip_erp
         private void Configuracoes_FormClosed(object? sender, FormClosedEventArgs e)
         {
             configuracoes = null;
-        }
-
-        private void btnRelatorios_Click_1(object sender, EventArgs e)
-        {
-            if (relatorios == null)
-            {
-                relatorios = new FormRelatorios();
-                relatorios.FormClosed += Relatorios_FormClosed;
-                relatorios.MdiParent = this;
-                relatorios.Dock = DockStyle.Fill;
-                relatorios.Show();
-            }
-            else
-            {
-                relatorios.Activate();
-            }
-        }
-
-        private void btnConfiguracoes_Click_1(object sender, EventArgs e)
-        {
-            if (configuracoes == null)
-            {
-                configuracoes = new FormConfiguracoes();
-                configuracoes.FormClosed += Configuracoes_FormClosed;
-                configuracoes.MdiParent = this;
-                configuracoes.Dock = DockStyle.Fill;
-                configuracoes.Show();
-            }
-            else
-            {
-                configuracoes.Activate();
-            }
-        }
-
-        private void btnFuncionarios_Click_1(object sender, EventArgs e)
-        {
-            if (funcionarios == null)
-            {
-                funcionarios = new FormFuncionarios();
-                funcionarios.FormClosed += Funcionarios_FormClosed;
-                funcionarios.MdiParent = this;
-                funcionarios.Dock = DockStyle.Fill;
-                funcionarios.Show();
-            }
-            else
-            {
-                funcionarios.Activate();
-            }
-
         }
     }
 }
