@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 
@@ -16,34 +11,91 @@ namespace telebip_erp.Forms.Modules
         public FormVendas()
         {
             InitializeComponent();
-            CarregarFuncionarios();
-            this.FormBorderStyle = FormBorderStyle.None; // Remove completamente a borda
+            ConfigurarComboboxes();
+
+            this.FormBorderStyle = FormBorderStyle.None;
             this.ControlBox = false;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Text = ""; // Remove o texto da barra de título
+            this.Text = "";
+
+            // Evento do botão pesquisar
+            btnPesquisar.Click += BtnPesquisar_Click;
         }
-        private void CarregarFuncionarios()
+
+        // Configura as ComboBoxes
+        private void ConfigurarComboboxes()
+        {
+            cbPesquisaCampo.SelectedIndex = 0;
+            cbCondicao.SelectedIndex = 0;
+        }
+
+        // Carrega os dados no DataGridView usando filtro opcional
+        private void CarregarFuncionarios(string filtroSql = "", SQLiteParameter[]? parametros = null)
         {
             try
             {
-                // SQL para selecionar todos os dados da tabela FUNCIONARIO
-                string sql = "SELECT * FROM FUNCIONARIO";
+                if (string.IsNullOrEmpty(filtroSql))
+                {
+                    dgvVendas.DataSource = null;
+                    return;
+                }
 
-                // Chama o DatabaseHelper para executar o SELECT
-                DataTable dt = DatabaseHelper.ExecuteQuery(sql);
+                string sql = "SELECT * FROM VENDA WHERE " + filtroSql;
 
-                // Passa o DataTable para o DataGridView
+                DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
+
                 dgvVendas.DataSource = dt;
-
-                // Ajusta as colunas automaticamente
                 dgvVendas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao carregar funcionários: " + ex.Message);
+                MessageBox.Show("Erro ao carregar vendas: " + ex.Message);
             }
         }
 
+        // Evento do botão pesquisar
+        private void BtnPesquisar_Click(object? sender, EventArgs e)
+        {
+            string campo = cbPesquisaCampo.SelectedItem.ToString();
+            string condicao = cbCondicao.SelectedItem.ToString();
+            string valor = tbPesquisa.Text.ToUpper();
+
+            string filtroSql = "";
+            SQLiteParameter[] parametros;
+
+            switch (condicao)
+            {
+                case "Inicia com":
+                    filtroSql = $"UPPER({campo}) LIKE @valor";
+                    parametros = new SQLiteParameter[]
+                    {
+                        new SQLiteParameter("@valor", valor + "%")
+                    };
+                    break;
+
+                case "Contendo":
+                    filtroSql = $"UPPER({campo}) LIKE @valor";
+                    parametros = new SQLiteParameter[]
+                    {
+                        new SQLiteParameter("@valor", "%" + valor + "%")
+                    };
+                    break;
+
+                case "Diferente de":
+                    filtroSql = $"UPPER({campo}) <> @valor";
+                    parametros = new SQLiteParameter[]
+                    {
+                        new SQLiteParameter("@valor", valor)
+                    };
+                    break;
+
+                default:
+                    MessageBox.Show("Condição de pesquisa inválida.");
+                    return;
+            }
+
+            CarregarFuncionarios(filtroSql, parametros);
+        }
     }
 }
