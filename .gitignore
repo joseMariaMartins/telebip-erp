@@ -1,29 +1,39 @@
-# Visual Studio
 .vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
 
 bin/
 obj/
 Debug/
 Release/
-[Bb]uild/
 
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vsidx
+*.v2
+*.db
 
 *.cache
 *.pdb
-*.db
 *.log
+*.tlog
 
+*.exe
+*.dll
 
 publish/
 *.Publish.xml
+
+
+*.nupkg
+*.nuget.props
+*.nuget.targets
+project.assets.json
+project.nuget.cache
+
 
 Thumbs.db
 *.DS_Store
 
 
-*.exe
-*.dll
+*.backup.json
