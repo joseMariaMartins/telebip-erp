@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\",
+  "WorkspaceRootPath": "C:\\Users\\LabInfo\\source\\repos\\telebip-erp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|c:\\users\\azs90\\onedrive\\documentos\\telebip-erp\\telebip-erp\\forms\\base\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|solutionrelative:telebip-erp\\forms\\base\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\forms\\base\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|solutionrelative:telebip-erp\\forms\\base\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\forms\\modules\\formvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|C:\\Users\\LabInfo\\source\\repos\\telebip-erp\\telebip-erp\\forms\\modules\\formvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|solutionrelative:telebip-erp\\forms\\modules\\formvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|c:\\users\\azs90\\onedrive\\documentos\\telebip-erp\\telebip-erp\\forms\\base\\formbase.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|c:\\users\\labinfo\\source\\repos\\telebip-erp\\telebip-erp\\forms\\base\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|solutionrelative:telebip-erp\\forms\\base\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|C:\\Users\\LabInfo\\source\\repos\\telebip-erp\\telebip-erp\\forms\\base\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|solutionrelative:telebip-erp\\forms\\base\\formbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|c:\\users\\labinfo\\source\\repos\\telebip-erp\\telebip-erp\\forms\\base\\formbase.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{802E031A-51C4-4F16-BA3A-91D09B726CA1}|telebip-erp\\telebip-erp.csproj|solutionrelative:telebip-erp\\forms\\base\\formbase.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,30 +26,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FormBase.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.cs",
+              "DocumentIndex": 2,
+              "Title": "FormBase.cs [Projeto]",
+              "DocumentMoniker": "C:\\Users\\LabInfo\\source\\repos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.cs",
               "RelativeDocumentMoniker": "telebip-erp\\Forms\\Base\\FormBase.cs",
-              "ToolTip": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.cs [Design]",
-              "RelativeToolTip": "telebip-erp\\Forms\\Base\\FormBase.cs [Design]",
+              "ToolTip": "C:\\Users\\LabInfo\\source\\repos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.cs [Projeto]",
+              "RelativeToolTip": "telebip-erp\\Forms\\Base\\FormBase.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-26T03:07:13.013Z",
               "IsPinned": true,
-              "EditorCaption": " [Design]"
+              "EditorCaption": " [Projeto]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "FormBase.cs",
-              "DocumentMoniker": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.cs",
+              "DocumentMoniker": "C:\\Users\\LabInfo\\source\\repos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.cs",
               "RelativeDocumentMoniker": "telebip-erp\\Forms\\Base\\FormBase.cs",
-              "ToolTip": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.cs",
+              "ToolTip": "C:\\Users\\LabInfo\\source\\repos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.cs",
               "RelativeToolTip": "telebip-erp\\Forms\\Base\\FormBase.cs",
-              "ViewState": "AgIAAD4BAAAAAAAAAAAiwMAAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAswH8AAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-24T22:24:53.306Z",
               "IsPinned": true,
@@ -59,14 +59,15 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "FormBase.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\LabInfo\\source\\repos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.Designer.cs",
               "RelativeDocumentMoniker": "telebip-erp\\Forms\\Base\\FormBase.Designer.cs",
-              "ToolTip": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.Designer.cs",
+              "ToolTip": "C:\\Users\\LabInfo\\source\\repos\\telebip-erp\\telebip-erp\\Forms\\Base\\FormBase.Designer.cs",
               "RelativeToolTip": "telebip-erp\\Forms\\Base\\FormBase.Designer.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAuwEgAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAuwBYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-24T22:24:54.571Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -82,14 +83,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "FormVendas.cs [Projeto]",
-              "DocumentMoniker": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\Forms\\Modules\\FormVendas.cs",
+              "DocumentMoniker": "C:\\Users\\LabInfo\\source\\repos\\telebip-erp\\telebip-erp\\Forms\\Modules\\FormVendas.cs",
               "RelativeDocumentMoniker": "telebip-erp\\Forms\\Modules\\FormVendas.cs",
-              "ToolTip": "C:\\Users\\azs90\\OneDrive\\Documentos\\telebip-erp\\telebip-erp\\Forms\\Modules\\FormVendas.cs [Projeto]",
+              "ToolTip": "C:\\Users\\LabInfo\\source\\repos\\telebip-erp\\telebip-erp\\Forms\\Modules\\FormVendas.cs [Projeto]",
               "RelativeToolTip": "telebip-erp\\Forms\\Modules\\FormVendas.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-26T18:52:34.045Z"
+              "WhenOpened": "2025-09-26T18:52:34.045Z",
+              "EditorCaption": " [Projeto]"
             }
           ]
         }

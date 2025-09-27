@@ -41,7 +41,7 @@ namespace telebip_erp
                 TextShade.WHITE
             );
 
-            mdiProp();
+            
 
             pnlSidebar.Width = 47;
             pnlVendas.Height = 50;
@@ -49,11 +49,7 @@ namespace telebip_erp
         }
 
         // ========== ESTILO ==========
-        private void mdiProp()
-        {
-            this.SetBevel(false);
-            Controls.OfType<MdiClient>().FirstOrDefault().BackColor = Color.FromArgb(232, 234, 237);
-        }
+
 
         // ========== MÉTODO BASE PARA ABRIR FORMULÁRIOS ==========
         private void AbrirFormNoPanel(Form form)
@@ -120,7 +116,7 @@ namespace telebip_erp
         {
             if (sidebarExpand)
             {
-                pnlSidebar.Width -= 10;
+                pnlSidebar.Width -= 15;
                 if (pnlSidebar.Width <= 47)
                 {
                     sidebarExpand = false;
@@ -129,7 +125,7 @@ namespace telebip_erp
             }
             else
             {
-                pnlSidebar.Width += 10;
+                pnlSidebar.Width += 15;
                 if (pnlSidebar.Width >= 260)
                 {
                     sidebarExpand = true;

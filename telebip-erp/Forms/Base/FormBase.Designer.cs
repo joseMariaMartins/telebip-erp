@@ -166,7 +166,7 @@
             btnVendas.Margin = new Padding(0);
             btnVendas.Name = "btnVendas";
             btnVendas.Padding = new Padding(9, 0, 0, 0);
-            btnVendas.Size = new Size(251, 55);
+            btnVendas.Size = new Size(405, 55);
             btnVendas.TabIndex = 4;
             btnVendas.Text = "                    Vendas";
             btnVendas.TextAlign = ContentAlignment.MiddleLeft;
@@ -193,7 +193,7 @@
             rmvVenda.Margin = new Padding(0);
             rmvVenda.Name = "rmvVenda";
             rmvVenda.Padding = new Padding(13, 0, 0, 0);
-            rmvVenda.Size = new Size(274, 58);
+            rmvVenda.Size = new Size(402, 58);
             rmvVenda.TabIndex = 4;
             rmvVenda.Text = "                    Remover";
             rmvVenda.TextAlign = ContentAlignment.MiddleLeft;
@@ -219,7 +219,7 @@
             addVenda.Margin = new Padding(0);
             addVenda.Name = "addVenda";
             addVenda.Padding = new Padding(13, 0, 0, 0);
-            addVenda.Size = new Size(274, 62);
+            addVenda.Size = new Size(402, 62);
             addVenda.TabIndex = 3;
             addVenda.Text = "                    Adicionar";
             addVenda.TextAlign = ContentAlignment.MiddleLeft;
@@ -256,7 +256,7 @@
             btnEstoque.Location = new Point(-4, -10);
             btnEstoque.Name = "btnEstoque";
             btnEstoque.Padding = new Padding(9, 0, 0, 0);
-            btnEstoque.Size = new Size(251, 69);
+            btnEstoque.Size = new Size(405, 69);
             btnEstoque.TabIndex = 4;
             btnEstoque.Text = "                    Estoque";
             btnEstoque.TextAlign = ContentAlignment.MiddleLeft;
@@ -282,7 +282,7 @@
             rmvEstoque.Location = new Point(0, -7);
             rmvEstoque.Name = "rmvEstoque";
             rmvEstoque.Padding = new Padding(13, 0, 0, 0);
-            rmvEstoque.Size = new Size(271, 62);
+            rmvEstoque.Size = new Size(402, 62);
             rmvEstoque.TabIndex = 4;
             rmvEstoque.Text = "                    Remover";
             rmvEstoque.TextAlign = ContentAlignment.MiddleLeft;
@@ -307,7 +307,7 @@
             addEstoque.Location = new Point(0, -11);
             addEstoque.Name = "addEstoque";
             addEstoque.Padding = new Padding(13, 0, 0, 0);
-            addEstoque.Size = new Size(271, 69);
+            addEstoque.Size = new Size(402, 69);
             addEstoque.TabIndex = 3;
             addEstoque.Text = "                    Adicionar";
             addEstoque.TextAlign = ContentAlignment.MiddleLeft;
@@ -342,7 +342,7 @@
             btnRelatorios.Location = new Point(-4, -11);
             btnRelatorios.Name = "btnRelatorios";
             btnRelatorios.Padding = new Padding(9, 0, 0, 0);
-            btnRelatorios.Size = new Size(251, 69);
+            btnRelatorios.Size = new Size(405, 69);
             btnRelatorios.TabIndex = 4;
             btnRelatorios.Text = "                    Relatórios";
             btnRelatorios.TextAlign = ContentAlignment.MiddleLeft;
@@ -378,7 +378,7 @@
             btnFuncionarios.Location = new Point(-4, -10);
             btnFuncionarios.Name = "btnFuncionarios";
             btnFuncionarios.Padding = new Padding(9, 0, 0, 0);
-            btnFuncionarios.Size = new Size(251, 69);
+            btnFuncionarios.Size = new Size(405, 69);
             btnFuncionarios.TabIndex = 4;
             btnFuncionarios.Text = "                    Funcionários";
             btnFuncionarios.TextAlign = ContentAlignment.MiddleLeft;
@@ -414,7 +414,7 @@
             btnConfiguracoes.Location = new Point(-4, -10);
             btnConfiguracoes.Name = "btnConfiguracoes";
             btnConfiguracoes.Padding = new Padding(9, 0, 0, 0);
-            btnConfiguracoes.Size = new Size(251, 69);
+            btnConfiguracoes.Size = new Size(405, 69);
             btnConfiguracoes.TabIndex = 4;
             btnConfiguracoes.Text = "                    Configurações";
             btnConfiguracoes.TextAlign = ContentAlignment.MiddleLeft;
@@ -428,7 +428,7 @@
             // 
             // sidebarTransition
             // 
-            sidebarTransition.Interval = 10;
+            sidebarTransition.Interval = 5;
             sidebarTransition.Tick += sidebarTransition_Tick;
             // 
             // MenuTransitionEstoque
@@ -438,7 +438,7 @@
             // 
             // pnlContainer
             // 
-            pnlContainer.BackColor = Color.FromArgb(34, 33, 39);
+            pnlContainer.BackColor = Color.FromArgb(34, 35, 49);
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(280, 24);
             pnlContainer.Name = "pnlContainer";
