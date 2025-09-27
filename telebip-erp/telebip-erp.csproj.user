@@ -10,19 +10,31 @@
     <Compile Update="Forms\Main\FormInicial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\Modules\FormConfiguracoes.cs">
+    <Compile Update="Forms\Main\FormConfiguracoes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\Modules\FormEstoque.cs">
+    <Compile Update="Forms\Main\FormEstoque.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\Modules\FormFuncionarios.cs">
+    <Compile Update="Forms\Main\FormFuncionarios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\Modules\FormRelatorios.cs">
+    <Compile Update="Forms\Main\FormRelatorios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\Modules\FormVendas.cs">
+    <Compile Update="Forms\Main\FormVendas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SubForms\FormAddEstoque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SubForms\FormAddVendas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SubForms\FormRmvEstoque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SubForms\FormRmvVendas.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

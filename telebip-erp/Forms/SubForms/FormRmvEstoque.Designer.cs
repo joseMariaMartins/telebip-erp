@@ -1,6 +1,6 @@
-﻿namespace telebip_erp.Forms.Modules
+﻿namespace telebip_erp.Forms.SubForms
 {
-    partial class FormEstoque
+    partial class FormRmvEstoque
     {
         /// <summary>
         /// Required designer variable.
@@ -28,39 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
             SuspendLayout();
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Black", 26F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(591, 260);
-            label1.Name = "label1";
-            label1.Size = new Size(269, 70);
-            label1.TabIndex = 0;
-            label1.Text = "ESTOQUE";
-            // 
-            // FormEstoque
+            // FormRmvEstoque
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(23, 24, 29);
-            ClientSize = new Size(1205, 645);
-            ControlBox = false;
-            Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.None;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "FormEstoque";
-            Text = "FormEstoque";
+            ClientSize = new Size(800, 450);
+            FormStyle = FormStyles.ActionBar_None;
+            Name = "FormRmvEstoque";
+            Padding = new Padding(3, 24, 3, 3);
+            Text = "FormRmvEstoque";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
     }
 }

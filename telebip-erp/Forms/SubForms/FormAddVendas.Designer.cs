@@ -1,6 +1,6 @@
-﻿namespace telebip_erp.Forms.Modules
+﻿namespace telebip_erp.Forms.SubForms
 {
-    partial class FormFuncionarios
+    partial class FormAddVendas
     {
         /// <summary>
         /// Required designer variable.
@@ -28,39 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
             SuspendLayout();
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 22F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(624, 244);
-            label1.Name = "label1";
-            label1.Size = new Size(264, 60);
-            label1.TabIndex = 0;
-            label1.Text = "funcionarios";
-            // 
-            // FormFuncionarios
+            // FormAddVendas
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(23, 24, 29);
-            ClientSize = new Size(1359, 724);
-            ControlBox = false;
-            Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.None;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "FormFuncionarios";
-            Text = "FormFuncionarios";
+            BackColor = Color.FromArgb(24, 23, 29);
+            ClientSize = new Size(800, 450);
+            ForeColor = Color.FromArgb(24, 23, 29);
+            FormStyle = FormStyles.ActionBar_None;
+            Name = "FormAddVendas";
+            Padding = new Padding(3, 24, 3, 3);
+            Text = "FormAddVendas";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
     }
 }

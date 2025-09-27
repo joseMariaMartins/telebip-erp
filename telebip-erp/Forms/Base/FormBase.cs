@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
-using telebip_erp.Forms.Base;
 using telebip_erp.Forms.Main;
 using telebip_erp.Forms.Modules;
 
@@ -30,18 +29,7 @@ namespace telebip_erp
         {
             InitializeComponent();
 
-            var materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.EnforceBackcolorOnAllComponents = true;
-            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            materialSkinManager.ColorScheme = new ColorScheme(
-                Color.Black,
-                Color.Black,
-                Color.Black,
-                Color.Red,
-                TextShade.WHITE
-            );
-
-            
+            ThemeManager.ApplyDarkTheme();
 
             pnlSidebar.Width = 47;
             pnlVendas.Height = 50;

@@ -120,3 +120,7 @@ C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\bin\Debug\net8.0-wind
 C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip-erp.sourcelink.json
 C:\Users\azs90\OneDrive\Documentos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\MaterialSkin.dll
 C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\bin\Debug\net8.0-windows\MaterialSkin.dll
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.SubForms.FormAddEstoque.resources
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.SubForms.FormAddVendas.resources
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.SubForms.FormRmvEstoque.resources
+C:\Users\LabInfo\Source\Repos\telebip-erp\telebip-erp\obj\Debug\net8.0-windows\telebip_erp.Forms.SubForms.FormRmvVendas.resources

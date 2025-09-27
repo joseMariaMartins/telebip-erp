@@ -42,7 +42,7 @@
             pnlTop.Location = new Point(0, 0);
             pnlTop.Margin = new Padding(4, 5, 4, 5);
             pnlTop.Name = "pnlTop";
-            pnlTop.Size = new Size(1946, 135);
+            pnlTop.Size = new Size(1600, 135);
             pnlTop.TabIndex = 3;
             // 
             // pnlDgv
@@ -54,7 +54,7 @@
             pnlDgv.Margin = new Padding(4, 5, 4, 5);
             pnlDgv.Name = "pnlDgv";
             pnlDgv.Padding = new Padding(15);
-            pnlDgv.Size = new Size(1946, 971);
+            pnlDgv.Size = new Size(1600, 765);
             pnlDgv.TabIndex = 4;
             // 
             // dgvVendas
@@ -65,7 +65,7 @@
             dgvVendas.Margin = new Padding(4, 5, 4, 5);
             dgvVendas.Name = "dgvVendas";
             dgvVendas.RowHeadersWidth = 62;
-            dgvVendas.Size = new Size(1916, 941);
+            dgvVendas.Size = new Size(1570, 735);
             dgvVendas.TabIndex = 0;
             // 
             // FormVendas
@@ -73,7 +73,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(34, 35, 49);
-            ClientSize = new Size(1946, 1106);
+            ClientSize = new Size(1600, 900);
             ControlBox = false;
             Controls.Add(pnlDgv);
             Controls.Add(pnlTop);

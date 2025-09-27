@@ -1,6 +1,6 @@
 ﻿namespace telebip_erp.Forms.Modules
 {
-    partial class FormRelatorios
+    partial class FormConfiguracoes
     {
         /// <summary>
         /// Required designer variable.
@@ -28,39 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            flpTop = new FlowLayoutPanel();
+            pnlDgv = new Panel();
             SuspendLayout();
             // 
-            // label1
+            // flpTop
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 22F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(577, 248);
-            label1.Name = "label1";
-            label1.Size = new Size(235, 60);
-            label1.TabIndex = 0;
-            label1.Text = "Relatorios";
+            flpTop.Dock = DockStyle.Top;
+            flpTop.Location = new Point(0, 0);
+            flpTop.Name = "flpTop";
+            flpTop.Size = new Size(1600, 135);
+            flpTop.TabIndex = 0;
             // 
-            // FormRelatorios
+            // pnlDgv
+            // 
+            pnlDgv.Dock = DockStyle.Fill;
+            pnlDgv.Location = new Point(0, 135);
+            pnlDgv.Name = "pnlDgv";
+            pnlDgv.Padding = new Padding(15);
+            pnlDgv.Size = new Size(1600, 765);
+            pnlDgv.TabIndex = 1;
+            // 
+            // FormConfiguracoes
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(23, 24, 29);
-            ClientSize = new Size(1265, 694);
+            BackColor = Color.FromArgb(34, 35, 49);
+            ClientSize = new Size(1600, 900);
             ControlBox = false;
-            Controls.Add(label1);
+            Controls.Add(pnlDgv);
+            Controls.Add(flpTop);
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FormRelatorios";
-            Text = "FormRelatorios";
+            Name = "FormConfiguracoes";
+            Text = "FormConfiguracoes";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
+        private FlowLayoutPanel flpTop;
+        private Panel pnlDgv;
     }
 }
