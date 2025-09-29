@@ -32,14 +32,15 @@
             // 
             // FormAddVendas
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(24, 23, 29);
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(600, 700);
             ForeColor = Color.FromArgb(24, 23, 29);
             FormStyle = FormStyles.ActionBar_None;
+            Margin = new Padding(2);
             Name = "FormAddVendas";
-            Padding = new Padding(3, 24, 3, 3);
+            Padding = new Padding(2, 14, 2, 2);
             Text = "FormAddVendas";
             ResumeLayout(false);
         }

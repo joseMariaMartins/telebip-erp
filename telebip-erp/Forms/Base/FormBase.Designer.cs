@@ -84,9 +84,9 @@
             // 
             btnHam.BackColor = Color.Transparent;
             btnHam.Image = (Image)resources.GetObject("btnHam.Image");
-            btnHam.Location = new Point(13, 3);
+            btnHam.Location = new Point(16, 5);
             btnHam.Name = "btnHam";
-            btnHam.Size = new Size(25, 20);
+            btnHam.Size = new Size(15, 15);
             btnHam.SizeMode = PictureBoxSizeMode.Zoom;
             btnHam.TabIndex = 1;
             btnHam.TabStop = false;
@@ -104,7 +104,7 @@
             pnlSidebar.Dock = DockStyle.Left;
             pnlSidebar.Location = new Point(3, 24);
             pnlSidebar.Name = "pnlSidebar";
-            pnlSidebar.Size = new Size(277, 679);
+            pnlSidebar.Size = new Size(277, 873);
             pnlSidebar.TabIndex = 1;
             // 
             // pnlHome
@@ -224,6 +224,7 @@
             addVenda.Text = "                    Adicionar";
             addVenda.TextAlign = ContentAlignment.MiddleLeft;
             addVenda.UseVisualStyleBackColor = false;
+            addVenda.Click += addVenda_Click;
             // 
             // pnlEstoque
             // 
@@ -312,6 +313,7 @@
             addEstoque.Text = "                    Adicionar";
             addEstoque.TextAlign = ContentAlignment.MiddleLeft;
             addEstoque.UseVisualStyleBackColor = false;
+            addEstoque.Click += addEstoque_Click;
             // 
             // pnlRelatorios
             // 
@@ -438,18 +440,18 @@
             // 
             // pnlContainer
             // 
-            pnlContainer.BackColor = Color.FromArgb(34, 35, 49);
+            pnlContainer.BackColor = Color.FromArgb(28, 29, 40);
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(280, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(1200, 679);
+            pnlContainer.Size = new Size(1317, 873);
             pnlContainer.TabIndex = 3;
             // 
             // FormBase
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1483, 706);
+            ClientSize = new Size(1600, 900);
             Controls.Add(pnlContainer);
             Controls.Add(pnlSidebar);
             Controls.Add(btnHam);

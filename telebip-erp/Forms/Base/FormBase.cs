@@ -1,12 +1,13 @@
+using MaterialSkin;
+using MaterialSkin.Controls;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
 using telebip_erp.Forms.Main;
 using telebip_erp.Forms.Modules;
+using telebip_erp.Forms.SubForms;
 
 namespace telebip_erp
 {
@@ -19,6 +20,9 @@ namespace telebip_erp
         FormRelatorios? relatorios = null;
         FormFuncionarios? funcionarios = null;
         FormConfiguracoes? configuracoes = null;
+
+        FormAddVendas? adicionarVendaForm;
+        FormAddEstoque? adicionarEstoqueForm;
 
         bool menuExpandVendas = false;
         bool menuExpandEstoque = false;
@@ -319,6 +323,34 @@ namespace telebip_erp
         private void Configuracoes_FormClosed(object? sender, FormClosedEventArgs e)
         {
             configuracoes = null;
+        }
+
+        private void addVenda_Click(object sender, EventArgs e)
+        {
+            if (adicionarVendaForm == null || adicionarVendaForm.IsDisposed)
+            {
+                adicionarVendaForm = new FormAddVendas();
+                adicionarVendaForm.FormClosed += (s, args) => { adicionarVendaForm = null; };
+                adicionarVendaForm.ShowDialog(this);
+            }
+            else
+            {
+                adicionarVendaForm.BringToFront();
+            }
+        }
+
+        private void addEstoque_Click(object sender, EventArgs e)
+        {
+            if (adicionarEstoqueForm == null || adicionarEstoqueForm.IsDisposed)
+            {
+                adicionarEstoqueForm = new FormAddEstoque();
+                adicionarEstoqueForm.FormClosed += (s, args) => { adicionarEstoqueForm = null; };
+                adicionarEstoqueForm.ShowDialog(this); // abre modal sobre o FormBase
+            }
+            else
+            {
+                adicionarEstoqueForm.BringToFront();
+            }
         }
     }
 }

@@ -32,12 +32,17 @@
             // 
             // FormAddEstoque
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.FromArgb(23, 24, 20);
+            ClientSize = new Size(550, 800);
             FormStyle = FormStyles.ActionBar_None;
+            Margin = new Padding(2);
+            MaximumSize = new Size(550, 800);
+            MinimumSize = new Size(550, 800);
             Name = "FormAddEstoque";
-            Padding = new Padding(3, 24, 3, 3);
+            Padding = new Padding(2, 14, 2, 2);
+            StartPosition = FormStartPosition.CenterParent;
             Text = "FormAddEstoque";
             ResumeLayout(false);
         }

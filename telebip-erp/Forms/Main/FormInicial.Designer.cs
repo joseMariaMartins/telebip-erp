@@ -28,25 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(376, 186);
-            label1.Name = "label1";
-            label1.Size = new Size(40, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Home";
             // 
             // FormInicial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.FromArgb(28, 29, 40);
+            ClientSize = new Size(1132, 573);
             ControlBox = false;
-            Controls.Add(label1);
+            ForeColor = SystemColors.ControlText;
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -57,11 +48,8 @@
             Text = "FormInicial";
             Load += fomInicialLoad;
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
     }
 }
