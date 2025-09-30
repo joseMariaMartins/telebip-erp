@@ -1,38 +1,43 @@
+# Visual Studio
 .vs/
-
-bin/
-obj/
-Debug/
-Release/
-
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
 *.vsidx
-*.v2
 
+# Compilação
+bin/
+obj/
+Debug/
+Release/
 *.cache
 *.pdb
 *.log
 *.tlog
 
+# Executáveis
 *.exe
 *.dll
 
+# Publicação
 publish/
 *.Publish.xml
 
-
+# NuGet
 *.nupkg
 *.nuget.props
 *.nuget.targets
 project.assets.json
 project.nuget.cache
 
-
+# Sistemas operacionais
 Thumbs.db
 *.DS_Store
 
-
+# Backup
 *.backup.json
+
+# MAS PERMITE o banco de dados (não ignora a pasta Database)
+!telebip-erp/Database/
+!Database/
