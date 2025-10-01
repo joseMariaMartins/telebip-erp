@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace telebip_erp.Forms.Auth
 {
-    public partial class FormLogin : Form
+    public partial class FormLogin : MaterialForm
     {
         public FormLogin()
         {
             InitializeComponent();
+            ThemeManager.ApplyDarkTheme();
         }
     }
 }

@@ -1,4 +1,4 @@
-using MaterialSkin;
+ï»¿using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
 using System.Drawing;
@@ -13,7 +13,7 @@ namespace telebip_erp
 {
     public partial class FormBase : MaterialForm
     {
-        // ========== VARIÁVEIS ==========
+        // ========== VARIÃVEIS ==========
         FormInicial? inicial = null;
         FormEstoque? estoque = null;
         FormVendas? vendas = null;
@@ -35,15 +35,15 @@ namespace telebip_erp
 
             ThemeManager.ApplyDarkTheme();
 
+            this.Width = 1250;
+            this.Height = 650;
             pnlSidebar.Width = 47;
             pnlVendas.Height = 50;
             pnlEstoque.Height = 50;
         }
 
-        // ========== ESTILO ==========
 
-
-        // ========== MÉTODO BASE PARA ABRIR FORMULÁRIOS ==========
+        // ========== MÃ‰TODO BASE PARA ABRIR FORMULÃRIOS ==========
         private void AbrirFormNoPanel(Form form)
         {
             // Limpa o panel antes de adicionar novo form
@@ -59,7 +59,7 @@ namespace telebip_erp
             form.Show();
         }
 
-        // ========== EVENTOS DE TRANSIÇÃO ==========
+        // ========== EVENTOS DE TRANSIÃ‡ÃƒO ==========
         private void menuTransitionVendas_Tick(object sender, EventArgs e)
         {
             if (!menuExpandVendas)
@@ -126,7 +126,7 @@ namespace telebip_erp
             }
         }
 
-        // ========== EVENTOS DOS BOTÕES - INDIVIDUAL PARA CADA UM ==========
+        // ========== EVENTOS DOS BOTÃ•ES - INDIVIDUAL PARA CADA UM ==========
         private void btnHam_Click(object sender, EventArgs e)
         {
             if (sidebarExpand)
@@ -139,20 +139,32 @@ namespace telebip_erp
 
         private void btnVendas_Click(object sender, EventArgs e)
         {
-            // Expande menu se sidebar estiver expandida
-            if (sidebarExpand)
+            // 2 - Se a sidebar estiver fechada â†’ abre sidebar e jÃ¡ expande Vendas
+            if (!sidebarExpand)
+            {
+                sidebarTransition.Start();
+                if (!menuExpandVendas) menuTransitionVendas.Start();
+            }
+            // 4 - Se jÃ¡ estiver aberta e o dropdown tambÃ©m â†’ sÃ³ fecha o dropdown
+            else if (menuExpandVendas)
+            {
                 menuTransitionVendas.Start();
+            }
+            else
+            {
+                // Caso contrÃ¡rio (sidebar aberta e dropdown fechado), abre dropdown
+                menuTransitionVendas.Start();
+            }
 
-            // Lógica individual para Vendas
+            // Abre tela de Vendas
             if (vendas == null || vendas.IsDisposed)
             {
                 vendas = new FormVendas();
-                vendas.FormClosed += (s, e) => { vendas = null; };
+                vendas.FormClosed += (s, e2) => { vendas = null; };
                 AbrirFormNoPanel(vendas);
             }
             else
             {
-                // Se o form já existe, traz para frente
                 if (!pnlContainer.Controls.Contains(vendas))
                 {
                     AbrirFormNoPanel(vendas);
@@ -166,15 +178,28 @@ namespace telebip_erp
 
         private void btnEstoque_Click(object sender, EventArgs e)
         {
-            // Expande menu se sidebar estiver expandida
-            if (sidebarExpand)
+            // 2 - Se a sidebar estiver fechada â†’ abre sidebar e jÃ¡ expande Estoque
+            if (!sidebarExpand)
+            {
+                sidebarTransition.Start();
+                if (!menuExpandEstoque) MenuTransitionEstoque.Start();
+            }
+            // 4 - Se jÃ¡ estiver aberta e o dropdown tambÃ©m â†’ sÃ³ fecha o dropdown
+            else if (menuExpandEstoque)
+            {
                 MenuTransitionEstoque.Start();
+            }
+            else
+            {
+                // Caso contrÃ¡rio (sidebar aberta e dropdown fechado), abre dropdown
+                MenuTransitionEstoque.Start();
+            }
 
-            // Lógica individual para Estoque
+            // Abre tela de Estoque
             if (estoque == null || estoque.IsDisposed)
             {
                 estoque = new FormEstoque();
-                estoque.FormClosed += (s, e) => { estoque = null; };
+                estoque.FormClosed += (s, e2) => { estoque = null; };
                 AbrirFormNoPanel(estoque);
             }
             else
@@ -192,7 +217,7 @@ namespace telebip_erp
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            // Lógica individual para Home
+            // LÃ³gica individual para Home
             if (inicial == null || inicial.IsDisposed)
             {
                 inicial = new FormInicial();
@@ -214,7 +239,7 @@ namespace telebip_erp
 
         private void btnRelatorios_Click(object sender, EventArgs e)
         {
-            // Lógica individual para Relatórios
+            // LÃ³gica individual para RelatÃ³rios
             if (relatorios == null || relatorios.IsDisposed)
             {
                 relatorios = new FormRelatorios();
@@ -236,7 +261,7 @@ namespace telebip_erp
 
         private void btnFuncionarios_Click(object sender, EventArgs e)
         {
-            // Lógica individual para Funcionários
+            // LÃ³gica individual para FuncionÃ¡rios
             if (funcionarios == null || funcionarios.IsDisposed)
             {
                 funcionarios = new FormFuncionarios();
@@ -258,7 +283,7 @@ namespace telebip_erp
 
         private void btnConfiguracoes_Click(object sender, EventArgs e)
         {
-            // Lógica individual para Configurações
+            // LÃ³gica individual para ConfiguraÃ§Ãµes
             if (configuracoes == null || configuracoes.IsDisposed)
             {
                 configuracoes = new FormConfiguracoes();
@@ -278,7 +303,7 @@ namespace telebip_erp
             }
         }
 
-        // ========== MÉTODOS PARA BOTÕES DUPLICADOS ==========
+        // ========== MÃ‰TODOS PARA BOTÃ•ES DUPLICADOS ==========
         private void btnRelatorios_Click_1(object sender, EventArgs e)
         {
             btnRelatorios_Click(sender, e);
