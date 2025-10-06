@@ -40,6 +40,18 @@ namespace telebip_erp
             pnlSidebar.Width = 47;
             pnlVendas.Height = 50;
             pnlEstoque.Height = 50;
+
+            RegistrarBotoesSelecionaveis();
+        }
+
+        private void RegistrarBotoesSelecionaveis()
+        {
+            ButtonSelectionManager.RegistrarBotao(btnHome);
+            ButtonSelectionManager.RegistrarBotao(btnVendas);
+            ButtonSelectionManager.RegistrarBotao(btnEstoque);
+            ButtonSelectionManager.RegistrarBotao(btnRelatorios);
+            ButtonSelectionManager.RegistrarBotao(btnFuncionarios);
+            ButtonSelectionManager.RegistrarBotao(btnConfiguracoes);
         }
 
 

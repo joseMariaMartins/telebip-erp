@@ -28,36 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            flpTop = new FlowLayoutPanel();
-            pnlDgv = new Panel();
+            pnlContainer = new Panel();
             SuspendLayout();
             // 
-            // flpTop
+            // pnlContainer
             // 
-            flpTop.Dock = DockStyle.Top;
-            flpTop.Location = new Point(0, 0);
-            flpTop.Name = "flpTop";
-            flpTop.Size = new Size(1600, 135);
-            flpTop.TabIndex = 0;
-            // 
-            // pnlDgv
-            // 
-            pnlDgv.Dock = DockStyle.Fill;
-            pnlDgv.Location = new Point(0, 135);
-            pnlDgv.Name = "pnlDgv";
-            pnlDgv.Size = new Size(1600, 765);
-            pnlDgv.TabIndex = 1;
+            pnlContainer.Dock = DockStyle.Fill;
+            pnlContainer.Location = new Point(0, 0);
+            pnlContainer.Name = "pnlContainer";
+            pnlContainer.Size = new Size(1632, 777);
+            pnlContainer.TabIndex = 0;
             // 
             // FormRelatorios
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(34, 35, 49);
-            ClientSize = new Size(1600, 900);
+            ClientSize = new Size(1632, 777);
             ControlBox = false;
-            Controls.Add(pnlDgv);
-            Controls.Add(flpTop);
+            Controls.Add(pnlContainer);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(2, 2, 2, 2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormRelatorios";
@@ -67,7 +58,6 @@
 
         #endregion
 
-        private FlowLayoutPanel flpTop;
-        private Panel pnlDgv;
+        private Panel pnlContainer;
     }
 }

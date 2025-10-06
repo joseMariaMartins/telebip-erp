@@ -102,6 +102,7 @@
             pnlSidebar.Controls.Add(pnlFuncionarios);
             pnlSidebar.Controls.Add(pnlConfiguracoes);
             pnlSidebar.Dock = DockStyle.Left;
+            pnlSidebar.ForeColor = Color.FromArgb(23, 24, 29);
             pnlSidebar.Location = new Point(3, 24);
             pnlSidebar.Name = "pnlSidebar";
             pnlSidebar.Size = new Size(277, 873);
@@ -113,7 +114,7 @@
             pnlHome.Location = new Point(3, 30);
             pnlHome.Margin = new Padding(3, 30, 3, 0);
             pnlHome.Name = "pnlHome";
-            pnlHome.Size = new Size(270, 50);
+            pnlHome.Size = new Size(283, 50);
             pnlHome.TabIndex = 6;
             // 
             // btnHome
@@ -126,7 +127,7 @@
             btnHome.Location = new Point(-4, -8);
             btnHome.Name = "btnHome";
             btnHome.Padding = new Padding(9, 0, 0, 0);
-            btnHome.Size = new Size(287, 63);
+            btnHome.Size = new Size(405, 63);
             btnHome.TabIndex = 3;
             btnHome.Text = "                    Home";
             btnHome.TextAlign = ContentAlignment.MiddleLeft;
@@ -139,12 +140,11 @@
             pnlVendas.Controls.Add(panel3);
             pnlVendas.Controls.Add(panel5);
             pnlVendas.Controls.Add(panel2);
-            pnlVendas.Dock = DockStyle.Top;
             pnlVendas.ForeColor = Color.Transparent;
             pnlVendas.Location = new Point(0, 90);
             pnlVendas.Margin = new Padding(0, 10, 0, 0);
             pnlVendas.Name = "pnlVendas";
-            pnlVendas.Size = new Size(270, 148);
+            pnlVendas.Size = new Size(306, 148);
             pnlVendas.TabIndex = 7;
             // 
             // panel3
@@ -152,7 +152,7 @@
             panel3.Controls.Add(btnVendas);
             panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(228, 47);
+            panel3.Size = new Size(274, 47);
             panel3.TabIndex = 3;
             // 
             // btnVendas
@@ -236,7 +236,7 @@
             pnlEstoque.Location = new Point(0, 248);
             pnlEstoque.Margin = new Padding(0, 10, 0, 0);
             pnlEstoque.Name = "pnlEstoque";
-            pnlEstoque.Size = new Size(267, 152);
+            pnlEstoque.Size = new Size(306, 152);
             pnlEstoque.TabIndex = 8;
             // 
             // panel10
@@ -244,7 +244,7 @@
             panel10.Controls.Add(btnEstoque);
             panel10.Location = new Point(3, 3);
             panel10.Name = "panel10";
-            panel10.Size = new Size(228, 47);
+            panel10.Size = new Size(274, 47);
             panel10.TabIndex = 3;
             // 
             // btnEstoque
@@ -323,7 +323,7 @@
             pnlRelatorios.Location = new Point(0, 410);
             pnlRelatorios.Margin = new Padding(0, 10, 0, 0);
             pnlRelatorios.Name = "pnlRelatorios";
-            pnlRelatorios.Size = new Size(267, 51);
+            pnlRelatorios.Size = new Size(286, 51);
             pnlRelatorios.TabIndex = 9;
             // 
             // panel6
@@ -331,7 +331,7 @@
             panel6.Controls.Add(btnRelatorios);
             panel6.Location = new Point(3, 3);
             panel6.Name = "panel6";
-            panel6.Size = new Size(228, 47);
+            panel6.Size = new Size(274, 47);
             panel6.TabIndex = 3;
             // 
             // btnRelatorios
@@ -359,7 +359,7 @@
             pnlFuncionarios.Location = new Point(0, 471);
             pnlFuncionarios.Margin = new Padding(0, 10, 0, 0);
             pnlFuncionarios.Name = "pnlFuncionarios";
-            pnlFuncionarios.Size = new Size(267, 51);
+            pnlFuncionarios.Size = new Size(306, 51);
             pnlFuncionarios.TabIndex = 10;
             // 
             // panel9
@@ -367,7 +367,7 @@
             panel9.Controls.Add(btnFuncionarios);
             panel9.Location = new Point(3, 3);
             panel9.Name = "panel9";
-            panel9.Size = new Size(228, 47);
+            panel9.Size = new Size(274, 47);
             panel9.TabIndex = 3;
             // 
             // btnFuncionarios
@@ -395,7 +395,7 @@
             pnlConfiguracoes.Location = new Point(0, 532);
             pnlConfiguracoes.Margin = new Padding(0, 10, 0, 0);
             pnlConfiguracoes.Name = "pnlConfiguracoes";
-            pnlConfiguracoes.Size = new Size(267, 51);
+            pnlConfiguracoes.Size = new Size(286, 51);
             pnlConfiguracoes.TabIndex = 11;
             // 
             // panel8
@@ -403,7 +403,7 @@
             panel8.Controls.Add(btnConfiguracoes);
             panel8.Location = new Point(3, 3);
             panel8.Name = "panel8";
-            panel8.Size = new Size(228, 47);
+            panel8.Size = new Size(280, 47);
             panel8.TabIndex = 3;
             // 
             // btnConfiguracoes
