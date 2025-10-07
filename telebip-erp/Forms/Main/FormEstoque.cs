@@ -44,7 +44,18 @@ namespace telebip_erp.Forms.Modules
                     return;
                 }
 
-                string sql = "SELECT * FROM PRODUTO WHERE " + filtroSql;
+                // Especifica as colunas que serão exibidas (exceto QUANTIDADE_AVISO)
+                string sql = $@"
+            SELECT 
+                ID_PRODUTO,
+                NOME,
+                MARCA,
+                PRECO,
+                QTD_ESTOQUE,
+                OBSERVACAO
+            FROM PRODUTO
+            WHERE {filtroSql};
+        ";
 
                 DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
 
@@ -99,6 +110,25 @@ namespace telebip_erp.Forms.Modules
             }
 
             CarregarEstoque(filtroSql, parametros);
+        }
+
+        // Obtém o produto selecionado no DataGridView
+        public (int Id, string Nome, int Quantidade)? ObterProdutoSelecionado()
+        {
+            if (dgvEstoque.CurrentRow == null)
+                return null;
+
+            try
+            {
+                int id = Convert.ToInt32(dgvEstoque.CurrentRow.Cells["ID_PRODUTO"].Value);
+                string nome = dgvEstoque.CurrentRow.Cells["NOME"].Value?.ToString() ?? "";
+                int quantidade = Convert.ToInt32(dgvEstoque.CurrentRow.Cells["QTD_ESTOQUE"].Value);
+                return (id, nome, quantidade);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

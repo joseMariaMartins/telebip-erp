@@ -389,5 +389,30 @@ namespace telebip_erp
                 adicionarEstoqueForm.BringToFront();
             }
         }
+
+        private void rmvEstoque_Click(object sender, EventArgs e)
+        {
+            if (estoque == null || estoque.IsDisposed)
+            {
+                MessageBox.Show("A tela de Estoque precisa estar aberta para remover um item.");
+                return;
+            }
+
+            var produtoSelecionado = estoque.ObterProdutoSelecionado();
+
+            if (!produtoSelecionado.HasValue)
+            {
+                MessageBox.Show("Selecione um produto na lista para remover.");
+                return;
+            }
+
+            // ⚡ Desestrutura o tuple para obter id, nome e quantidade
+            var (id, nome, quantidade) = produtoSelecionado.Value;
+
+            using (var formRmv = new FormRmvEstoque(id, nome, quantidade))
+            {
+                formRmv.ShowDialog(this);
+            }
+        }
     }
 }

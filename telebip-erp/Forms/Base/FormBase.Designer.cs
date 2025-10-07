@@ -288,6 +288,7 @@
             rmvEstoque.Text = "                    Remover";
             rmvEstoque.TextAlign = ContentAlignment.MiddleLeft;
             rmvEstoque.UseVisualStyleBackColor = false;
+            rmvEstoque.Click += rmvEstoque_Click;
             // 
             // panel12
             // 

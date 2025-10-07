@@ -27,6 +27,8 @@ namespace telebip_erp.Forms.SubForms
 
             tbQEstoque.KeyPress += OnlyNumbers_KeyPress;
             tbQAviso.KeyPress += OnlyNumbers_KeyPress;
+
+            btnAdicionar.Click += BtnAdicionar_Click;
         }
 
         private void CarregarFuncionarios()
@@ -52,6 +54,88 @@ namespace telebip_erp.Forms.SubForms
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao carregar funcionários: " + ex.Message);
+            }
+        }
+
+        // ==================== EVENTO: Adicionar Produto ====================
+        private void BtnAdicionar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Transforma em maiúsculas
+                string nome = tbNome.Text.Trim().ToUpper();
+                string marca = tbMarca.Text.Trim().ToUpper();
+                string observacao = tbObservacao.Text.Trim().ToUpper();
+
+                // Extrai e formata o preço
+                string precoTexto = tbPreco.Text.Replace("R$", "").Trim();
+                precoTexto = precoTexto.Replace(".", "").Replace(",", "."); // troca vírgula por ponto
+
+                if (!decimal.TryParse(precoTexto, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal preco))
+                {
+                    MessageBox.Show("Preço inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Quantidades
+                if (!int.TryParse(tbQEstoque.Text, out int qtdEstoque))
+                {
+                    MessageBox.Show("Quantidade em estoque inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (!int.TryParse(tbQAviso.Text, out int qtdAviso))
+                {
+                    MessageBox.Show("Quantidade de aviso inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Funcionário
+                if (cbFuncionarios.SelectedItem == null)
+                {
+                    MessageBox.Show("Selecione um funcionário!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string funcionario = cbFuncionarios.SelectedItem.ToString();
+
+                // Insere no banco
+                using (var conn = DatabaseHelper.GetConnection())
+                {
+                    conn.Open();
+
+                    string sql = @"
+                        INSERT INTO PRODUTO (NOME, MARCA, PRECO, QTD_ESTOQUE, QUANTIDADE_AVISO, OBSERVACAO)
+                        VALUES (@NOME, @MARCA, @PRECO, @QTD_ESTOQUE, @QTD_AVISO, @OBSERVACAO);
+                    ";
+
+                    using (var cmd = new SQLiteCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@NOME", nome);
+                        cmd.Parameters.AddWithValue("@MARCA", marca);
+                        cmd.Parameters.AddWithValue("@PRECO", preco);
+                        cmd.Parameters.AddWithValue("@QTD_ESTOQUE", qtdEstoque);
+                        cmd.Parameters.AddWithValue("@QTD_AVISO", qtdAviso);
+                        cmd.Parameters.AddWithValue("@OBSERVACAO", observacao);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Produto adicionado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Limpa os campos
+                tbNome.Clear();
+                tbMarca.Clear();
+                tbPreco.Text = "R$ 0,00";
+                tbQEstoque.Clear();
+                tbQAviso.Clear();
+                tbObservacao.Clear();
+                cbFuncionarios.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao adicionar produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -108,6 +192,11 @@ namespace telebip_erp.Forms.SubForms
             {
                 e.Handled = true;
             }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

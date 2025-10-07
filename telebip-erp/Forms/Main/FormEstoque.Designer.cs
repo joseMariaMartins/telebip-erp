@@ -70,7 +70,7 @@
             cbPesquisaCampo.HoverSelectionColor = Color.Silver;
             cbPesquisaCampo.IntegralHeight = false;
             cbPesquisaCampo.ItemHeight = 20;
-            cbPesquisaCampo.Items.AddRange(new object[] { "ID_Produto", "Nome_Funcionario", "Data_Hora", "Desconto", "Valor_Total" });
+            cbPesquisaCampo.Items.AddRange(new object[] { "ID_PRODUTO ", "NOME", "MARCA ", "PRECO ", "QTD_ESTOQUE ", "QUANTIDADE_AVISO ", "OBSERVACAO " });
             cbPesquisaCampo.Location = new Point(18, 18);
             cbPesquisaCampo.Margin = new Padding(3, 3, 10, 3);
             cbPesquisaCampo.Name = "cbPesquisaCampo";

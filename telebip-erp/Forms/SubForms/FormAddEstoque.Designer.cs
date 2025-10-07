@@ -44,6 +44,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             cbFuncionarios = new Guna.UI2.WinForms.Guna2ComboBox();
             tbNome = new Guna.UI2.WinForms.Guna2TextBox();
             tbMarca = new Guna.UI2.WinForms.Guna2TextBox();
@@ -58,7 +60,8 @@
             guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
+            btnAdicionar = new Guna.UI2.WinForms.Guna2Button();
+            btnCancelar = new Guna.UI2.WinForms.Guna2Button();
             SuspendLayout();
             // 
             // cbFuncionarios
@@ -72,10 +75,11 @@
             cbFuncionarios.Font = new Font("Segoe UI", 10F);
             cbFuncionarios.ForeColor = Color.FromArgb(68, 88, 112);
             cbFuncionarios.ItemHeight = 30;
-            cbFuncionarios.Location = new Point(99, 270);
+            cbFuncionarios.Location = new Point(69, 162);
+            cbFuncionarios.Margin = new Padding(2);
             cbFuncionarios.Name = "cbFuncionarios";
             cbFuncionarios.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            cbFuncionarios.Size = new Size(210, 36);
+            cbFuncionarios.Size = new Size(148, 36);
             cbFuncionarios.TabIndex = 0;
             // 
             // tbNome
@@ -89,13 +93,13 @@
             tbNome.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             tbNome.Font = new Font("Segoe UI", 9F);
             tbNome.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            tbNome.Location = new Point(99, 92);
-            tbNome.Margin = new Padding(4, 5, 4, 5);
+            tbNome.Location = new Point(69, 55);
+            tbNome.MaxLength = 50;
             tbNome.Name = "tbNome";
             tbNome.PlaceholderText = "";
             tbNome.SelectedText = "";
             tbNome.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            tbNome.Size = new Size(314, 44);
+            tbNome.Size = new Size(220, 26);
             tbNome.TabIndex = 1;
             // 
             // tbMarca
@@ -109,13 +113,13 @@
             tbMarca.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             tbMarca.Font = new Font("Segoe UI", 9F);
             tbMarca.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            tbMarca.Location = new Point(485, 92);
-            tbMarca.Margin = new Padding(4, 5, 4, 5);
+            tbMarca.Location = new Point(340, 55);
+            tbMarca.MaxLength = 25;
             tbMarca.Name = "tbMarca";
             tbMarca.PlaceholderText = "";
             tbMarca.SelectedText = "";
             tbMarca.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            tbMarca.Size = new Size(237, 44);
+            tbMarca.Size = new Size(166, 26);
             tbMarca.TabIndex = 2;
             // 
             // tbPreco
@@ -129,14 +133,13 @@
             tbPreco.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             tbPreco.Font = new Font("Segoe UI", 9F);
             tbPreco.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            tbPreco.Location = new Point(99, 177);
-            tbPreco.Margin = new Padding(4, 5, 4, 5);
+            tbPreco.Location = new Point(69, 106);
             tbPreco.MaxLength = 11;
             tbPreco.Name = "tbPreco";
             tbPreco.PlaceholderText = "";
             tbPreco.SelectedText = "";
             tbPreco.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            tbPreco.Size = new Size(160, 44);
+            tbPreco.Size = new Size(100, 26);
             tbPreco.TabIndex = 3;
             // 
             // tbQEstoque
@@ -150,14 +153,13 @@
             tbQEstoque.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             tbQEstoque.Font = new Font("Segoe UI", 9F);
             tbQEstoque.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            tbQEstoque.Location = new Point(339, 177);
-            tbQEstoque.Margin = new Padding(4, 5, 4, 5);
+            tbQEstoque.Location = new Point(237, 106);
             tbQEstoque.MaxLength = 5;
             tbQEstoque.Name = "tbQEstoque";
             tbQEstoque.PlaceholderText = "";
             tbQEstoque.SelectedText = "";
             tbQEstoque.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            tbQEstoque.Size = new Size(126, 44);
+            tbQEstoque.Size = new Size(52, 26);
             tbQEstoque.TabIndex = 4;
             // 
             // tbQAviso
@@ -171,14 +173,13 @@
             tbQAviso.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             tbQAviso.Font = new Font("Segoe UI", 9F);
             tbQAviso.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            tbQAviso.Location = new Point(511, 177);
-            tbQAviso.Margin = new Padding(4, 5, 4, 5);
+            tbQAviso.Location = new Point(340, 106);
             tbQAviso.MaxLength = 5;
             tbQAviso.Name = "tbQAviso";
             tbQAviso.PlaceholderText = "";
             tbQAviso.SelectedText = "";
             tbQAviso.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            tbQAviso.Size = new Size(126, 44);
+            tbQAviso.Size = new Size(52, 26);
             tbQAviso.TabIndex = 5;
             // 
             // tbObservacao
@@ -192,107 +193,129 @@
             tbObservacao.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             tbObservacao.Font = new Font("Segoe UI", 9F);
             tbObservacao.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            tbObservacao.Location = new Point(99, 458);
-            tbObservacao.Margin = new Padding(4, 5, 4, 5);
+            tbObservacao.Location = new Point(69, 262);
             tbObservacao.MaxLength = 500;
+            tbObservacao.Multiline = true;
             tbObservacao.Name = "tbObservacao";
             tbObservacao.PlaceholderText = "";
             tbObservacao.SelectedText = "";
             tbObservacao.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            tbObservacao.Size = new Size(697, 152);
+            tbObservacao.Size = new Size(437, 133);
             tbObservacao.TabIndex = 6;
             // 
             // guna2HtmlLabel1
             // 
             guna2HtmlLabel1.BackColor = Color.Transparent;
-            guna2HtmlLabel1.Location = new Point(111, 423);
+            guna2HtmlLabel1.Location = new Point(78, 240);
+            guna2HtmlLabel1.Margin = new Padding(2);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(97, 27);
+            guna2HtmlLabel1.Size = new Size(65, 17);
             guna2HtmlLabel1.TabIndex = 7;
             guna2HtmlLabel1.Text = "Observação";
             // 
             // guna2HtmlLabel2
             // 
             guna2HtmlLabel2.BackColor = Color.Transparent;
-            guna2HtmlLabel2.Location = new Point(99, 237);
+            guna2HtmlLabel2.Location = new Point(69, 142);
+            guna2HtmlLabel2.Margin = new Padding(2);
             guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            guna2HtmlLabel2.Size = new Size(108, 27);
+            guna2HtmlLabel2.Size = new Size(74, 17);
             guna2HtmlLabel2.TabIndex = 8;
             guna2HtmlLabel2.Text = "Funcionário *";
             // 
             // guna2HtmlLabel3
             // 
             guna2HtmlLabel3.BackColor = Color.Transparent;
-            guna2HtmlLabel3.Location = new Point(511, 144);
+            guna2HtmlLabel3.Location = new Point(340, 86);
+            guna2HtmlLabel3.Margin = new Padding(2);
             guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            guna2HtmlLabel3.Size = new Size(297, 27);
+            guna2HtmlLabel3.Size = new Size(195, 17);
             guna2HtmlLabel3.TabIndex = 9;
             guna2HtmlLabel3.Text = "Quantidade de aviso baixo estoque *";
             // 
             // guna2HtmlLabel4
             // 
             guna2HtmlLabel4.BackColor = Color.Transparent;
-            guna2HtmlLabel4.Location = new Point(99, 144);
+            guna2HtmlLabel4.Location = new Point(69, 86);
+            guna2HtmlLabel4.Margin = new Padding(2);
             guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            guna2HtmlLabel4.Size = new Size(60, 27);
+            guna2HtmlLabel4.Size = new Size(41, 17);
             guna2HtmlLabel4.TabIndex = 10;
             guna2HtmlLabel4.Text = "Preço *";
             // 
             // guna2HtmlLabel5
             // 
             guna2HtmlLabel5.BackColor = Color.Transparent;
-            guna2HtmlLabel5.Location = new Point(339, 142);
+            guna2HtmlLabel5.Location = new Point(237, 86);
+            guna2HtmlLabel5.Margin = new Padding(2);
             guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            guna2HtmlLabel5.Size = new Size(109, 27);
+            guna2HtmlLabel5.Size = new Size(73, 17);
             guna2HtmlLabel5.TabIndex = 11;
             guna2HtmlLabel5.Text = "Quantidade *";
             // 
             // guna2HtmlLabel6
             // 
             guna2HtmlLabel6.BackColor = Color.Transparent;
-            guna2HtmlLabel6.Location = new Point(99, 57);
+            guna2HtmlLabel6.Location = new Point(69, 34);
+            guna2HtmlLabel6.Margin = new Padding(2);
             guna2HtmlLabel6.Name = "guna2HtmlLabel6";
-            guna2HtmlLabel6.Size = new Size(81, 27);
+            guna2HtmlLabel6.Size = new Size(54, 17);
             guna2HtmlLabel6.TabIndex = 12;
             guna2HtmlLabel6.Text = "Produto *";
             // 
             // guna2HtmlLabel7
             // 
             guna2HtmlLabel7.BackColor = Color.Transparent;
-            guna2HtmlLabel7.Location = new Point(490, 57);
+            guna2HtmlLabel7.Location = new Point(343, 34);
+            guna2HtmlLabel7.Margin = new Padding(2);
             guna2HtmlLabel7.Name = "guna2HtmlLabel7";
-            guna2HtmlLabel7.Size = new Size(64, 27);
+            guna2HtmlLabel7.Size = new Size(44, 17);
             guna2HtmlLabel7.TabIndex = 13;
             guna2HtmlLabel7.Text = " Marca *";
             // 
-            // guna2TextBox1
+            // btnAdicionar
             // 
-            guna2TextBox1.CustomizableEdges = customizableEdges15;
-            guna2TextBox1.DefaultText = "";
-            guna2TextBox1.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            guna2TextBox1.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            guna2TextBox1.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            guna2TextBox1.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            guna2TextBox1.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            guna2TextBox1.Font = new Font("Segoe UI", 9F);
-            guna2TextBox1.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            guna2TextBox1.Location = new Point(485, 344);
-            guna2TextBox1.Margin = new Padding(4, 5, 4, 5);
-            guna2TextBox1.MaxLength = 11;
-            guna2TextBox1.Name = "guna2TextBox1";
-            guna2TextBox1.PlaceholderText = "";
-            guna2TextBox1.SelectedText = "";
-            guna2TextBox1.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            guna2TextBox1.Size = new Size(160, 44);
-            guna2TextBox1.TabIndex = 14;
+            btnAdicionar.CustomizableEdges = customizableEdges15;
+            btnAdicionar.DisabledState.BorderColor = Color.DarkGray;
+            btnAdicionar.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnAdicionar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnAdicionar.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnAdicionar.FillColor = Color.FromArgb(128, 255, 128);
+            btnAdicionar.Font = new Font("Segoe UI", 9F);
+            btnAdicionar.ForeColor = Color.Black;
+            btnAdicionar.Location = new Point(305, 417);
+            btnAdicionar.Name = "btnAdicionar";
+            btnAdicionar.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnAdicionar.Size = new Size(180, 45);
+            btnAdicionar.TabIndex = 15;
+            btnAdicionar.Text = "ADICIONAR";
+            // 
+            // btnCancelar
+            // 
+            btnCancelar.CustomizableEdges = customizableEdges17;
+            btnCancelar.DisabledState.BorderColor = Color.DarkGray;
+            btnCancelar.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnCancelar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnCancelar.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnCancelar.FillColor = Color.Red;
+            btnCancelar.Font = new Font("Segoe UI", 9F);
+            btnCancelar.ForeColor = Color.White;
+            btnCancelar.Location = new Point(506, 417);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnCancelar.Size = new Size(180, 45);
+            btnCancelar.TabIndex = 16;
+            btnCancelar.Text = "SAIR";
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // FormAddEstoque
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 24, 20);
-            ClientSize = new Size(1000, 800);
-            Controls.Add(guna2TextBox1);
+            ClientSize = new Size(700, 480);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnAdicionar);
             Controls.Add(guna2HtmlLabel7);
             Controls.Add(guna2HtmlLabel6);
             Controls.Add(guna2HtmlLabel5);
@@ -308,10 +331,11 @@
             Controls.Add(tbNome);
             Controls.Add(cbFuncionarios);
             FormStyle = FormStyles.ActionBar_None;
-            MaximumSize = new Size(1000, 800);
-            MinimumSize = new Size(1000, 800);
+            Margin = new Padding(2);
+            MaximumSize = new Size(700, 480);
+            MinimumSize = new Size(700, 480);
             Name = "FormAddEstoque";
-            Padding = new Padding(3, 23, 3, 3);
+            Padding = new Padding(2, 14, 2, 2);
             StartPosition = FormStartPosition.CenterParent;
             Text = "FormAddEstoque";
             ResumeLayout(false);
@@ -334,6 +358,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
+        private Guna.UI2.WinForms.Guna2Button btnAdicionar;
+        private Guna.UI2.WinForms.Guna2Button btnCancelar;
     }
 }
