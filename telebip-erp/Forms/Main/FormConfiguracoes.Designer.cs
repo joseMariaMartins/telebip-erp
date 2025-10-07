@@ -2,15 +2,8 @@
 {
     partial class FormConfiguracoes
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             flpTop = new FlowLayoutPanel();
@@ -36,29 +25,32 @@
             // 
             flpTop.Dock = DockStyle.Top;
             flpTop.Location = new Point(0, 0);
+            flpTop.Margin = new Padding(2);
             flpTop.Name = "flpTop";
-            flpTop.Size = new Size(1600, 135);
+            flpTop.Size = new Size(1120, 81);
             flpTop.TabIndex = 0;
             // 
             // pnlDgv
             // 
             pnlDgv.Dock = DockStyle.Fill;
-            pnlDgv.Location = new Point(0, 135);
+            pnlDgv.Location = new Point(0, 81);
+            pnlDgv.Margin = new Padding(2);
             pnlDgv.Name = "pnlDgv";
-            pnlDgv.Padding = new Padding(15);
-            pnlDgv.Size = new Size(1600, 765);
+            pnlDgv.Padding = new Padding(10, 9, 10, 9);
+            pnlDgv.Size = new Size(1120, 459);
             pnlDgv.TabIndex = 1;
             // 
             // FormConfiguracoes
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(34, 35, 49);
-            ClientSize = new Size(1600, 900);
+            ClientSize = new Size(1120, 540);
             ControlBox = false;
             Controls.Add(pnlDgv);
             Controls.Add(flpTop);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormConfiguracoes";
