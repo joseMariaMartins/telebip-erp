@@ -48,7 +48,7 @@
             ControlBox = false;
             Controls.Add(pnlContainer);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormRelatorios";

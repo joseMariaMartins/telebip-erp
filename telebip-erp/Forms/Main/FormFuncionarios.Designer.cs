@@ -32,23 +32,17 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             tlpContainerLeft = new TableLayoutPanel();
             panelCard = new Panel();
-            tableLayoutPanel4 = new TableLayoutPanel();
-            panel3 = new Panel();
-            label1 = new Label();
-            panel4 = new Panel();
-            label2 = new Label();
             panel2 = new Panel();
             tableLayoutPanel18 = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
             tableLayoutPanel19 = new TableLayoutPanel();
             label5 = new Label();
             label6 = new Label();
+            label3 = new Label();
+            label1 = new Label();
             tableLayoutPanel1.SuspendLayout();
             tlpContainerLeft.SuspendLayout();
             panelCard.SuspendLayout();
-            tableLayoutPanel4.SuspendLayout();
-            panel3.SuspendLayout();
-            panel4.SuspendLayout();
             panel2.SuspendLayout();
             tableLayoutPanel18.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -96,82 +90,14 @@
             // panelCard
             // 
             panelCard.BackColor = Color.FromArgb(23, 24, 29);
-            panelCard.Controls.Add(tableLayoutPanel4);
+            panelCard.Controls.Add(label1);
+            panelCard.Controls.Add(label3);
             panelCard.Location = new Point(0, 0);
             panelCard.Margin = new Padding(0, 0, 10, 10);
             panelCard.Name = "panelCard";
+            panelCard.Padding = new Padding(7);
             panelCard.Size = new Size(540, 79);
             panelCard.TabIndex = 0;
-            // 
-            // tableLayoutPanel4
-            // 
-            tableLayoutPanel4.ColumnCount = 1;
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel4.Controls.Add(panel3, 0, 0);
-            tableLayoutPanel4.Controls.Add(panel4, 0, 1);
-            tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(0, 0);
-            tableLayoutPanel4.Name = "tableLayoutPanel4";
-            tableLayoutPanel4.Padding = new Padding(5);
-            tableLayoutPanel4.RowCount = 2;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 70F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel4.Size = new Size(540, 79);
-            tableLayoutPanel4.TabIndex = 2;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.Transparent;
-            panel3.Controls.Add(label1);
-            panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(5, 5);
-            panel3.Margin = new Padding(0);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(530, 20);
-            panel3.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(0, 0);
-            label1.Margin = new Padding(0);
-            label1.Name = "label1";
-            label1.Size = new Size(205, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Funcionario: Não Registrado";
-            label1.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // panel4
-            // 
-            panel4.BackColor = Color.Transparent;
-            panel4.Controls.Add(label2);
-            panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(5, 25);
-            panel4.Margin = new Padding(0);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(530, 49);
-            panel4.TabIndex = 1;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.Dock = DockStyle.Fill;
-            label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(0, 0);
-            label2.Margin = new Padding(0);
-            label2.Name = "label2";
-            label2.Padding = new Padding(2, 0, 0, 0);
-            label2.Size = new Size(127, 15);
-            label2.TabIndex = 1;
-            label2.Text = "Cargo: Não Registrado";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel2
             // 
@@ -257,6 +183,34 @@
             label6.Text = "Não Registrado";
             label6.TextAlign = ContentAlignment.TopCenter;
             // 
+            // label3
+            // 
+            label3.AutoEllipsis = true;
+            label3.BackColor = Color.Transparent;
+            label3.Dock = DockStyle.Top;
+            label3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(7, 7);
+            label3.Margin = new Padding(0);
+            label3.Name = "label3";
+            label3.Size = new Size(526, 20);
+            label3.TabIndex = 1;
+            label3.Text = "Funcionario: Não Registrado";
+            // 
+            // label1
+            // 
+            label1.AutoEllipsis = true;
+            label1.BackColor = Color.Transparent;
+            label1.Dock = DockStyle.Fill;
+            label1.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(7, 27);
+            label1.Margin = new Padding(0);
+            label1.Name = "label1";
+            label1.Size = new Size(526, 45);
+            label1.TabIndex = 2;
+            label1.Text = "Cargo: Não Registrado";
+            // 
             // FormFuncionarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -274,11 +228,6 @@
             tableLayoutPanel1.ResumeLayout(false);
             tlpContainerLeft.ResumeLayout(false);
             panelCard.ResumeLayout(false);
-            tableLayoutPanel4.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
             panel2.ResumeLayout(false);
             tableLayoutPanel18.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -292,16 +241,13 @@
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tlpContainerLeft;
         private Panel panelCard;
-        private Label label1;
-        private Label label2;
-        private TableLayoutPanel tableLayoutPanel4;
-        private Panel panel3;
-        private Panel panel4;
         private Panel panel2;
         private TableLayoutPanel tableLayoutPanel18;
         private PictureBox pictureBox1;
         private TableLayoutPanel tableLayoutPanel19;
         private Label label5;
         private Label label6;
+        private Label label3;
+        private Label label1;
     }
 }
