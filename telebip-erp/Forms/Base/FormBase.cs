@@ -2,8 +2,6 @@
 using MaterialSkin.Controls;
 using System;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using telebip_erp.Forms.Main;
 using telebip_erp.Forms.Modules;
@@ -32,7 +30,6 @@ namespace telebip_erp
         public FormBase()
         {
             InitializeComponent();
-
             ThemeManager.ApplyDarkTheme();
 
             this.Width = 1250;
@@ -54,19 +51,13 @@ namespace telebip_erp
             ButtonSelectionManager.RegistrarBotao(btnConfiguracoes);
         }
 
-
         // ========== MÉTODO BASE PARA ABRIR FORMULÁRIOS ==========
         private void AbrirFormNoPanel(Form form)
         {
-            // Limpa o panel antes de adicionar novo form
             pnlContainer.Controls.Clear();
-
-            // Configura o form para abrir dentro do panel
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
             form.Dock = DockStyle.Fill;
-
-            // Adiciona o form ao panel e mostra
             pnlContainer.Controls.Add(form);
             form.Show();
         }
@@ -138,7 +129,7 @@ namespace telebip_erp
             }
         }
 
-        // ========== EVENTOS DOS BOTÕES - INDIVIDUAL PARA CADA UM ==========
+        // ========== EVENTOS DOS BOTÕES ==========
         private void btnHam_Click(object sender, EventArgs e)
         {
             if (sidebarExpand)
@@ -151,217 +142,95 @@ namespace telebip_erp
 
         private void btnVendas_Click(object sender, EventArgs e)
         {
-            // 2 - Se a sidebar estiver fechada → abre sidebar e já expande Vendas
-            if (!sidebarExpand)
-            {
-                sidebarTransition.Start();
-                if (!menuExpandVendas) menuTransitionVendas.Start();
-            }
-            // 4 - Se já estiver aberta e o dropdown também → só fecha o dropdown
-            else if (menuExpandVendas)
-            {
-                menuTransitionVendas.Start();
-            }
-            else
-            {
-                // Caso contrário (sidebar aberta e dropdown fechado), abre dropdown
-                menuTransitionVendas.Start();
-            }
+            if (!sidebarExpand) sidebarTransition.Start();
+            menuTransitionVendas.Start();
 
-            // Abre tela de Vendas
             if (vendas == null || vendas.IsDisposed)
             {
                 vendas = new FormVendas();
                 vendas.FormClosed += (s, e2) => { vendas = null; };
                 AbrirFormNoPanel(vendas);
             }
+            else if (!pnlContainer.Controls.Contains(vendas))
+                AbrirFormNoPanel(vendas);
             else
-            {
-                if (!pnlContainer.Controls.Contains(vendas))
-                {
-                    AbrirFormNoPanel(vendas);
-                }
-                else
-                {
-                    vendas.BringToFront();
-                }
-            }
+                vendas.BringToFront();
         }
 
         private void btnEstoque_Click(object sender, EventArgs e)
         {
-            // 2 - Se a sidebar estiver fechada → abre sidebar e já expande Estoque
-            if (!sidebarExpand)
-            {
-                sidebarTransition.Start();
-                if (!menuExpandEstoque) MenuTransitionEstoque.Start();
-            }
-            // 4 - Se já estiver aberta e o dropdown também → só fecha o dropdown
-            else if (menuExpandEstoque)
-            {
-                MenuTransitionEstoque.Start();
-            }
-            else
-            {
-                // Caso contrário (sidebar aberta e dropdown fechado), abre dropdown
-                MenuTransitionEstoque.Start();
-            }
+            if (!sidebarExpand) sidebarTransition.Start();
+            MenuTransitionEstoque.Start();
 
-            // Abre tela de Estoque
             if (estoque == null || estoque.IsDisposed)
             {
                 estoque = new FormEstoque();
                 estoque.FormClosed += (s, e2) => { estoque = null; };
                 AbrirFormNoPanel(estoque);
             }
+            else if (!pnlContainer.Controls.Contains(estoque))
+                AbrirFormNoPanel(estoque);
             else
-            {
-                if (!pnlContainer.Controls.Contains(estoque))
-                {
-                    AbrirFormNoPanel(estoque);
-                }
-                else
-                {
-                    estoque.BringToFront();
-                }
-            }
+                estoque.BringToFront();
         }
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            // Lógica individual para Home
             if (inicial == null || inicial.IsDisposed)
             {
                 inicial = new FormInicial();
                 inicial.FormClosed += (s, e) => { inicial = null; };
                 AbrirFormNoPanel(inicial);
             }
+            else if (!pnlContainer.Controls.Contains(inicial))
+                AbrirFormNoPanel(inicial);
             else
-            {
-                if (!pnlContainer.Controls.Contains(inicial))
-                {
-                    AbrirFormNoPanel(inicial);
-                }
-                else
-                {
-                    inicial.BringToFront();
-                }
-            }
+                inicial.BringToFront();
         }
 
         private void btnRelatorios_Click(object sender, EventArgs e)
         {
-            // Lógica individual para Relatórios
             if (relatorios == null || relatorios.IsDisposed)
             {
                 relatorios = new FormRelatorios();
-                relatorios.FormClosed += (s, e) => { relatorios = null; };
+                relatorios.FormClosed += (s, e2) => { relatorios = null; };
                 AbrirFormNoPanel(relatorios);
             }
+            else if (!pnlContainer.Controls.Contains(relatorios))
+                AbrirFormNoPanel(relatorios);
             else
-            {
-                if (!pnlContainer.Controls.Contains(relatorios))
-                {
-                    AbrirFormNoPanel(relatorios);
-                }
-                else
-                {
-                    relatorios.BringToFront();
-                }
-            }
+                relatorios.BringToFront();
         }
 
         private void btnFuncionarios_Click(object sender, EventArgs e)
         {
-            // Lógica individual para Funcionários
             if (funcionarios == null || funcionarios.IsDisposed)
             {
                 funcionarios = new FormFuncionarios();
-                funcionarios.FormClosed += (s, e) => { funcionarios = null; };
+                funcionarios.FormClosed += (s, e2) => { funcionarios = null; };
                 AbrirFormNoPanel(funcionarios);
             }
+            else if (!pnlContainer.Controls.Contains(funcionarios))
+                AbrirFormNoPanel(funcionarios);
             else
-            {
-                if (!pnlContainer.Controls.Contains(funcionarios))
-                {
-                    AbrirFormNoPanel(funcionarios);
-                }
-                else
-                {
-                    funcionarios.BringToFront();
-                }
-            }
+                funcionarios.BringToFront();
         }
 
         private void btnConfiguracoes_Click(object sender, EventArgs e)
         {
-            // Lógica individual para Configurações
             if (configuracoes == null || configuracoes.IsDisposed)
             {
                 configuracoes = new FormConfiguracoes();
-                configuracoes.FormClosed += (s, e) => { configuracoes = null; };
+                configuracoes.FormClosed += (s, e2) => { configuracoes = null; };
                 AbrirFormNoPanel(configuracoes);
             }
+            else if (!pnlContainer.Controls.Contains(configuracoes))
+                AbrirFormNoPanel(configuracoes);
             else
-            {
-                if (!pnlContainer.Controls.Contains(configuracoes))
-                {
-                    AbrirFormNoPanel(configuracoes);
-                }
-                else
-                {
-                    configuracoes.BringToFront();
-                }
-            }
+                configuracoes.BringToFront();
         }
 
-        // ========== MÉTODOS PARA BOTÕES DUPLICADOS ==========
-        private void btnRelatorios_Click_1(object sender, EventArgs e)
-        {
-            btnRelatorios_Click(sender, e);
-        }
-
-        private void btnFuncionarios_Click_1(object sender, EventArgs e)
-        {
-            btnFuncionarios_Click(sender, e);
-        }
-
-        private void btnConfiguracoes_Click_1(object sender, EventArgs e)
-        {
-            btnConfiguracoes_Click(sender, e);
-        }
-
-        // ========== EVENTOS FORM CLOSED ==========
-        private void Vendas_FormClosed(object? sender, FormClosedEventArgs e)
-        {
-            vendas = null;
-        }
-
-        private void Estoque_FormClosed(object? sender, FormClosedEventArgs e)
-        {
-            estoque = null;
-        }
-
-        private void Inicial_FormClosed(object? sender, FormClosedEventArgs e)
-        {
-            inicial = null;
-        }
-
-        private void Relatorios_FormClosed(object? sender, FormClosedEventArgs e)
-        {
-            relatorios = null;
-        }
-
-        private void Funcionarios_FormClosed(object? sender, FormClosedEventArgs e)
-        {
-            funcionarios = null;
-        }
-
-        private void Configuracoes_FormClosed(object? sender, FormClosedEventArgs e)
-        {
-            configuracoes = null;
-        }
-
+        // ========== BOTÕES ADICIONAR ==========
         private void addVenda_Click(object sender, EventArgs e)
         {
             if (adicionarVendaForm == null || adicionarVendaForm.IsDisposed)
@@ -378,16 +247,7 @@ namespace telebip_erp
 
         private void addEstoque_Click(object sender, EventArgs e)
         {
-            if (adicionarEstoqueForm == null || adicionarEstoqueForm.IsDisposed)
-            {
-                adicionarEstoqueForm = new FormAddEstoque();
-                adicionarEstoqueForm.FormClosed += (s, args) => { adicionarEstoqueForm = null; };
-                adicionarEstoqueForm.ShowDialog(this); // abre modal sobre o FormBase
-            }
-            else
-            {
-                adicionarEstoqueForm.BringToFront();
-            }
+            AbrirFormAddEstoque();
         }
 
         private void rmvEstoque_Click(object sender, EventArgs e)
@@ -406,13 +266,82 @@ namespace telebip_erp
                 return;
             }
 
-            // ⚡ Desestrutura o tuple para obter id, nome e quantidade
             var (id, nome, quantidade) = produtoSelecionado.Value;
 
             using (var formRmv = new FormRmvEstoque(id, nome, quantidade))
             {
+                // Atualiza apenas o DataGridView depois de fechar
+                formRmv.FormClosed += (s, args) =>
+                {
+                    if (estoque != null && !estoque.IsDisposed)
+                        estoque.CarregarEstoque(limitar20: false);
+                };
+
                 formRmv.ShowDialog(this);
             }
+        }
+
+        // ========== MÉTODO CENTRALIZADO PARA ABRIR FORMADD_ESTOQUE ==========
+        private void AbrirFormAddEstoque()
+        {
+            if (estoque == null)
+            {
+                MessageBox.Show("Abra primeiro a tela de Estoque.");
+                return;
+            }
+
+            if (adicionarEstoqueForm == null || adicionarEstoqueForm.IsDisposed)
+            {
+                adicionarEstoqueForm = new FormAddEstoque();
+                adicionarEstoqueForm.FormClosed += (s, args) => { adicionarEstoqueForm = null; };
+
+                // Callback apenas para atualizar DataGridView
+                adicionarEstoqueForm.AtualizarEstoqueCallback = () =>
+                {
+                    if (estoque != null && !estoque.IsDisposed)
+                        estoque.CarregarEstoque(limitar20: false);
+                };
+            }
+
+            adicionarEstoqueForm.LimparCampos();
+
+            var linhaSelecionada = estoque.ObterLinhaSelecionada();
+
+            if (linhaSelecionada != null)
+            {
+                // Produto existente
+                adicionarEstoqueForm.ProdutoSelecionado = (
+                    Convert.ToInt32(linhaSelecionada.Cells["ID_PRODUTO"].Value),
+                    linhaSelecionada.Cells["NOME"].Value?.ToString() ?? "",
+                    Convert.ToInt32(linhaSelecionada.Cells["QTD_ESTOQUE"].Value)
+                );
+
+                // Preenche campos
+                adicionarEstoqueForm.tbNome.Text = linhaSelecionada.Cells["NOME"].Value?.ToString() ?? "";
+                adicionarEstoqueForm.tbMarca.Text = linhaSelecionada.Cells["MARCA"].Value?.ToString() ?? "";
+                adicionarEstoqueForm.tbPreco.Text = "R$ " + Convert.ToDecimal(linhaSelecionada.Cells["PRECO"].Value).ToString("N2");
+                adicionarEstoqueForm.tbQEstoque.Text = ""; // sempre vazio
+                adicionarEstoqueForm.tbQAviso.Text = linhaSelecionada.Cells["QTD_AVISO"].Value?.ToString() ?? "";
+                adicionarEstoqueForm.tbObservacao.Text = linhaSelecionada.Cells["OBSERVACAO"].Value?.ToString() ?? "";
+
+                // Campos somente leitura
+                adicionarEstoqueForm.tbNome.ReadOnly = true;
+                adicionarEstoqueForm.tbMarca.ReadOnly = true;
+                adicionarEstoqueForm.tbPreco.ReadOnly = true;
+                adicionarEstoqueForm.tbQAviso.ReadOnly = true;
+                adicionarEstoqueForm.tbObservacao.ReadOnly = true;
+
+                adicionarEstoqueForm.lbQuantidadeAtual.Text = $"Quantidade atual: {linhaSelecionada.Cells["QTD_ESTOQUE"].Value}";
+                adicionarEstoqueForm.lbQuantidadeAtual.Visible = true;
+            }
+            else
+            {
+                // Produto novo
+                adicionarEstoqueForm.ProdutoSelecionado = null;
+                adicionarEstoqueForm.LimparCampos();
+            }
+
+            adicionarEstoqueForm.ShowDialog(this);
         }
     }
 }

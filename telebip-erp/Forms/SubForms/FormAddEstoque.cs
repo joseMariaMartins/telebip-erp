@@ -10,6 +10,10 @@ namespace telebip_erp.Forms.SubForms
     public partial class FormAddEstoque : MaterialSkin.Controls.MaterialForm
     {
         private bool _ignorarEventoPreco = false;
+        public (int Id, string Nome, int Quantidade)? ProdutoSelecionado { get; set; }
+
+        // Callback para atualizar o DataGridView no FormEstoque
+        public Action? AtualizarEstoqueCallback { get; set; }
 
         public FormAddEstoque()
         {
@@ -17,36 +21,41 @@ namespace telebip_erp.Forms.SubForms
             ThemeManager.ApplyDarkTheme();
             CarregarFuncionarios();
 
-            // Inicializa o preço com R$ 0,00
             tbPreco.Text = "R$ 0,00";
             tbPreco.SelectionStart = tbPreco.Text.Length;
 
-            // Eventos
+            // REMOVE handlers antigos antes de adicionar para evitar duplicação
+            tbPreco.KeyPress -= TbPreco_KeyPress;
             tbPreco.KeyPress += TbPreco_KeyPress;
+
+            tbPreco.TextChanged -= TbPreco_TextChanged;
             tbPreco.TextChanged += TbPreco_TextChanged;
 
+            tbQEstoque.KeyPress -= OnlyNumbers_KeyPress;
             tbQEstoque.KeyPress += OnlyNumbers_KeyPress;
+
+            tbQAviso.KeyPress -= OnlyNumbers_KeyPress;
             tbQAviso.KeyPress += OnlyNumbers_KeyPress;
 
+            btnAdicionar.Click -= BtnAdicionar_Click;
             btnAdicionar.Click += BtnAdicionar_Click;
+
+            btnCancelar.Click -= BtnCancelar_Click;
+            btnCancelar.Click += BtnCancelar_Click;
         }
 
         private void CarregarFuncionarios()
         {
             try
             {
-                using (var conn = DatabaseHelper.GetConnection())
-                {
-                    conn.Open();
-                    string sql = "SELECT NOME FROM FUNCIONARIO ORDER BY NOME;";
-                    using (var cmd = new SQLiteCommand(sql, conn))
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        cbFuncionarios.Items.Clear();
-                        while (reader.Read())
-                            cbFuncionarios.Items.Add(reader["NOME"].ToString());
-                    }
-                }
+                using var conn = DatabaseHelper.GetConnection();
+                conn.Open();
+                string sql = "SELECT NOME FROM FUNCIONARIO ORDER BY NOME;";
+                using var cmd = new SQLiteCommand(sql, conn);
+                using var reader = cmd.ExecuteReader();
+                cbFuncionarios.Items.Clear();
+                while (reader.Read())
+                    cbFuncionarios.Items.Add(reader["NOME"].ToString());
 
                 if (cbFuncionarios.Items.Count > 0)
                     cbFuncionarios.SelectedIndex = 0;
@@ -57,30 +66,25 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
-        // ==================== EVENTO: Adicionar Produto ====================
         private void BtnAdicionar_Click(object sender, EventArgs e)
         {
             try
             {
-                // Transforma em maiúsculas
                 string nome = tbNome.Text.Trim().ToUpper();
                 string marca = tbMarca.Text.Trim().ToUpper();
                 string observacao = tbObservacao.Text.Trim().ToUpper();
 
-                // Extrai e formata o preço
                 string precoTexto = tbPreco.Text.Replace("R$", "").Trim();
-                precoTexto = precoTexto.Replace(".", "").Replace(",", "."); // troca vírgula por ponto
-
+                precoTexto = precoTexto.Replace(".", "").Replace(",", ".");
                 if (!decimal.TryParse(precoTexto, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal preco))
                 {
                     MessageBox.Show("Preço inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // Quantidades
-                if (!int.TryParse(tbQEstoque.Text, out int qtdEstoque))
+                if (!int.TryParse(tbQEstoque.Text, out int qtdAdicional) || qtdAdicional <= 0)
                 {
-                    MessageBox.Show("Quantidade em estoque inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Informe uma quantidade válida para adicionar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -90,48 +94,52 @@ namespace telebip_erp.Forms.SubForms
                     return;
                 }
 
-                // Funcionário
                 if (cbFuncionarios.SelectedItem == null)
                 {
                     MessageBox.Show("Selecione um funcionário!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                string funcionario = cbFuncionarios.SelectedItem.ToString();
+                using var conn = DatabaseHelper.GetConnection();
+                conn.Open();
 
-                // Insere no banco
-                using (var conn = DatabaseHelper.GetConnection())
+                if (ProdutoSelecionado != null)
                 {
-                    conn.Open();
+                    // Produto existente -> pega estoque atual do banco
+                    using var cmdSelect = new SQLiteCommand("SELECT QTD_ESTOQUE FROM PRODUTO WHERE ID_PRODUTO = @ID", conn);
+                    cmdSelect.Parameters.AddWithValue("@ID", ProdutoSelecionado.Value.Id);
+                    int estoqueAtual = Convert.ToInt32(cmdSelect.ExecuteScalar());
 
-                    string sql = @"
-                        INSERT INTO PRODUTO (NOME, MARCA, PRECO, QTD_ESTOQUE, QUANTIDADE_AVISO, OBSERVACAO)
+                    int novaQuantidade = estoqueAtual + qtdAdicional;
+
+                    string sqlUpdate = "UPDATE PRODUTO SET QTD_ESTOQUE = @NOVO_QTD WHERE ID_PRODUTO = @ID;";
+                    using var cmd = new SQLiteCommand(sqlUpdate, conn);
+                    cmd.Parameters.AddWithValue("@NOVO_QTD", novaQuantidade);
+                    cmd.Parameters.AddWithValue("@ID", ProdutoSelecionado.Value.Id);
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    // Produto novo -> INSERT
+                    string sqlInsert = @"
+                        INSERT INTO PRODUTO (NOME, MARCA, PRECO, QTD_ESTOQUE, QTD_AVISO, OBSERVACAO)
                         VALUES (@NOME, @MARCA, @PRECO, @QTD_ESTOQUE, @QTD_AVISO, @OBSERVACAO);
                     ";
 
-                    using (var cmd = new SQLiteCommand(sql, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@NOME", nome);
-                        cmd.Parameters.AddWithValue("@MARCA", marca);
-                        cmd.Parameters.AddWithValue("@PRECO", preco);
-                        cmd.Parameters.AddWithValue("@QTD_ESTOQUE", qtdEstoque);
-                        cmd.Parameters.AddWithValue("@QTD_AVISO", qtdAviso);
-                        cmd.Parameters.AddWithValue("@OBSERVACAO", observacao);
-
-                        cmd.ExecuteNonQuery();
-                    }
+                    using var cmd = new SQLiteCommand(sqlInsert, conn);
+                    cmd.Parameters.AddWithValue("@NOME", nome);
+                    cmd.Parameters.AddWithValue("@MARCA", marca);
+                    cmd.Parameters.AddWithValue("@PRECO", preco);
+                    cmd.Parameters.AddWithValue("@QTD_ESTOQUE", qtdAdicional);
+                    cmd.Parameters.AddWithValue("@QTD_AVISO", qtdAviso);
+                    cmd.Parameters.AddWithValue("@OBSERVACAO", observacao);
+                    cmd.ExecuteNonQuery();
                 }
 
-                MessageBox.Show("Produto adicionado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Produto adicionado/atualizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Limpa os campos
-                tbNome.Clear();
-                tbMarca.Clear();
-                tbPreco.Text = "R$ 0,00";
-                tbQEstoque.Clear();
-                tbQAviso.Clear();
-                tbObservacao.Clear();
-                cbFuncionarios.SelectedIndex = 0;
+                AtualizarEstoqueCallback?.Invoke();
+                LimparCampos();
             }
             catch (Exception ex)
             {
@@ -139,14 +147,10 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
-        // ==================== Preço ====================
         private void TbPreco_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Só permite números e backspace
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
-            {
                 e.Handled = true;
-            }
         }
 
         private void TbPreco_TextChanged(object sender, EventArgs e)
@@ -156,8 +160,6 @@ namespace telebip_erp.Forms.SubForms
             _ignorarEventoPreco = true;
 
             string text = tbPreco.Text;
-
-            // Remove tudo que não é número
             string numeros = "";
             foreach (char c in text)
                 if (char.IsDigit(c))
@@ -165,38 +167,52 @@ namespace telebip_erp.Forms.SubForms
 
             if (numeros == "") numeros = "0";
 
-            // Converte para decimal, considerando 2 casas decimais
             decimal valor = decimal.Parse(numeros) / 100m;
-
             if (valor > 1000000m) valor = 1000000m;
 
-            // Atualiza textbox com formato moeda
             tbPreco.Text = "R$ " + valor.ToString("N2", CultureInfo.GetCultureInfo("pt-BR"));
             tbPreco.SelectionStart = tbPreco.Text.Length;
 
             _ignorarEventoPreco = false;
         }
 
-        // ==================== Quantidades ====================
         private void OnlyNumbers_KeyPress(object sender, KeyPressEventArgs e)
         {
             Guna2TextBox tb = sender as Guna2TextBox;
 
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
-            {
                 e.Handled = true;
-            }
 
-            // Limite de 9999
             if (tb.Text.Length >= 4 && e.KeyChar != (char)Keys.Back)
-            {
                 e.Handled = true;
-            }
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        public void LimparCampos()
+        {
+            tbNome.Text = "";
+            tbMarca.Text = "";
+            tbPreco.Text = "R$ 0,00";
+            tbQEstoque.Text = "";
+            tbQAviso.Text = "";
+            tbObservacao.Text = "";
+
+            tbNome.ReadOnly = false;
+            tbMarca.ReadOnly = false;
+            tbPreco.ReadOnly = false;
+            tbQAviso.ReadOnly = false;
+            tbObservacao.ReadOnly = false;
+
+            lbQuantidadeAtual.Visible = false;
+
+            if (cbFuncionarios.Items.Count > 0)
+                cbFuncionarios.SelectedIndex = 0;
+
+            ProdutoSelecionado = null;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SQLite;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace telebip_erp.Forms.Modules
@@ -18,49 +19,92 @@ namespace telebip_erp.Forms.Modules
             this.MinimizeBox = false;
             this.Text = "";
 
-            // Evento do botão pesquisar
+            // Eventos
             btnPesquisar.Click += BtnPesquisar_Click;
+            btnLimpar.Click += BtnLimpar_Click;
+
+            CarregarEstoqueInicial();
+
+            // 🔹 Garantir que nada fique selecionado ao abrir
+            this.Shown += (s, e) =>
+            {
+                dgvEstoque.ClearSelection();
+                dgvEstoque.CurrentCell = null;
+            };
         }
 
-        // Configura os combobox
         private void ConfiguracoesCombobox()
         {
             cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            cbPesquisaCampo.SelectedIndex = 0; // Seleciona o primeiro campo
-            cbCondicao.SelectedIndex = 0;      // Seleciona a primeira condição
+            cbPesquisaCampo.SelectedIndex = 0;
+            cbCondicao.SelectedIndex = 0;
         }
 
-        // Carrega os dados no DataGridView de acordo com o filtro
-        private void CarregarEstoque(string filtroSql = "", SQLiteParameter[]? parametros = null)
+        private void AtualizarTotalItens()
+        {
+            lbTotal.Text = $"Total de itens: {dgvEstoque.Rows.Count}";
+        }
+
+        public void CarregarEstoque(string filtroSql = "", SQLiteParameter[]? parametros = null, bool limitar20 = false)
         {
             try
             {
-                // Se não houver filtro, não carrega nada
-                if (string.IsNullOrEmpty(filtroSql))
-                {
-                    dgvEstoque.DataSource = null;
-                    return;
-                }
-
-                // Especifica as colunas que serão exibidas (exceto QUANTIDADE_AVISO)
                 string sql = $@"
-            SELECT 
-                ID_PRODUTO,
-                NOME,
-                MARCA,
-                PRECO,
-                QTD_ESTOQUE,
-                OBSERVACAO
-            FROM PRODUTO
-            WHERE {filtroSql};
-        ";
+                    SELECT 
+                        ID_PRODUTO,
+                        NOME,
+                        MARCA,
+                        PRECO,
+                        QTD_ESTOQUE,
+                        QTD_AVISO,
+                        OBSERVACAO
+                    FROM PRODUTO
+                    {(string.IsNullOrEmpty(filtroSql) ? "" : "WHERE " + filtroSql)}
+                    ORDER BY ID_PRODUTO
+                    {(limitar20 ? "LIMIT 20" : "")};
+                ";
 
                 DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
-
                 dgvEstoque.DataSource = dt;
-                dgvEstoque.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                // Cabeçalhos centralizados
+                foreach (DataGridViewColumn coluna in dgvEstoque.Columns)
+                    coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                dgvEstoque.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+                dgvEstoque.Columns["OBSERVACAO"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                dgvEstoque.Columns["ID_PRODUTO"].Width = 85;
+                dgvEstoque.Columns["NOME"].Width = 150;
+                dgvEstoque.Columns["MARCA"].Width = 95;
+                dgvEstoque.Columns["PRECO"].Width = 70;
+                dgvEstoque.Columns["QTD_ESTOQUE"].Width = 100;
+                dgvEstoque.Columns["QTD_AVISO"].Width = 80;
+
+                dgvEstoque.Columns["ID_PRODUTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvEstoque.Columns["PRECO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvEstoque.Columns["QTD_ESTOQUE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvEstoque.Columns["QTD_AVISO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                dgvEstoque.Columns["NOME"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvEstoque.Columns["MARCA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvEstoque.Columns["OBSERVACAO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                dgvEstoque.RowsDefaultCellStyle.BackColor = Color.White;
+                dgvEstoque.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240);
+
+                dgvEstoque.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+                dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvEstoque.MultiSelect = false;
+                dgvEstoque.ReadOnly = true;
+
+                // 🔹 Remove seleção automática da primeira linha
+                dgvEstoque.ClearSelection();
+                dgvEstoque.CurrentCell = null;
+
+                AtualizarTotalItens();
             }
             catch (Exception ex)
             {
@@ -68,12 +112,16 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
-        // Evento do botão pesquisar
+        private void CarregarEstoqueInicial()
+        {
+            CarregarEstoque(limitar20: true);
+        }
+
         private void BtnPesquisar_Click(object? sender, EventArgs e)
         {
             string campo = cbPesquisaCampo.SelectedItem.ToString();
             string condicao = cbCondicao.SelectedItem.ToString();
-            string valor = tbPesquisa.Text.ToUpper(); // deixa sempre em maiúsculo
+            string valor = tbPesquisa.Text.ToUpper();
 
             string filtroSql = "";
             SQLiteParameter[] parametros;
@@ -82,37 +130,37 @@ namespace telebip_erp.Forms.Modules
             {
                 case "Inicia com":
                     filtroSql = $"UPPER({campo}) LIKE @valor";
-                    parametros = new SQLiteParameter[]
-                    {
-                        new SQLiteParameter("@valor", valor + "%")
-                    };
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor + "%") };
                     break;
-
                 case "Contendo":
                     filtroSql = $"UPPER({campo}) LIKE @valor";
-                    parametros = new SQLiteParameter[]
-                    {
-                        new SQLiteParameter("@valor", "%" + valor + "%")
-                    };
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", "%" + valor + "%") };
                     break;
-
                 case "Diferente de":
                     filtroSql = $"UPPER({campo}) <> @valor";
-                    parametros = new SQLiteParameter[]
-                    {
-                        new SQLiteParameter("@valor", valor)
-                    };
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
                     break;
-
                 default:
                     MessageBox.Show("Condição de pesquisa inválida.");
                     return;
             }
 
-            CarregarEstoque(filtroSql, parametros);
+            CarregarEstoque(filtroSql, parametros, limitar20: false);
         }
 
-        // Obtém o produto selecionado no DataGridView
+        private void BtnLimpar_Click(object? sender, EventArgs e)
+        {
+            tbPesquisa.Text = "";
+            cbPesquisaCampo.SelectedIndex = 0;
+            cbCondicao.SelectedIndex = 0;
+
+            CarregarEstoque(limitar20: true);
+
+            // 🔹 Limpa seleção ao clicar em limpar
+            dgvEstoque.ClearSelection();
+            dgvEstoque.CurrentCell = null;
+        }
+
         public (int Id, string Nome, int Quantidade)? ObterProdutoSelecionado()
         {
             if (dgvEstoque.CurrentRow == null)
@@ -130,5 +178,11 @@ namespace telebip_erp.Forms.Modules
                 return null;
             }
         }
+
+        public DataGridViewRow? ObterLinhaSelecionada()
+        {
+            return dgvEstoque.CurrentRow;
+        }
+
     }
 }

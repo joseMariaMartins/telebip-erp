@@ -17,13 +17,18 @@
 
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             dgvEstoque = new DataGridView();
             flpTop = new FlowLayoutPanel();
             cbPesquisaCampo = new ReaLTaiizor.Controls.ComboBoxEdit();
             cbCondicao = new ReaLTaiizor.Controls.ComboBoxEdit();
             tbPesquisa = new ReaLTaiizor.Controls.DungeonTextBox();
             btnPesquisar = new ReaLTaiizor.Controls.AloneButton();
+            btnLimpar = new ReaLTaiizor.Controls.AloneButton();
             pnlDgv = new Panel();
+            lbTotal = new Guna.UI2.WinForms.Guna2HtmlLabel();
             ((System.ComponentModel.ISupportInitialize)dgvEstoque).BeginInit();
             flpTop.SuspendLayout();
             pnlDgv.SuspendLayout();
@@ -33,14 +38,29 @@
             // 
             dgvEstoque.AllowUserToAddRows = false;
             dgvEstoque.AllowUserToDeleteRows = false;
+            dgvEstoque.AllowUserToResizeColumns = false;
+            dgvEstoque.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = Color.Silver;
+            dgvEstoque.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvEstoque.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9.75F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightSteelBlue;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvEstoque.DefaultCellStyle = dataGridViewCellStyle2;
             dgvEstoque.Dock = DockStyle.Fill;
             dgvEstoque.Location = new Point(15, 0);
             dgvEstoque.Margin = new Padding(2);
             dgvEstoque.MultiSelect = false;
             dgvEstoque.Name = "dgvEstoque";
             dgvEstoque.ReadOnly = true;
+            dgvEstoque.RowHeadersVisible = false;
             dgvEstoque.RowHeadersWidth = 62;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dgvEstoque.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEstoque.Size = new Size(1567, 725);
             dgvEstoque.TabIndex = 0;
@@ -51,6 +71,7 @@
             flpTop.Controls.Add(cbCondicao);
             flpTop.Controls.Add(tbPesquisa);
             flpTop.Controls.Add(btnPesquisar);
+            flpTop.Controls.Add(btnLimpar);
             flpTop.Dock = DockStyle.Top;
             flpTop.Location = new Point(0, 0);
             flpTop.Name = "flpTop";
@@ -124,12 +145,25 @@
             btnPesquisar.ForeColor = Color.Black;
             btnPesquisar.Location = new Point(632, 18);
             btnPesquisar.Name = "btnPesquisar";
-            btnPesquisar.Size = new Size(172, 28);
+            btnPesquisar.Size = new Size(117, 28);
             btnPesquisar.TabIndex = 9;
             btnPesquisar.Text = "Pesquisar";
             // 
+            // btnLimpar
+            // 
+            btnLimpar.BackColor = Color.FromArgb(255, 128, 128);
+            btnLimpar.EnabledCalc = true;
+            btnLimpar.Font = new Font("Segoe UI", 9.75F);
+            btnLimpar.ForeColor = Color.Black;
+            btnLimpar.Location = new Point(755, 18);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.Size = new Size(117, 28);
+            btnLimpar.TabIndex = 13;
+            btnLimpar.Text = "Limpar";
+            // 
             // pnlDgv
             // 
+            pnlDgv.Controls.Add(lbTotal);
             pnlDgv.Controls.Add(dgvEstoque);
             pnlDgv.Dock = DockStyle.Fill;
             pnlDgv.Location = new Point(0, 59);
@@ -138,6 +172,16 @@
             pnlDgv.Padding = new Padding(15, 0, 15, 17);
             pnlDgv.Size = new Size(1597, 742);
             pnlDgv.TabIndex = 3;
+            // 
+            // lbTotal
+            // 
+            lbTotal.BackColor = Color.Transparent;
+            lbTotal.ForeColor = Color.White;
+            lbTotal.Location = new Point(15, 722);
+            lbTotal.Name = "lbTotal";
+            lbTotal.Size = new Size(97, 17);
+            lbTotal.TabIndex = 1;
+            lbTotal.Text = "guna2HtmlLabel1";
             // 
             // FormEstoque
             // 
@@ -158,6 +202,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvEstoque).EndInit();
             flpTop.ResumeLayout(false);
             pnlDgv.ResumeLayout(false);
+            pnlDgv.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -169,6 +214,8 @@
         private ReaLTaiizor.Controls.ComboBoxEdit cbCondicao;
         private ReaLTaiizor.Controls.DungeonTextBox tbPesquisa;
         private ReaLTaiizor.Controls.AloneButton btnPesquisar;
-        private System.Windows.Forms.DataGridView dgvEstoque;
+        public System.Windows.Forms.DataGridView dgvEstoque;
+        private ReaLTaiizor.Controls.AloneButton btnLimpar;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lbTotal;
     }
 }

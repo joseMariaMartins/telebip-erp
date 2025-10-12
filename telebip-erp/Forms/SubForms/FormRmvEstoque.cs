@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
 using System.Data.SQLite;
 
 namespace telebip_erp.Forms.SubForms
@@ -19,6 +10,9 @@ namespace telebip_erp.Forms.SubForms
         private readonly string nomeProduto;
         private readonly int quantidadeAtual;
 
+        // Callback para atualizar o DataGridView no FormEstoque
+        public Action? AtualizarEstoqueCallback { get; set; }
+
         public FormRmvEstoque(int id, string nome, int quantidade)
         {
             InitializeComponent();
@@ -28,22 +22,16 @@ namespace telebip_erp.Forms.SubForms
 
             btnConfirmar.Click += btnConfirmar_Click;
 
-
             lbNomeProduto.Text = $"Produto: {nomeProduto}";
             lbQuantidadeAtual.Text = $"Quantidade atual: {quantidadeAtual}";
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            // Se a checkbox estiver marcada → exclui o produto inteiro
             if (cbExcluirProduto.Checked)
-            {
                 ExcluirProduto();
-            }
             else
-            {
                 RemoverQuantidade();
-            }
         }
 
         private void RemoverQuantidade()
@@ -70,6 +58,9 @@ namespace telebip_erp.Forms.SubForms
 
                 DatabaseHelper.ExecuteNonQuery(sql, parametros);
 
+                // Atualiza DataGridView do FormEstoque
+                AtualizarEstoqueCallback?.Invoke();
+
                 MessageBox.Show("Quantidade removida com sucesso!");
                 this.Close();
             }
@@ -88,8 +79,7 @@ namespace telebip_erp.Forms.SubForms
                 MessageBoxIcon.Warning
             );
 
-            if (confirm != DialogResult.Yes)
-                return;
+            if (confirm != DialogResult.Yes) return;
 
             try
             {
@@ -100,6 +90,9 @@ namespace telebip_erp.Forms.SubForms
 
                 DatabaseHelper.ExecuteNonQuery(sql, parametros);
 
+                // Atualiza DataGridView do FormEstoque
+                AtualizarEstoqueCallback?.Invoke();
+
                 MessageBox.Show("Produto excluído com sucesso!");
                 this.Close();
             }
@@ -108,7 +101,5 @@ namespace telebip_erp.Forms.SubForms
                 MessageBox.Show("Erro ao excluir produto: " + ex.Message);
             }
         }
-
-
     }
 }

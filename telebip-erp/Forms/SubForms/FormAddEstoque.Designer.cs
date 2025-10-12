@@ -62,6 +62,7 @@
             guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             btnAdicionar = new Guna.UI2.WinForms.Guna2Button();
             btnCancelar = new Guna.UI2.WinForms.Guna2Button();
+            lbQuantidadeAtual = new Guna.UI2.WinForms.Guna2HtmlLabel();
             SuspendLayout();
             // 
             // cbFuncionarios
@@ -306,7 +307,15 @@
             btnCancelar.Size = new Size(180, 45);
             btnCancelar.TabIndex = 16;
             btnCancelar.Text = "SAIR";
-            btnCancelar.Click += btnCancelar_Click;
+            // 
+            // lbQuantidadeAtual
+            // 
+            lbQuantidadeAtual.BackColor = Color.Transparent;
+            lbQuantidadeAtual.Location = new Point(339, 183);
+            lbQuantidadeAtual.Name = "lbQuantidadeAtual";
+            lbQuantidadeAtual.Size = new Size(97, 17);
+            lbQuantidadeAtual.TabIndex = 17;
+            lbQuantidadeAtual.Text = "guna2HtmlLabel8";
             // 
             // FormAddEstoque
             // 
@@ -314,6 +323,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 24, 20);
             ClientSize = new Size(700, 480);
+            Controls.Add(lbQuantidadeAtual);
             Controls.Add(btnCancelar);
             Controls.Add(btnAdicionar);
             Controls.Add(guna2HtmlLabel7);
@@ -344,13 +354,13 @@
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2ComboBox cbFuncionarios;
-        private Guna.UI2.WinForms.Guna2TextBox tbNome;
-        private Guna.UI2.WinForms.Guna2TextBox tbMarca;
-        private Guna.UI2.WinForms.Guna2TextBox tbPreco;
-        private Guna.UI2.WinForms.Guna2TextBox tbQEstoque;
-        private Guna.UI2.WinForms.Guna2TextBox tbQAviso;
-        private Guna.UI2.WinForms.Guna2TextBox tbObservacao;
+        public Guna.UI2.WinForms.Guna2ComboBox cbFuncionarios;
+        public Guna.UI2.WinForms.Guna2TextBox tbNome;
+        public Guna.UI2.WinForms.Guna2TextBox tbMarca;
+        public Guna.UI2.WinForms.Guna2TextBox tbPreco;
+        public Guna.UI2.WinForms.Guna2TextBox tbQEstoque;
+        public Guna.UI2.WinForms.Guna2TextBox tbQAviso;
+        public Guna.UI2.WinForms.Guna2TextBox tbObservacao;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
@@ -360,5 +370,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
         private Guna.UI2.WinForms.Guna2Button btnAdicionar;
         private Guna.UI2.WinForms.Guna2Button btnCancelar;
+        public Guna.UI2.WinForms.Guna2HtmlLabel lbQuantidadeAtual;
     }
 }
