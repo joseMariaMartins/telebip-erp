@@ -350,6 +350,7 @@
             btnRelatorios.Text = "                    Relatórios";
             btnRelatorios.TextAlign = ContentAlignment.MiddleLeft;
             btnRelatorios.UseVisualStyleBackColor = false;
+            btnRelatorios.Click += btnRelatorios_Click;
             // 
             // pnlFuncionarios
             // 
@@ -385,6 +386,7 @@
             btnFuncionarios.Text = "                    Funcionários";
             btnFuncionarios.TextAlign = ContentAlignment.MiddleLeft;
             btnFuncionarios.UseVisualStyleBackColor = false;
+            btnFuncionarios.Click += btnFuncionarios_Click;
             // 
             // pnlConfiguracoes
             // 
@@ -420,6 +422,7 @@
             btnConfiguracoes.Text = "                    Configurações";
             btnConfiguracoes.TextAlign = ContentAlignment.MiddleLeft;
             btnConfiguracoes.UseVisualStyleBackColor = false;
+            btnConfiguracoes.Click += btnConfiguracoes_Click;
             // 
             // menuTransitionVendas
             // 

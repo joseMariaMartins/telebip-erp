@@ -2,15 +2,8 @@
 {
     partial class FormFuncionarios
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,232 +15,334 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFuncionarios));
-            tableLayoutPanel1 = new TableLayoutPanel();
-            tlpContainerLeft = new TableLayoutPanel();
-            panelCard = new Panel();
-            panel2 = new Panel();
-            tableLayoutPanel18 = new TableLayoutPanel();
-            pictureBox1 = new PictureBox();
-            tableLayoutPanel19 = new TableLayoutPanel();
-            label5 = new Label();
-            label6 = new Label();
-            label3 = new Label();
-            label1 = new Label();
-            tableLayoutPanel1.SuspendLayout();
-            tlpContainerLeft.SuspendLayout();
-            panelCard.SuspendLayout();
-            panel2.SuspendLayout();
-            tableLayoutPanel18.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            tableLayoutPanel19.SuspendLayout();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            pnlContainer = new Panel();
+            pnlMain = new Panel();
+            dgvFuncionarios = new DataGridView();
+            pnlSidebar = new Panel();
+            pnlUserProfile = new Panel();
+            pbUserProfile = new PictureBox();
+            pnlProfileInfo = new Panel();
+            lblUserIdade = new Label();
+            lblUserCargo = new Label();
+            lblUserName = new Label();
+            pnlBotoesAcao = new Panel();
+            btnExcluir = new Guna.UI2.WinForms.Guna2Button();
+            btnEditar = new Guna.UI2.WinForms.Guna2Button();
+            btnNovo = new Guna.UI2.WinForms.Guna2Button();
+            pnlHeader = new Panel();
+            lblTitulo = new Label();
+            pnlBottom = new Panel();
+            lblTotal = new Label();
+            pnlContainer.SuspendLayout();
+            pnlMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvFuncionarios).BeginInit();
+            pnlSidebar.SuspendLayout();
+            pnlUserProfile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbUserProfile).BeginInit();
+            pnlProfileInfo.SuspendLayout();
+            pnlBotoesAcao.SuspendLayout();
+            pnlHeader.SuspendLayout();
+            pnlBottom.SuspendLayout();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // pnlContainer
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
-            tableLayoutPanel1.Controls.Add(tlpContainerLeft, 0, 0);
-            tableLayoutPanel1.Controls.Add(panel2, 1, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.Padding = new Padding(20, 20, 20, 0);
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1620, 763);
-            tableLayoutPanel1.TabIndex = 0;
+            pnlContainer.BackColor = Color.FromArgb(28, 29, 40);
+            pnlContainer.Controls.Add(pnlMain);
+            pnlContainer.Controls.Add(pnlSidebar);
+            pnlContainer.Controls.Add(pnlHeader);
+            pnlContainer.Controls.Add(pnlBottom);
+            pnlContainer.Dock = DockStyle.Fill;
+            pnlContainer.Location = new Point(0, 0);
+            pnlContainer.Name = "pnlContainer";
+            pnlContainer.Size = new Size(1597, 801);
+            pnlContainer.TabIndex = 0;
             // 
-            // tlpContainerLeft
+            // pnlMain
             // 
-            tlpContainerLeft.ColumnCount = 2;
-            tlpContainerLeft.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tlpContainerLeft.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tlpContainerLeft.Controls.Add(panelCard, 0, 0);
-            tlpContainerLeft.Dock = DockStyle.Fill;
-            tlpContainerLeft.Location = new Point(20, 20);
-            tlpContainerLeft.Margin = new Padding(0);
-            tlpContainerLeft.Name = "tlpContainerLeft";
-            tlpContainerLeft.RowCount = 8;
-            tlpContainerLeft.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tlpContainerLeft.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tlpContainerLeft.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tlpContainerLeft.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tlpContainerLeft.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tlpContainerLeft.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tlpContainerLeft.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tlpContainerLeft.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tlpContainerLeft.Size = new Size(1106, 743);
-            tlpContainerLeft.TabIndex = 18;
+            pnlMain.BackColor = Color.FromArgb(32, 33, 39);
+            pnlMain.Controls.Add(dgvFuncionarios);
+            pnlMain.Dock = DockStyle.Fill;
+            pnlMain.Location = new Point(0, 50);
+            pnlMain.Name = "pnlMain";
+            pnlMain.Padding = new Padding(15);
+            pnlMain.Size = new Size(1172, 716);
+            pnlMain.TabIndex = 3;
             // 
-            // panelCard
+            // dgvFuncionarios
             // 
-            panelCard.BackColor = Color.FromArgb(23, 24, 29);
-            panelCard.Controls.Add(label1);
-            panelCard.Controls.Add(label3);
-            panelCard.Location = new Point(0, 0);
-            panelCard.Margin = new Padding(0, 0, 10, 10);
-            panelCard.Name = "panelCard";
-            panelCard.Padding = new Padding(7);
-            panelCard.Size = new Size(540, 79);
-            panelCard.TabIndex = 0;
+            dgvFuncionarios.AllowUserToAddRows = false;
+            dgvFuncionarios.AllowUserToDeleteRows = false;
+            dgvFuncionarios.BackgroundColor = Color.FromArgb(32, 33, 39);
+            dgvFuncionarios.BorderStyle = BorderStyle.None;
+            dgvFuncionarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvFuncionarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvFuncionarios.Dock = DockStyle.Fill;
+            dgvFuncionarios.GridColor = Color.FromArgb(50, 52, 67);
+            dgvFuncionarios.Location = new Point(15, 15);
+            dgvFuncionarios.MultiSelect = false;
+            dgvFuncionarios.Name = "dgvFuncionarios";
+            dgvFuncionarios.ReadOnly = true;
+            dgvFuncionarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvFuncionarios.RowHeadersVisible = false;
+            dgvFuncionarios.RowHeadersWidth = 62;
+            dgvFuncionarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvFuncionarios.Size = new Size(1142, 686);
+            dgvFuncionarios.TabIndex = 0;
             // 
-            // panel2
+            // pnlSidebar
             // 
-            panel2.Controls.Add(tableLayoutPanel18);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(1129, 23);
-            panel2.Margin = new Padding(3, 3, 3, 20);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(468, 720);
-            panel2.TabIndex = 19;
+            pnlSidebar.BackColor = Color.FromArgb(32, 33, 39);
+            pnlSidebar.Controls.Add(pnlUserProfile);
+            pnlSidebar.Dock = DockStyle.Right;
+            pnlSidebar.Location = new Point(1172, 50);
+            pnlSidebar.Name = "pnlSidebar";
+            pnlSidebar.Padding = new Padding(15);
+            pnlSidebar.Size = new Size(425, 716);
+            pnlSidebar.TabIndex = 2;
             // 
-            // tableLayoutPanel18
+            // pnlUserProfile
             // 
-            tableLayoutPanel18.BackColor = Color.FromArgb(23, 24, 29);
-            tableLayoutPanel18.ColumnCount = 1;
-            tableLayoutPanel18.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel18.Controls.Add(pictureBox1, 0, 0);
-            tableLayoutPanel18.Controls.Add(tableLayoutPanel19, 0, 1);
-            tableLayoutPanel18.Dock = DockStyle.Fill;
-            tableLayoutPanel18.Location = new Point(0, 0);
-            tableLayoutPanel18.MaximumSize = new Size(468, 720);
-            tableLayoutPanel18.Name = "tableLayoutPanel18";
-            tableLayoutPanel18.RowCount = 2;
-            tableLayoutPanel18.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel18.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
-            tableLayoutPanel18.Size = new Size(468, 720);
-            tableLayoutPanel18.TabIndex = 0;
+            pnlUserProfile.BackColor = Color.FromArgb(40, 41, 52);
+            pnlUserProfile.Controls.Add(pbUserProfile);
+            pnlUserProfile.Controls.Add(pnlProfileInfo);
+            pnlUserProfile.Controls.Add(pnlBotoesAcao);
+            pnlUserProfile.Dock = DockStyle.Fill;
+            pnlUserProfile.Location = new Point(15, 15);
+            pnlUserProfile.Name = "pnlUserProfile";
+            pnlUserProfile.Size = new Size(395, 686);
+            pnlUserProfile.TabIndex = 1;
             // 
-            // pictureBox1
+            // pbUserProfile
             // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(3, 3);
-            pictureBox1.MaximumSize = new Size(465, 635);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(462, 634);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            pbUserProfile.BackColor = Color.FromArgb(50, 52, 67);
+            pbUserProfile.Dock = DockStyle.Fill;
+            pbUserProfile.Location = new Point(0, 0);
+            pbUserProfile.Name = "pbUserProfile";
+            pbUserProfile.Size = new Size(395, 486);
+            pbUserProfile.SizeMode = PictureBoxSizeMode.Zoom;
+            pbUserProfile.TabIndex = 0;
+            pbUserProfile.TabStop = false;
             // 
-            // tableLayoutPanel19
+            // pnlProfileInfo
             // 
-            tableLayoutPanel19.BackColor = Color.FromArgb(23, 24, 29);
-            tableLayoutPanel19.ColumnCount = 3;
-            tableLayoutPanel19.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
-            tableLayoutPanel19.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
-            tableLayoutPanel19.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
-            tableLayoutPanel19.Controls.Add(label5, 1, 0);
-            tableLayoutPanel19.Controls.Add(label6, 1, 1);
-            tableLayoutPanel19.Dock = DockStyle.Fill;
-            tableLayoutPanel19.Location = new Point(3, 643);
-            tableLayoutPanel19.MaximumSize = new Size(462, 74);
-            tableLayoutPanel19.Name = "tableLayoutPanel19";
-            tableLayoutPanel19.RowCount = 2;
-            tableLayoutPanel19.RowStyles.Add(new RowStyle(SizeType.Percent, 54.5454559F));
-            tableLayoutPanel19.RowStyles.Add(new RowStyle(SizeType.Percent, 45.4545441F));
-            tableLayoutPanel19.Size = new Size(462, 74);
-            tableLayoutPanel19.TabIndex = 1;
+            pnlProfileInfo.BackColor = Color.FromArgb(32, 33, 39);
+            pnlProfileInfo.Controls.Add(lblUserIdade);
+            pnlProfileInfo.Controls.Add(lblUserCargo);
+            pnlProfileInfo.Controls.Add(lblUserName);
+            pnlProfileInfo.Dock = DockStyle.Bottom;
+            pnlProfileInfo.Location = new Point(0, 486);
+            pnlProfileInfo.Name = "pnlProfileInfo";
+            pnlProfileInfo.Padding = new Padding(15);
+            pnlProfileInfo.Size = new Size(395, 100);
+            pnlProfileInfo.TabIndex = 1;
             // 
-            // label5
+            // lblUserIdade
             // 
-            label5.AutoSize = true;
-            label5.Dock = DockStyle.Fill;
-            label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            label5.ForeColor = Color.White;
-            label5.Location = new Point(141, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(178, 40);
-            label5.TabIndex = 0;
-            label5.Text = "Não Registrado";
-            label5.TextAlign = ContentAlignment.BottomCenter;
+            lblUserIdade.Dock = DockStyle.Fill;
+            lblUserIdade.Font = new Font("Segoe UI", 9F);
+            lblUserIdade.ForeColor = Color.LightGray;
+            lblUserIdade.Location = new Point(15, 65);
+            lblUserIdade.Name = "lblUserIdade";
+            lblUserIdade.Size = new Size(365, 20);
+            lblUserIdade.TabIndex = 2;
+            lblUserIdade.Text = "Idade";
+            lblUserIdade.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label6
+            // lblUserCargo
             // 
-            label6.AutoSize = true;
-            label6.Dock = DockStyle.Fill;
-            label6.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label6.ForeColor = Color.White;
-            label6.Location = new Point(141, 40);
-            label6.Name = "label6";
-            label6.Size = new Size(178, 34);
-            label6.TabIndex = 1;
-            label6.Text = "Não Registrado";
-            label6.TextAlign = ContentAlignment.TopCenter;
+            lblUserCargo.Dock = DockStyle.Top;
+            lblUserCargo.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblUserCargo.ForeColor = Color.LightGray;
+            lblUserCargo.Location = new Point(15, 40);
+            lblUserCargo.Name = "lblUserCargo";
+            lblUserCargo.Size = new Size(365, 25);
+            lblUserCargo.TabIndex = 1;
+            lblUserCargo.Text = "Cargo";
+            lblUserCargo.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label3
+            // lblUserName
             // 
-            label3.AutoEllipsis = true;
-            label3.BackColor = Color.Transparent;
-            label3.Dock = DockStyle.Top;
-            label3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(7, 7);
-            label3.Margin = new Padding(0);
-            label3.Name = "label3";
-            label3.Size = new Size(526, 20);
-            label3.TabIndex = 1;
-            label3.Text = "Funcionario: Não Registrado";
+            lblUserName.Dock = DockStyle.Top;
+            lblUserName.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblUserName.ForeColor = Color.White;
+            lblUserName.Location = new Point(15, 15);
+            lblUserName.Name = "lblUserName";
+            lblUserName.Size = new Size(365, 25);
+            lblUserName.TabIndex = 0;
+            lblUserName.Text = "Nome do Funcionário";
+            lblUserName.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label1
+            // pnlBotoesAcao
             // 
-            label1.AutoEllipsis = true;
-            label1.BackColor = Color.Transparent;
-            label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(7, 27);
-            label1.Margin = new Padding(0);
-            label1.Name = "label1";
-            label1.Size = new Size(526, 45);
-            label1.TabIndex = 2;
-            label1.Text = "Cargo: Não Registrado";
+            pnlBotoesAcao.BackColor = Color.FromArgb(40, 41, 52);
+            pnlBotoesAcao.Controls.Add(btnExcluir);
+            pnlBotoesAcao.Controls.Add(btnEditar);
+            pnlBotoesAcao.Controls.Add(btnNovo);
+            pnlBotoesAcao.Dock = DockStyle.Bottom;
+            pnlBotoesAcao.Location = new Point(0, 586);
+            pnlBotoesAcao.Name = "pnlBotoesAcao";
+            pnlBotoesAcao.Padding = new Padding(15);
+            pnlBotoesAcao.Size = new Size(395, 100);
+            pnlBotoesAcao.TabIndex = 2;
+            // 
+            // btnExcluir
+            // 
+            btnExcluir.BorderRadius = 8;
+            btnExcluir.CustomizableEdges = customizableEdges1;
+            btnExcluir.DisabledState.BorderColor = Color.DarkGray;
+            btnExcluir.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnExcluir.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnExcluir.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnExcluir.FillColor = Color.FromArgb(120, 40, 40);
+            btnExcluir.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnExcluir.ForeColor = Color.White;
+            btnExcluir.HoverState.BorderColor = Color.FromArgb(200, 80, 80);
+            btnExcluir.HoverState.FillColor = Color.FromArgb(160, 60, 60);
+            btnExcluir.Location = new Point(272, 30);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnExcluir.Size = new Size(105, 40);
+            btnExcluir.TabIndex = 2;
+            btnExcluir.Text = "Excluir";
+            // 
+            // btnEditar
+            // 
+            btnEditar.BorderRadius = 8;
+            btnEditar.CustomizableEdges = customizableEdges3;
+            btnEditar.DisabledState.BorderColor = Color.DarkGray;
+            btnEditar.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnEditar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnEditar.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnEditar.FillColor = Color.FromArgb(40, 100, 180);
+            btnEditar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnEditar.ForeColor = Color.White;
+            btnEditar.HoverState.BorderColor = Color.FromArgb(80, 140, 200);
+            btnEditar.HoverState.FillColor = Color.FromArgb(60, 120, 180);
+            btnEditar.Location = new Point(143, 30);
+            btnEditar.Name = "btnEditar";
+            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnEditar.Size = new Size(105, 40);
+            btnEditar.TabIndex = 1;
+            btnEditar.Text = "Editar";
+            // 
+            // btnNovo
+            // 
+            btnNovo.BorderRadius = 8;
+            btnNovo.CustomizableEdges = customizableEdges5;
+            btnNovo.DisabledState.BorderColor = Color.DarkGray;
+            btnNovo.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnNovo.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnNovo.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnNovo.FillColor = Color.FromArgb(40, 120, 80);
+            btnNovo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnNovo.ForeColor = Color.White;
+            btnNovo.HoverState.BorderColor = Color.FromArgb(80, 200, 120);
+            btnNovo.HoverState.FillColor = Color.FromArgb(60, 160, 100);
+            btnNovo.Location = new Point(15, 30);
+            btnNovo.Name = "btnNovo";
+            btnNovo.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnNovo.Size = new Size(105, 40);
+            btnNovo.TabIndex = 0;
+            btnNovo.Text = "Novo Funcionário";
+            // 
+            // pnlHeader
+            // 
+            pnlHeader.BackColor = Color.FromArgb(32, 33, 39);
+            pnlHeader.Controls.Add(lblTitulo);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Padding = new Padding(15);
+            pnlHeader.Size = new Size(1597, 50);
+            pnlHeader.TabIndex = 1;
+            // 
+            // lblTitulo
+            // 
+            lblTitulo.Dock = DockStyle.Fill;
+            lblTitulo.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTitulo.ForeColor = Color.White;
+            lblTitulo.Location = new Point(15, 15);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(1567, 20);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Gestão de Funcionários";
+            lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // pnlBottom
+            // 
+            pnlBottom.BackColor = Color.FromArgb(32, 33, 39);
+            pnlBottom.Controls.Add(lblTotal);
+            pnlBottom.Dock = DockStyle.Bottom;
+            pnlBottom.Location = new Point(0, 766);
+            pnlBottom.Name = "pnlBottom";
+            pnlBottom.Padding = new Padding(15);
+            pnlBottom.Size = new Size(1597, 35);
+            pnlBottom.TabIndex = 4;
+            // 
+            // lblTotal
+            // 
+            lblTotal.Dock = DockStyle.Right;
+            lblTotal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTotal.ForeColor = Color.White;
+            lblTotal.Location = new Point(1382, 15);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(200, 5);
+            lblTotal.TabIndex = 0;
+            lblTotal.Text = "Total: 0 funcionários";
+            lblTotal.TextAlign = ContentAlignment.MiddleRight;
             // 
             // FormFuncionarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(34, 35, 49);
-            ClientSize = new Size(1620, 763);
+            BackColor = Color.FromArgb(28, 29, 40);
+            ClientSize = new Size(1597, 801);
             ControlBox = false;
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(pnlContainer);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(2);
-            MaximizeBox = false;
-            MinimizeBox = false;
             Name = "FormFuncionarios";
             Text = "FormFuncionarios";
-            tableLayoutPanel1.ResumeLayout(false);
-            tlpContainerLeft.ResumeLayout(false);
-            panelCard.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            tableLayoutPanel18.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            tableLayoutPanel19.ResumeLayout(false);
-            tableLayoutPanel19.PerformLayout();
+            pnlContainer.ResumeLayout(false);
+            pnlMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvFuncionarios).EndInit();
+            pnlSidebar.ResumeLayout(false);
+            pnlUserProfile.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pbUserProfile).EndInit();
+            pnlProfileInfo.ResumeLayout(false);
+            pnlBotoesAcao.ResumeLayout(false);
+            pnlHeader.ResumeLayout(false);
+            pnlBottom.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TableLayoutPanel tableLayoutPanel1;
-        private TableLayoutPanel tlpContainerLeft;
-        private Panel panelCard;
-        private Panel panel2;
-        private TableLayoutPanel tableLayoutPanel18;
-        private PictureBox pictureBox1;
-        private TableLayoutPanel tableLayoutPanel19;
-        private Label label5;
-        private Label label6;
-        private Label label3;
-        private Label label1;
+        private Panel pnlContainer;
+        private Panel pnlMain;
+        private DataGridView dgvFuncionarios;
+        private Panel pnlSidebar;
+        private Panel pnlUserProfile;
+        private Panel pnlBotoesAcao;
+        private Guna.UI2.WinForms.Guna2Button btnExcluir;
+        private Guna.UI2.WinForms.Guna2Button btnEditar;
+        private Guna.UI2.WinForms.Guna2Button btnNovo;
+        private Panel pnlProfileInfo;
+        private Label lblUserIdade;
+        private Label lblUserCargo;
+        private Label lblUserName;
+        private PictureBox pbUserProfile;
+        private Panel pnlHeader;
+        private Label lblTitulo;
+        private Panel pnlBottom;
+        private Label lblTotal;
     }
 }

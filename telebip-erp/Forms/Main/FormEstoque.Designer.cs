@@ -122,6 +122,8 @@
             dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEstoque.Size = new Size(1567, 539);
             dgvEstoque.TabIndex = 0;
+            dgvEstoque.AllowUserToAddRows = false;
+            dgvEstoque.AllowUserToDeleteRows = false;
             // 
             // pnlBottom
             // 

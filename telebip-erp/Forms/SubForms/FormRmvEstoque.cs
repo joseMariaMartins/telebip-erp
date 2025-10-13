@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormRmvEstoque : Form
+    public partial class FormRmvEstoque : MaterialForm
     {
         private readonly int idProduto;
         private readonly string nomeProduto;
@@ -24,6 +26,8 @@ namespace telebip_erp.Forms.SubForms
 
             lbNomeProduto.Text = $"Produto: {nomeProduto}";
             lbQuantidadeAtual.Text = $"Quantidade atual: {quantidadeAtual}";
+
+            ThemeManager.ApplyDarkTheme();
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
@@ -100,6 +104,11 @@ namespace telebip_erp.Forms.SubForms
             {
                 MessageBox.Show("Erro ao excluir produto: " + ex.Message);
             }
+        }
+
+        private void btnCancelar_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
