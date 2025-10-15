@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Data.SQLite;
+using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using Guna.UI2.WinForms;
 
 namespace telebip_erp.Forms.SubForms
 {
@@ -18,16 +19,47 @@ namespace telebip_erp.Forms.SubForms
         public FormRmvEstoque(int id, string nome, int quantidade)
         {
             InitializeComponent();
+
             idProduto = id;
             nomeProduto = nome;
             quantidadeAtual = quantidade;
 
-            btnConfirmar.Click += btnConfirmar_Click;
+            ThemeManager.ApplyDarkTheme();
 
             lbNomeProduto.Text = $"Produto: {nomeProduto}";
             lbQuantidadeAtual.Text = $"Quantidade atual: {quantidadeAtual}";
 
-            ThemeManager.ApplyDarkTheme();
+            // Eventos dos botões (sem mudar design)
+            btnConfirmar.Click += btnConfirmar_Click;
+            btnCancelar.Click += btnCancelar_Click_1;
+
+            // Carrega os nomes dos funcionários na ComboBox
+            CarregarFuncionarios();
+        }
+
+        private void CarregarFuncionarios()
+        {
+            try
+            {
+                using var conn = DatabaseHelper.GetConnection();
+                conn.Open();
+
+                string sql = "SELECT NOME FROM FUNCIONARIO ORDER BY NOME;";
+                using var cmd = new SQLiteCommand(sql, conn);
+                using var reader = cmd.ExecuteReader();
+
+                cbFuncionarios.Items.Clear();
+                while (reader.Read())
+                {
+                    cbFuncionarios.Items.Add(reader["NOME"].ToString());
+                }
+
+                cbFuncionarios.SelectedIndex = -1; // Nenhum selecionado inicialmente
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar funcionários: " + ex.Message);
+            }
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
@@ -52,19 +84,39 @@ namespace telebip_erp.Forms.SubForms
                 return;
             }
 
+            if (cbFuncionarios.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione o funcionário responsável pela saída.");
+                return;
+            }
+
+            string nomeFuncionario = cbFuncionarios.SelectedItem.ToString();
+
             try
             {
-                string sql = "UPDATE PRODUTO SET QTD_ESTOQUE = QTD_ESTOQUE - @qtd WHERE ID_PRODUTO = @id";
-                SQLiteParameter[] parametros = {
+                // Atualiza estoque
+                string sqlUpdate = "UPDATE PRODUTO SET QTD_ESTOQUE = QTD_ESTOQUE - @qtd WHERE ID_PRODUTO = @id";
+                DatabaseHelper.ExecuteNonQuery(sqlUpdate, new SQLiteParameter[]
+                {
                     new SQLiteParameter("@qtd", qtdRemover),
                     new SQLiteParameter("@id", idProduto)
-                };
+                });
 
-                DatabaseHelper.ExecuteNonQuery(sql, parametros);
+                // Registra movimentação (usa o nome do funcionário)
+                string sqlMov = @"
+                    INSERT INTO MOVIMENTACAO_ESTOQUE 
+                    (ID_PRODUTO, NOME_FUNCIONARIO, TIPO_MOVIMENTACAO, QUANTIDADE, DATA_HORA)
+                    VALUES (@idProd, @func, 'SAIDA', @qtd, datetime('now','localtime'));
+                ";
 
-                // Atualiza DataGridView do FormEstoque
+                DatabaseHelper.ExecuteNonQuery(sqlMov, new SQLiteParameter[]
+                {
+                    new SQLiteParameter("@idProd", idProduto),
+                    new SQLiteParameter("@func", nomeFuncionario),
+                    new SQLiteParameter("@qtd", qtdRemover)
+                });
+
                 AtualizarEstoqueCallback?.Invoke();
-
                 MessageBox.Show("Quantidade removida com sucesso!");
                 this.Close();
             }
@@ -94,9 +146,7 @@ namespace telebip_erp.Forms.SubForms
 
                 DatabaseHelper.ExecuteNonQuery(sql, parametros);
 
-                // Atualiza DataGridView do FormEstoque
                 AtualizarEstoqueCallback?.Invoke();
-
                 MessageBox.Show("Produto excluído com sucesso!");
                 this.Close();
             }

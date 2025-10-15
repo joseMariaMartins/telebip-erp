@@ -105,7 +105,7 @@ namespace telebip_erp.Forms.Modules
                     dgvEstoque.Columns["OBSERVACAO"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
                 // Larguras das colunas
-                dgvEstoque.Columns["ID_PRODUTO"].Width = 85;
+                dgvEstoque.Columns["ID_PRODUTO"].Width = 90;
                 dgvEstoque.Columns["NOME"].Width = 150;
                 dgvEstoque.Columns["MARCA"].Width = 95;
                 dgvEstoque.Columns["PRECO"].Width = 70;

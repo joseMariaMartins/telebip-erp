@@ -24,7 +24,6 @@ namespace telebip_erp.Forms.SubForms
             tbPreco.Text = "R$ 0,00";
             tbPreco.SelectionStart = tbPreco.Text.Length;
 
-            // REMOVE handlers antigos antes de adicionar para evitar duplicação
             tbPreco.KeyPress -= TbPreco_KeyPress;
             tbPreco.KeyPress += TbPreco_KeyPress;
 
@@ -42,6 +41,8 @@ namespace telebip_erp.Forms.SubForms
 
             btnCancelar.Click -= BtnCancelar_Click;
             btnCancelar.Click += BtnCancelar_Click;
+
+            cbFuncionarios.SelectedIndex = -1;
         }
 
         private void CarregarFuncionarios()
@@ -56,9 +57,6 @@ namespace telebip_erp.Forms.SubForms
                 cbFuncionarios.Items.Clear();
                 while (reader.Read())
                     cbFuncionarios.Items.Add(reader["NOME"].ToString());
-
-                if (cbFuncionarios.Items.Count > 0)
-                    cbFuncionarios.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -102,25 +100,35 @@ namespace telebip_erp.Forms.SubForms
 
                 using var conn = DatabaseHelper.GetConnection();
                 conn.Open();
+                string nomeFuncionario = cbFuncionarios.SelectedItem!.ToString()!;
+
+                int idProdutoAfetado;
 
                 if (ProdutoSelecionado != null)
                 {
-                    // Produto existente -> pega estoque atual do banco
+                    // Produto existente → atualiza quantidade
                     using var cmdSelect = new SQLiteCommand("SELECT QTD_ESTOQUE FROM PRODUTO WHERE ID_PRODUTO = @ID", conn);
                     cmdSelect.Parameters.AddWithValue("@ID", ProdutoSelecionado.Value.Id);
                     int estoqueAtual = Convert.ToInt32(cmdSelect.ExecuteScalar());
 
                     int novaQuantidade = estoqueAtual + qtdAdicional;
 
-                    string sqlUpdate = "UPDATE PRODUTO SET QTD_ESTOQUE = @NOVO_QTD WHERE ID_PRODUTO = @ID;";
+                    string sqlUpdate = @"
+                        UPDATE PRODUTO 
+                        SET QTD_ESTOQUE = @QTD_ESTOQUE
+                        WHERE ID_PRODUTO = @ID;
+                    ";
+
                     using var cmd = new SQLiteCommand(sqlUpdate, conn);
-                    cmd.Parameters.AddWithValue("@NOVO_QTD", novaQuantidade);
+                    cmd.Parameters.AddWithValue("@QTD_ESTOQUE", novaQuantidade);
                     cmd.Parameters.AddWithValue("@ID", ProdutoSelecionado.Value.Id);
                     cmd.ExecuteNonQuery();
+
+                    idProdutoAfetado = ProdutoSelecionado.Value.Id;
                 }
                 else
                 {
-                    // Produto novo -> INSERT
+                    // Produto novo → INSERT
                     string sqlInsert = @"
                         INSERT INTO PRODUTO (NOME, MARCA, PRECO, QTD_ESTOQUE, QTD_AVISO, OBSERVACAO)
                         VALUES (@NOME, @MARCA, @PRECO, @QTD_ESTOQUE, @QTD_AVISO, @OBSERVACAO);
@@ -134,7 +142,23 @@ namespace telebip_erp.Forms.SubForms
                     cmd.Parameters.AddWithValue("@QTD_AVISO", qtdAviso);
                     cmd.Parameters.AddWithValue("@OBSERVACAO", observacao);
                     cmd.ExecuteNonQuery();
+
+                    idProdutoAfetado = (int)conn.LastInsertRowId;
                 }
+
+                // Registro da movimentação de entrada
+                string sqlMov = @"
+                    INSERT INTO MOVIMENTACAO_ESTOQUE 
+                    (ID_PRODUTO, NOME_FUNCIONARIO, TIPO_MOVIMENTACAO, QUANTIDADE, DATA_HORA)
+                    VALUES (@idProd, @func, 'ENTRADA', @qtd, datetime('now','localtime'));
+                ";
+
+                DatabaseHelper.ExecuteNonQuery(sqlMov, new SQLiteParameter[]
+                {
+                    new SQLiteParameter("@idProd", idProdutoAfetado),
+                    new SQLiteParameter("@func", nomeFuncionario),
+                    new SQLiteParameter("@qtd", qtdAdicional)
+                });
 
                 MessageBox.Show("Produto adicionado/atualizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -208,10 +232,7 @@ namespace telebip_erp.Forms.SubForms
             tbObservacao.ReadOnly = false;
 
             lbQuantidadeAtual.Visible = false;
-
-            if (cbFuncionarios.Items.Count > 0)
-                cbFuncionarios.SelectedIndex = 0;
-
+            cbFuncionarios.SelectedIndex = -1;
             ProdutoSelecionado = null;
         }
     }

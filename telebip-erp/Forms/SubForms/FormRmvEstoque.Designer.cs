@@ -23,8 +23,12 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlContainer = new Panel();
             pnlMain = new Panel();
+            cbFuncionarios = new Guna.UI2.WinForms.Guna2ComboBox();
+            label1 = new Label();
             lbQuantidadeAtual = new Label();
             cbExcluirProduto = new Guna.UI2.WinForms.Guna2CheckBox();
             btnCancelar = new Guna.UI2.WinForms.Guna2Button();
@@ -53,6 +57,8 @@
             // pnlMain
             // 
             pnlMain.BackColor = Color.FromArgb(28, 29, 40);
+            pnlMain.Controls.Add(cbFuncionarios);
+            pnlMain.Controls.Add(label1);
             pnlMain.Controls.Add(lbQuantidadeAtual);
             pnlMain.Controls.Add(cbExcluirProduto);
             pnlMain.Controls.Add(btnCancelar);
@@ -67,11 +73,38 @@
             pnlMain.Size = new Size(375, 235);
             pnlMain.TabIndex = 1;
             // 
+            // cbFuncionarios
+            // 
+            cbFuncionarios.BackColor = Color.Transparent;
+            cbFuncionarios.CustomizableEdges = customizableEdges1;
+            cbFuncionarios.DrawMode = DrawMode.OwnerDrawFixed;
+            cbFuncionarios.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbFuncionarios.FocusedColor = Color.FromArgb(94, 148, 255);
+            cbFuncionarios.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            cbFuncionarios.Font = new Font("Segoe UI", 10F);
+            cbFuncionarios.ForeColor = Color.FromArgb(68, 88, 112);
+            cbFuncionarios.ItemHeight = 30;
+            cbFuncionarios.Location = new Point(183, 79);
+            cbFuncionarios.Name = "cbFuncionarios";
+            cbFuncionarios.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            cbFuncionarios.Size = new Size(140, 36);
+            cbFuncionarios.TabIndex = 9;
+            // 
+            // label1
+            // 
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(167, 56);
+            label1.Name = "label1";
+            label1.Size = new Size(200, 20);
+            label1.TabIndex = 8;
+            label1.Text = "Funcionário que está removendo:";
+            // 
             // lbQuantidadeAtual
             // 
             lbQuantidadeAtual.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lbQuantidadeAtual.ForeColor = Color.LightGreen;
-            lbQuantidadeAtual.Location = new Point(172, 81);
+            lbQuantidadeAtual.Location = new Point(-14, 36);
             lbQuantidadeAtual.Name = "lbQuantidadeAtual";
             lbQuantidadeAtual.Size = new Size(175, 20);
             lbQuantidadeAtual.TabIndex = 6;
@@ -87,9 +120,9 @@
             cbExcluirProduto.CheckedState.FillColor = Color.FromArgb(94, 148, 255);
             cbExcluirProduto.Font = new Font("Segoe UI", 9F);
             cbExcluirProduto.ForeColor = Color.White;
-            cbExcluirProduto.Location = new Point(35, 130);
+            cbExcluirProduto.Location = new Point(35, 140);
             cbExcluirProduto.Name = "cbExcluirProduto";
-            cbExcluirProduto.Size = new Size(172, 19);
+            cbExcluirProduto.Size = new Size(171, 19);
             cbExcluirProduto.TabIndex = 5;
             cbExcluirProduto.Text = "Excluir produto do sistema?";
             cbExcluirProduto.UncheckedState.BorderColor = Color.FromArgb(125, 137, 149);
@@ -100,7 +133,7 @@
             // btnCancelar
             // 
             btnCancelar.BorderRadius = 8;
-            btnCancelar.CustomizableEdges = customizableEdges1;
+            btnCancelar.CustomizableEdges = customizableEdges3;
             btnCancelar.DisabledState.BorderColor = Color.DarkGray;
             btnCancelar.DisabledState.CustomBorderColor = Color.DarkGray;
             btnCancelar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -112,7 +145,7 @@
             btnCancelar.HoverState.FillColor = Color.FromArgb(160, 60, 60);
             btnCancelar.Location = new Point(35, 165);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnCancelar.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnCancelar.Size = new Size(146, 40);
             btnCancelar.TabIndex = 4;
             btnCancelar.Text = "Cancelar";
@@ -121,7 +154,7 @@
             // btnConfirmar
             // 
             btnConfirmar.BorderRadius = 8;
-            btnConfirmar.CustomizableEdges = customizableEdges3;
+            btnConfirmar.CustomizableEdges = customizableEdges5;
             btnConfirmar.DisabledState.BorderColor = Color.DarkGray;
             btnConfirmar.DisabledState.CustomBorderColor = Color.DarkGray;
             btnConfirmar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -133,7 +166,7 @@
             btnConfirmar.HoverState.FillColor = Color.FromArgb(60, 160, 100);
             btnConfirmar.Location = new Point(201, 165);
             btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnConfirmar.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnConfirmar.Size = new Size(146, 40);
             btnConfirmar.TabIndex = 3;
             btnConfirmar.Text = "Confirmar";
@@ -142,7 +175,7 @@
             // 
             tbQuantidadeRemover.BorderColor = Color.FromArgb(60, 62, 80);
             tbQuantidadeRemover.BorderRadius = 8;
-            tbQuantidadeRemover.CustomizableEdges = customizableEdges5;
+            tbQuantidadeRemover.CustomizableEdges = customizableEdges7;
             tbQuantidadeRemover.DefaultText = "";
             tbQuantidadeRemover.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             tbQuantidadeRemover.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -153,13 +186,13 @@
             tbQuantidadeRemover.Font = new Font("Segoe UI", 9F);
             tbQuantidadeRemover.ForeColor = Color.White;
             tbQuantidadeRemover.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbQuantidadeRemover.Location = new Point(35, 81);
+            tbQuantidadeRemover.Location = new Point(16, 79);
             tbQuantidadeRemover.Margin = new Padding(3, 0, 10, 0);
             tbQuantidadeRemover.Name = "tbQuantidadeRemover";
             tbQuantidadeRemover.PlaceholderForeColor = Color.Gray;
             tbQuantidadeRemover.PlaceholderText = "Quantidade";
             tbQuantidadeRemover.SelectedText = "";
-            tbQuantidadeRemover.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            tbQuantidadeRemover.ShadowDecoration.CustomizableEdges = customizableEdges8;
             tbQuantidadeRemover.Size = new Size(100, 36);
             tbQuantidadeRemover.TabIndex = 2;
             // 
@@ -167,7 +200,7 @@
             // 
             lblQuantidade.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblQuantidade.ForeColor = Color.White;
-            lblQuantidade.Location = new Point(35, 56);
+            lblQuantidade.Location = new Point(15, 56);
             lblQuantidade.Name = "lblQuantidade";
             lblQuantidade.Size = new Size(200, 20);
             lblQuantidade.TabIndex = 1;
@@ -177,7 +210,7 @@
             // 
             lbNomeProduto.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
             lbNomeProduto.ForeColor = Color.White;
-            lbNomeProduto.Location = new Point(35, 26);
+            lbNomeProduto.Location = new Point(16, 16);
             lbNomeProduto.Name = "lbNomeProduto";
             lbNomeProduto.Size = new Size(344, 20);
             lbNomeProduto.TabIndex = 0;
@@ -238,5 +271,7 @@
         private Label lblQuantidade;
         public Label lbNomeProduto;
         public Guna.UI2.WinForms.Guna2Button btnCancelar;
+        private Label label1;
+        private Guna.UI2.WinForms.Guna2ComboBox cbFuncionarios;
     }
 }
