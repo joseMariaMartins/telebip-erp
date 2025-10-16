@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
+using telebip_erp.Forms.SubForms;
 
 namespace telebip_erp.Forms.Modules
 {
@@ -141,6 +142,37 @@ namespace telebip_erp.Forms.Modules
         private void CarregarEstoqueInicial()
         {
             CarregarEstoque(limitar20: true);
+        }
+
+        private void DgvEstoque_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            // Ignora cliques no cabeçalho
+            if (e.RowIndex < 0) return;
+
+            var linha = dgvEstoque.Rows[e.RowIndex];
+
+            try
+            {
+                int id = Convert.ToInt32(linha.Cells["ID_PRODUTO"].Value);
+                string nome = linha.Cells["NOME"].Value?.ToString() ?? "";
+                string marca = linha.Cells["MARCA"].Value?.ToString() ?? "";
+                decimal preco = Convert.ToDecimal(linha.Cells["PRECO"].Value);
+                int quantidade = Convert.ToInt32(linha.Cells["QTD_ESTOQUE"].Value);
+                int quantidadeAviso = Convert.ToInt32(linha.Cells["QTD_AVISO"].Value);
+                string observacao = linha.Cells["OBSERVACAO"].Value?.ToString() ?? "";
+
+                // Abre o formulário de visualização
+                using (var formView = new FormViewProduto())
+                {
+                    formView.CarregarProduto(id, nome, marca, preco, quantidade, quantidadeAviso, observacao);
+                    formView.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar dados do produto: " + ex.Message,
+                              "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnPesquisar_Click(object? sender, EventArgs e)

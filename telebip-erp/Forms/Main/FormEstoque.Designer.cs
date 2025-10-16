@@ -17,6 +17,9 @@
 
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -27,9 +30,6 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnlContainer = new Panel();
             pnlDgv = new Panel();
             dgvEstoque = new DataGridView();
@@ -71,7 +71,7 @@
             pnlDgv.Dock = DockStyle.Fill;
             pnlDgv.Location = new Point(0, 128);
             pnlDgv.Name = "pnlDgv";
-            pnlDgv.Padding = new Padding(15, 15, 15, 15);
+            pnlDgv.Padding = new Padding(15);
             pnlDgv.Size = new Size(1597, 569);
             pnlDgv.TabIndex = 4;
             // 
@@ -122,8 +122,7 @@
             dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEstoque.Size = new Size(1567, 539);
             dgvEstoque.TabIndex = 0;
-            dgvEstoque.AllowUserToAddRows = false;
-            dgvEstoque.AllowUserToDeleteRows = false;
+            dgvEstoque.CellDoubleClick += DgvEstoque_CellDoubleClick;
             // 
             // pnlBottom
             // 
@@ -294,7 +293,7 @@
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(1567, 41);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Gerenciamento de Estoque";
+            lblTitulo.Text = "Gerenciamento de Vendas";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FormEstoque
