@@ -85,6 +85,7 @@
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(50, 90, 130);
             dataGridViewCellStyle1.SelectionForeColor = Color.White;
             dgvVendas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvVendas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvVendas.BackgroundColor = Color.FromArgb(32, 33, 39);
             dgvVendas.BorderStyle = BorderStyle.None;
             dgvVendas.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;

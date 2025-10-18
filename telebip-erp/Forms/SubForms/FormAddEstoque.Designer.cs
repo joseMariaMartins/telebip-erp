@@ -198,7 +198,7 @@
             tbObservacao.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
             tbObservacao.Location = new Point(33, 322);
             tbObservacao.Margin = new Padding(3, 0, 10, 0);
-            tbObservacao.MaxLength = 500;
+            tbObservacao.MaxLength = 300;
             tbObservacao.Multiline = true;
             tbObservacao.Name = "tbObservacao";
             tbObservacao.PlaceholderForeColor = Color.Gray;
@@ -313,7 +313,7 @@
             tbMarca.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
             tbMarca.Location = new Point(381, 145);
             tbMarca.Margin = new Padding(3, 0, 10, 0);
-            tbMarca.MaxLength = 25;
+            tbMarca.MaxLength = 50;
             tbMarca.Name = "tbMarca";
             tbMarca.PlaceholderForeColor = Color.Gray;
             tbMarca.PlaceholderText = "Ex: Samsung";
@@ -339,7 +339,7 @@
             tbNome.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
             tbNome.Location = new Point(33, 145);
             tbNome.Margin = new Padding(3, 0, 10, 0);
-            tbNome.MaxLength = 50;
+            tbNome.MaxLength = 100;
             tbNome.Name = "tbNome";
             tbNome.PlaceholderForeColor = Color.Gray;
             tbNome.PlaceholderText = "Ex: Carregador USB-C";

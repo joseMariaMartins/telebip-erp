@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Data.SQLite;
 using MaterialSkin.Controls;
 
 namespace telebip_erp.Forms.Modules
@@ -20,47 +20,126 @@ namespace telebip_erp.Forms.Modules
             this.MinimizeBox = false;
             this.Text = "";
 
-            // Evento do botão pesquisar
+            // Eventos
             btnPesquisar.Click += BtnPesquisar_Click;
+            btnLimpar.Click += BtnLimpar_Click;
+
+            // 🔹 Garante que nada fique selecionado ao abrir
+            this.Shown += (s, e) =>
+            {
+                dgvVendas.ClearSelection();
+                dgvVendas.CurrentCell = null;
+            };
+
+            // 🔹 Carrega as últimas 20 vendas inicialmente
+            CarregarVendas(limitar20: true);
         }
 
-        // Configura as ComboBoxes
         private void ConfigurarComboboxes()
         {
+            cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPesquisaCampo.SelectedIndex = 0;
             cbCondicao.SelectedIndex = 0;
         }
 
-        // Carrega os dados no DataGridView usando filtro opcional
-        private void CarregarFuncionarios(string filtroSql = "", SQLiteParameter[]? parametros = null)
+        private void AtualizarTotalItens()
+        {
+            lbTotal.Text = $"Total de vendas: {dgvVendas.Rows.Count}";
+        }
+
+        public void AtualizarTabela()
         {
             try
             {
-                if (string.IsNullOrEmpty(filtroSql))
-                {
-                    dgvVendas.DataSource = null;
-                    return;
-                }
+                if (!string.IsNullOrEmpty(tbPesquisa.Text.Trim()))
+                    BtnPesquisar_Click(null, EventArgs.Empty);
+                else
+                    CarregarVendas(limitar20: true);
 
-                string sql = "SELECT * FROM VENDA WHERE " + filtroSql;
-
-                DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
-
-                dgvVendas.DataSource = dt;
-                dgvVendas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                AtualizarTotalItens();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao carregar vendas: " + ex.Message);
+                MessageBox.Show("Erro ao atualizar tabela: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // Evento do botão pesquisar
+        public void CarregarVendas(string filtroSql = "", SQLiteParameter[]? parametros = null, bool limitar20 = false)
+        {
+            try
+            {
+                string sql = $@"
+            SELECT 
+                ID_VENDA,
+                NOME_FUNCIONARIO,
+                DATA_HORA,
+                VALOR_TOTAL,
+                DESCONTO
+            FROM VENDA
+            {(string.IsNullOrEmpty(filtroSql) ? "" : "WHERE " + filtroSql)}
+            ORDER BY ID_VENDA DESC
+            {(limitar20 ? "LIMIT 20" : "")};
+        ";
+
+                DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
+                dgvVendas.DataSource = dt;
+
+                // 🔹 Cabeçalhos centralizados
+                foreach (DataGridViewColumn coluna in dgvVendas.Columns)
+                    coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                // 🔹 Ajusta para preencher toda a largura disponível
+                dgvVendas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                // 🔹 Ajuste de peso relativo das colunas (FillWeight)
+                dgvVendas.Columns["ID_VENDA"].FillWeight = 15;
+                dgvVendas.Columns["NOME_FUNCIONARIO"].FillWeight = 30;
+                dgvVendas.Columns["DATA_HORA"].FillWeight = 25;
+                dgvVendas.Columns["VALOR_TOTAL"].FillWeight = 15;
+                dgvVendas.Columns["DESCONTO"].FillWeight = 15;
+
+                // 🔹 Alinhamento do conteúdo
+                dgvVendas.Columns["ID_VENDA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvVendas.Columns["NOME_FUNCIONARIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvVendas.Columns["DATA_HORA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvVendas.Columns["VALOR_TOTAL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvVendas.Columns["DESCONTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                // 🔹 Formatação monetária
+                dgvVendas.Columns["VALOR_TOTAL"].DefaultCellStyle.Format = "C2";
+                dgvVendas.Columns["DESCONTO"].DefaultCellStyle.Format = "C2";
+
+                // 🔹 Remove seleção automática
+                dgvVendas.ClearSelection();
+                dgvVendas.CurrentCell = null;
+
+                AtualizarTotalItens();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar vendas: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
         private void BtnPesquisar_Click(object? sender, EventArgs e)
         {
+            if (cbPesquisaCampo.SelectedItem == null || cbCondicao.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione o campo e a condição de pesquisa.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             string campo = cbPesquisaCampo.SelectedItem.ToString();
             string condicao = cbCondicao.SelectedItem.ToString();
-            string valor = tbPesquisa.Text.ToUpper();
+            string valor = tbPesquisa.Text.Trim().ToUpper();
+
+            if (string.IsNullOrEmpty(valor))
+            {
+                MessageBox.Show("Digite um termo para pesquisar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             string filtroSql = "";
             SQLiteParameter[] parametros;
@@ -69,34 +148,34 @@ namespace telebip_erp.Forms.Modules
             {
                 case "Inicia com":
                     filtroSql = $"UPPER({campo}) LIKE @valor";
-                    parametros = new SQLiteParameter[]
-                    {
-                        new SQLiteParameter("@valor", valor + "%")
-                    };
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor + "%") };
                     break;
-
                 case "Contendo":
                     filtroSql = $"UPPER({campo}) LIKE @valor";
-                    parametros = new SQLiteParameter[]
-                    {
-                        new SQLiteParameter("@valor", "%" + valor + "%")
-                    };
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", "%" + valor + "%") };
                     break;
-
                 case "Diferente de":
-                    filtroSql = $"UPPER({campo}) <> @valor";
-                    parametros = new SQLiteParameter[]
-                    {
-                        new SQLiteParameter("@valor", valor)
-                    };
+                    filtroSql = $"UPPER({campo}) NOT LIKE UPPER(@valor)";
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor + "%") };
                     break;
-
                 default:
-                    MessageBox.Show("Condição de pesquisa inválida.");
+                    MessageBox.Show("Condição de pesquisa inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
             }
 
-            CarregarFuncionarios(filtroSql, parametros);
+            CarregarVendas(filtroSql, parametros, limitar20: false);
+        }
+
+        private void BtnLimpar_Click(object? sender, EventArgs e)
+        {
+            tbPesquisa.Text = "";
+            cbPesquisaCampo.SelectedIndex = 0;
+            cbCondicao.SelectedIndex = 0;
+
+            CarregarVendas(limitar20: true);
+
+            dgvVendas.ClearSelection();
+            dgvVendas.CurrentCell = null;
         }
     }
 }

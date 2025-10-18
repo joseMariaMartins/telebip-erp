@@ -128,8 +128,18 @@ namespace telebip_erp.Forms.SubForms
 
         private void ExcluirProduto()
         {
+            // ✅ Primeiro exige seleção de funcionário
+            if (cbFuncionarios.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione o funcionário responsável pela exclusão do produto.",
+                                "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string nomeFuncionario = cbFuncionarios.SelectedItem.ToString();
+
             var confirm = MessageBox.Show(
-                "Tem certeza que deseja excluir este produto do sistema?",
+                "Tem certeza que deseja excluir este produto do sistema? Essa ação não pode ser desfeita.",
                 "Confirmação de exclusão",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning
@@ -139,10 +149,25 @@ namespace telebip_erp.Forms.SubForms
 
             try
             {
+                // Antes de excluir, registra movimentação de saída total do estoque
+                string sqlMov = @"
+            INSERT INTO MOVIMENTACAO_ESTOQUE 
+            (ID_PRODUTO, NOME_FUNCIONARIO, TIPO_MOVIMENTACAO, QUANTIDADE, DATA_HORA)
+            VALUES (@idProd, @func, 'SAIDA', @qtd, datetime('now','localtime'));
+        ";
+
+                DatabaseHelper.ExecuteNonQuery(sqlMov, new SQLiteParameter[]
+                {
+            new SQLiteParameter("@idProd", idProduto),
+            new SQLiteParameter("@func", nomeFuncionario),
+            new SQLiteParameter("@qtd", quantidadeAtual)
+                });
+
+                // Agora exclui o produto
                 string sql = "DELETE FROM PRODUTO WHERE ID_PRODUTO = @id";
                 SQLiteParameter[] parametros = {
-                    new SQLiteParameter("@id", idProduto)
-                };
+            new SQLiteParameter("@id", idProduto)
+        };
 
                 DatabaseHelper.ExecuteNonQuery(sql, parametros);
 
@@ -155,6 +180,7 @@ namespace telebip_erp.Forms.SubForms
                 MessageBox.Show("Erro ao excluir produto: " + ex.Message);
             }
         }
+
 
         private void btnCancelar_Click_1(object sender, EventArgs e)
         {

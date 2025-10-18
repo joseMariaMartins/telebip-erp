@@ -106,21 +106,21 @@ namespace telebip_erp.Forms.Modules
                     dgvEstoque.Columns["OBSERVACAO"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
                 // Larguras das colunas
-                dgvEstoque.Columns["ID_PRODUTO"].Width = 90;
+                dgvEstoque.Columns["ID_PRODUTO"].Width = 100;
                 dgvEstoque.Columns["NOME"].Width = 150;
                 dgvEstoque.Columns["MARCA"].Width = 95;
                 dgvEstoque.Columns["PRECO"].Width = 70;
                 dgvEstoque.Columns["QTD_ESTOQUE"].Width = 100;
-                dgvEstoque.Columns["QTD_AVISO"].Width = 80;
+                dgvEstoque.Columns["QTD_AVISO"].Width = 100;
 
                 // Alinhamento do conteúdo
                 dgvEstoque.Columns["ID_PRODUTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dgvEstoque.Columns["PRECO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvEstoque.Columns["PRECO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dgvEstoque.Columns["QTD_ESTOQUE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dgvEstoque.Columns["QTD_AVISO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dgvEstoque.Columns["NOME"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                dgvEstoque.Columns["MARCA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                dgvEstoque.Columns["OBSERVACAO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvEstoque.Columns["MARCA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvEstoque.Columns["OBSERVACAO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 // Formatação de preço
                 if (dgvEstoque.Columns.Contains("PRECO"))
@@ -209,7 +209,7 @@ namespace telebip_erp.Forms.Modules
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", "%" + valor + "%") };
                     break;
                 case "Diferente de":
-                    filtroSql = $"UPPER({campo}) <> @valor";
+                    filtroSql = $"UPPER({campo}) <> UPPER(@valor)";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
                     break;
                 default:

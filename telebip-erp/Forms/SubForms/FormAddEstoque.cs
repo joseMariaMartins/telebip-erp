@@ -101,7 +101,6 @@ namespace telebip_erp.Forms.SubForms
                 using var conn = DatabaseHelper.GetConnection();
                 conn.Open();
                 string nomeFuncionario = cbFuncionarios.SelectedItem!.ToString()!;
-
                 int idProdutoAfetado;
 
                 if (ProdutoSelecionado != null)
@@ -114,10 +113,10 @@ namespace telebip_erp.Forms.SubForms
                     int novaQuantidade = estoqueAtual + qtdAdicional;
 
                     string sqlUpdate = @"
-                        UPDATE PRODUTO 
-                        SET QTD_ESTOQUE = @QTD_ESTOQUE
-                        WHERE ID_PRODUTO = @ID;
-                    ";
+                UPDATE PRODUTO 
+                SET QTD_ESTOQUE = @QTD_ESTOQUE
+                WHERE ID_PRODUTO = @ID;
+            ";
 
                     using var cmd = new SQLiteCommand(sqlUpdate, conn);
                     cmd.Parameters.AddWithValue("@QTD_ESTOQUE", novaQuantidade);
@@ -128,11 +127,41 @@ namespace telebip_erp.Forms.SubForms
                 }
                 else
                 {
+                    // Produto novo → verifica se já existe produto idêntico
+                    string sqlCheck = @"
+                SELECT COUNT(*) FROM PRODUTO
+                WHERE 
+                    UPPER(NOME) = @NOME AND 
+                    UPPER(MARCA) = @MARCA AND 
+                    PRECO = @PRECO AND 
+                    QTD_ESTOQUE = @QTD_ESTOQUE AND 
+                    QTD_AVISO = @QTD_AVISO AND 
+                    UPPER(COALESCE(OBSERVACAO, '')) = UPPER(COALESCE(@OBSERVACAO, ''));
+            ";
+
+                    using (var cmdCheck = new SQLiteCommand(sqlCheck, conn))
+                    {
+                        cmdCheck.Parameters.AddWithValue("@NOME", nome);
+                        cmdCheck.Parameters.AddWithValue("@MARCA", marca);
+                        cmdCheck.Parameters.AddWithValue("@PRECO", preco);
+                        cmdCheck.Parameters.AddWithValue("@QTD_ESTOQUE", qtdAdicional);
+                        cmdCheck.Parameters.AddWithValue("@QTD_AVISO", qtdAviso);
+                        cmdCheck.Parameters.AddWithValue("@OBSERVACAO", observacao);
+
+                        long existe = (long)cmdCheck.ExecuteScalar();
+                        if (existe > 0)
+                        {
+                            MessageBox.Show("Esse produto já está cadastrado!",
+                                            "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
                     // Produto novo → INSERT
                     string sqlInsert = @"
-                        INSERT INTO PRODUTO (NOME, MARCA, PRECO, QTD_ESTOQUE, QTD_AVISO, OBSERVACAO)
-                        VALUES (@NOME, @MARCA, @PRECO, @QTD_ESTOQUE, @QTD_AVISO, @OBSERVACAO);
-                    ";
+                INSERT INTO PRODUTO (NOME, MARCA, PRECO, QTD_ESTOQUE, QTD_AVISO, OBSERVACAO)
+                VALUES (@NOME, @MARCA, @PRECO, @QTD_ESTOQUE, @QTD_AVISO, @OBSERVACAO);
+            ";
 
                     using var cmd = new SQLiteCommand(sqlInsert, conn);
                     cmd.Parameters.AddWithValue("@NOME", nome);
@@ -148,19 +177,20 @@ namespace telebip_erp.Forms.SubForms
 
                 // Registro da movimentação de entrada
                 string sqlMov = @"
-                    INSERT INTO MOVIMENTACAO_ESTOQUE 
-                    (ID_PRODUTO, NOME_FUNCIONARIO, TIPO_MOVIMENTACAO, QUANTIDADE, DATA_HORA)
-                    VALUES (@idProd, @func, 'ENTRADA', @qtd, datetime('now','localtime'));
-                ";
+            INSERT INTO MOVIMENTACAO_ESTOQUE 
+            (ID_PRODUTO, NOME_FUNCIONARIO, TIPO_MOVIMENTACAO, QUANTIDADE, DATA_HORA)
+            VALUES (@idProd, @func, 'ENTRADA', @qtd, datetime('now','localtime'));
+        ";
 
                 DatabaseHelper.ExecuteNonQuery(sqlMov, new SQLiteParameter[]
                 {
-                    new SQLiteParameter("@idProd", idProdutoAfetado),
-                    new SQLiteParameter("@func", nomeFuncionario),
-                    new SQLiteParameter("@qtd", qtdAdicional)
+            new SQLiteParameter("@idProd", idProdutoAfetado),
+            new SQLiteParameter("@func", nomeFuncionario),
+            new SQLiteParameter("@qtd", qtdAdicional)
                 });
 
-                MessageBox.Show("Produto adicionado/atualizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Produto adicionado/atualizado com sucesso!",
+                                "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 AtualizarEstoqueCallback?.Invoke();
                 LimparCampos();
@@ -170,6 +200,7 @@ namespace telebip_erp.Forms.SubForms
                 MessageBox.Show("Erro ao adicionar produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void TbPreco_KeyPress(object sender, KeyPressEventArgs e)
         {
