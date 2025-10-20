@@ -26,6 +26,10 @@ namespace telebip_erp
         bool menuExpandEstoque = false;
         bool sidebarExpand = false;
 
+        // Variáveis para controle de callback
+        private Action? callbackAposFecharDropdown = null;
+        private bool aguardandoFechamentoDropdown = false;
+
         // ========== CONSTRUTOR ==========
         public FormBase()
         {
@@ -37,6 +41,11 @@ namespace telebip_erp
             pnlSidebar.Width = 47;
             pnlVendas.Height = 50;
             pnlEstoque.Height = 50;
+
+            // Configurar timers quase na mesma velocidade
+            menuTransitionVendas.Interval = 12; // Só um tiquinho mais lento (era 10)
+            MenuTransitionEstoque.Interval = 12; // Só um tiquinho mais lento (era 10)
+            sidebarTransition.Interval = 12; // Só um tiquinho mais lento (era 10)
 
             RegistrarBotoesSelecionaveis();
         }
@@ -51,9 +60,53 @@ namespace telebip_erp
             ButtonSelectionManager.RegistrarBotao(btnConfiguracoes);
         }
 
+        // ========== MÉTODO PARA FECHAR DROPDOWNS COM CALLBACK ==========
+        private void FecharDropdownComCallback(Action callback)
+        {
+            callbackAposFecharDropdown = callback;
+            aguardandoFechamentoDropdown = true;
+
+            // Fecha dropdown de Vendas se estiver aberto
+            if (menuExpandVendas)
+            {
+                menuTransitionVendas.Start();
+            }
+            // Fecha dropdown de Estoque se estiver aberto
+            else if (menuExpandEstoque)
+            {
+                MenuTransitionEstoque.Start();
+            }
+            else
+            {
+                // Se nenhum dropdown estiver aberto, executa o callback imediatamente
+                callbackAposFecharDropdown?.Invoke();
+                callbackAposFecharDropdown = null;
+                aguardandoFechamentoDropdown = false;
+            }
+        }
+
+        // ========== MÉTODO PARA FECHAR DROPDOWNS ==========
+        private void FecharTodosDropdowns()
+        {
+            // Fecha dropdown de Vendas se estiver aberto
+            if (menuExpandVendas)
+            {
+                menuTransitionVendas.Start();
+            }
+
+            // Fecha dropdown de Estoque se estiver aberto
+            if (menuExpandEstoque)
+            {
+                MenuTransitionEstoque.Start();
+            }
+        }
+
         // ========== MÉTODO BASE PARA ABRIR FORMULÁRIOS ==========
         private void AbrirFormNoPanel(Form form)
         {
+            // Fecha dropdowns antes de abrir novo formulário
+            FecharTodosDropdowns();
+
             pnlContainer.Controls.Clear();
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
@@ -67,20 +120,36 @@ namespace telebip_erp
         {
             if (!menuExpandVendas)
             {
-                pnlVendas.Height += 10;
+                pnlVendas.Height += 8; // Quase igual (era 10)
                 if (pnlVendas.Height >= 150)
                 {
                     menuTransitionVendas.Stop();
                     menuExpandVendas = true;
+
+                    // Executa callback se estiver aguardando
+                    if (aguardandoFechamentoDropdown)
+                    {
+                        callbackAposFecharDropdown?.Invoke();
+                        callbackAposFecharDropdown = null;
+                        aguardandoFechamentoDropdown = false;
+                    }
                 }
             }
             else
             {
-                pnlVendas.Height -= 10;
+                pnlVendas.Height -= 8; // Quase igual (era 10)
                 if (pnlVendas.Height <= 50)
                 {
                     menuTransitionVendas.Stop();
                     menuExpandVendas = false;
+
+                    // Executa callback se estiver aguardando
+                    if (aguardandoFechamentoDropdown)
+                    {
+                        callbackAposFecharDropdown?.Invoke();
+                        callbackAposFecharDropdown = null;
+                        aguardandoFechamentoDropdown = false;
+                    }
                 }
             }
         }
@@ -89,20 +158,36 @@ namespace telebip_erp
         {
             if (!menuExpandEstoque)
             {
-                pnlEstoque.Height += 10;
+                pnlEstoque.Height += 8; // Quase igual (era 10)
                 if (pnlEstoque.Height >= 150)
                 {
                     MenuTransitionEstoque.Stop();
                     menuExpandEstoque = true;
+
+                    // Executa callback se estiver aguardando
+                    if (aguardandoFechamentoDropdown)
+                    {
+                        callbackAposFecharDropdown?.Invoke();
+                        callbackAposFecharDropdown = null;
+                        aguardandoFechamentoDropdown = false;
+                    }
                 }
             }
             else
             {
-                pnlEstoque.Height -= 10;
+                pnlEstoque.Height -= 8; // Quase igual (era 10)
                 if (pnlEstoque.Height <= 50)
                 {
                     MenuTransitionEstoque.Stop();
                     menuExpandEstoque = false;
+
+                    // Executa callback se estiver aguardando
+                    if (aguardandoFechamentoDropdown)
+                    {
+                        callbackAposFecharDropdown?.Invoke();
+                        callbackAposFecharDropdown = null;
+                        aguardandoFechamentoDropdown = false;
+                    }
                 }
             }
         }
@@ -111,16 +196,19 @@ namespace telebip_erp
         {
             if (sidebarExpand)
             {
-                pnlSidebar.Width -= 15;
+                pnlSidebar.Width -= 12; // Quase igual (era 15)
                 if (pnlSidebar.Width <= 47)
                 {
                     sidebarExpand = false;
                     sidebarTransition.Stop();
+
+                    // Fecha dropdowns quando sidebar fecha
+                    FecharTodosDropdowns();
                 }
             }
             else
             {
-                pnlSidebar.Width += 15;
+                pnlSidebar.Width += 12; // Quase igual (era 15)
                 if (pnlSidebar.Width >= 260)
                 {
                     sidebarExpand = true;
@@ -143,39 +231,92 @@ namespace telebip_erp
         private void btnVendas_Click(object sender, EventArgs e)
         {
             if (!sidebarExpand) sidebarTransition.Start();
-            menuTransitionVendas.Start();
 
-            if (vendas == null || vendas.IsDisposed)
+            // Se outro dropdown estiver aberto, fecha primeiro e depois abre Vendas
+            if (menuExpandEstoque)
             {
-                vendas = new FormVendas();
-                vendas.FormClosed += (s, e2) => { vendas = null; };
-                AbrirFormNoPanel(vendas);
+                FecharDropdownComCallback(() => {
+                    // Callback: quando Estoque fechar completamente, abre Vendas
+                    menuTransitionVendas.Start();
+
+                    // Abre o formulário de Vendas
+                    if (vendas == null || vendas.IsDisposed)
+                    {
+                        vendas = new FormVendas();
+                        vendas.FormClosed += (s, e2) => { vendas = null; };
+                        AbrirFormNoPanel(vendas);
+                    }
+                    else if (!pnlContainer.Controls.Contains(vendas))
+                        AbrirFormNoPanel(vendas);
+                    else
+                        vendas.BringToFront();
+                });
             }
-            else if (!pnlContainer.Controls.Contains(vendas))
-                AbrirFormNoPanel(vendas);
             else
-                vendas.BringToFront();
+            {
+                // Se nenhum dropdown estiver aberto, comportamento normal
+                menuTransitionVendas.Start();
+
+                if (vendas == null || vendas.IsDisposed)
+                {
+                    vendas = new FormVendas();
+                    vendas.FormClosed += (s, e2) => { vendas = null; };
+                    AbrirFormNoPanel(vendas);
+                }
+                else if (!pnlContainer.Controls.Contains(vendas))
+                    AbrirFormNoPanel(vendas);
+                else
+                    vendas.BringToFront();
+            }
         }
 
         private void btnEstoque_Click(object sender, EventArgs e)
         {
             if (!sidebarExpand) sidebarTransition.Start();
-            MenuTransitionEstoque.Start();
 
-            if (estoque == null || estoque.IsDisposed)
+            // Se outro dropdown estiver aberto, fecha primeiro e depois abre Estoque
+            if (menuExpandVendas)
             {
-                estoque = new FormEstoque();
-                estoque.FormClosed += (s, e2) => { estoque = null; };
-                AbrirFormNoPanel(estoque);
+                FecharDropdownComCallback(() => {
+                    // Callback: quando Vendas fechar completamente, abre Estoque
+                    MenuTransitionEstoque.Start();
+
+                    // Abre o formulário de Estoque
+                    if (estoque == null || estoque.IsDisposed)
+                    {
+                        estoque = new FormEstoque();
+                        estoque.FormClosed += (s, e2) => { estoque = null; };
+                        AbrirFormNoPanel(estoque);
+                    }
+                    else if (!pnlContainer.Controls.Contains(estoque))
+                        AbrirFormNoPanel(estoque);
+                    else
+                        estoque.BringToFront();
+                });
             }
-            else if (!pnlContainer.Controls.Contains(estoque))
-                AbrirFormNoPanel(estoque);
             else
-                estoque.BringToFront();
+            {
+                // Se nenhum dropdown estiver aberto, comportamento normal
+                MenuTransitionEstoque.Start();
+
+                if (estoque == null || estoque.IsDisposed)
+                {
+                    estoque = new FormEstoque();
+                    estoque.FormClosed += (s, e2) => { estoque = null; };
+                    AbrirFormNoPanel(estoque);
+                }
+                else if (!pnlContainer.Controls.Contains(estoque))
+                    AbrirFormNoPanel(estoque);
+                else
+                    estoque.BringToFront();
+            }
         }
 
         private void btnHome_Click(object sender, EventArgs e)
         {
+            // Fecha dropdowns ao ir para Home
+            FecharTodosDropdowns();
+
             if (inicial == null || inicial.IsDisposed)
             {
                 inicial = new FormInicial();
@@ -190,6 +331,9 @@ namespace telebip_erp
 
         private void btnRelatorios_Click(object sender, EventArgs e)
         {
+            // Fecha dropdowns ao ir para Relatórios
+            FecharTodosDropdowns();
+
             if (relatorios == null || relatorios.IsDisposed)
             {
                 relatorios = new FormRelatorios();
@@ -204,6 +348,9 @@ namespace telebip_erp
 
         private void btnFuncionarios_Click(object sender, EventArgs e)
         {
+            // Fecha dropdowns ao ir para Funcionários
+            FecharTodosDropdowns();
+
             if (funcionarios == null || funcionarios.IsDisposed)
             {
                 funcionarios = new FormFuncionarios();
@@ -218,6 +365,9 @@ namespace telebip_erp
 
         private void btnConfiguracoes_Click(object sender, EventArgs e)
         {
+            // Fecha dropdowns ao ir para Configurações
+            FecharTodosDropdowns();
+
             if (configuracoes == null || configuracoes.IsDisposed)
             {
                 configuracoes = new FormConfiguracoes();
