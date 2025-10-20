@@ -386,6 +386,14 @@ namespace telebip_erp
             if (adicionarVendaForm == null || adicionarVendaForm.IsDisposed)
             {
                 adicionarVendaForm = new FormAddVendas();
+
+                // 🔹 Callback para atualizar o DataGridView após confirmar venda
+                adicionarVendaForm.VendaConfirmadaCallback = () =>
+                {
+                    if (vendas != null && !vendas.IsDisposed)
+                        vendas.AtualizarTabela();
+                };
+
                 adicionarVendaForm.FormClosed += (s, args) => { adicionarVendaForm = null; };
                 adicionarVendaForm.ShowDialog(this);
             }
@@ -394,6 +402,7 @@ namespace telebip_erp
                 adicionarVendaForm.BringToFront();
             }
         }
+
 
         private void addEstoque_Click(object sender, EventArgs e)
         {
@@ -494,4 +503,8 @@ namespace telebip_erp
             adicionarEstoqueForm.ShowDialog(this);
         }
     }
+}        }
+
+    }
 }
+

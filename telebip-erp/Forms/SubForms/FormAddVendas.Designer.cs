@@ -44,9 +44,12 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             cbFuncionariosVenda = new Guna.UI2.WinForms.Guna2ComboBox();
             tbNomeProduto = new Guna.UI2.WinForms.Guna2TextBox();
@@ -58,16 +61,23 @@
             guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             tbDesconto = new Guna.UI2.WinForms.Guna2TextBox();
             guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            lbValorTotal = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             cbForma = new Guna.UI2.WinForms.Guna2ComboBox();
             guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             cbEstado = new Guna.UI2.WinForms.Guna2ComboBox();
             guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
             mkDataHora = new MaskedTextBox();
             lbQuantidadeAtual = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            ((System.ComponentModel.ISupportInitialize)guna2DataGridView1).BeginInit();
+            btnAdicaoProduto = new Guna.UI2.WinForms.Guna2ImageRadioButton();
+            dgvProdutoTemporarios = new DataGridView();
+            btnTirarProduto = new Guna.UI2.WinForms.Guna2ImageRadioButton();
+            lbIdProduto = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lbMarcaProduto = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            btnCancelarVendas = new Guna.UI2.WinForms.Guna2Button();
+            btnAdicionarVendas = new Guna.UI2.WinForms.Guna2Button();
+            lbValorSuper = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2HtmlLabel9 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            ((System.ComponentModel.ISupportInitialize)dgvProdutoTemporarios).BeginInit();
             SuspendLayout();
             // 
             // guna2HtmlLabel1
@@ -151,7 +161,7 @@
             tbPrecoProduto.ShadowDecoration.CustomizableEdges = customizableEdges6;
             tbPrecoProduto.Size = new Size(100, 36);
             tbPrecoProduto.TabIndex = 22;
-            tbPrecoProduto.TextChanged += tbPrecoProduto_TextChanged_1;
+            tbPrecoProduto.TextChanged += TbPrecoProduto_TextChanged;
             // 
             // tbQProduto
             // 
@@ -182,6 +192,7 @@
             // btnMaisInformacao
             // 
             btnMaisInformacao.BackColor = Color.FromArgb(40, 41, 52);
+            btnMaisInformacao.CausesValidation = false;
             btnMaisInformacao.CheckedState.Image = (Image)resources.GetObject("resource.Image");
             btnMaisInformacao.Image = (Image)resources.GetObject("btnMaisInformacao.Image");
             btnMaisInformacao.ImageOffset = new Point(0, 0);
@@ -191,7 +202,6 @@
             btnMaisInformacao.ShadowDecoration.CustomizableEdges = customizableEdges9;
             btnMaisInformacao.Size = new Size(25, 27);
             btnMaisInformacao.TabIndex = 24;
-            btnMaisInformacao.CheckedChanged += btnMaisInformacao_CheckedChanged;
             // 
             // guna2HtmlLabel2
             // 
@@ -214,11 +224,11 @@
             // guna2HtmlLabel4
             // 
             guna2HtmlLabel4.BackColor = Color.Transparent;
-            guna2HtmlLabel4.Location = new Point(455, 164);
+            guna2HtmlLabel4.Location = new Point(439, 164);
             guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            guna2HtmlLabel4.Size = new Size(73, 17);
+            guna2HtmlLabel4.Size = new Size(116, 17);
             guna2HtmlLabel4.TabIndex = 27;
-            guna2HtmlLabel4.Text = "Quantidade *";
+            guna2HtmlLabel4.Text = "Quantidade Vendida*";
             // 
             // tbDesconto
             // 
@@ -235,7 +245,7 @@
             tbDesconto.Font = new Font("Segoe UI", 9F);
             tbDesconto.ForeColor = Color.White;
             tbDesconto.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbDesconto.Location = new Point(56, 419);
+            tbDesconto.Location = new Point(439, 345);
             tbDesconto.Margin = new Padding(3, 0, 10, 0);
             tbDesconto.MaxLength = 11;
             tbDesconto.Name = "tbDesconto";
@@ -249,20 +259,11 @@
             // guna2HtmlLabel5
             // 
             guna2HtmlLabel5.BackColor = Color.Transparent;
-            guna2HtmlLabel5.Location = new Point(56, 399);
+            guna2HtmlLabel5.Location = new Point(428, 325);
             guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            guna2HtmlLabel5.Size = new Size(53, 17);
+            guna2HtmlLabel5.Size = new Size(125, 17);
             guna2HtmlLabel5.TabIndex = 29;
-            guna2HtmlLabel5.Text = "Desconto";
-            // 
-            // lbValorTotal
-            // 
-            lbValorTotal.BackColor = Color.Transparent;
-            lbValorTotal.Location = new Point(56, 458);
-            lbValorTotal.Name = "lbValorTotal";
-            lbValorTotal.Size = new Size(40, 17);
-            lbValorTotal.TabIndex = 30;
-            lbValorTotal.Text = "R$ 0,00";
+            guna2HtmlLabel5.Text = "Desconto sobre o Total";
             // 
             // guna2HtmlLabel6
             // 
@@ -333,56 +334,6 @@
             guna2HtmlLabel8.TabIndex = 36;
             guna2HtmlLabel8.Text = "Estado do Pagamento *";
             // 
-            // guna2DataGridView1
-            // 
-            dataGridViewCellStyle1.BackColor = Color.White;
-            guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            guna2DataGridView1.ColumnHeadersHeight = 4;
-            guna2DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(24, 23, 29);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            guna2DataGridView1.GridColor = Color.FromArgb(231, 229, 255);
-            guna2DataGridView1.Location = new Point(56, 499);
-            guna2DataGridView1.Name = "guna2DataGridView1";
-            guna2DataGridView1.RowHeadersVisible = false;
-            guna2DataGridView1.Size = new Size(524, 150);
-            guna2DataGridView1.TabIndex = 37;
-            guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
-            guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
-            guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
-            guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
-            guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
-            guna2DataGridView1.ThemeStyle.BackColor = Color.White;
-            guna2DataGridView1.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
-            guna2DataGridView1.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(100, 88, 255);
-            guna2DataGridView1.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
-            guna2DataGridView1.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F);
-            guna2DataGridView1.ThemeStyle.HeaderStyle.ForeColor = Color.White;
-            guna2DataGridView1.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            guna2DataGridView1.ThemeStyle.HeaderStyle.Height = 4;
-            guna2DataGridView1.ThemeStyle.ReadOnly = false;
-            guna2DataGridView1.ThemeStyle.RowsStyle.BackColor = Color.White;
-            guna2DataGridView1.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            guna2DataGridView1.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
-            guna2DataGridView1.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(24, 23, 29);
-            guna2DataGridView1.ThemeStyle.RowsStyle.Height = 25;
-            guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            // 
             // mkDataHora
             // 
             mkDataHora.BorderStyle = BorderStyle.None;
@@ -396,11 +347,121 @@
             // lbQuantidadeAtual
             // 
             lbQuantidadeAtual.BackColor = Color.Transparent;
-            lbQuantidadeAtual.Location = new Point(599, 184);
+            lbQuantidadeAtual.Location = new Point(571, 203);
             lbQuantidadeAtual.Name = "lbQuantidadeAtual";
-            lbQuantidadeAtual.Size = new Size(73, 17);
+            lbQuantidadeAtual.Size = new Size(106, 17);
             lbQuantidadeAtual.TabIndex = 39;
-            lbQuantidadeAtual.Text = "Quantidade *";
+            lbQuantidadeAtual.Text = "Quantidade atual: 0";
+            // 
+            // btnAdicaoProduto
+            // 
+            btnAdicaoProduto.BackColor = Color.Transparent;
+            btnAdicaoProduto.CausesValidation = false;
+            btnAdicaoProduto.CheckedState.Image = (Image)resources.GetObject("resource.Image1");
+            btnAdicaoProduto.Image = (Image)resources.GetObject("btnAdicaoProduto.Image");
+            btnAdicaoProduto.ImageOffset = new Point(0, 0);
+            btnAdicaoProduto.ImageRotate = 0F;
+            btnAdicaoProduto.Location = new Point(545, 427);
+            btnAdicaoProduto.Name = "btnAdicaoProduto";
+            btnAdicaoProduto.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnAdicaoProduto.Size = new Size(25, 27);
+            btnAdicaoProduto.TabIndex = 40;
+            btnAdicaoProduto.UseTransparentBackground = true;
+            // 
+            // dgvProdutoTemporarios
+            // 
+            dgvProdutoTemporarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProdutoTemporarios.Location = new Point(46, 460);
+            dgvProdutoTemporarios.Name = "dgvProdutoTemporarios";
+            dgvProdutoTemporarios.Size = new Size(524, 150);
+            dgvProdutoTemporarios.TabIndex = 41;
+            // 
+            // btnTirarProduto
+            // 
+            btnTirarProduto.BackColor = Color.Transparent;
+            btnTirarProduto.CausesValidation = false;
+            btnTirarProduto.CheckedState.Image = (Image)resources.GetObject("resource.Image2");
+            btnTirarProduto.Image = (Image)resources.GetObject("btnTirarProduto.Image");
+            btnTirarProduto.ImageOffset = new Point(0, 0);
+            btnTirarProduto.ImageRotate = 0F;
+            btnTirarProduto.Location = new Point(514, 427);
+            btnTirarProduto.Name = "btnTirarProduto";
+            btnTirarProduto.ShadowDecoration.CustomizableEdges = customizableEdges17;
+            btnTirarProduto.Size = new Size(25, 27);
+            btnTirarProduto.TabIndex = 42;
+            btnTirarProduto.UseTransparentBackground = true;
+            // 
+            // lbIdProduto
+            // 
+            lbIdProduto.BackColor = Color.Transparent;
+            lbIdProduto.Location = new Point(825, 37);
+            lbIdProduto.Name = "lbIdProduto";
+            lbIdProduto.Size = new Size(9, 17);
+            lbIdProduto.TabIndex = 43;
+            lbIdProduto.Text = "0";
+            lbIdProduto.Visible = false;
+            // 
+            // lbMarcaProduto
+            // 
+            lbMarcaProduto.BackColor = Color.Transparent;
+            lbMarcaProduto.Location = new Point(825, 60);
+            lbMarcaProduto.Name = "lbMarcaProduto";
+            lbMarcaProduto.Size = new Size(9, 17);
+            lbMarcaProduto.TabIndex = 44;
+            lbMarcaProduto.Text = "1";
+            lbMarcaProduto.Visible = false;
+            // 
+            // btnCancelarVendas
+            // 
+            btnCancelarVendas.CustomizableEdges = customizableEdges18;
+            btnCancelarVendas.DisabledState.BorderColor = Color.DarkGray;
+            btnCancelarVendas.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnCancelarVendas.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnCancelarVendas.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnCancelarVendas.Font = new Font("Segoe UI", 9F);
+            btnCancelarVendas.ForeColor = Color.White;
+            btnCancelarVendas.Location = new Point(627, 634);
+            btnCancelarVendas.Name = "btnCancelarVendas";
+            btnCancelarVendas.ShadowDecoration.CustomizableEdges = customizableEdges19;
+            btnCancelarVendas.Size = new Size(124, 45);
+            btnCancelarVendas.TabIndex = 46;
+            btnCancelarVendas.Text = "Cancelar";
+            btnCancelarVendas.Click += btnCancelarVendas_Click_1;
+            // 
+            // btnAdicionarVendas
+            // 
+            btnAdicionarVendas.CustomizableEdges = customizableEdges20;
+            btnAdicionarVendas.DisabledState.BorderColor = Color.DarkGray;
+            btnAdicionarVendas.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnAdicionarVendas.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnAdicionarVendas.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnAdicionarVendas.Font = new Font("Segoe UI", 9F);
+            btnAdicionarVendas.ForeColor = Color.White;
+            btnAdicionarVendas.Location = new Point(757, 634);
+            btnAdicionarVendas.Name = "btnAdicionarVendas";
+            btnAdicionarVendas.ShadowDecoration.CustomizableEdges = customizableEdges21;
+            btnAdicionarVendas.Size = new Size(124, 45);
+            btnAdicionarVendas.TabIndex = 47;
+            btnAdicionarVendas.Text = "Adicionar";
+            btnAdicionarVendas.Click += btnAdicionarVendas_Click_1;
+            // 
+            // lbValorSuper
+            // 
+            lbValorSuper.BackColor = Color.Transparent;
+            lbValorSuper.Location = new Point(455, 634);
+            lbValorSuper.Name = "lbValorSuper";
+            lbValorSuper.Size = new Size(9, 17);
+            lbValorSuper.TabIndex = 48;
+            lbValorSuper.Text = "1";
+            // 
+            // guna2HtmlLabel9
+            // 
+            guna2HtmlLabel9.BackColor = Color.Transparent;
+            guna2HtmlLabel9.Location = new Point(375, 634);
+            guna2HtmlLabel9.Name = "guna2HtmlLabel9";
+            guna2HtmlLabel9.Size = new Size(60, 17);
+            guna2HtmlLabel9.TabIndex = 49;
+            guna2HtmlLabel9.Text = "Valor Total";
             // 
             // FormAddVendas
             // 
@@ -408,15 +469,22 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(24, 23, 29);
             ClientSize = new Size(926, 700);
+            Controls.Add(guna2HtmlLabel9);
+            Controls.Add(lbValorSuper);
+            Controls.Add(btnAdicionarVendas);
+            Controls.Add(btnCancelarVendas);
+            Controls.Add(lbMarcaProduto);
+            Controls.Add(lbIdProduto);
+            Controls.Add(btnTirarProduto);
+            Controls.Add(dgvProdutoTemporarios);
+            Controls.Add(btnAdicaoProduto);
             Controls.Add(lbQuantidadeAtual);
             Controls.Add(mkDataHora);
-            Controls.Add(guna2DataGridView1);
             Controls.Add(guna2HtmlLabel8);
             Controls.Add(cbEstado);
             Controls.Add(guna2HtmlLabel7);
             Controls.Add(cbForma);
             Controls.Add(guna2HtmlLabel6);
-            Controls.Add(lbValorTotal);
             Controls.Add(guna2HtmlLabel5);
             Controls.Add(tbDesconto);
             Controls.Add(guna2HtmlLabel4);
@@ -435,7 +503,7 @@
             Padding = new Padding(2, 14, 2, 2);
             Text = "FormAddVendas";
             Load += FormAddVendas_Load_1;
-            ((System.ComponentModel.ISupportInitialize)guna2DataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvProdutoTemporarios).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -452,14 +520,21 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
         public Guna.UI2.WinForms.Guna2TextBox tbDesconto;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lbValorTotal;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
         public Guna.UI2.WinForms.Guna2ComboBox cbForma;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
         public Guna.UI2.WinForms.Guna2ComboBox cbEstado;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel8;
-        private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
         private MaskedTextBox mkDataHora;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbQuantidadeAtual;
+        private Guna.UI2.WinForms.Guna2ImageRadioButton btnAdicaoProduto;
+        private DataGridView dgvProdutoTemporarios;
+        private Guna.UI2.WinForms.Guna2ImageRadioButton btnTirarProduto;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lbIdProduto;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lbMarcaProduto;
+        private Guna.UI2.WinForms.Guna2Button btnCancelarVendas;
+        private Guna.UI2.WinForms.Guna2Button btnAdicionarVendas;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lbValorSuper;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
     }
 }

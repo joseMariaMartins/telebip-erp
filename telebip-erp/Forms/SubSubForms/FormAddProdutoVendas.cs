@@ -57,19 +57,20 @@ namespace telebip_erp.Forms.SubSubForms
             try
             {
                 string sql = $@"
-                    SELECT 
-                        ID_PRODUTO,
-                        NOME,
-                        MARCA,
-                        PRECO,
-                        QTD_ESTOQUE,
-                        QTD_AVISO,
-                        OBSERVACAO
-                    FROM PRODUTO
-                    {(string.IsNullOrEmpty(filtroSql) ? "" : "WHERE " + filtroSql)}
-                    ORDER BY ID_PRODUTO DESC
-                    {(limitar20 ? "LIMIT 20" : "")};
-                ";
+            SELECT 
+                ID_PRODUTO,
+                NOME,
+                MARCA,
+                PRECO,
+                QTD_ESTOQUE,
+                QTD_AVISO,
+                OBSERVACAO
+            FROM PRODUTO
+            WHERE ID_PRODUTO NOT IN (SELECT ID_PRODUTO FROM PRODUTOS_TEMPORARIOS)
+            {(string.IsNullOrEmpty(filtroSql) ? "" : "AND " + filtroSql)}
+            ORDER BY ID_PRODUTO DESC
+            {(limitar20 ? "LIMIT 20" : "")};
+        ";
 
                 DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
                 dgvProdutosMini.DataSource = dt;
@@ -108,6 +109,7 @@ namespace telebip_erp.Forms.SubSubForms
                 MessageBox.Show("Erro ao carregar produtos: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void CarregarProdutosInicial()
         {
@@ -175,18 +177,21 @@ namespace telebip_erp.Forms.SubSubForms
 
             var linha = dgvProdutosMini.Rows[e.RowIndex];
             string nomeProduto = linha.Cells["NOME"].Value?.ToString() ?? "";
+            int idProduto = Convert.ToInt32(linha.Cells["ID_PRODUTO"].Value);
 
             if (!string.IsNullOrEmpty(nomeProduto))
             {
-                // Aqui assumimos que você passou o FormAddVendas ao abrir o mini form
+                // Passando para o FormAddVendas
                 FormAddVendas formVendas = this.Owner as FormAddVendas;
                 if (formVendas != null)
                 {
-                    formVendas.PreencherProduto(nomeProduto);
+                    formVendas.PreencherProduto(nomeProduto, idProduto); // novo método com ID
                     this.Close(); // Fecha o mini form
                 }
             }
         }
 
     }
+
 }
+

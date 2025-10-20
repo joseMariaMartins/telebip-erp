@@ -177,5 +177,57 @@ namespace telebip_erp.Forms.Modules
             dgvVendas.ClearSelection();
             dgvVendas.CurrentCell = null;
         }
+
+        public void RemoverVendaSelecionada()
+        {
+            if (dgvVendas.CurrentRow == null)
+            {
+                MessageBox.Show("Selecione uma venda para remover.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult result = MessageBox.Show(
+                "Deseja realmente remover a venda selecionada?",
+                "Confirmação",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result != DialogResult.Yes) return;
+
+            try
+            {
+                int idVenda = Convert.ToInt32(dgvVendas.CurrentRow.Cells["ID_VENDA"].Value);
+
+                using var conn = DatabaseHelper.GetConnection();
+                conn.Open();
+
+                // Exclui a venda
+                string sqlDeleteVenda = "DELETE FROM VENDA WHERE ID_VENDA = @id;";
+                using var cmdVenda = new SQLiteCommand(sqlDeleteVenda, conn);
+                cmdVenda.Parameters.AddWithValue("@id", idVenda);
+                cmdVenda.ExecuteNonQuery();
+
+                // Opcional: deletar itens e pagamentos relacionados
+                string sqlDeleteItens = "DELETE FROM ITEM_VENDA WHERE ID_VENDA = @id;";
+                using var cmdItens = new SQLiteCommand(sqlDeleteItens, conn);
+                cmdItens.Parameters.AddWithValue("@id", idVenda);
+                cmdItens.ExecuteNonQuery();
+
+                string sqlDeletePagamento = "DELETE FROM PAGAMENTO WHERE ID_VENDA = @id;";
+                using var cmdPagamento = new SQLiteCommand(sqlDeletePagamento, conn);
+                cmdPagamento.Parameters.AddWithValue("@id", idVenda);
+                cmdPagamento.ExecuteNonQuery();
+
+                // Atualiza DataGridView
+                AtualizarTabela(); // Certifique-se de ter esse método para recarregar o dgv
+                MessageBox.Show("Venda removida com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao remover a venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
