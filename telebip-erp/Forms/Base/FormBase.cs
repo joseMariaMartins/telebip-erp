@@ -503,7 +503,20 @@ namespace telebip_erp
             adicionarEstoqueForm.ShowDialog(this);
         }
     }
-}        }
+}
+
+        private void rmvVenda_Click(object sender, EventArgs e)
+        {
+            // Procura o FormVendas que está aberto
+            if (Application.OpenForms["FormVendas"] is FormVendas formVendas)
+            {
+                formVendas.RemoverVendaSelecionada();
+            }
+            else
+            {
+                MessageBox.Show("O formulário de vendas não está aberto.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
     }
 }
