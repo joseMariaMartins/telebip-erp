@@ -11,16 +11,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using telebip_erp.Forms.SubForms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 
 namespace telebip_erp.Forms.SubSubForms
 {
-    public partial class FormAddProdutoVendas : Form
+    public partial class FormAddProdutoVendas : MaterialForm
     {
         public FormAddProdutoVendas()
         {
             InitializeComponent();
             ConfigurarComboboxes();
+            ThemeManager.ApplyDarkTheme();
 
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.ControlBox = true;
@@ -190,7 +193,6 @@ namespace telebip_erp.Forms.SubSubForms
                 }
             }
         }
-
     }
 
 }

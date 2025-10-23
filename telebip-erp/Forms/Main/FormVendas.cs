@@ -228,6 +228,5 @@ namespace telebip_erp.Forms.Modules
                 MessageBox.Show("Erro ao remover a venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }
