@@ -123,6 +123,7 @@
             dgvVendas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvVendas.Size = new Size(1567, 445);
             dgvVendas.TabIndex = 0;
+            dgvVendas.CellDoubleClick += dgvVendas_CellDoubleClick;
             // 
             // pnlBottom
             // 
@@ -320,7 +321,7 @@
 
         private Panel pnlContainer;
         private Panel pnlDgv;
-        private DataGridView dgvVendas;
+        public DataGridView dgvVendas;
         private Panel pnlBottom;
         private Label lbTotal;
         private Panel pnlFiltros;

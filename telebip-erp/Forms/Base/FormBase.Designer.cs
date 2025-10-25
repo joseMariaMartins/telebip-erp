@@ -198,6 +198,7 @@
             rmvVenda.Text = "                    Remover";
             rmvVenda.TextAlign = ContentAlignment.MiddleLeft;
             rmvVenda.UseVisualStyleBackColor = false;
+            rmvVenda.Click += rmvVenda_Click;
             // 
             // panel2
             // 

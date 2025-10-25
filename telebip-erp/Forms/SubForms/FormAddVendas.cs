@@ -2,6 +2,7 @@
 using System.Data.SQLite;
 using System.Globalization;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using telebip_erp.Forms.SubSubForms;
@@ -16,12 +17,14 @@ namespace telebip_erp.Forms.SubForms
         private bool _ignorarEventoCombo = false;
 
         public Action? VendaConfirmadaCallback { get; set; }
+        public bool ModoConsulta { get; set; } = false;
+        public int? VendaID { get; set; } = null;
+
 
         public FormAddVendas()
         {
             InitializeComponent();
             ThemeManager.ApplyDarkTheme();
-
             InicializarComponentes();
         }
 
@@ -41,16 +44,27 @@ namespace telebip_erp.Forms.SubForms
 
         private void FormAddVendas_Load_1(object sender, EventArgs e)
         {
-            CarregarFuncionarios();
-            InicializarCampos();
-            AtualizarGridProdutos();
+            if (!ModoConsulta)
+            {
+                CarregarFuncionarios(); // só carrega todos os funcionários se não for modo consulta
+                InicializarCampos();
+                AtualizarGridProdutos();
+            }
+            else
+            {
+                CarregarFuncionarioDaVenda(); // garante que o funcionário da venda seja carregado
+                AtivarModoConsultaSimples(); // <- chama aqui!
+            }
         }
+
+
+
 
         private void InicializarCampos()
         {
             tbPrecoProduto.Text = "R$ 0,00";
             tbDesconto.Text = "R$ 0,00";
-            mkDataHora.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            mkDataHora.Text = DateTime.Now.ToString("dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
         }
 
         #endregion
@@ -73,15 +87,21 @@ namespace telebip_erp.Forms.SubForms
 
                 if (cbEstado.SelectedItem?.ToString() == "Pendente")
                 {
-                    cbForma.SelectedItem = "Ausente";
-                    cbForma.Enabled = false;
+                    cbForma.SelectedItem = "Ausente"; // seleciona automaticamente
+                    cbForma.Enabled = false;          // bloqueia
                 }
                 else
                 {
-                    cbForma.Enabled = true;
+                    cbForma.Enabled = true;           // desbloqueia
+                                                      // limpa se ainda estiver “Ausente” por causa do Pendente
+                    if (cbForma.SelectedItem?.ToString() == "Ausente")
+                        cbForma.SelectedIndex = -1;
                 }
             }
-            finally { _ignorarEventoCombo = false; }
+            finally
+            {
+                _ignorarEventoCombo = false;
+            }
         }
 
         private void CbForma_SelectedIndexChanged(object sender, EventArgs e)
@@ -94,16 +114,23 @@ namespace telebip_erp.Forms.SubForms
 
                 if (cbForma.SelectedItem?.ToString() == "Ausente")
                 {
-                    cbEstado.SelectedItem = "Pendente";
-                    cbEstado.Enabled = false;
+                    cbEstado.SelectedItem = "Pendente"; // seleciona automaticamente
+                    cbEstado.Enabled = false;           // bloqueia
                 }
                 else
                 {
-                    cbEstado.Enabled = true;
+                    cbEstado.Enabled = true;            // desbloqueia
+                                                        // limpa se ainda estiver “Pendente” por causa do Ausente
+                    if (cbEstado.SelectedItem?.ToString() == "Pendente")
+                        cbEstado.SelectedIndex = -1;
                 }
             }
-            finally { _ignorarEventoCombo = false; }
+            finally
+            {
+                _ignorarEventoCombo = false;
+            }
         }
+
 
         #endregion
 
@@ -190,10 +217,53 @@ namespace telebip_erp.Forms.SubForms
 
         public void PreencherProduto(string nomeProduto, int idProduto)
         {
-            tbNomeProduto.Text = nomeProduto;
-            lbIdProduto.Text = idProduto.ToString();
-            BuscarProduto(nomeProduto);
+            try
+            {
+                // Preenche o nome do produto
+                tbNomeProduto.Text = nomeProduto;
+                lbIdProduto.Text = idProduto.ToString();
+
+                // Busca os dados do produto no banco
+                string sql = "SELECT MARCA, PRECO, QTD_ESTOQUE FROM PRODUTO WHERE ID_PRODUTO = @id";
+                SQLiteParameter[] parametros = { new SQLiteParameter("@id", idProduto) };
+                using (var conn = DatabaseHelper.GetConnection())
+                {
+                    conn.Open();
+                    using var cmd = new SQLiteCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@id", idProduto);
+
+                    using var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        // Marca
+                        lbMarcaProduto.Text = reader["MARCA"].ToString();
+
+                        // Preço
+                        decimal preco = Convert.ToDecimal(reader["PRECO"]);
+                        tbPrecoProduto.Text = "R$ " + preco.ToString("N2", CultureInfo.GetCultureInfo("pt-BR"));
+
+                        // Quantidade em estoque
+                        int qtdEstoque = Convert.ToInt32(reader["QTD_ESTOQUE"]);
+                        lbQuantidadeAtual.Text = $"Quantidade atual: {qtdEstoque}";
+                    }
+                    else
+                    {
+                        lbMarcaProduto.Text = "";
+                        tbPrecoProduto.Text = "R$ 0,00";
+                        lbQuantidadeAtual.Text = "Quantidade atual: 0";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar dados do produto: " + ex.Message,
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lbMarcaProduto.Text = "";
+                tbPrecoProduto.Text = "R$ 0,00";
+                lbQuantidadeAtual.Text = "Quantidade atual: 0";
+            }
         }
+
 
         private void BtnAdicaoProduto_Click(object sender, EventArgs e)
         {
@@ -223,8 +293,20 @@ namespace telebip_erp.Forms.SubForms
                 MessageBox.Show("Quantidade inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
+            // Aqui vamos checar se a quantidade informada é maior que a quantidade atual
+            int qtdAtual = int.Parse(lbQuantidadeAtual.Text.Replace("Quantidade atual: ", ""));
+            if (qtd > qtdAtual)
+            {
+                MessageBox.Show($"A quantidade informada ({qtd}) é maior que a quantidade disponível ({qtdAtual}).", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbQProduto.Text = ""; // limpa a quantidade informada
+                tbQProduto.Focus();   // retorna o foco para o usuário corrigir
+                return false;
+            }
+
             return true;
         }
+
 
         private void AdicionarProduto()
         {
@@ -297,7 +379,7 @@ namespace telebip_erp.Forms.SubForms
         {
             tbNomeProduto.Clear();
             tbPrecoProduto.Text = "R$ 0,00";
-            tbQProduto.Text = "0";
+            tbQProduto.Text = "";
             lbQuantidadeAtual.Text = "Quantidade atual: 0";
         }
 
@@ -373,22 +455,26 @@ namespace telebip_erp.Forms.SubForms
                 conn.Open();
 
                 string sql = @"
-                    CREATE TABLE IF NOT EXISTS PRODUTOS_TEMPORARIOS (
-                        ID_TEMP INTEGER PRIMARY KEY AUTOINCREMENT,
-                        ID_PRODUTO INTEGER NOT NULL,
-                        NOME TEXT NOT NULL CHECK(length(NOME) <= 100),
-                        MARCA TEXT CHECK(length(MARCA) <= 50),
-                        PRECO_UNITARIO REAL NOT NULL CHECK(PRECO_UNITARIO = ROUND(PRECO_UNITARIO,2) AND PRECO_UNITARIO >=0),
-                        QUANTIDADE INTEGER NOT NULL CHECK(QUANTIDADE>0),
-                        SUBTOTAL REAL GENERATED ALWAYS AS (ROUND(PRECO_UNITARIO*QUANTIDADE,2)) VIRTUAL
-                    );
-                ";
+            CREATE TABLE IF NOT EXISTS PRODUTOS_TEMPORARIOS (
+                ID_TEMP INTEGER PRIMARY KEY AUTOINCREMENT,
+                ID_PRODUTO INTEGER NOT NULL,
+                NOME TEXT NOT NULL CHECK(length(NOME) <= 100),
+                MARCA TEXT CHECK(length(MARCA) <= 50),
+                PRECO_UNITARIO REAL NOT NULL CHECK(PRECO_UNITARIO = ROUND(PRECO_UNITARIO,2) AND PRECO_UNITARIO >=0),
+                QUANTIDADE INTEGER NOT NULL CHECK(QUANTIDADE>0),
+                SUBTOTAL REAL GENERATED ALWAYS AS (ROUND(PRECO_UNITARIO*QUANTIDADE,2)) VIRTUAL
+            );
+        ";
 
                 using var cmd = new SQLiteCommand(sql, conn);
                 cmd.ExecuteNonQuery();
 
-                using var cmdLimpar = new SQLiteCommand("DELETE FROM PRODUTOS_TEMPORARIOS;", conn);
-                cmdLimpar.ExecuteNonQuery();
+                // 🔹 Só limpar a tabela temporária se NÃO estiver em modo consulta
+                if (!ModoConsulta)
+                {
+                    using var cmdLimpar = new SQLiteCommand("DELETE FROM PRODUTOS_TEMPORARIOS;", conn);
+                    cmdLimpar.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
@@ -396,26 +482,54 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
+
         private void AtualizarGridProdutos()
         {
             try
             {
+                // Pega todos os dados da tabela temporária
                 string sql = "SELECT ID_TEMP, ID_PRODUTO, NOME, PRECO_UNITARIO, QUANTIDADE, SUBTOTAL FROM PRODUTOS_TEMPORARIOS;";
                 var dt = DatabaseHelper.ExecuteQuery(sql);
                 dgvProdutoTemporarios.DataSource = dt;
 
+                // Configura visibilidade e títulos
                 dgvProdutoTemporarios.Columns["ID_TEMP"].Visible = false;
                 dgvProdutoTemporarios.Columns["ID_PRODUTO"].HeaderText = "ID";
                 dgvProdutoTemporarios.Columns["NOME"].HeaderText = "Produto";
                 dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].HeaderText = "Preço Unitário";
                 dgvProdutoTemporarios.Columns["QUANTIDADE"].HeaderText = "Qtd";
                 dgvProdutoTemporarios.Columns["SUBTOTAL"].HeaderText = "Total";
+
+                // Configura largura fixa das colunas
+                dgvProdutoTemporarios.Columns["ID_PRODUTO"].Width = 70;
+                dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].Width = 150;
+                dgvProdutoTemporarios.Columns["QUANTIDADE"].Width = 70;
+                dgvProdutoTemporarios.Columns["SUBTOTAL"].Width = 100;
+
+                // Coluna NOME ocupa o restante do espaço
+                dgvProdutoTemporarios.Columns["NOME"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                // Alinhamento do texto
+                dgvProdutoTemporarios.Columns["ID_PRODUTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvProdutoTemporarios.Columns["QUANTIDADE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvProdutoTemporarios.Columns["SUBTOTAL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvProdutoTemporarios.Columns["NOME"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                // Formato monetário para PRECO_UNITARIO e SUBTOTAL
+                dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].DefaultCellStyle.Format = "C2";
+                dgvProdutoTemporarios.Columns["SUBTOTAL"].DefaultCellStyle.Format = "C2";
+
+                // Seleção limpa
+                dgvProdutoTemporarios.ClearSelection();
+                dgvProdutoTemporarios.CurrentCell = null;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao carregar produtos temporários: " + ex.Message);
             }
         }
+
 
         private void AtualizarLbValorSuper()
         {
@@ -483,26 +597,33 @@ namespace telebip_erp.Forms.SubForms
 
         private bool ValidarVenda()
         {
+            // Valida funcionário
             if (string.IsNullOrWhiteSpace(cbFuncionariosVenda.Text))
             {
                 MessageBox.Show("INFORME O NOME DO FUNCIONÁRIO.", "AVISO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbFuncionariosVenda.Focus();
                 return false;
             }
 
-            if (cbEstado.SelectedIndex < 0)
+            // Valida estado do pagamento
+            if (cbEstado.SelectedIndex < 0 || string.IsNullOrWhiteSpace(cbEstado.Text))
             {
                 MessageBox.Show("SELECIONE O ESTADO DO PAGAMENTO.", "AVISO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbEstado.Focus();
                 return false;
             }
 
-            if (cbForma.SelectedIndex < 0)
+            // Valida forma de pagamento
+            if (cbForma.SelectedIndex < 0 || string.IsNullOrWhiteSpace(cbForma.Text))
             {
                 MessageBox.Show("SELECIONE A FORMA DE PAGAMENTO.", "AVISO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbForma.Focus();
                 return false;
             }
 
             return true;
         }
+
 
         private void ProcessarVenda()
         {
@@ -591,5 +712,163 @@ namespace telebip_erp.Forms.SubForms
         }
 
         #endregion
+
+        private void CarregarVendaParaConsulta(int idVenda)
+        {
+            try
+            {
+                // 🔹 Carrega dados da venda
+                string sqlVenda = "SELECT * FROM VENDA WHERE ID_VENDA = @id";
+                var dtVenda = DatabaseHelper.ExecuteQuery(sqlVenda, new SQLiteParameter[]
+                {
+            new SQLiteParameter("@id", idVenda)
+                });
+
+                if (dtVenda.Rows.Count == 0) return;
+
+                var row = dtVenda.Rows[0];
+
+                // Exemplo: preencher campos de data, valor total, desconto
+                cbFuncionariosVenda.Text = row["NOME_FUNCIONARIO"].ToString();
+                mkDataHora.Text = row["DATA_HORA"].ToString();
+                tbDesconto.Text = Convert.ToDecimal(row["DESCONTO"]).ToString("N2");
+                lblValorTotal.Text = Convert.ToDecimal(row["VALOR_TOTAL"]).ToString("N2");
+
+                // 🔹 Carrega itens da venda
+                string sqlItens = @"
+            SELECT IV.ID_PRODUTO, P.NOME, IV.QUANTIDADE, IV.PRECO
+            FROM ITEM_VENDA IV
+            INNER JOIN PRODUTO P ON IV.ID_PRODUTO = P.ID_PRODUTO
+            WHERE IV.ID_VENDA = @id;
+        ";
+                var dtItens = DatabaseHelper.ExecuteQuery(sqlItens, new SQLiteParameter[]
+                {
+            new SQLiteParameter("@id", idVenda)
+                });
+
+                dgvProdutoTemporarios.DataSource = dtItens;
+
+                tbDesconto.ReadOnly = true;
+                cbFuncionariosVenda.Enabled = false;
+                cbEstado.Enabled = false;
+                cbForma.Enabled = false;
+                tbNomeProduto.ReadOnly = true;
+                tbPrecoProduto.ReadOnly = true;
+                tbQProduto.ReadOnly = true;
+                btnAdicionarVendas.Visible = false;
+                btnCancelarVendas.Enabled = true; // só para permitir fechar
+                btnAdicaoProduto.Enabled = false;
+                btnTirarProduto.Enabled = false;
+                btnMaisInformacao.Enabled = false;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+
+        public void AtivarModoConsultaSimples()
+        {
+            CarregarFuncionarioDaVenda();
+
+            _ignorarEventoCombo = true;
+
+            // 🔹 Cores
+            Color cinzaConsulta = Color.FromArgb(0x8B, 0x8C, 0x89);
+            Color textoBranco = Color.White;
+
+            // 🔹 TextBoxes (Guna2)
+            Guna.UI2.WinForms.Guna2TextBox[] textBoxes = new Guna.UI2.WinForms.Guna2TextBox[]
+            {
+        tbNomeProduto,
+        tbQProduto,
+        tbPrecoProduto,
+        tbDesconto
+            };
+
+            foreach (var tb in textBoxes)
+            {
+                tb.ReadOnly = true;
+                tb.FillColor = cinzaConsulta;
+                tb.ForeColor = textoBranco;
+                tb.PlaceholderForeColor = textoBranco;
+            }
+
+            // 🔹 MaskedTextBox padrão
+            mkDataHora.ReadOnly = true;
+            mkDataHora.BackColor = cinzaConsulta;
+            mkDataHora.ForeColor = textoBranco;
+
+            // 🔹 ComboBoxes Guna2
+            Guna.UI2.WinForms.Guna2ComboBox[] combos = new Guna.UI2.WinForms.Guna2ComboBox[]
+            {
+    cbFuncionariosVenda,
+    cbEstado,
+    cbForma
+            };
+
+            foreach (var cb in combos)
+            {
+                // Mantém ativo para que a cor funcione
+                cb.Enabled = true;
+                cb.FillColor = cinzaConsulta;
+                cb.ForeColor = textoBranco;
+
+                // Força valor selecionado e impede mudança
+                cb.SelectedIndexChanged += (s, e) =>
+                {
+                    if (_ignorarEventoCombo) return;
+                    _ignorarEventoCombo = true;
+                    cb.SelectedIndex = 0; // mantém o item selecionado fixo
+                    _ignorarEventoCombo = false;
+                };
+            }
+
+
+            // 🔹 Botões
+            btnAdicionarVendas.Visible = false;
+            btnMaisInformacao.Visible = false;
+            btnTirarProduto.Visible = false;
+            btnAdicaoProduto.Visible = false;
+            btnCancelarVendas.Visible = true;
+
+            _ignorarEventoCombo = false;
+        }
+
+
+        private void CarregarFuncionarioDaVenda()
+        {
+            if (VendaID == null) return;
+
+            try
+            {
+                using var conn = DatabaseHelper.GetConnection();
+                conn.Open();
+
+                string sql = "SELECT NOME_FUNCIONARIO FROM VENDA WHERE ID_VENDA = @id LIMIT 1;";
+                using var cmd = new SQLiteCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", VendaID);
+
+                var nomeFuncionario = cmd.ExecuteScalar()?.ToString();
+
+                if (!string.IsNullOrWhiteSpace(nomeFuncionario))
+                {
+                    cbFuncionariosVenda.Items.Clear();
+                    cbFuncionariosVenda.Items.Add(nomeFuncionario.ToUpper()); // maiúsculo
+                    cbFuncionariosVenda.SelectedIndex = 0; // seleciona automaticamente
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar funcionário da venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
     }
 }

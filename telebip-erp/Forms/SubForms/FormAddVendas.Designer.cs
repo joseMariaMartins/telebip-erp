@@ -20,32 +20,34 @@ namespace telebip_erp.Forms.SubForms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddVendas));
-            CustomizableEdges customizableEdges1 = new CustomizableEdges();
-            CustomizableEdges customizableEdges2 = new CustomizableEdges();
-            CustomizableEdges customizableEdges3 = new CustomizableEdges();
-            CustomizableEdges customizableEdges4 = new CustomizableEdges();
-            CustomizableEdges customizableEdges5 = new CustomizableEdges();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            CustomizableEdges customizableEdges6 = new CustomizableEdges();
-            CustomizableEdges customizableEdges7 = new CustomizableEdges();
-            CustomizableEdges customizableEdges8 = new CustomizableEdges();
-            CustomizableEdges customizableEdges9 = new CustomizableEdges();
-            CustomizableEdges customizableEdges10 = new CustomizableEdges();
-            CustomizableEdges customizableEdges11 = new CustomizableEdges();
-            CustomizableEdges customizableEdges12 = new CustomizableEdges();
-            CustomizableEdges customizableEdges13 = new CustomizableEdges();
-            CustomizableEdges customizableEdges14 = new CustomizableEdges();
-            CustomizableEdges customizableEdges15 = new CustomizableEdges();
-            CustomizableEdges customizableEdges16 = new CustomizableEdges();
-            CustomizableEdges customizableEdges17 = new CustomizableEdges();
-            CustomizableEdges customizableEdges18 = new CustomizableEdges();
-            CustomizableEdges customizableEdges19 = new CustomizableEdges();
-            CustomizableEdges customizableEdges20 = new CustomizableEdges();
-            CustomizableEdges customizableEdges21 = new CustomizableEdges();
+            CustomizableEdges customizableEdges22 = new CustomizableEdges();
+            CustomizableEdges customizableEdges23 = new CustomizableEdges();
+            CustomizableEdges customizableEdges24 = new CustomizableEdges();
+            CustomizableEdges customizableEdges25 = new CustomizableEdges();
+            CustomizableEdges customizableEdges26 = new CustomizableEdges();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            CustomizableEdges customizableEdges27 = new CustomizableEdges();
+            CustomizableEdges customizableEdges28 = new CustomizableEdges();
+            CustomizableEdges customizableEdges29 = new CustomizableEdges();
+            CustomizableEdges customizableEdges30 = new CustomizableEdges();
+            CustomizableEdges customizableEdges31 = new CustomizableEdges();
+            CustomizableEdges customizableEdges32 = new CustomizableEdges();
+            CustomizableEdges customizableEdges33 = new CustomizableEdges();
+            CustomizableEdges customizableEdges34 = new CustomizableEdges();
+            CustomizableEdges customizableEdges35 = new CustomizableEdges();
+            CustomizableEdges customizableEdges36 = new CustomizableEdges();
+            CustomizableEdges customizableEdges37 = new CustomizableEdges();
+            CustomizableEdges customizableEdges38 = new CustomizableEdges();
+            CustomizableEdges customizableEdges39 = new CustomizableEdges();
+            CustomizableEdges customizableEdges40 = new CustomizableEdges();
+            CustomizableEdges customizableEdges41 = new CustomizableEdges();
+            CustomizableEdges customizableEdges42 = new CustomizableEdges();
             pnlContainer = new Panel();
             pnlMain = new Panel();
+            label2 = new Label();
+            label1 = new Label();
             btnMaisInformacao = new Guna.UI2.WinForms.Guna2ImageRadioButton();
             lbValorSuper = new Label();
             lblValorTotal = new Label();
@@ -77,6 +79,7 @@ namespace telebip_erp.Forms.SubForms
             lblFuncionario = new Label();
             pnlHeader = new Panel();
             lblTitulo = new Label();
+            lbIdvenda = new Guna.UI2.WinForms.Guna2HtmlLabel();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
             pnlProdutos.SuspendLayout();
@@ -99,6 +102,9 @@ namespace telebip_erp.Forms.SubForms
             // pnlMain
             // 
             pnlMain.BackColor = Color.FromArgb(28, 29, 40);
+            pnlMain.Controls.Add(lbIdvenda);
+            pnlMain.Controls.Add(label2);
+            pnlMain.Controls.Add(label1);
             pnlMain.Controls.Add(btnMaisInformacao);
             pnlMain.Controls.Add(lbValorSuper);
             pnlMain.Controls.Add(lblValorTotal);
@@ -132,6 +138,26 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.Size = new Size(922, 603);
             pnlMain.TabIndex = 1;
             // 
+            // label2
+            // 
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(706, 270);
+            label2.Name = "label2";
+            label2.Size = new Size(15, 20);
+            label2.TabIndex = 55;
+            label2.Text = "+";
+            // 
+            // label1
+            // 
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(651, 270);
+            label1.Name = "label1";
+            label1.Size = new Size(15, 20);
+            label1.TabIndex = 54;
+            label1.Text = "-";
+            // 
             // btnMaisInformacao
             // 
             btnMaisInformacao.BackColor = Color.Transparent;
@@ -141,7 +167,7 @@ namespace telebip_erp.Forms.SubForms
             btnMaisInformacao.ImageRotate = 0F;
             btnMaisInformacao.Location = new Point(425, 154);
             btnMaisInformacao.Name = "btnMaisInformacao";
-            btnMaisInformacao.ShadowDecoration.CustomizableEdges = customizableEdges1;
+            btnMaisInformacao.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btnMaisInformacao.Size = new Size(30, 30);
             btnMaisInformacao.TabIndex = 53;
             btnMaisInformacao.UseTransparentBackground = true;
@@ -171,7 +197,7 @@ namespace telebip_erp.Forms.SubForms
             // btnAdicionarVendas
             // 
             btnAdicionarVendas.BorderRadius = 8;
-            btnAdicionarVendas.CustomizableEdges = customizableEdges2;
+            btnAdicionarVendas.CustomizableEdges = customizableEdges23;
             btnAdicionarVendas.DisabledState.BorderColor = Color.DarkGray;
             btnAdicionarVendas.DisabledState.CustomBorderColor = Color.DarkGray;
             btnAdicionarVendas.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -183,7 +209,7 @@ namespace telebip_erp.Forms.SubForms
             btnAdicionarVendas.HoverState.FillColor = Color.FromArgb(60, 160, 100);
             btnAdicionarVendas.Location = new Point(752, 538);
             btnAdicionarVendas.Name = "btnAdicionarVendas";
-            btnAdicionarVendas.ShadowDecoration.CustomizableEdges = customizableEdges3;
+            btnAdicionarVendas.ShadowDecoration.CustomizableEdges = customizableEdges24;
             btnAdicionarVendas.Size = new Size(120, 40);
             btnAdicionarVendas.TabIndex = 47;
             btnAdicionarVendas.Text = "Adicionar";
@@ -192,7 +218,7 @@ namespace telebip_erp.Forms.SubForms
             // btnCancelarVendas
             // 
             btnCancelarVendas.BorderRadius = 8;
-            btnCancelarVendas.CustomizableEdges = customizableEdges4;
+            btnCancelarVendas.CustomizableEdges = customizableEdges25;
             btnCancelarVendas.DisabledState.BorderColor = Color.DarkGray;
             btnCancelarVendas.DisabledState.CustomBorderColor = Color.DarkGray;
             btnCancelarVendas.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -204,7 +230,7 @@ namespace telebip_erp.Forms.SubForms
             btnCancelarVendas.HoverState.FillColor = Color.FromArgb(160, 60, 60);
             btnCancelarVendas.Location = new Point(622, 538);
             btnCancelarVendas.Name = "btnCancelarVendas";
-            btnCancelarVendas.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            btnCancelarVendas.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnCancelarVendas.Size = new Size(120, 40);
             btnCancelarVendas.TabIndex = 46;
             btnCancelarVendas.Text = "Cancelar";
@@ -224,34 +250,35 @@ namespace telebip_erp.Forms.SubForms
             // 
             dgvProdutoTemporarios.AllowUserToAddRows = false;
             dgvProdutoTemporarios.AllowUserToDeleteRows = false;
+            dgvProdutoTemporarios.AllowUserToResizeColumns = false;
             dgvProdutoTemporarios.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(32, 33, 39);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(50, 90, 130);
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dgvProdutoTemporarios.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(32, 33, 39);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(50, 90, 130);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dgvProdutoTemporarios.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             dgvProdutoTemporarios.BackgroundColor = Color.FromArgb(32, 33, 39);
             dgvProdutoTemporarios.BorderStyle = BorderStyle.None;
             dgvProdutoTemporarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvProdutoTemporarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvProdutoTemporarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgvProdutoTemporarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dgvProdutoTemporarios.ColumnHeadersHeight = 35;
             dgvProdutoTemporarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(32, 33, 39);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(50, 90, 130);
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvProdutoTemporarios.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(32, 33, 39);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(50, 90, 130);
+            dataGridViewCellStyle6.SelectionForeColor = Color.White;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvProdutoTemporarios.DefaultCellStyle = dataGridViewCellStyle6;
             dgvProdutoTemporarios.Dock = DockStyle.Fill;
             dgvProdutoTemporarios.EnableHeadersVisualStyles = false;
             dgvProdutoTemporarios.GridColor = Color.FromArgb(50, 52, 67);
@@ -285,7 +312,7 @@ namespace telebip_erp.Forms.SubForms
             btnTirarProduto.ImageRotate = 0F;
             btnTirarProduto.Location = new Point(5, 5);
             btnTirarProduto.Name = "btnTirarProduto";
-            btnTirarProduto.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnTirarProduto.ShadowDecoration.CustomizableEdges = customizableEdges27;
             btnTirarProduto.Size = new Size(48, 28);
             btnTirarProduto.TabIndex = 40;
             btnTirarProduto.UseTransparentBackground = true;
@@ -298,7 +325,7 @@ namespace telebip_erp.Forms.SubForms
             btnAdicaoProduto.ImageRotate = 0F;
             btnAdicaoProduto.Location = new Point(59, 5);
             btnAdicaoProduto.Name = "btnAdicaoProduto";
-            btnAdicaoProduto.ShadowDecoration.CustomizableEdges = customizableEdges7;
+            btnAdicaoProduto.ShadowDecoration.CustomizableEdges = customizableEdges28;
             btnAdicaoProduto.Size = new Size(48, 28);
             btnAdicaoProduto.TabIndex = 40;
             btnAdicaoProduto.UseTransparentBackground = true;
@@ -329,20 +356,20 @@ namespace telebip_erp.Forms.SubForms
             // 
             lbQuantidadeAtual.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lbQuantidadeAtual.ForeColor = Color.LightGreen;
-            lbQuantidadeAtual.Location = new Point(781, 211);
+            lbQuantidadeAtual.Location = new Point(706, 199);
             lbQuantidadeAtual.Name = "lbQuantidadeAtual";
-            lbQuantidadeAtual.Size = new Size(106, 20);
+            lbQuantidadeAtual.Size = new Size(181, 20);
             lbQuantidadeAtual.TabIndex = 39;
             lbQuantidadeAtual.Text = "Quantidade atual: 0";
             // 
             // mkDataHora
             // 
-            mkDataHora.BackColor = Color.FromArgb(28, 29, 40);
+            mkDataHora.BackColor = Color.FromArgb(40, 41, 52);
             mkDataHora.BorderStyle = BorderStyle.None;
             mkDataHora.Font = new Font("Segoe UI", 10F);
             mkDataHora.ForeColor = Color.White;
             mkDataHora.Location = new Point(33, 231);
-            mkDataHora.Mask = "0000-00-00 00:00:00";
+            mkDataHora.Mask = "00-00-0000 00:00";
             mkDataHora.Name = "mkDataHora";
             mkDataHora.Size = new Size(125, 18);
             mkDataHora.TabIndex = 38;
@@ -363,7 +390,7 @@ namespace telebip_erp.Forms.SubForms
             cbEstado.BackColor = Color.Transparent;
             cbEstado.BorderColor = Color.FromArgb(60, 62, 80);
             cbEstado.BorderRadius = 8;
-            cbEstado.CustomizableEdges = customizableEdges8;
+            cbEstado.CustomizableEdges = customizableEdges29;
             cbEstado.DrawMode = DrawMode.OwnerDrawFixed;
             cbEstado.DropDownStyle = ComboBoxStyle.DropDownList;
             cbEstado.FillColor = Color.FromArgb(40, 41, 52);
@@ -375,7 +402,7 @@ namespace telebip_erp.Forms.SubForms
             cbEstado.Items.AddRange(new object[] { "Pago", "Pendente" });
             cbEstado.Location = new Point(180, 293);
             cbEstado.Name = "cbEstado";
-            cbEstado.ShadowDecoration.CustomizableEdges = customizableEdges9;
+            cbEstado.ShadowDecoration.CustomizableEdges = customizableEdges30;
             cbEstado.Size = new Size(125, 36);
             cbEstado.TabIndex = 35;
             // 
@@ -394,7 +421,7 @@ namespace telebip_erp.Forms.SubForms
             cbForma.BackColor = Color.Transparent;
             cbForma.BorderColor = Color.FromArgb(60, 62, 80);
             cbForma.BorderRadius = 8;
-            cbForma.CustomizableEdges = customizableEdges10;
+            cbForma.CustomizableEdges = customizableEdges31;
             cbForma.DrawMode = DrawMode.OwnerDrawFixed;
             cbForma.DropDownStyle = ComboBoxStyle.DropDownList;
             cbForma.FillColor = Color.FromArgb(40, 41, 52);
@@ -406,7 +433,7 @@ namespace telebip_erp.Forms.SubForms
             cbForma.Items.AddRange(new object[] { "Dinheiro", "Cartao", "Pix", "Ausente" });
             cbForma.Location = new Point(331, 293);
             cbForma.Name = "cbForma";
-            cbForma.ShadowDecoration.CustomizableEdges = customizableEdges11;
+            cbForma.ShadowDecoration.CustomizableEdges = customizableEdges32;
             cbForma.Size = new Size(128, 36);
             cbForma.TabIndex = 33;
             // 
@@ -434,7 +461,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             tbDesconto.BorderColor = Color.FromArgb(60, 62, 80);
             tbDesconto.BorderRadius = 8;
-            tbDesconto.CustomizableEdges = customizableEdges12;
+            tbDesconto.CustomizableEdges = customizableEdges33;
             tbDesconto.DefaultText = "";
             tbDesconto.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             tbDesconto.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -452,7 +479,7 @@ namespace telebip_erp.Forms.SubForms
             tbDesconto.PlaceholderForeColor = Color.Gray;
             tbDesconto.PlaceholderText = "";
             tbDesconto.SelectedText = "";
-            tbDesconto.ShadowDecoration.CustomizableEdges = customizableEdges13;
+            tbDesconto.ShadowDecoration.CustomizableEdges = customizableEdges34;
             tbDesconto.Size = new Size(130, 36);
             tbDesconto.TabIndex = 28;
             // 
@@ -490,7 +517,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             tbQProduto.BorderColor = Color.FromArgb(60, 62, 80);
             tbQProduto.BorderRadius = 8;
-            tbQProduto.CustomizableEdges = customizableEdges14;
+            tbQProduto.CustomizableEdges = customizableEdges35;
             tbQProduto.DefaultText = "";
             tbQProduto.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             tbQProduto.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -508,7 +535,7 @@ namespace telebip_erp.Forms.SubForms
             tbQProduto.PlaceholderForeColor = Color.Gray;
             tbQProduto.PlaceholderText = "Ex: 10";
             tbQProduto.SelectedText = "";
-            tbQProduto.ShadowDecoration.CustomizableEdges = customizableEdges15;
+            tbQProduto.ShadowDecoration.CustomizableEdges = customizableEdges36;
             tbQProduto.Size = new Size(181, 36);
             tbQProduto.TabIndex = 23;
             // 
@@ -516,7 +543,8 @@ namespace telebip_erp.Forms.SubForms
             // 
             tbPrecoProduto.BorderColor = Color.FromArgb(60, 62, 80);
             tbPrecoProduto.BorderRadius = 8;
-            tbPrecoProduto.CustomizableEdges = customizableEdges16;
+            tbPrecoProduto.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            tbPrecoProduto.CustomizableEdges = customizableEdges37;
             tbPrecoProduto.DefaultText = "";
             tbPrecoProduto.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             tbPrecoProduto.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -533,7 +561,7 @@ namespace telebip_erp.Forms.SubForms
             tbPrecoProduto.PlaceholderForeColor = Color.Gray;
             tbPrecoProduto.PlaceholderText = "";
             tbPrecoProduto.SelectedText = "";
-            tbPrecoProduto.ShadowDecoration.CustomizableEdges = customizableEdges17;
+            tbPrecoProduto.ShadowDecoration.CustomizableEdges = customizableEdges38;
             tbPrecoProduto.Size = new Size(125, 36);
             tbPrecoProduto.TabIndex = 22;
             tbPrecoProduto.TextChanged += TbPrecoProduto_TextChanged;
@@ -542,7 +570,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             tbNomeProduto.BorderColor = Color.FromArgb(60, 62, 80);
             tbNomeProduto.BorderRadius = 8;
-            tbNomeProduto.CustomizableEdges = customizableEdges18;
+            tbNomeProduto.CustomizableEdges = customizableEdges39;
             tbNomeProduto.DefaultText = "";
             tbNomeProduto.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             tbNomeProduto.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -560,7 +588,7 @@ namespace telebip_erp.Forms.SubForms
             tbNomeProduto.PlaceholderForeColor = Color.Gray;
             tbNomeProduto.PlaceholderText = "Ex: Carregador USB-C";
             tbNomeProduto.SelectedText = "";
-            tbNomeProduto.ShadowDecoration.CustomizableEdges = customizableEdges19;
+            tbNomeProduto.ShadowDecoration.CustomizableEdges = customizableEdges40;
             tbNomeProduto.Size = new Size(426, 36);
             tbNomeProduto.TabIndex = 21;
             tbNomeProduto.KeyDown += tbNomeProduto_KeyDown;
@@ -570,7 +598,7 @@ namespace telebip_erp.Forms.SubForms
             cbFuncionariosVenda.BackColor = Color.Transparent;
             cbFuncionariosVenda.BorderColor = Color.FromArgb(60, 62, 80);
             cbFuncionariosVenda.BorderRadius = 8;
-            cbFuncionariosVenda.CustomizableEdges = customizableEdges20;
+            cbFuncionariosVenda.CustomizableEdges = customizableEdges41;
             cbFuncionariosVenda.DrawMode = DrawMode.OwnerDrawFixed;
             cbFuncionariosVenda.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFuncionariosVenda.FillColor = Color.FromArgb(40, 41, 52);
@@ -581,7 +609,7 @@ namespace telebip_erp.Forms.SubForms
             cbFuncionariosVenda.ItemHeight = 30;
             cbFuncionariosVenda.Location = new Point(33, 55);
             cbFuncionariosVenda.Name = "cbFuncionariosVenda";
-            cbFuncionariosVenda.ShadowDecoration.CustomizableEdges = customizableEdges21;
+            cbFuncionariosVenda.ShadowDecoration.CustomizableEdges = customizableEdges42;
             cbFuncionariosVenda.Size = new Size(854, 36);
             cbFuncionariosVenda.TabIndex = 20;
             // 
@@ -617,6 +645,17 @@ namespace telebip_erp.Forms.SubForms
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Adicionar Venda";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lbIdvenda
+            // 
+            lbIdvenda.BackColor = Color.Transparent;
+            lbIdvenda.ForeColor = Color.White;
+            lbIdvenda.Location = new Point(813, 6);
+            lbIdvenda.Name = "lbIdvenda";
+            lbIdvenda.Size = new Size(9, 17);
+            lbIdvenda.TabIndex = 56;
+            lbIdvenda.Text = "1";
+            lbIdvenda.Visible = false;
             // 
             // FormAddVendas
             // 
@@ -678,5 +717,8 @@ namespace telebip_erp.Forms.SubForms
         private Guna.UI2.WinForms.Guna2ImageRadioButton btnAdicaoProduto;
         private Guna.UI2.WinForms.Guna2ImageRadioButton btnTirarProduto;
         private Guna.UI2.WinForms.Guna2ImageRadioButton btnMaisInformacao;
+        private Label label2;
+        private Label label1;
+        public Guna.UI2.WinForms.Guna2HtmlLabel lbIdvenda;
     }
 }

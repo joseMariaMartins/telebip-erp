@@ -1,6 +1,7 @@
 ﻿using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
 using telebip_erp.Forms.Main;
@@ -235,7 +236,8 @@ namespace telebip_erp
             // Se outro dropdown estiver aberto, fecha primeiro e depois abre Vendas
             if (menuExpandEstoque)
             {
-                FecharDropdownComCallback(() => {
+                FecharDropdownComCallback(() =>
+                {
                     // Callback: quando Estoque fechar completamente, abre Vendas
                     menuTransitionVendas.Start();
 
@@ -277,7 +279,8 @@ namespace telebip_erp
             // Se outro dropdown estiver aberto, fecha primeiro e depois abre Estoque
             if (menuExpandVendas)
             {
-                FecharDropdownComCallback(() => {
+                FecharDropdownComCallback(() =>
+                {
                     // Callback: quando Vendas fechar completamente, abre Estoque
                     MenuTransitionEstoque.Start();
 
@@ -502,5 +505,96 @@ namespace telebip_erp
 
             adicionarEstoqueForm.ShowDialog(this);
         }
+
+        private void rmvVenda_Click(object sender, EventArgs e)
+        {
+            if (vendas == null || vendas.IsDisposed)
+            {
+                MessageBox.Show("Abra a tela de Vendas para remover uma venda.");
+                return;
+            }
+
+            if (vendas.dgvVendas.CurrentRow == null)
+            {
+                MessageBox.Show("Selecione uma venda para remover.");
+                return;
+            }
+
+            DialogResult result = MessageBox.Show(
+                "Deseja realmente remover a venda selecionada?",
+                "Confirmação",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result != DialogResult.Yes)
+                return;
+
+            int idVenda = Convert.ToInt32(vendas.dgvVendas.CurrentRow.Cells["ID_VENDA"].Value);
+
+            using var conn = DatabaseHelper.GetConnection();
+            conn.Open();
+
+            using var transaction = conn.BeginTransaction();
+            try
+            {
+                // 1️⃣ Obter itens da venda
+                string sqlItens = "SELECT ID_PRODUTO, QUANTIDADE FROM ITEM_VENDA WHERE ID_VENDA = @id;";
+                using var cmdItens = new SQLiteCommand(sqlItens, conn);
+                cmdItens.Parameters.AddWithValue("@id", idVenda);
+
+                var itens = new List<(int idProduto, int quantidade)>();
+                using (var reader = cmdItens.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        itens.Add((reader.GetInt32(0), reader.GetInt32(1)));
+                    }
+                }
+
+                // 2️⃣ Remover itens da venda
+                string sqlDelItens = "DELETE FROM ITEM_VENDA WHERE ID_VENDA = @id;";
+                using var cmdDelItens = new SQLiteCommand(sqlDelItens, conn);
+                cmdDelItens.Parameters.AddWithValue("@id", idVenda);
+                cmdDelItens.ExecuteNonQuery();
+
+                // 3️⃣ Remover a venda
+                string sqlDelVenda = "DELETE FROM VENDA WHERE ID_VENDA = @id;";
+                using var cmdDelVenda = new SQLiteCommand(sqlDelVenda, conn);
+                cmdDelVenda.Parameters.AddWithValue("@id", idVenda);
+                cmdDelVenda.ExecuteNonQuery();
+
+                // 4️⃣ Registrar saída manual na MOVIMENTACAO_ESTOQUE
+                foreach (var item in itens)
+                {
+                    string sqlMov = @"
+                INSERT INTO MOVIMENTACAO_ESTOQUE
+                (ID_PRODUTO, ID_VENDA, NOME_FUNCIONARIO, TIPO_MOVIMENTACAO, QUANTIDADE, DATA_HORA)
+                VALUES (@idProduto, @idVenda, @nome, @tipo, @quantidade, @data);
+            ";
+
+                    using var cmdMov = new SQLiteCommand(sqlMov, conn);
+                    cmdMov.Parameters.AddWithValue("@idProduto", item.idProduto);
+                    cmdMov.Parameters.AddWithValue("@idVenda", idVenda);
+                    cmdMov.Parameters.AddWithValue("@nome", "GERENTE");
+                    cmdMov.Parameters.AddWithValue("@tipo", "SAIDA"); // porque é remoção
+                    cmdMov.Parameters.AddWithValue("@quantidade", item.quantidade);
+                    cmdMov.Parameters.AddWithValue("@data", DateTime.Now.ToString("dd-MM-yyyy HH:mm"));
+                    cmdMov.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+                MessageBox.Show("Venda removida e movimentação registrada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Atualiza DataGridView
+                vendas.AtualizarTabela();
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Erro ao remover a venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }

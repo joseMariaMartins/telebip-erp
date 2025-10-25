@@ -293,7 +293,7 @@
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(1567, 41);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Gerenciamento de Vendas";
+            lblTitulo.Text = "Gerenciamento de Estoque";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FormEstoque

@@ -4,6 +4,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
+using telebip_erp.Forms.SubForms;
 
 namespace telebip_erp.Forms.Modules
 {
@@ -228,5 +229,20 @@ namespace telebip_erp.Forms.Modules
                 MessageBox.Show("Erro ao remover a venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void dgvVendas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            int idVendaSelecionada = Convert.ToInt32(dgvVendas.Rows[e.RowIndex].Cells["ID_VENDA"].Value);
+
+            var formConsulta = new FormAddVendas();
+            formConsulta.ModoConsulta = true;
+            formConsulta.VendaID = idVendaSelecionada;
+            formConsulta.ShowDialog(this);
+        }
+
+
+
     }
 }
