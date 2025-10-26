@@ -466,7 +466,7 @@
             cbPeriodo.Font = new Font("Segoe UI", 9F);
             cbPeriodo.ForeColor = Color.White;
             cbPeriodo.ItemHeight = 30;
-            cbPeriodo.Items.AddRange(new object[] { "Hoje", "Ontem", "Últimos 7 dias", "Últimos 30 dias", "Este Mês", "Mês Anterior", "Semana Atual", "Semana Anterior" });
+            cbPeriodo.Items.AddRange(new object[] { "Hoje", "Ontem", "Últimos 7 dias", "Últimos 30 dias", "Este mês", "Mês passado", "Ano atual" });
             cbPeriodo.Location = new Point(451, 10);
             cbPeriodo.Name = "cbPeriodo";
             cbPeriodo.ShadowDecoration.CustomizableEdges = customizableEdges16;
@@ -498,7 +498,7 @@
             cbTipoRelatorio.Font = new Font("Segoe UI", 9F);
             cbTipoRelatorio.ForeColor = Color.White;
             cbTipoRelatorio.ItemHeight = 30;
-            cbTipoRelatorio.Items.AddRange(new object[] { "Relatório Financeiro", "Relatório de Estoque", "Relatório de Funcionários", "Relatório de Performance", "Relatório de Movimentação" });
+            cbTipoRelatorio.Items.AddRange(new object[] { "Vendas do período", "Produtos mais vendidos", "Estoque baixo", "Faturamento total", "Ticket médio", "Resumo de produtos", "Tendência de vendas" });
             cbTipoRelatorio.Location = new Point(92, 10);
             cbTipoRelatorio.Name = "cbTipoRelatorio";
             cbTipoRelatorio.ShadowDecoration.CustomizableEdges = customizableEdges18;

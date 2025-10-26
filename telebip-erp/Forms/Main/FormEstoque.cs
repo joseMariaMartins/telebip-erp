@@ -314,5 +314,24 @@ namespace telebip_erp.Forms.Modules
                 return false;
             }
         }
+
+        public DataTable ObterEstoqueComoDataTable()
+        {
+            DataTable dtTemp = new DataTable();
+            foreach (DataGridViewColumn col in dgvEstoque.Columns)
+                dtTemp.Columns.Add(col.Name);
+
+            foreach (DataGridViewRow row in dgvEstoque.Rows)
+            {
+                if (row.IsNewRow) continue;
+                DataRow dr = dtTemp.NewRow();
+                foreach (DataGridViewCell cell in row.Cells)
+                    dr[cell.OwningColumn.Name] = cell.Value ?? DBNull.Value;
+                dtTemp.Rows.Add(dr);
+            }
+
+            return dtTemp;
+        }
+
     }
 }

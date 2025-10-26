@@ -123,6 +123,24 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
+        public DataTable ObterVendasComoDataTable()
+        {
+            DataTable dtTemp = new DataTable();
+            foreach (DataGridViewColumn col in dgvVendas.Columns)
+                dtTemp.Columns.Add(col.Name);
+
+            foreach (DataGridViewRow row in dgvVendas.Rows)
+            {
+                if (row.IsNewRow) continue;
+                DataRow dr = dtTemp.NewRow();
+                foreach (DataGridViewCell cell in row.Cells)
+                    dr[cell.OwningColumn.Name] = cell.Value ?? DBNull.Value;
+                dtTemp.Rows.Add(dr);
+            }
+
+            return dtTemp;
+        }
+
 
         private void BtnPesquisar_Click(object? sender, EventArgs e)
         {

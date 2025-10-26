@@ -334,19 +334,30 @@ namespace telebip_erp
 
         private void btnRelatorios_Click(object sender, EventArgs e)
         {
-            // Fecha dropdowns ao ir para Relatórios
             FecharTodosDropdowns();
 
+            // Se vendas ou estoque não estiverem abertos, cria instâncias temporárias
+            if (vendas == null || vendas.IsDisposed)
+                vendas = new FormVendas() { TopLevel = false }; // não adiciona ao painel ainda
+
+            if (estoque == null || estoque.IsDisposed)
+                estoque = new FormEstoque() { TopLevel = false }; // não adiciona ao painel ainda
+
+            // Cria o formulário de Relatórios passando as instâncias
             if (relatorios == null || relatorios.IsDisposed)
             {
-                relatorios = new FormRelatorios();
+                relatorios = new FormRelatorios(vendas, estoque);
                 relatorios.FormClosed += (s, e2) => { relatorios = null; };
                 AbrirFormNoPanel(relatorios);
             }
             else if (!pnlContainer.Controls.Contains(relatorios))
+            {
                 AbrirFormNoPanel(relatorios);
+            }
             else
+            {
                 relatorios.BringToFront();
+            }
         }
 
         private void btnFuncionarios_Click(object sender, EventArgs e)
