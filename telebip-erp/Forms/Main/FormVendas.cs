@@ -253,13 +253,20 @@ namespace telebip_erp.Forms.Modules
             if (e.RowIndex < 0) return;
 
             int idVendaSelecionada = Convert.ToInt32(dgvVendas.Rows[e.RowIndex].Cells["ID_VENDA"].Value);
+            string nomeFuncionario = dgvVendas.Rows[e.RowIndex].Cells["NOME_FUNCIONARIO"].Value.ToString();
+            double Desconto = Convert.ToDouble(dgvVendas.Rows[e.RowIndex].Cells["DESCONTO"].Value);
+            double ValorTotal = Convert.ToDouble(dgvVendas.Rows[e.RowIndex].Cells["VALOR_TOTAL"].Value);
+            string DataHora = dgvVendas.Rows[e.RowIndex].Cells["DATA_HORA"].Value.ToString();   
 
-            var formConsulta = new FormAddVendas();
-            formConsulta.ModoConsulta = true;
+            var formConsulta = new FormAddVendasConsulta();
             formConsulta.VendaID = idVendaSelecionada;
+            formConsulta.NomeFuncionario = nomeFuncionario;
+            formConsulta.Desconto = Desconto;
+            formConsulta.ValorTotal = ValorTotal;
+            formConsulta.DataHora = DataHora;
             formConsulta.ShowDialog(this);
-        }
 
+        }
 
 
     }

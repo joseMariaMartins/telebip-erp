@@ -179,7 +179,7 @@ namespace telebip_erp.Forms.SubForms
                 string sqlMov = @"
             INSERT INTO MOVIMENTACAO_ESTOQUE 
             (ID_PRODUTO, NOME_FUNCIONARIO, TIPO_MOVIMENTACAO, QUANTIDADE, DATA_HORA)
-            VALUES (@idProd, @func, 'ENTRADA', @qtd, datetime('now','localtime'));
+            VALUES (@idProd, @func, 'ENTRADA', @qtd, strftime('%d-%m-%Y %H:%M','now','localtime'));
         ";
 
                 DatabaseHelper.ExecuteNonQuery(sqlMov, new SQLiteParameter[]
