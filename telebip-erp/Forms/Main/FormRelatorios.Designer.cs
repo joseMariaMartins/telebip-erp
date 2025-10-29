@@ -20,50 +20,32 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlContainer = new Panel();
             pnlMain = new Panel();
             pnlTabela = new Panel();
-            dgvRelatorios = new Guna.UI2.WinForms.Guna2DataGridView();
+            dgvRelatorios = new DataGridView();
             pnlAcoes = new Panel();
-            btnImprimir = new Guna.UI2.WinForms.Guna2Button();
-            btnExportarExcel = new Guna.UI2.WinForms.Guna2Button();
+            btnImprimir = new CuoreUI.Controls.cuiButton();
+            btnExportarExcel = new CuoreUI.Controls.cuiButton();
             pnlMetricas = new Panel();
             tblMetricas = new TableLayoutPanel();
-            pnlMetrica1 = new Guna.UI2.WinForms.Guna2Panel();
+            pnlMetrica1 = new Panel();
             lblValor1 = new Label();
             lblTitulo1 = new Label();
-            pnlMetrica2 = new Guna.UI2.WinForms.Guna2Panel();
+            pnlMetrica2 = new Panel();
             lblValor2 = new Label();
             lblTitulo2 = new Label();
-            pnlMetrica3 = new Guna.UI2.WinForms.Guna2Panel();
+            pnlMetrica3 = new Panel();
             lblValor3 = new Label();
             lblTitulo3 = new Label();
-            pnlMetrica4 = new Guna.UI2.WinForms.Guna2Panel();
+            pnlMetrica4 = new Panel();
             lblValor4 = new Label();
             lblTitulo4 = new Label();
             pnlFiltros = new Panel();
-            btnGerarRelatorio = new Guna.UI2.WinForms.Guna2Button();
-            cbPeriodo = new Guna.UI2.WinForms.Guna2ComboBox();
+            btnGerarRelatorio = new CuoreUI.Controls.cuiButton();
+            cbPeriodo = new CuoreUI.Controls.cuiComboBox();
             lblPeriodo = new Label();
-            cbTipoRelatorio = new Guna.UI2.WinForms.Guna2ComboBox();
+            cbTipoRelatorio = new CuoreUI.Controls.cuiComboBox();
             lblRelatorio = new Label();
             pnlHeader = new Panel();
             lblTitulo = new Label();
@@ -122,27 +104,32 @@
             dgvRelatorios.AllowUserToAddRows = false;
             dgvRelatorios.AllowUserToDeleteRows = false;
             dgvRelatorios.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dgvRelatorios.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvRelatorios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvRelatorios.BackgroundColor = Color.FromArgb(32, 33, 39);
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvRelatorios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvRelatorios.BorderStyle = BorderStyle.None;
+            dgvRelatorios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvRelatorios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.Padding = new Padding(5);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvRelatorios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvRelatorios.ColumnHeadersHeight = 40;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvRelatorios.DefaultCellStyle = dataGridViewCellStyle3;
+            dgvRelatorios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.White;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvRelatorios.DefaultCellStyle = dataGridViewCellStyle2;
             dgvRelatorios.Dock = DockStyle.Fill;
+            dgvRelatorios.EnableHeadersVisualStyles = false;
             dgvRelatorios.GridColor = Color.FromArgb(50, 52, 67);
             dgvRelatorios.Location = new Point(15, 15);
             dgvRelatorios.MultiSelect = false;
@@ -152,30 +139,16 @@
             dgvRelatorios.RowHeadersVisible = false;
             dgvRelatorios.RowHeadersWidth = 62;
             dgvRelatorios.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dgvRelatorios.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvRelatorios.RowTemplate.Height = 35;
+            dgvRelatorios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRelatorios.Size = new Size(1567, 468);
             dgvRelatorios.TabIndex = 0;
-            dgvRelatorios.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
-            dgvRelatorios.ThemeStyle.AlternatingRowsStyle.Font = null;
-            dgvRelatorios.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
-            dgvRelatorios.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
-            dgvRelatorios.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
-            dgvRelatorios.ThemeStyle.BackColor = Color.FromArgb(32, 33, 39);
-            dgvRelatorios.ThemeStyle.GridColor = Color.FromArgb(50, 52, 67);
-            dgvRelatorios.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(100, 88, 255);
-            dgvRelatorios.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
-            dgvRelatorios.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F);
-            dgvRelatorios.ThemeStyle.HeaderStyle.ForeColor = Color.White;
-            dgvRelatorios.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvRelatorios.ThemeStyle.HeaderStyle.Height = 40;
-            dgvRelatorios.ThemeStyle.ReadOnly = true;
-            dgvRelatorios.ThemeStyle.RowsStyle.BackColor = Color.White;
-            dgvRelatorios.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dgvRelatorios.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
-            dgvRelatorios.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
-            dgvRelatorios.ThemeStyle.RowsStyle.Height = 35;
-            dgvRelatorios.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dgvRelatorios.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
             // 
             // pnlAcoes
             // 
@@ -192,44 +165,78 @@
             // btnImprimir
             // 
             btnImprimir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnImprimir.BorderRadius = 8;
-            btnImprimir.CustomizableEdges = customizableEdges1;
-            btnImprimir.DisabledState.BorderColor = Color.DarkGray;
-            btnImprimir.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnImprimir.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnImprimir.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnImprimir.FillColor = Color.FromArgb(40, 100, 180);
+            btnImprimir.CheckButton = false;
+            btnImprimir.Checked = false;
+            btnImprimir.CheckedBackground = Color.FromArgb(40, 100, 180);
+            btnImprimir.CheckedForeColor = Color.White;
+            btnImprimir.CheckedImageTint = Color.White;
+            btnImprimir.CheckedOutline = Color.FromArgb(40, 100, 180);
+            btnImprimir.Content = "Imprimir";
+            btnImprimir.DialogResult = DialogResult.None;
             btnImprimir.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnImprimir.ForeColor = Color.White;
-            btnImprimir.HoverState.BorderColor = Color.FromArgb(80, 140, 200);
-            btnImprimir.HoverState.FillColor = Color.FromArgb(60, 120, 180);
+            btnImprimir.HoverBackground = Color.FromArgb(60, 120, 180);
+            btnImprimir.HoverForeColor = Color.White;
+            btnImprimir.HoverImageTint = Color.White;
+            btnImprimir.HoverOutline = Color.FromArgb(80, 140, 200);
+            btnImprimir.Image = null;
+            btnImprimir.ImageAutoCenter = true;
+            btnImprimir.ImageExpand = new Point(0, 0);
+            btnImprimir.ImageOffset = new Point(0, 0);
             btnImprimir.Location = new Point(1459, 17);
             btnImprimir.Name = "btnImprimir";
-            btnImprimir.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnImprimir.NormalBackground = Color.FromArgb(40, 100, 180);
+            btnImprimir.NormalForeColor = Color.White;
+            btnImprimir.NormalImageTint = Color.White;
+            btnImprimir.NormalOutline = Color.FromArgb(40, 100, 180);
+            btnImprimir.OutlineThickness = 1F;
+            btnImprimir.PressedBackground = Color.FromArgb(30, 90, 160);
+            btnImprimir.PressedForeColor = Color.White;
+            btnImprimir.PressedImageTint = Color.White;
+            btnImprimir.PressedOutline = Color.FromArgb(30, 90, 160);
+            btnImprimir.Rounding = new Padding(8);
             btnImprimir.Size = new Size(120, 40);
             btnImprimir.TabIndex = 1;
-            btnImprimir.Text = "Imprimir";
+            btnImprimir.TextAlignment = StringAlignment.Center;
+            btnImprimir.TextOffset = new Point(0, 0);
             // 
             // btnExportarExcel
             // 
             btnExportarExcel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnExportarExcel.BorderRadius = 8;
-            btnExportarExcel.CustomizableEdges = customizableEdges3;
-            btnExportarExcel.DisabledState.BorderColor = Color.DarkGray;
-            btnExportarExcel.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnExportarExcel.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnExportarExcel.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnExportarExcel.FillColor = Color.FromArgb(40, 120, 80);
+            btnExportarExcel.CheckButton = false;
+            btnExportarExcel.Checked = false;
+            btnExportarExcel.CheckedBackground = Color.FromArgb(40, 120, 80);
+            btnExportarExcel.CheckedForeColor = Color.White;
+            btnExportarExcel.CheckedImageTint = Color.White;
+            btnExportarExcel.CheckedOutline = Color.FromArgb(40, 120, 80);
+            btnExportarExcel.Content = "Exportar Excel";
+            btnExportarExcel.DialogResult = DialogResult.None;
             btnExportarExcel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnExportarExcel.ForeColor = Color.White;
-            btnExportarExcel.HoverState.BorderColor = Color.FromArgb(80, 200, 120);
-            btnExportarExcel.HoverState.FillColor = Color.FromArgb(60, 160, 100);
+            btnExportarExcel.HoverBackground = Color.FromArgb(60, 160, 100);
+            btnExportarExcel.HoverForeColor = Color.White;
+            btnExportarExcel.HoverImageTint = Color.White;
+            btnExportarExcel.HoverOutline = Color.FromArgb(80, 200, 120);
+            btnExportarExcel.Image = null;
+            btnExportarExcel.ImageAutoCenter = true;
+            btnExportarExcel.ImageExpand = new Point(0, 0);
+            btnExportarExcel.ImageOffset = new Point(0, 0);
             btnExportarExcel.Location = new Point(1321, 17);
             btnExportarExcel.Name = "btnExportarExcel";
-            btnExportarExcel.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnExportarExcel.NormalBackground = Color.FromArgb(40, 120, 80);
+            btnExportarExcel.NormalForeColor = Color.White;
+            btnExportarExcel.NormalImageTint = Color.White;
+            btnExportarExcel.NormalOutline = Color.FromArgb(40, 120, 80);
+            btnExportarExcel.OutlineThickness = 1F;
+            btnExportarExcel.PressedBackground = Color.FromArgb(30, 100, 60);
+            btnExportarExcel.PressedForeColor = Color.White;
+            btnExportarExcel.PressedImageTint = Color.White;
+            btnExportarExcel.PressedOutline = Color.FromArgb(30, 100, 60);
+            btnExportarExcel.Rounding = new Padding(8);
             btnExportarExcel.Size = new Size(120, 40);
             btnExportarExcel.TabIndex = 0;
-            btnExportarExcel.Text = "Exportar Excel";
+            btnExportarExcel.TextAlignment = StringAlignment.Center;
+            btnExportarExcel.TextOffset = new Point(0, 0);
             // 
             // pnlMetricas
             // 
@@ -263,16 +270,12 @@
             // 
             // pnlMetrica1
             // 
-            pnlMetrica1.BackColor = Color.FromArgb(40, 41, 52);
-            pnlMetrica1.BorderRadius = 8;
+            pnlMetrica1.BackColor = Color.FromArgb(50, 52, 67);
             pnlMetrica1.Controls.Add(lblValor1);
             pnlMetrica1.Controls.Add(lblTitulo1);
-            pnlMetrica1.CustomizableEdges = customizableEdges5;
             pnlMetrica1.Dock = DockStyle.Fill;
-            pnlMetrica1.FillColor = Color.FromArgb(50, 52, 67);
             pnlMetrica1.Location = new Point(3, 3);
             pnlMetrica1.Name = "pnlMetrica1";
-            pnlMetrica1.ShadowDecoration.CustomizableEdges = customizableEdges6;
             pnlMetrica1.Size = new Size(385, 74);
             pnlMetrica1.TabIndex = 0;
             // 
@@ -302,16 +305,12 @@
             // 
             // pnlMetrica2
             // 
-            pnlMetrica2.BackColor = Color.FromArgb(40, 41, 52);
-            pnlMetrica2.BorderRadius = 8;
+            pnlMetrica2.BackColor = Color.FromArgb(50, 52, 67);
             pnlMetrica2.Controls.Add(lblValor2);
             pnlMetrica2.Controls.Add(lblTitulo2);
-            pnlMetrica2.CustomizableEdges = customizableEdges7;
             pnlMetrica2.Dock = DockStyle.Fill;
-            pnlMetrica2.FillColor = Color.FromArgb(50, 52, 67);
             pnlMetrica2.Location = new Point(394, 3);
             pnlMetrica2.Name = "pnlMetrica2";
-            pnlMetrica2.ShadowDecoration.CustomizableEdges = customizableEdges8;
             pnlMetrica2.Size = new Size(385, 74);
             pnlMetrica2.TabIndex = 1;
             // 
@@ -341,16 +340,12 @@
             // 
             // pnlMetrica3
             // 
-            pnlMetrica3.BackColor = Color.FromArgb(40, 41, 52);
-            pnlMetrica3.BorderRadius = 8;
+            pnlMetrica3.BackColor = Color.FromArgb(50, 52, 67);
             pnlMetrica3.Controls.Add(lblValor3);
             pnlMetrica3.Controls.Add(lblTitulo3);
-            pnlMetrica3.CustomizableEdges = customizableEdges9;
             pnlMetrica3.Dock = DockStyle.Fill;
-            pnlMetrica3.FillColor = Color.FromArgb(50, 52, 67);
             pnlMetrica3.Location = new Point(785, 3);
             pnlMetrica3.Name = "pnlMetrica3";
-            pnlMetrica3.ShadowDecoration.CustomizableEdges = customizableEdges10;
             pnlMetrica3.Size = new Size(385, 74);
             pnlMetrica3.TabIndex = 2;
             // 
@@ -380,16 +375,12 @@
             // 
             // pnlMetrica4
             // 
-            pnlMetrica4.BackColor = Color.FromArgb(40, 41, 52);
-            pnlMetrica4.BorderRadius = 8;
+            pnlMetrica4.BackColor = Color.FromArgb(50, 52, 67);
             pnlMetrica4.Controls.Add(lblValor4);
             pnlMetrica4.Controls.Add(lblTitulo4);
-            pnlMetrica4.CustomizableEdges = customizableEdges11;
             pnlMetrica4.Dock = DockStyle.Fill;
-            pnlMetrica4.FillColor = Color.FromArgb(50, 52, 67);
             pnlMetrica4.Location = new Point(1176, 3);
             pnlMetrica4.Name = "pnlMetrica4";
-            pnlMetrica4.ShadowDecoration.CustomizableEdges = customizableEdges12;
             pnlMetrica4.Size = new Size(388, 74);
             pnlMetrica4.TabIndex = 3;
             // 
@@ -434,42 +425,73 @@
             // 
             // btnGerarRelatorio
             // 
-            btnGerarRelatorio.BorderRadius = 8;
-            btnGerarRelatorio.CustomizableEdges = customizableEdges13;
-            btnGerarRelatorio.DisabledState.BorderColor = Color.DarkGray;
-            btnGerarRelatorio.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnGerarRelatorio.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnGerarRelatorio.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnGerarRelatorio.FillColor = Color.FromArgb(40, 120, 80);
+            btnGerarRelatorio.CheckButton = false;
+            btnGerarRelatorio.Checked = false;
+            btnGerarRelatorio.CheckedBackground = Color.FromArgb(40, 120, 80);
+            btnGerarRelatorio.CheckedForeColor = Color.White;
+            btnGerarRelatorio.CheckedImageTint = Color.White;
+            btnGerarRelatorio.CheckedOutline = Color.FromArgb(40, 120, 80);
+            btnGerarRelatorio.Content = "Gerar Relatório";
+            btnGerarRelatorio.DialogResult = DialogResult.None;
             btnGerarRelatorio.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnGerarRelatorio.ForeColor = Color.White;
-            btnGerarRelatorio.HoverState.BorderColor = Color.FromArgb(80, 200, 120);
-            btnGerarRelatorio.HoverState.FillColor = Color.FromArgb(60, 160, 100);
+            btnGerarRelatorio.HoverBackground = Color.FromArgb(60, 160, 100);
+            btnGerarRelatorio.HoverForeColor = Color.White;
+            btnGerarRelatorio.HoverImageTint = Color.White;
+            btnGerarRelatorio.HoverOutline = Color.FromArgb(80, 200, 120);
+            btnGerarRelatorio.Image = null;
+            btnGerarRelatorio.ImageAutoCenter = true;
+            btnGerarRelatorio.ImageExpand = new Point(0, 0);
+            btnGerarRelatorio.ImageOffset = new Point(0, 0);
             btnGerarRelatorio.Location = new Point(759, 10);
             btnGerarRelatorio.Name = "btnGerarRelatorio";
-            btnGerarRelatorio.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnGerarRelatorio.NormalBackground = Color.FromArgb(40, 120, 80);
+            btnGerarRelatorio.NormalForeColor = Color.White;
+            btnGerarRelatorio.NormalImageTint = Color.White;
+            btnGerarRelatorio.NormalOutline = Color.FromArgb(40, 120, 80);
+            btnGerarRelatorio.OutlineThickness = 1F;
+            btnGerarRelatorio.PressedBackground = Color.FromArgb(30, 100, 60);
+            btnGerarRelatorio.PressedForeColor = Color.White;
+            btnGerarRelatorio.PressedImageTint = Color.White;
+            btnGerarRelatorio.PressedOutline = Color.FromArgb(30, 100, 60);
+            btnGerarRelatorio.Rounding = new Padding(8);
             btnGerarRelatorio.Size = new Size(120, 36);
             btnGerarRelatorio.TabIndex = 4;
-            btnGerarRelatorio.Text = "Gerar Relatório";
+            btnGerarRelatorio.TextAlignment = StringAlignment.Center;
+            btnGerarRelatorio.TextOffset = new Point(0, 0);
             // 
             // cbPeriodo
             // 
-            cbPeriodo.BackColor = Color.Transparent;
-            cbPeriodo.BorderColor = Color.FromArgb(60, 62, 80);
-            cbPeriodo.BorderRadius = 8;
-            cbPeriodo.CustomizableEdges = customizableEdges15;
-            cbPeriodo.DrawMode = DrawMode.OwnerDrawFixed;
-            cbPeriodo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbPeriodo.FillColor = Color.FromArgb(40, 41, 52);
-            cbPeriodo.FocusedColor = Color.FromArgb(100, 150, 200);
-            cbPeriodo.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            cbPeriodo.Font = new Font("Segoe UI", 9F);
+            cbPeriodo.BackgroundColor = Color.FromArgb(40, 41, 52);
+            cbPeriodo.ButtonCursor = Cursors.Arrow;
+            cbPeriodo.ButtonHoverBackground = Color.FromArgb(18, 18, 18);
+            cbPeriodo.ButtonHoverOutline = Color.Empty;
+            cbPeriodo.ButtonNormalBackground = Color.FromArgb(35, 34, 42);
+            cbPeriodo.ButtonNormalOutline = Color.Empty;
+            cbPeriodo.ButtonPressedBackground = Color.FromArgb(60, 59, 67);
+            cbPeriodo.ButtonPressedOutline = Color.Empty;
+            cbPeriodo.DropDownBackgroundColor = Color.FromArgb(40, 41, 52);
+            cbPeriodo.DropDownOutlineColor = Color.FromArgb(30, 255, 255, 255);
+            cbPeriodo.ExpandArrowColor = Color.White;
             cbPeriodo.ForeColor = Color.White;
-            cbPeriodo.ItemHeight = 30;
-            cbPeriodo.Items.AddRange(new object[] { "Hoje", "Ontem", "Últimos 7 dias", "Últimos 30 dias", "Este mês", "Mês passado", "Ano atual" });
+            cbPeriodo.Items = new string[]
+    {
+    "Hoje",
+    "Ontem",
+    "Últimos 7 dias",
+    "Últimos 30 dias",
+    "Este mês",
+    "Mês passado",
+    "Ano atual"
+    };
             cbPeriodo.Location = new Point(451, 10);
+            cbPeriodo.Margin = new Padding(4, 3, 4, 3);
             cbPeriodo.Name = "cbPeriodo";
-            cbPeriodo.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            cbPeriodo.NoSelectionDropdownText = "Selecione um período";
+            cbPeriodo.NoSelectionText = "Selecione";
+            cbPeriodo.OutlineColor = Color.FromArgb(60, 62, 80);
+            cbPeriodo.OutlineThickness = 1F;
+            cbPeriodo.Rounding = 8;
             cbPeriodo.Size = new Size(280, 36);
             cbPeriodo.TabIndex = 3;
             // 
@@ -486,22 +508,38 @@
             // 
             // cbTipoRelatorio
             // 
-            cbTipoRelatorio.BackColor = Color.Transparent;
-            cbTipoRelatorio.BorderColor = Color.FromArgb(60, 62, 80);
-            cbTipoRelatorio.BorderRadius = 8;
-            cbTipoRelatorio.CustomizableEdges = customizableEdges17;
-            cbTipoRelatorio.DrawMode = DrawMode.OwnerDrawFixed;
-            cbTipoRelatorio.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbTipoRelatorio.FillColor = Color.FromArgb(40, 41, 52);
-            cbTipoRelatorio.FocusedColor = Color.FromArgb(100, 150, 200);
-            cbTipoRelatorio.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            cbTipoRelatorio.Font = new Font("Segoe UI", 9F);
+            cbTipoRelatorio.BackgroundColor = Color.FromArgb(40, 41, 52);
+            cbTipoRelatorio.ButtonCursor = Cursors.Arrow;
+            cbTipoRelatorio.ButtonHoverBackground = Color.FromArgb(18, 18, 18);
+            cbTipoRelatorio.ButtonHoverOutline = Color.Empty;
+            cbTipoRelatorio.ButtonNormalBackground = Color.FromArgb(35, 34, 42);
+            cbTipoRelatorio.ButtonNormalOutline = Color.Empty;
+            cbTipoRelatorio.ButtonPressedBackground = Color.FromArgb(60, 59, 67);
+            cbTipoRelatorio.ButtonPressedOutline = Color.Empty;
+            cbTipoRelatorio.DropDownBackgroundColor = Color.FromArgb(40, 41, 52);
+            cbTipoRelatorio.DropDownOutlineColor = Color.FromArgb(30, 255, 255, 255);
+            cbTipoRelatorio.ExpandArrowColor = Color.White;
             cbTipoRelatorio.ForeColor = Color.White;
-            cbTipoRelatorio.ItemHeight = 30;
-            cbTipoRelatorio.Items.AddRange(new object[] { "Vendas do período", "Produtos mais vendidos", "Estoque baixo", "Faturamento total", "Ticket médio", "Resumo de produtos", "Tendência de vendas" });
+            cbTipoRelatorio.Items = new string[]
+    {
+    "Vendas do período",
+    "Produtos mais vendidos",
+    "Vendas por categoria",
+    "Lucro bruto por produto",
+    "Formas de pagamento",
+    "Vendas por funcionário",
+    "Produtos com baixo estoque",
+    "Movimentação de estoque",
+    "Tendência de vendas"
+    };
             cbTipoRelatorio.Location = new Point(92, 10);
+            cbTipoRelatorio.Margin = new Padding(4, 3, 4, 3);
             cbTipoRelatorio.Name = "cbTipoRelatorio";
-            cbTipoRelatorio.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            cbTipoRelatorio.NoSelectionDropdownText = "Selecione um relatório";
+            cbTipoRelatorio.NoSelectionText = "Selecione";
+            cbTipoRelatorio.OutlineColor = Color.FromArgb(60, 62, 80);
+            cbTipoRelatorio.OutlineThickness = 1F;
+            cbTipoRelatorio.Rounding = 8;
             cbTipoRelatorio.Size = new Size(260, 36);
             cbTipoRelatorio.TabIndex = 1;
             // 
@@ -568,34 +606,34 @@
 
         #endregion
 
-        private Panel pnlContainer;
-        private Panel pnlMain;
-        private Panel pnlHeader;
-        private Label lblTitulo;
-        private Panel pnlFiltros;
-        private Guna.UI2.WinForms.Guna2ComboBox cbTipoRelatorio;
-        private Label lblRelatorio;
-        private Guna.UI2.WinForms.Guna2Button btnGerarRelatorio;
-        private Guna.UI2.WinForms.Guna2ComboBox cbPeriodo;
-        private Label lblPeriodo;
-        private Panel pnlMetricas;
-        private TableLayoutPanel tblMetricas;
-        private Guna.UI2.WinForms.Guna2Panel pnlMetrica1;
-        private Label lblValor1;
-        private Label lblTitulo1;
-        private Guna.UI2.WinForms.Guna2Panel pnlMetrica2;
-        private Label lblValor2;
-        private Label lblTitulo2;
-        private Guna.UI2.WinForms.Guna2Panel pnlMetrica3;
-        private Label lblValor3;
-        private Label lblTitulo3;
-        private Guna.UI2.WinForms.Guna2Panel pnlMetrica4;
-        private Label lblValor4;
-        private Label lblTitulo4;
-        private Panel pnlAcoes;
-        private Guna.UI2.WinForms.Guna2Button btnImprimir;
-        private Guna.UI2.WinForms.Guna2Button btnExportarExcel;
-        private Panel pnlTabela;
-        private Guna.UI2.WinForms.Guna2DataGridView dgvRelatorios;
+        private System.Windows.Forms.Panel pnlContainer;
+        private System.Windows.Forms.Panel pnlMain;
+        private System.Windows.Forms.Panel pnlHeader;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Panel pnlFiltros;
+        private CuoreUI.Controls.cuiComboBox cbTipoRelatorio;
+        private System.Windows.Forms.Label lblRelatorio;
+        private CuoreUI.Controls.cuiButton btnGerarRelatorio;
+        private CuoreUI.Controls.cuiComboBox cbPeriodo;
+        private System.Windows.Forms.Label lblPeriodo;
+        private System.Windows.Forms.Panel pnlMetricas;
+        private System.Windows.Forms.TableLayoutPanel tblMetricas;
+        private System.Windows.Forms.Panel pnlMetrica1;
+        private System.Windows.Forms.Label lblValor1;
+        private System.Windows.Forms.Label lblTitulo1;
+        private System.Windows.Forms.Panel pnlMetrica2;
+        private System.Windows.Forms.Label lblValor2;
+        private System.Windows.Forms.Label lblTitulo2;
+        private System.Windows.Forms.Panel pnlMetrica3;
+        private System.Windows.Forms.Label lblValor3;
+        private System.Windows.Forms.Label lblTitulo3;
+        private System.Windows.Forms.Panel pnlMetrica4;
+        private System.Windows.Forms.Label lblValor4;
+        private System.Windows.Forms.Label lblTitulo4;
+        private System.Windows.Forms.Panel pnlAcoes;
+        private CuoreUI.Controls.cuiButton btnImprimir;
+        private CuoreUI.Controls.cuiButton btnExportarExcel;
+        private System.Windows.Forms.Panel pnlTabela;
+        private System.Windows.Forms.DataGridView dgvRelatorios;
     }
 }

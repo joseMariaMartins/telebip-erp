@@ -267,7 +267,5 @@ namespace telebip_erp.Forms.Modules
             formConsulta.ShowDialog(this);
 
         }
-
-
     }
 }
