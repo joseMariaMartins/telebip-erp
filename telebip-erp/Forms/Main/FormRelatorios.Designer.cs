@@ -17,9 +17,9 @@
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             pnlContainer = new Panel();
             pnlMain = new Panel();
             pnlTabela = new Panel();
@@ -71,8 +71,9 @@
             pnlContainer.Controls.Add(pnlHeader);
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(0, 0);
+            pnlContainer.Margin = new Padding(4, 5, 4, 5);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(1597, 801);
+            pnlContainer.Size = new Size(1946, 1106);
             pnlContainer.TabIndex = 0;
             // 
             // pnlMain
@@ -83,9 +84,10 @@
             pnlMain.Controls.Add(pnlMetricas);
             pnlMain.Controls.Add(pnlFiltros);
             pnlMain.Dock = DockStyle.Fill;
-            pnlMain.Location = new Point(0, 71);
+            pnlMain.Location = new Point(0, 118);
+            pnlMain.Margin = new Padding(4, 5, 4, 5);
             pnlMain.Name = "pnlMain";
-            pnlMain.Size = new Size(1597, 730);
+            pnlMain.Size = new Size(1946, 988);
             pnlMain.TabIndex = 1;
             // 
             // pnlTabela
@@ -93,10 +95,11 @@
             pnlTabela.BackColor = Color.FromArgb(28, 29, 40);
             pnlTabela.Controls.Add(dgvRelatorios);
             pnlTabela.Dock = DockStyle.Fill;
-            pnlTabela.Location = new Point(0, 157);
+            pnlTabela.Location = new Point(0, 262);
+            pnlTabela.Margin = new Padding(4, 5, 4, 5);
             pnlTabela.Name = "pnlTabela";
-            pnlTabela.Padding = new Padding(15);
-            pnlTabela.Size = new Size(1597, 498);
+            pnlTabela.Padding = new Padding(21, 25, 21, 25);
+            pnlTabela.Size = new Size(1946, 601);
             pnlTabela.TabIndex = 3;
             // 
             // dgvRelatorios
@@ -109,29 +112,30 @@
             dgvRelatorios.BorderStyle = BorderStyle.None;
             dgvRelatorios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvRelatorios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.Padding = new Padding(5);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvRelatorios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.Padding = new Padding(5);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvRelatorios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvRelatorios.ColumnHeadersHeight = 40;
             dgvRelatorios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.White;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvRelatorios.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle5.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvRelatorios.DefaultCellStyle = dataGridViewCellStyle5;
             dgvRelatorios.Dock = DockStyle.Fill;
             dgvRelatorios.EnableHeadersVisualStyles = false;
             dgvRelatorios.GridColor = Color.FromArgb(50, 52, 67);
-            dgvRelatorios.Location = new Point(15, 15);
+            dgvRelatorios.Location = new Point(21, 25);
+            dgvRelatorios.Margin = new Padding(4, 5, 4, 5);
             dgvRelatorios.MultiSelect = false;
             dgvRelatorios.Name = "dgvRelatorios";
             dgvRelatorios.ReadOnly = true;
@@ -139,15 +143,15 @@
             dgvRelatorios.RowHeadersVisible = false;
             dgvRelatorios.RowHeadersWidth = 62;
             dgvRelatorios.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dgvRelatorios.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dgvRelatorios.RowsDefaultCellStyle = dataGridViewCellStyle6;
             dgvRelatorios.RowTemplate.Height = 35;
             dgvRelatorios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvRelatorios.Size = new Size(1567, 468);
+            dgvRelatorios.Size = new Size(1904, 551);
             dgvRelatorios.TabIndex = 0;
             // 
             // pnlAcoes
@@ -156,10 +160,11 @@
             pnlAcoes.Controls.Add(btnImprimir);
             pnlAcoes.Controls.Add(btnExportarExcel);
             pnlAcoes.Dock = DockStyle.Bottom;
-            pnlAcoes.Location = new Point(0, 655);
+            pnlAcoes.Location = new Point(0, 863);
+            pnlAcoes.Margin = new Padding(4, 5, 4, 5);
             pnlAcoes.Name = "pnlAcoes";
-            pnlAcoes.Padding = new Padding(15, 10, 15, 15);
-            pnlAcoes.Size = new Size(1597, 75);
+            pnlAcoes.Padding = new Padding(21, 17, 21, 25);
+            pnlAcoes.Size = new Size(1946, 125);
             pnlAcoes.TabIndex = 2;
             // 
             // btnImprimir
@@ -183,7 +188,8 @@
             btnImprimir.ImageAutoCenter = true;
             btnImprimir.ImageExpand = new Point(0, 0);
             btnImprimir.ImageOffset = new Point(0, 0);
-            btnImprimir.Location = new Point(1459, 17);
+            btnImprimir.Location = new Point(1749, 28);
+            btnImprimir.Margin = new Padding(4, 5, 4, 5);
             btnImprimir.Name = "btnImprimir";
             btnImprimir.NormalBackground = Color.FromArgb(40, 100, 180);
             btnImprimir.NormalForeColor = Color.White;
@@ -195,7 +201,7 @@
             btnImprimir.PressedImageTint = Color.White;
             btnImprimir.PressedOutline = Color.FromArgb(30, 90, 160);
             btnImprimir.Rounding = new Padding(8);
-            btnImprimir.Size = new Size(120, 40);
+            btnImprimir.Size = new Size(171, 67);
             btnImprimir.TabIndex = 1;
             btnImprimir.TextAlignment = StringAlignment.Center;
             btnImprimir.TextOffset = new Point(0, 0);
@@ -221,7 +227,8 @@
             btnExportarExcel.ImageAutoCenter = true;
             btnExportarExcel.ImageExpand = new Point(0, 0);
             btnExportarExcel.ImageOffset = new Point(0, 0);
-            btnExportarExcel.Location = new Point(1321, 17);
+            btnExportarExcel.Location = new Point(1552, 28);
+            btnExportarExcel.Margin = new Padding(4, 5, 4, 5);
             btnExportarExcel.Name = "btnExportarExcel";
             btnExportarExcel.NormalBackground = Color.FromArgb(40, 120, 80);
             btnExportarExcel.NormalForeColor = Color.White;
@@ -233,7 +240,7 @@
             btnExportarExcel.PressedImageTint = Color.White;
             btnExportarExcel.PressedOutline = Color.FromArgb(30, 100, 60);
             btnExportarExcel.Rounding = new Padding(8);
-            btnExportarExcel.Size = new Size(120, 40);
+            btnExportarExcel.Size = new Size(171, 67);
             btnExportarExcel.TabIndex = 0;
             btnExportarExcel.TextAlignment = StringAlignment.Center;
             btnExportarExcel.TextOffset = new Point(0, 0);
@@ -243,10 +250,11 @@
             pnlMetricas.BackColor = Color.FromArgb(28, 29, 40);
             pnlMetricas.Controls.Add(tblMetricas);
             pnlMetricas.Dock = DockStyle.Top;
-            pnlMetricas.Location = new Point(0, 57);
+            pnlMetricas.Location = new Point(0, 95);
+            pnlMetricas.Margin = new Padding(4, 5, 4, 5);
             pnlMetricas.Name = "pnlMetricas";
-            pnlMetricas.Padding = new Padding(15, 10, 15, 10);
-            pnlMetricas.Size = new Size(1597, 100);
+            pnlMetricas.Padding = new Padding(21, 17, 21, 17);
+            pnlMetricas.Size = new Size(1946, 167);
             pnlMetricas.TabIndex = 1;
             // 
             // tblMetricas
@@ -261,11 +269,12 @@
             tblMetricas.Controls.Add(pnlMetrica3, 2, 0);
             tblMetricas.Controls.Add(pnlMetrica4, 3, 0);
             tblMetricas.Dock = DockStyle.Fill;
-            tblMetricas.Location = new Point(15, 10);
+            tblMetricas.Location = new Point(21, 17);
+            tblMetricas.Margin = new Padding(4, 5, 4, 5);
             tblMetricas.Name = "tblMetricas";
             tblMetricas.RowCount = 1;
             tblMetricas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tblMetricas.Size = new Size(1567, 80);
+            tblMetricas.Size = new Size(1904, 133);
             tblMetricas.TabIndex = 0;
             // 
             // pnlMetrica1
@@ -274,9 +283,10 @@
             pnlMetrica1.Controls.Add(lblValor1);
             pnlMetrica1.Controls.Add(lblTitulo1);
             pnlMetrica1.Dock = DockStyle.Fill;
-            pnlMetrica1.Location = new Point(3, 3);
+            pnlMetrica1.Location = new Point(4, 5);
+            pnlMetrica1.Margin = new Padding(4, 5, 4, 5);
             pnlMetrica1.Name = "pnlMetrica1";
-            pnlMetrica1.Size = new Size(385, 74);
+            pnlMetrica1.Size = new Size(468, 123);
             pnlMetrica1.TabIndex = 0;
             // 
             // lblValor1
@@ -284,9 +294,10 @@
             lblValor1.Dock = DockStyle.Fill;
             lblValor1.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblValor1.ForeColor = Color.White;
-            lblValor1.Location = new Point(0, 25);
+            lblValor1.Location = new Point(0, 42);
+            lblValor1.Margin = new Padding(4, 0, 4, 0);
             lblValor1.Name = "lblValor1";
-            lblValor1.Size = new Size(385, 49);
+            lblValor1.Size = new Size(468, 81);
             lblValor1.TabIndex = 1;
             lblValor1.Text = "R$ 0,00";
             lblValor1.TextAlign = ContentAlignment.MiddleCenter;
@@ -297,8 +308,9 @@
             lblTitulo1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblTitulo1.ForeColor = Color.LightGray;
             lblTitulo1.Location = new Point(0, 0);
+            lblTitulo1.Margin = new Padding(4, 0, 4, 0);
             lblTitulo1.Name = "lblTitulo1";
-            lblTitulo1.Size = new Size(385, 25);
+            lblTitulo1.Size = new Size(468, 42);
             lblTitulo1.TabIndex = 0;
             lblTitulo1.Text = "Faturamento Total";
             lblTitulo1.TextAlign = ContentAlignment.MiddleCenter;
@@ -309,9 +321,10 @@
             pnlMetrica2.Controls.Add(lblValor2);
             pnlMetrica2.Controls.Add(lblTitulo2);
             pnlMetrica2.Dock = DockStyle.Fill;
-            pnlMetrica2.Location = new Point(394, 3);
+            pnlMetrica2.Location = new Point(480, 5);
+            pnlMetrica2.Margin = new Padding(4, 5, 4, 5);
             pnlMetrica2.Name = "pnlMetrica2";
-            pnlMetrica2.Size = new Size(385, 74);
+            pnlMetrica2.Size = new Size(468, 123);
             pnlMetrica2.TabIndex = 1;
             // 
             // lblValor2
@@ -319,9 +332,10 @@
             lblValor2.Dock = DockStyle.Fill;
             lblValor2.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblValor2.ForeColor = Color.White;
-            lblValor2.Location = new Point(0, 25);
+            lblValor2.Location = new Point(0, 42);
+            lblValor2.Margin = new Padding(4, 0, 4, 0);
             lblValor2.Name = "lblValor2";
-            lblValor2.Size = new Size(385, 49);
+            lblValor2.Size = new Size(468, 81);
             lblValor2.TabIndex = 1;
             lblValor2.Text = "0";
             lblValor2.TextAlign = ContentAlignment.MiddleCenter;
@@ -332,8 +346,9 @@
             lblTitulo2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblTitulo2.ForeColor = Color.LightGray;
             lblTitulo2.Location = new Point(0, 0);
+            lblTitulo2.Margin = new Padding(4, 0, 4, 0);
             lblTitulo2.Name = "lblTitulo2";
-            lblTitulo2.Size = new Size(385, 25);
+            lblTitulo2.Size = new Size(468, 42);
             lblTitulo2.TabIndex = 0;
             lblTitulo2.Text = "Produtos em Alerta";
             lblTitulo2.TextAlign = ContentAlignment.MiddleCenter;
@@ -344,9 +359,10 @@
             pnlMetrica3.Controls.Add(lblValor3);
             pnlMetrica3.Controls.Add(lblTitulo3);
             pnlMetrica3.Dock = DockStyle.Fill;
-            pnlMetrica3.Location = new Point(785, 3);
+            pnlMetrica3.Location = new Point(956, 5);
+            pnlMetrica3.Margin = new Padding(4, 5, 4, 5);
             pnlMetrica3.Name = "pnlMetrica3";
-            pnlMetrica3.Size = new Size(385, 74);
+            pnlMetrica3.Size = new Size(468, 123);
             pnlMetrica3.TabIndex = 2;
             // 
             // lblValor3
@@ -354,9 +370,10 @@
             lblValor3.Dock = DockStyle.Fill;
             lblValor3.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblValor3.ForeColor = Color.White;
-            lblValor3.Location = new Point(0, 25);
+            lblValor3.Location = new Point(0, 42);
+            lblValor3.Margin = new Padding(4, 0, 4, 0);
             lblValor3.Name = "lblValor3";
-            lblValor3.Size = new Size(385, 49);
+            lblValor3.Size = new Size(468, 81);
             lblValor3.TabIndex = 1;
             lblValor3.Text = "0";
             lblValor3.TextAlign = ContentAlignment.MiddleCenter;
@@ -367,8 +384,9 @@
             lblTitulo3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblTitulo3.ForeColor = Color.LightGray;
             lblTitulo3.Location = new Point(0, 0);
+            lblTitulo3.Margin = new Padding(4, 0, 4, 0);
             lblTitulo3.Name = "lblTitulo3";
-            lblTitulo3.Size = new Size(385, 25);
+            lblTitulo3.Size = new Size(468, 42);
             lblTitulo3.TabIndex = 0;
             lblTitulo3.Text = "Total de Vendas";
             lblTitulo3.TextAlign = ContentAlignment.MiddleCenter;
@@ -379,9 +397,10 @@
             pnlMetrica4.Controls.Add(lblValor4);
             pnlMetrica4.Controls.Add(lblTitulo4);
             pnlMetrica4.Dock = DockStyle.Fill;
-            pnlMetrica4.Location = new Point(1176, 3);
+            pnlMetrica4.Location = new Point(1432, 5);
+            pnlMetrica4.Margin = new Padding(4, 5, 4, 5);
             pnlMetrica4.Name = "pnlMetrica4";
-            pnlMetrica4.Size = new Size(388, 74);
+            pnlMetrica4.Size = new Size(468, 123);
             pnlMetrica4.TabIndex = 3;
             // 
             // lblValor4
@@ -389,9 +408,10 @@
             lblValor4.Dock = DockStyle.Fill;
             lblValor4.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblValor4.ForeColor = Color.White;
-            lblValor4.Location = new Point(0, 25);
+            lblValor4.Location = new Point(0, 42);
+            lblValor4.Margin = new Padding(4, 0, 4, 0);
             lblValor4.Name = "lblValor4";
-            lblValor4.Size = new Size(388, 49);
+            lblValor4.Size = new Size(468, 81);
             lblValor4.TabIndex = 1;
             lblValor4.Text = "R$ 0,00";
             lblValor4.TextAlign = ContentAlignment.MiddleCenter;
@@ -402,8 +422,9 @@
             lblTitulo4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblTitulo4.ForeColor = Color.LightGray;
             lblTitulo4.Location = new Point(0, 0);
+            lblTitulo4.Margin = new Padding(4, 0, 4, 0);
             lblTitulo4.Name = "lblTitulo4";
-            lblTitulo4.Size = new Size(388, 25);
+            lblTitulo4.Size = new Size(468, 42);
             lblTitulo4.TabIndex = 0;
             lblTitulo4.Text = "Ticket Médio";
             lblTitulo4.TextAlign = ContentAlignment.MiddleCenter;
@@ -418,9 +439,10 @@
             pnlFiltros.Controls.Add(lblRelatorio);
             pnlFiltros.Dock = DockStyle.Top;
             pnlFiltros.Location = new Point(0, 0);
+            pnlFiltros.Margin = new Padding(4, 5, 4, 5);
             pnlFiltros.Name = "pnlFiltros";
-            pnlFiltros.Padding = new Padding(15, 15, 15, 10);
-            pnlFiltros.Size = new Size(1597, 57);
+            pnlFiltros.Padding = new Padding(21, 25, 21, 17);
+            pnlFiltros.Size = new Size(1946, 95);
             pnlFiltros.TabIndex = 0;
             // 
             // btnGerarRelatorio
@@ -443,7 +465,8 @@
             btnGerarRelatorio.ImageAutoCenter = true;
             btnGerarRelatorio.ImageExpand = new Point(0, 0);
             btnGerarRelatorio.ImageOffset = new Point(0, 0);
-            btnGerarRelatorio.Location = new Point(759, 10);
+            btnGerarRelatorio.Location = new Point(1084, 17);
+            btnGerarRelatorio.Margin = new Padding(4, 5, 4, 5);
             btnGerarRelatorio.Name = "btnGerarRelatorio";
             btnGerarRelatorio.NormalBackground = Color.FromArgb(40, 120, 80);
             btnGerarRelatorio.NormalForeColor = Color.White;
@@ -455,7 +478,7 @@
             btnGerarRelatorio.PressedImageTint = Color.White;
             btnGerarRelatorio.PressedOutline = Color.FromArgb(30, 100, 60);
             btnGerarRelatorio.Rounding = new Padding(8);
-            btnGerarRelatorio.Size = new Size(120, 36);
+            btnGerarRelatorio.Size = new Size(171, 60);
             btnGerarRelatorio.TabIndex = 4;
             btnGerarRelatorio.TextAlignment = StringAlignment.Center;
             btnGerarRelatorio.TextOffset = new Point(0, 0);
@@ -484,24 +507,25 @@
     "Mês passado",
     "Ano atual"
     };
-            cbPeriodo.Location = new Point(451, 10);
-            cbPeriodo.Margin = new Padding(4, 3, 4, 3);
+            cbPeriodo.Location = new Point(644, 17);
+            cbPeriodo.Margin = new Padding(6, 5, 6, 5);
             cbPeriodo.Name = "cbPeriodo";
             cbPeriodo.NoSelectionDropdownText = "Selecione um período";
-            cbPeriodo.NoSelectionText = "Selecione";
+            cbPeriodo.NoSelectionText = "";
             cbPeriodo.OutlineColor = Color.FromArgb(60, 62, 80);
             cbPeriodo.OutlineThickness = 1F;
             cbPeriodo.Rounding = 8;
-            cbPeriodo.Size = new Size(280, 36);
+            cbPeriodo.Size = new Size(400, 60);
             cbPeriodo.TabIndex = 3;
             // 
             // lblPeriodo
             // 
             lblPeriodo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblPeriodo.ForeColor = Color.White;
-            lblPeriodo.Location = new Point(378, 10);
+            lblPeriodo.Location = new Point(540, 17);
+            lblPeriodo.Margin = new Padding(4, 0, 4, 0);
             lblPeriodo.Name = "lblPeriodo";
-            lblPeriodo.Size = new Size(70, 36);
+            lblPeriodo.Size = new Size(100, 60);
             lblPeriodo.TabIndex = 2;
             lblPeriodo.Text = "Período:";
             lblPeriodo.TextAlign = ContentAlignment.MiddleLeft;
@@ -532,24 +556,25 @@
     "Movimentação de estoque",
     "Tendência de vendas"
     };
-            cbTipoRelatorio.Location = new Point(92, 10);
-            cbTipoRelatorio.Margin = new Padding(4, 3, 4, 3);
+            cbTipoRelatorio.Location = new Point(131, 17);
+            cbTipoRelatorio.Margin = new Padding(6, 5, 6, 5);
             cbTipoRelatorio.Name = "cbTipoRelatorio";
             cbTipoRelatorio.NoSelectionDropdownText = "Selecione um relatório";
-            cbTipoRelatorio.NoSelectionText = "Selecione";
+            cbTipoRelatorio.NoSelectionText = "";
             cbTipoRelatorio.OutlineColor = Color.FromArgb(60, 62, 80);
             cbTipoRelatorio.OutlineThickness = 1F;
             cbTipoRelatorio.Rounding = 8;
-            cbTipoRelatorio.Size = new Size(260, 36);
+            cbTipoRelatorio.Size = new Size(371, 60);
             cbTipoRelatorio.TabIndex = 1;
             // 
             // lblRelatorio
             // 
             lblRelatorio.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblRelatorio.ForeColor = Color.White;
-            lblRelatorio.Location = new Point(15, 10);
+            lblRelatorio.Location = new Point(21, 17);
+            lblRelatorio.Margin = new Padding(4, 0, 4, 0);
             lblRelatorio.Name = "lblRelatorio";
-            lblRelatorio.Size = new Size(75, 36);
+            lblRelatorio.Size = new Size(107, 60);
             lblRelatorio.TabIndex = 0;
             lblRelatorio.Text = "Relatório:";
             lblRelatorio.TextAlign = ContentAlignment.MiddleLeft;
@@ -560,9 +585,10 @@
             pnlHeader.Controls.Add(lblTitulo);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Margin = new Padding(4, 5, 4, 5);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Padding = new Padding(15);
-            pnlHeader.Size = new Size(1597, 71);
+            pnlHeader.Padding = new Padding(21, 25, 21, 25);
+            pnlHeader.Size = new Size(1946, 118);
             pnlHeader.TabIndex = 0;
             // 
             // lblTitulo
@@ -570,22 +596,24 @@
             lblTitulo.Dock = DockStyle.Fill;
             lblTitulo.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lblTitulo.ForeColor = Color.White;
-            lblTitulo.Location = new Point(15, 15);
+            lblTitulo.Location = new Point(21, 25);
+            lblTitulo.Margin = new Padding(4, 0, 4, 0);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(1567, 41);
+            lblTitulo.Size = new Size(1904, 68);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Relatórios e Análises";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FormRelatorios
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(28, 29, 40);
-            ClientSize = new Size(1597, 801);
+            ClientSize = new Size(1946, 1106);
             ControlBox = false;
             Controls.Add(pnlContainer);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 5, 4, 5);
             Name = "FormRelatorios";
             Text = "FormRelatorios";
             pnlContainer.ResumeLayout(false);
