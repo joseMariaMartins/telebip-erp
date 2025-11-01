@@ -234,6 +234,15 @@ namespace telebip_erp.Forms.Modules
                 DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
                 dgvEstoque.DataSource = dt;
 
+                // 🔤 Renomear cabeçalhos das colunas
+                if (dgvEstoque.Columns.Contains("ID_PRODUTO")) dgvEstoque.Columns["ID_PRODUTO"].HeaderText = "ID";
+                if (dgvEstoque.Columns.Contains("NOME")) dgvEstoque.Columns["NOME"].HeaderText = "Nome";
+                if (dgvEstoque.Columns.Contains("MARCA")) dgvEstoque.Columns["MARCA"].HeaderText = "Marca";
+                if (dgvEstoque.Columns.Contains("PRECO")) dgvEstoque.Columns["PRECO"].HeaderText = "Preço";
+                if (dgvEstoque.Columns.Contains("QTD_ESTOQUE")) dgvEstoque.Columns["QTD_ESTOQUE"].HeaderText = "Qtd do estoque";
+                if (dgvEstoque.Columns.Contains("QTD_AVISO")) dgvEstoque.Columns["QTD_AVISO"].HeaderText = "Qtd de aviso";
+                if (dgvEstoque.Columns.Contains("OBSERVACAO")) dgvEstoque.Columns["OBSERVACAO"].HeaderText = "Observação";
+
                 foreach (DataGridViewColumn coluna in dgvEstoque.Columns)
                     coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
@@ -273,6 +282,7 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
+
         private void CarregarEstoqueInicial()
         {
             CarregarEstoque(limitar20: true);
@@ -309,10 +319,23 @@ namespace telebip_erp.Forms.Modules
 
         private void BtnPesquisar_Click(object? sender, EventArgs e)
         {
-            // USA O MÉTODO QUE CAPTURA O TEXTO DE VÁRIAS FORMAS
-            string campo = ObterValorSelecionado(cbPesquisaCampo);
+            // CAPTURA OS VALORES SELECIONADOS
+            string campoSelecionado = ObterValorSelecionado(cbPesquisaCampo);
             string condicao = ObterValorSelecionado(cbCondicao);
             string valor = ObterTextoPesquisa().Trim().ToUpper();
+
+            // MAPEAMENTO DOS NOMES EXIBIDOS PARA OS NOMES REAIS DAS COLUNAS
+            string campo = campoSelecionado switch
+            {
+                "ID" => "ID_PRODUTO",
+                "Nome" => "NOME",
+                "Marca" => "MARCA",
+                "Preço" => "PRECO",
+                "Qtd do estoque" => "QTD_ESTOQUE",
+                "Qtd de aviso" => "QTD_AVISO",
+                "Observação" => "OBSERVACAO",
+                _ => ""
+            };
 
             // VALIDAÇÃO
             if (string.IsNullOrEmpty(campo) || string.IsNullOrEmpty(condicao))
@@ -336,21 +359,26 @@ namespace telebip_erp.Forms.Modules
                     filtroSql = $"UPPER({campo}) LIKE @valor";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor + "%") };
                     break;
+
                 case "Contendo":
                     filtroSql = $"UPPER({campo}) LIKE @valor";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", "%" + valor + "%") };
                     break;
+
                 case "Diferente de":
                     filtroSql = $"UPPER({campo}) <> UPPER(@valor)";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
                     break;
+
                 default:
                     MessageBox.Show("Condição de pesquisa inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
             }
 
+            // CHAMA O MÉTODO PARA CARREGAR OS DADOS FILTRADOS
             CarregarEstoque(filtroSql, parametros, limitar20: false);
         }
+
 
         private void BtnLimpar_Click(object? sender, EventArgs e)
         {

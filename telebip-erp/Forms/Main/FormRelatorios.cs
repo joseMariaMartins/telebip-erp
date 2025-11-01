@@ -4,7 +4,6 @@ using System.Data;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
-using telebip_erp.Helpers;
 
 namespace telebip_erp.Forms.Modules
 {
@@ -23,7 +22,7 @@ namespace telebip_erp.Forms.Modules
         {
             InitializeComponent();
 
-            TemaTabelas.AplicarTemaEscuro(dgvRelatorios);
+
 
             btnGerarRelatorio.Click += BtnGerarRelatorio_Click;
             btnExportarExcel.Click += btnExportarExcel_Click;
