@@ -5,11 +5,22 @@ using System.Drawing;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
 using telebip_erp.Forms.SubForms;
+using System.Collections.Generic;
 
 namespace telebip_erp.Forms.Modules
 {
     public partial class FormVendas : Form
     {
+        // Mapeamento entre os nomes exibidos e os nomes no banco
+        private readonly Dictionary<string, string> campoMap = new Dictionary<string, string>
+        {
+            { "ID", "ID_VENDA" },
+            { "Funcionário", "NOME_FUNCIONARIO" },
+            { "Data", "DATA_HORA" },
+            { "Valor total", "VALOR_TOTAL" },
+            { "Desconto", "DESCONTO" }
+        };
+
         public FormVendas()
         {
             InitializeComponent();
@@ -25,14 +36,13 @@ namespace telebip_erp.Forms.Modules
             btnPesquisar.Click += BtnPesquisar_Click;
             btnLimpar.Click += BtnLimpar_Click;
 
-            // 🔹 Garante que nada fique selecionado ao abrir
             this.Shown += (s, e) =>
             {
                 dgvVendas.ClearSelection();
                 dgvVendas.CurrentCell = null;
             };
 
-            // 🔹 Carrega as últimas 20 vendas inicialmente
+            // Carrega as últimas 20 vendas
             CarregarVendas(limitar20: true);
         }
 
@@ -40,6 +50,7 @@ namespace telebip_erp.Forms.Modules
         {
             cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
+
             cbPesquisaCampo.SelectedIndex = 0;
             cbCondicao.SelectedIndex = 0;
         }
@@ -71,36 +82,43 @@ namespace telebip_erp.Forms.Modules
             try
             {
                 string sql = $@"
-            SELECT 
-                ID_VENDA,
-                NOME_FUNCIONARIO,
-                DATA_HORA,
-                VALOR_TOTAL,
-                DESCONTO
-            FROM VENDA
-            {(string.IsNullOrEmpty(filtroSql) ? "" : "WHERE " + filtroSql)}
-            ORDER BY ID_VENDA DESC
-            {(limitar20 ? "LIMIT 20" : "")};
-        ";
+                    SELECT 
+                        ID_VENDA,
+                        NOME_FUNCIONARIO,
+                        DATA_HORA,
+                        VALOR_TOTAL,
+                        DESCONTO
+                    FROM VENDA
+                    {(string.IsNullOrEmpty(filtroSql) ? "" : "WHERE " + filtroSql)}
+                    ORDER BY ID_VENDA DESC
+                    {(limitar20 ? "LIMIT 20" : "")};
+                ";
 
                 DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
                 dgvVendas.DataSource = dt;
 
-                // 🔹 Cabeçalhos centralizados
+                // 🔹 Renomeia cabeçalhos
+                dgvVendas.Columns["ID_VENDA"].HeaderText = "ID";
+                dgvVendas.Columns["NOME_FUNCIONARIO"].HeaderText = "Funcionário";
+                dgvVendas.Columns["DATA_HORA"].HeaderText = "Data";
+                dgvVendas.Columns["VALOR_TOTAL"].HeaderText = "Valor total";
+                dgvVendas.Columns["DESCONTO"].HeaderText = "Desconto";
+
+                // 🔹 Centraliza cabeçalhos
                 foreach (DataGridViewColumn coluna in dgvVendas.Columns)
                     coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                // 🔹 Ajusta para preencher toda a largura disponível
+                // 🔹 Ajusta para preencher a tela
                 dgvVendas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                // 🔹 Ajuste de peso relativo das colunas (FillWeight)
+                // 🔹 Pesos das colunas
                 dgvVendas.Columns["ID_VENDA"].FillWeight = 15;
                 dgvVendas.Columns["NOME_FUNCIONARIO"].FillWeight = 30;
                 dgvVendas.Columns["DATA_HORA"].FillWeight = 25;
                 dgvVendas.Columns["VALOR_TOTAL"].FillWeight = 15;
                 dgvVendas.Columns["DESCONTO"].FillWeight = 15;
 
-                // 🔹 Alinhamento do conteúdo
+                // 🔹 Alinhamento de conteúdo
                 dgvVendas.Columns["ID_VENDA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dgvVendas.Columns["NOME_FUNCIONARIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
                 dgvVendas.Columns["DATA_HORA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -111,7 +129,6 @@ namespace telebip_erp.Forms.Modules
                 dgvVendas.Columns["VALOR_TOTAL"].DefaultCellStyle.Format = "C2";
                 dgvVendas.Columns["DESCONTO"].DefaultCellStyle.Format = "C2";
 
-                // 🔹 Remove seleção automática
                 dgvVendas.ClearSelection();
                 dgvVendas.CurrentCell = null;
 
@@ -123,25 +140,6 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
-        public DataTable ObterVendasComoDataTable()
-        {
-            DataTable dtTemp = new DataTable();
-            foreach (DataGridViewColumn col in dgvVendas.Columns)
-                dtTemp.Columns.Add(col.Name);
-
-            foreach (DataGridViewRow row in dgvVendas.Rows)
-            {
-                if (row.IsNewRow) continue;
-                DataRow dr = dtTemp.NewRow();
-                foreach (DataGridViewCell cell in row.Cells)
-                    dr[cell.OwningColumn.Name] = cell.Value ?? DBNull.Value;
-                dtTemp.Rows.Add(dr);
-            }
-
-            return dtTemp;
-        }
-
-
         private void BtnPesquisar_Click(object? sender, EventArgs e)
         {
             if (cbPesquisaCampo.SelectedItem == null || cbCondicao.SelectedItem == null)
@@ -150,8 +148,9 @@ namespace telebip_erp.Forms.Modules
                 return;
             }
 
-            string campo = cbPesquisaCampo.SelectedItem.ToString();
-            string condicao = cbCondicao.SelectedItem.ToString();
+            string campoExibicao = cbPesquisaCampo.SelectedItem.ToString()!;
+            string campoBanco = campoMap.ContainsKey(campoExibicao) ? campoMap[campoExibicao] : campoExibicao;
+            string condicao = cbCondicao.SelectedItem.ToString()!;
             string valor = tbPesquisa.Text.Trim().ToUpper();
 
             if (string.IsNullOrEmpty(valor))
@@ -166,15 +165,15 @@ namespace telebip_erp.Forms.Modules
             switch (condicao)
             {
                 case "Inicia com":
-                    filtroSql = $"UPPER({campo}) LIKE @valor";
+                    filtroSql = $"UPPER({campoBanco}) LIKE @valor";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor + "%") };
                     break;
                 case "Contendo":
-                    filtroSql = $"UPPER({campo}) LIKE @valor";
+                    filtroSql = $"UPPER({campoBanco}) LIKE @valor";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", "%" + valor + "%") };
                     break;
                 case "Diferente de":
-                    filtroSql = $"UPPER({campo}) NOT LIKE UPPER(@valor)";
+                    filtroSql = $"UPPER({campoBanco}) NOT LIKE UPPER(@valor)";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor + "%") };
                     break;
                 default:
@@ -195,6 +194,24 @@ namespace telebip_erp.Forms.Modules
 
             dgvVendas.ClearSelection();
             dgvVendas.CurrentCell = null;
+        }
+
+        public DataTable ObterVendasComoDataTable()
+        {
+            DataTable dtTemp = new DataTable();
+            foreach (DataGridViewColumn col in dgvVendas.Columns)
+                dtTemp.Columns.Add(col.Name);
+
+            foreach (DataGridViewRow row in dgvVendas.Rows)
+            {
+                if (row.IsNewRow) continue;
+                DataRow dr = dtTemp.NewRow();
+                foreach (DataGridViewCell cell in row.Cells)
+                    dr[cell.OwningColumn.Name] = cell.Value ?? DBNull.Value;
+                dtTemp.Rows.Add(dr);
+            }
+
+            return dtTemp;
         }
 
         public void RemoverVendaSelecionada()
@@ -221,13 +238,11 @@ namespace telebip_erp.Forms.Modules
                 using var conn = DatabaseHelper.GetConnection();
                 conn.Open();
 
-                // Exclui a venda
                 string sqlDeleteVenda = "DELETE FROM VENDA WHERE ID_VENDA = @id;";
                 using var cmdVenda = new SQLiteCommand(sqlDeleteVenda, conn);
                 cmdVenda.Parameters.AddWithValue("@id", idVenda);
                 cmdVenda.ExecuteNonQuery();
 
-                // Opcional: deletar itens e pagamentos relacionados
                 string sqlDeleteItens = "DELETE FROM ITEM_VENDA WHERE ID_VENDA = @id;";
                 using var cmdItens = new SQLiteCommand(sqlDeleteItens, conn);
                 cmdItens.Parameters.AddWithValue("@id", idVenda);
@@ -238,8 +253,7 @@ namespace telebip_erp.Forms.Modules
                 cmdPagamento.Parameters.AddWithValue("@id", idVenda);
                 cmdPagamento.ExecuteNonQuery();
 
-                // Atualiza DataGridView
-                AtualizarTabela(); // Certifique-se de ter esse método para recarregar o dgv
+                AtualizarTabela();
                 MessageBox.Show("Venda removida com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -256,7 +270,7 @@ namespace telebip_erp.Forms.Modules
             string nomeFuncionario = dgvVendas.Rows[e.RowIndex].Cells["NOME_FUNCIONARIO"].Value.ToString();
             double Desconto = Convert.ToDouble(dgvVendas.Rows[e.RowIndex].Cells["DESCONTO"].Value);
             double ValorTotal = Convert.ToDouble(dgvVendas.Rows[e.RowIndex].Cells["VALOR_TOTAL"].Value);
-            string DataHora = dgvVendas.Rows[e.RowIndex].Cells["DATA_HORA"].Value.ToString();   
+            string DataHora = dgvVendas.Rows[e.RowIndex].Cells["DATA_HORA"].Value.ToString();
 
             var formConsulta = new FormAddVendasConsulta();
             formConsulta.VendaID = idVendaSelecionada;
@@ -265,7 +279,6 @@ namespace telebip_erp.Forms.Modules
             formConsulta.ValorTotal = ValorTotal;
             formConsulta.DataHora = DataHora;
             formConsulta.ShowDialog(this);
-
         }
     }
 }

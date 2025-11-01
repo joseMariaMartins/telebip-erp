@@ -237,7 +237,7 @@ namespace telebip_erp.Forms.SubSubForms
             cbPesquisaCampoMini.Font = new Font("Segoe UI", 9F);
             cbPesquisaCampoMini.ForeColor = Color.White;
             cbPesquisaCampoMini.ItemHeight = 30;
-            cbPesquisaCampoMini.Items.AddRange(new object[] { "ID_PRODUTO", "NOME", "MARCA", "PRECO", "QTD_ESTOQUE", "QTD_AVISO", "OBSERVACAO" });
+            cbPesquisaCampoMini.Items.AddRange(new object[] { "ID", "Nome", "Marca", "Preço", "Qtd do estoque", "Qtd de aviso", "Observação" });
             cbPesquisaCampoMini.Location = new Point(13, 13);
             cbPesquisaCampoMini.Margin = new Padding(3, 0, 10, 0);
             cbPesquisaCampoMini.Name = "cbPesquisaCampoMini";

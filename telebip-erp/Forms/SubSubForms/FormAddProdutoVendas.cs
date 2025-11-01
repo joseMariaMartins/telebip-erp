@@ -3,22 +3,27 @@ using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using telebip_erp.Forms.SubForms;
 using MaterialSkin;
 using MaterialSkin.Controls;
-
+using System.Collections.Generic;
+using System.Linq;
+using telebip_erp.Forms.SubForms;
 
 namespace telebip_erp.Forms.SubSubForms
 {
     public partial class FormAddProdutoVendas : MaterialForm
     {
+        private readonly Dictionary<string, string> campoMap = new Dictionary<string, string>
+        {
+            { "ID", "ID_PRODUTO" },
+            { "Nome", "NOME" },
+            { "Marca", "MARCA" },
+            { "Preço", "PRECO" },
+            { "Qtd do estoque", "QTD_ESTOQUE" },
+            { "Qtd de aviso", "QTD_AVISO" },
+            { "Observação", "OBSERVACAO" }
+        };
+
         public FormAddProdutoVendas()
         {
             InitializeComponent();
@@ -36,7 +41,6 @@ namespace telebip_erp.Forms.SubSubForms
             btnLimparMini.Click += BtnLimpar_Click;
             dgvProdutosMini.CellDoubleClick += DgvProdutosMini_CellDoubleClick;
 
-
             CarregarProdutosInicial();
 
             this.Shown += (s, e) =>
@@ -51,6 +55,19 @@ namespace telebip_erp.Forms.SubSubForms
             cbPesquisaCampoMini.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCondicaoMini.DropDownStyle = ComboBoxStyle.DropDownList;
 
+            // Itens com nomes amigáveis
+            cbPesquisaCampoMini.Items.Clear();
+            cbPesquisaCampoMini.Items.AddRange(new object[]
+            {
+                "ID",
+                "Nome",
+                "Marca",
+                "Preço",
+                "Qtd do estoque",
+                "Qtd de aviso",
+                "Observação"
+            });
+
             cbPesquisaCampoMini.SelectedIndex = 0;
             cbCondicaoMini.SelectedIndex = 0;
         }
@@ -60,23 +77,32 @@ namespace telebip_erp.Forms.SubSubForms
             try
             {
                 string sql = $@"
-            SELECT 
-                ID_PRODUTO,
-                NOME,
-                MARCA,
-                PRECO,
-                QTD_ESTOQUE,
-                QTD_AVISO,
-                OBSERVACAO
-            FROM PRODUTO
-            WHERE ID_PRODUTO NOT IN (SELECT ID_PRODUTO FROM PRODUTOS_TEMPORARIOS)
-            {(string.IsNullOrEmpty(filtroSql) ? "" : "AND " + filtroSql)}
-            ORDER BY ID_PRODUTO DESC
-            {(limitar20 ? "LIMIT 20" : "")};
-        ";
+                    SELECT 
+                        ID_PRODUTO,
+                        NOME,
+                        MARCA,
+                        PRECO,
+                        QTD_ESTOQUE,
+                        QTD_AVISO,
+                        OBSERVACAO
+                    FROM PRODUTO
+                    WHERE ID_PRODUTO NOT IN (SELECT ID_PRODUTO FROM PRODUTOS_TEMPORARIOS)
+                    {(string.IsNullOrEmpty(filtroSql) ? "" : "AND " + filtroSql)}
+                    ORDER BY ID_PRODUTO DESC
+                    {(limitar20 ? "LIMIT 20" : "")};
+                ";
 
                 DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
                 dgvProdutosMini.DataSource = dt;
+
+                // Cabeçalhos personalizados
+                dgvProdutosMini.Columns["ID_PRODUTO"].HeaderText = "ID";
+                dgvProdutosMini.Columns["NOME"].HeaderText = "Nome";
+                dgvProdutosMini.Columns["MARCA"].HeaderText = "Marca";
+                dgvProdutosMini.Columns["PRECO"].HeaderText = "Preço";
+                dgvProdutosMini.Columns["QTD_ESTOQUE"].HeaderText = "Qtd do estoque";
+                dgvProdutosMini.Columns["QTD_AVISO"].HeaderText = "Qtd de aviso";
+                dgvProdutosMini.Columns["OBSERVACAO"].HeaderText = "Observação";
 
                 foreach (DataGridViewColumn coluna in dgvProdutosMini.Columns)
                     coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -113,7 +139,6 @@ namespace telebip_erp.Forms.SubSubForms
             }
         }
 
-
         private void CarregarProdutosInicial()
         {
             CarregarProdutos(limitar20: true);
@@ -127,8 +152,9 @@ namespace telebip_erp.Forms.SubSubForms
                 return;
             }
 
-            string campo = cbPesquisaCampoMini.SelectedItem.ToString();
-            string condicao = cbCondicaoMini.SelectedItem.ToString();
+            string campoExibicao = cbPesquisaCampoMini.SelectedItem.ToString()!;
+            string campoBanco = campoMap.ContainsKey(campoExibicao) ? campoMap[campoExibicao] : campoExibicao;
+            string condicao = cbCondicaoMini.SelectedItem.ToString()!;
             string valor = tbPesquisaMini.Text.Trim().ToUpper();
 
             if (string.IsNullOrEmpty(valor))
@@ -143,15 +169,15 @@ namespace telebip_erp.Forms.SubSubForms
             switch (condicao)
             {
                 case "Inicia com":
-                    filtroSql = $"UPPER({campo}) LIKE @valor";
+                    filtroSql = $"UPPER({campoBanco}) LIKE @valor";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor + "%") };
                     break;
                 case "Contendo":
-                    filtroSql = $"UPPER({campo}) LIKE @valor";
+                    filtroSql = $"UPPER({campoBanco}) LIKE @valor";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", "%" + valor + "%") };
                     break;
                 case "Diferente de":
-                    filtroSql = $"UPPER({campo}) <> UPPER(@valor)";
+                    filtroSql = $"UPPER({campoBanco}) <> UPPER(@valor)";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
                     break;
                 default:
@@ -184,16 +210,13 @@ namespace telebip_erp.Forms.SubSubForms
 
             if (!string.IsNullOrEmpty(nomeProduto))
             {
-                // Passando para o FormAddVendas
                 FormAddVendas formVendas = this.Owner as FormAddVendas;
                 if (formVendas != null)
                 {
-                    formVendas.PreencherProduto(nomeProduto, idProduto); // novo método com ID
-                    this.Close(); // Fecha o mini form
+                    formVendas.PreencherProduto(nomeProduto, idProduto);
+                    this.Close();
                 }
             }
         }
     }
-
 }
-

@@ -266,7 +266,7 @@
             cbPesquisaCampo.Font = new Font("Segoe UI", 9F);
             cbPesquisaCampo.ForeColor = Color.White;
             cbPesquisaCampo.ItemHeight = 30;
-            cbPesquisaCampo.Items.AddRange(new object[] { "ID_Venda", "Nome_Funcionario", "Data_Hora", "Desconto", "Valor_Total" });
+            cbPesquisaCampo.Items.AddRange(new object[] { "ID", "Funcionário", "Data", "Valor total", "Desconto" });
             cbPesquisaCampo.Location = new Point(13, 10);
             cbPesquisaCampo.Margin = new Padding(3, 0, 10, 0);
             cbPesquisaCampo.Name = "cbPesquisaCampo";

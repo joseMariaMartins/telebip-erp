@@ -50,7 +50,6 @@ namespace telebip_erp.Forms.Modules
         {
             try
             {
-                // Força a seleção do primeiro item em ambas combobox
                 SelecionarPrimeiroItem(cbPesquisaCampo);
                 SelecionarPrimeiroItem(cbCondicao);
             }
@@ -60,33 +59,36 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
+
         // 🔥 MÉTODO PARA SELECIONAR PRIMEIRO ITEM
         private void SelecionarPrimeiroItem(CuoreUI.Controls.cuiComboBox comboBox)
         {
             try
             {
-                if (comboBox.Items != null && comboBox.Items.Length > 0)
-                {
-                    // Tenta selecionar o primeiro item por reflection
-                    var selectedItemProperty = comboBox.GetType().GetProperty("SelectedItem");
-                    if (selectedItemProperty != null)
-                    {
-                        selectedItemProperty.SetValue(comboBox, comboBox.Items[0]);
-                    }
+                if (comboBox == null || comboBox.Items == null || comboBox.Items.Length == 0)
+                    return;
 
-                    // Alternativa: tenta setar o texto
-                    var textProperty = comboBox.GetType().GetProperty("Text");
-                    if (textProperty != null)
-                    {
-                        textProperty.SetValue(comboBox, comboBox.Items[0].ToString());
-                    }
-                }
+                // Pega o primeiro item
+                var primeiro = comboBox.Items[0].ToString();
+
+                // 🔹 Atualiza a seleção visual do CuoreUI
+                comboBox.SelectedItem = primeiro;
+                comboBox.Text = primeiro;
+
+                // 🔹 Garante que o controle redesenhe corretamente
+                comboBox.Refresh();
+                comboBox.Invalidate();
+                comboBox.Update();
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Erro ao selecionar primeiro item: " + ex.Message);
             }
         }
+
+
+
+
 
         // CAPTURA CADA TECLA PRESSIONADA
         private void TbPesquisa_KeyPress(object sender, KeyPressEventArgs e)
@@ -382,35 +384,33 @@ namespace telebip_erp.Forms.Modules
 
         private void BtnLimpar_Click(object? sender, EventArgs e)
         {
-            // 🔥 LIMPA TUDO: TEXTBOX E VOLTA COMBOBOX PARA PRIMEIRO ITEM
             try
             {
-                // Limpa a textbox
                 textoPesquisa = "";
                 tbPesquisa.Text = "";
 
-                // Volta as combobox para o primeiro item
+                // força atualização visual também na CuoreUI TextBox
+                var metodoInterno = tbPesquisa.GetType().GetMethod("OnTextChanged",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                metodoInterno?.Invoke(tbPesquisa, new object[] { EventArgs.Empty });
+
+                tbPesquisa.Invalidate();
+
                 SelecionarPrimeiroItem(cbPesquisaCampo);
                 SelecionarPrimeiroItem(cbCondicao);
-            }
-            catch
-            {
-                // Se der erro, tenta por reflection
-                try
-                {
-                    var textProperty = tbPesquisa.GetType().GetProperty("Text");
-                    if (textProperty != null)
-                    {
-                        textProperty.SetValue(tbPesquisa, "");
-                    }
-                }
-                catch { }
-            }
 
-            CarregarEstoque(limitar20: true);
-            dgvEstoque.ClearSelection();
-            dgvEstoque.CurrentCell = null;
+                CarregarEstoque(limitar20: true);
+
+                dgvEstoque.ClearSelection();
+                dgvEstoque.CurrentCell = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao limpar filtros: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+
 
         public (int Id, string Nome, int Quantidade)? ObterProdutoSelecionado()
         {
