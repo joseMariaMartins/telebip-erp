@@ -1,6 +1,6 @@
-﻿namespace telebip_erp.Forms.SubForms
+﻿namespace telebip_erp.SplashScreen
 {
-    partial class FormRmvVendas
+    partial class FormSplashScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
-            // 
-            // FormRmvVendas
-            // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            FormStyle = FormStyles.ActionBar_None;
-            Name = "FormRmvVendas";
-            Padding = new Padding(3, 24, 3, 3);
-            Text = "FormRmvVendas";
-            ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Text = "FormSplashScreen";
         }
 
         #endregion

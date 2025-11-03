@@ -519,6 +519,23 @@ namespace telebip_erp
 
         private void rmvVenda_Click(object sender, EventArgs e)
         {
+            // =========================================================
+            // 🔒 VERIFICA PERMISSÃO DE USUÁRIO
+            // =========================================================
+            if (Session.NivelAcesso == 0)
+            {
+                MessageBox.Show(
+                    "O usuário atual não tem permissão para essa operação.",
+                    "Acesso Negado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            // =========================================================
+            // 📋 VERIFICAÇÕES INICIAIS
+            // =========================================================
             if (vendas == null || vendas.IsDisposed)
             {
                 MessageBox.Show("Abra a tela de Vendas para remover uma venda.");
@@ -531,6 +548,7 @@ namespace telebip_erp
                 return;
             }
 
+            // Confirmação da ação
             DialogResult result = MessageBox.Show(
                 "Deseja realmente remover a venda selecionada?",
                 "Confirmação",
@@ -541,15 +559,19 @@ namespace telebip_erp
             if (result != DialogResult.Yes)
                 return;
 
+            // =========================================================
+            // ⚙️ EXECUÇÃO DA REMOÇÃO
+            // =========================================================
             int idVenda = Convert.ToInt32(vendas.dgvVendas.CurrentRow.Cells["ID_VENDA"].Value);
 
             using var conn = DatabaseHelper.GetConnection();
             conn.Open();
 
             using var transaction = conn.BeginTransaction();
+
             try
             {
-                // 1️⃣ Obter itens da venda
+                // 1️⃣ Obter os itens da venda
                 string sqlItens = "SELECT ID_PRODUTO, QUANTIDADE FROM ITEM_VENDA WHERE ID_VENDA = @id;";
                 using var cmdItens = new SQLiteCommand(sqlItens, conn);
                 cmdItens.Parameters.AddWithValue("@id", idVenda);
@@ -575,7 +597,7 @@ namespace telebip_erp
                 cmdDelVenda.Parameters.AddWithValue("@id", idVenda);
                 cmdDelVenda.ExecuteNonQuery();
 
-                // 4️⃣ Registrar saída manual na MOVIMENTACAO_ESTOQUE
+                // 4️⃣ Registrar a movimentação de estoque
                 foreach (var item in itens)
                 {
                     string sqlMov = @"
@@ -587,25 +609,39 @@ namespace telebip_erp
                     using var cmdMov = new SQLiteCommand(sqlMov, conn);
                     cmdMov.Parameters.AddWithValue("@idProduto", item.idProduto);
                     cmdMov.Parameters.AddWithValue("@idVenda", idVenda);
-                    cmdMov.Parameters.AddWithValue("@nome", "GERENTE");
-                    cmdMov.Parameters.AddWithValue("@tipo", "SAIDA"); // porque é remoção
+                    cmdMov.Parameters.AddWithValue("@nome", "GERENTE"); // 👈 sempre GERENTE porque só ele pode remover
+                    cmdMov.Parameters.AddWithValue("@tipo", "SAIDA");   // Saída de estoque
                     cmdMov.Parameters.AddWithValue("@quantidade", item.quantidade);
                     cmdMov.Parameters.AddWithValue("@data", DateTime.Now.ToString("dd-MM-yyyy HH:mm"));
                     cmdMov.ExecuteNonQuery();
                 }
 
+                // Confirma a transação
                 transaction.Commit();
-                MessageBox.Show("Venda removida e movimentação registrada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Atualiza DataGridView
+                MessageBox.Show(
+                    "Venda removida e movimentação registrada com sucesso!",
+                    "Sucesso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                // Atualiza a tabela de vendas
                 vendas.AtualizarTabela();
             }
             catch (Exception ex)
             {
+                // Reverte em caso de erro
                 transaction.Rollback();
-                MessageBox.Show("Erro ao remover a venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Erro ao remover a venda: " + ex.Message,
+                    "Erro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
+
 
     }
 }

@@ -1,3 +1,5 @@
+using telebip_erp.Forms.Auth;
+
 namespace telebip_erp
 {
     internal static class Program
@@ -11,7 +13,7 @@ namespace telebip_erp
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FormBase());
+            Application.Run(new FormLogin());
         }
     }
 }
