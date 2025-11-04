@@ -2,16 +2,10 @@
 {
     partial class FormEstoque
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
         #region Windows Form Designer generated code
 
@@ -20,6 +14,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormEstoque));
             pnlContainer = new Panel();
             pnlDgv = new Panel();
             dgvEstoque = new DataGridView();
@@ -28,9 +23,21 @@
             pnlFiltros = new Panel();
             btnLimpar = new CuoreUI.Controls.cuiButton();
             btnPesquisar = new CuoreUI.Controls.cuiButton();
-            tbPesquisa = new CuoreUI.Controls.cuiTextBox();
-            cbCondicao = new CuoreUI.Controls.cuiComboBox();
-            cbPesquisaCampo = new CuoreUI.Controls.cuiComboBox();
+            pnlWrapperCampo = new Panel();
+            panel6 = new Panel();
+            panel5 = new Panel();
+            panel4 = new Panel();
+            picArrowCampo = new PictureBox();
+            cbPesquisaCampo = new ComboBox();
+            pnlWrapperCondicao = new Panel();
+            picArrowCondicao = new PictureBox();
+            panel3 = new Panel();
+            panel2 = new Panel();
+            panel1 = new Panel();
+            cbCondicao = new ComboBox();
+            pnlWrapperPesquisa = new Panel();
+            picSearch = new PictureBox();
+            tbPesquisa = new TextBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             pnlContainer.SuspendLayout();
@@ -38,6 +45,12 @@
             ((System.ComponentModel.ISupportInitialize)dgvEstoque).BeginInit();
             pnlBottom.SuspendLayout();
             pnlFiltros.SuspendLayout();
+            pnlWrapperCampo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picArrowCampo).BeginInit();
+            pnlWrapperCondicao.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picArrowCondicao).BeginInit();
+            pnlWrapperPesquisa.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picSearch).BeginInit();
             pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
@@ -59,10 +72,10 @@
             pnlDgv.BackColor = Color.FromArgb(28, 29, 40);
             pnlDgv.Controls.Add(dgvEstoque);
             pnlDgv.Dock = DockStyle.Fill;
-            pnlDgv.Location = new Point(0, 128);
+            pnlDgv.Location = new Point(0, 126);
             pnlDgv.Name = "pnlDgv";
             pnlDgv.Padding = new Padding(15);
-            pnlDgv.Size = new Size(1358, 428);
+            pnlDgv.Size = new Size(1358, 430);
             pnlDgv.TabIndex = 4;
             // 
             // dgvEstoque
@@ -75,11 +88,11 @@
             dgvEstoque.BorderStyle = BorderStyle.None;
             dgvEstoque.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvEstoque.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(100, 88, 255);
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.Padding = new Padding(5);
+            dataGridViewCellStyle1.Padding = new Padding(8);
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(100, 88, 255);
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
@@ -87,11 +100,12 @@
             dgvEstoque.ColumnHeadersHeight = 40;
             dgvEstoque.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.White;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(40, 41, 52);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(8, 0, 8, 0);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dgvEstoque.DefaultCellStyle = dataGridViewCellStyle2;
             dgvEstoque.Dock = DockStyle.Fill;
@@ -104,15 +118,15 @@
             dgvEstoque.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvEstoque.RowHeadersVisible = false;
             dgvEstoque.RowHeadersWidth = 62;
-            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(40, 41, 52);
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
             dgvEstoque.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            dgvEstoque.RowTemplate.Height = 35;
+            dgvEstoque.RowTemplate.Height = 36;
             dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvEstoque.Size = new Size(1328, 398);
+            dgvEstoque.Size = new Size(1328, 400);
             dgvEstoque.TabIndex = 0;
             dgvEstoque.CellDoubleClick += DgvEstoque_CellDoubleClick;
             // 
@@ -144,32 +158,32 @@
             pnlFiltros.BackColor = Color.FromArgb(32, 33, 39);
             pnlFiltros.Controls.Add(btnLimpar);
             pnlFiltros.Controls.Add(btnPesquisar);
-            pnlFiltros.Controls.Add(tbPesquisa);
-            pnlFiltros.Controls.Add(cbCondicao);
-            pnlFiltros.Controls.Add(cbPesquisaCampo);
+            pnlFiltros.Controls.Add(pnlWrapperCampo);
+            pnlFiltros.Controls.Add(pnlWrapperCondicao);
+            pnlFiltros.Controls.Add(pnlWrapperPesquisa);
             pnlFiltros.Dock = DockStyle.Top;
             pnlFiltros.Location = new Point(0, 71);
             pnlFiltros.Name = "pnlFiltros";
             pnlFiltros.Padding = new Padding(10, 10, 10, 15);
-            pnlFiltros.Size = new Size(1358, 57);
+            pnlFiltros.Size = new Size(1358, 55);
             pnlFiltros.TabIndex = 7;
             // 
             // btnLimpar
             // 
             btnLimpar.CheckButton = false;
             btnLimpar.Checked = false;
-            btnLimpar.CheckedBackground = Color.FromArgb(120, 40, 40);
+            btnLimpar.CheckedBackground = Color.FromArgb(255, 106, 0);
             btnLimpar.CheckedForeColor = Color.White;
             btnLimpar.CheckedImageTint = Color.White;
-            btnLimpar.CheckedOutline = Color.FromArgb(120, 40, 40);
+            btnLimpar.CheckedOutline = Color.FromArgb(255, 106, 0);
             btnLimpar.Content = "Limpar";
             btnLimpar.DialogResult = DialogResult.None;
             btnLimpar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnLimpar.ForeColor = Color.White;
-            btnLimpar.HoverBackground = Color.FromArgb(160, 60, 60);
-            btnLimpar.HoverForeColor = Color.White;
+            btnLimpar.HoverBackground = Color.White;
+            btnLimpar.HoverForeColor = Color.Black;
             btnLimpar.HoverImageTint = Color.White;
-            btnLimpar.HoverOutline = Color.FromArgb(200, 80, 80);
+            btnLimpar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnLimpar.Image = null;
             btnLimpar.ImageAutoCenter = true;
             btnLimpar.ImageExpand = new Point(0, 0);
@@ -180,12 +194,12 @@
             btnLimpar.NormalBackground = Color.FromArgb(120, 40, 40);
             btnLimpar.NormalForeColor = Color.White;
             btnLimpar.NormalImageTint = Color.White;
-            btnLimpar.NormalOutline = Color.FromArgb(120, 40, 40);
+            btnLimpar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnLimpar.OutlineThickness = 1F;
-            btnLimpar.PressedBackground = Color.FromArgb(100, 30, 30);
-            btnLimpar.PressedForeColor = Color.White;
+            btnLimpar.PressedBackground = Color.WhiteSmoke;
+            btnLimpar.PressedForeColor = Color.FromArgb(32, 32, 32);
             btnLimpar.PressedImageTint = Color.White;
-            btnLimpar.PressedOutline = Color.FromArgb(100, 30, 30);
+            btnLimpar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnLimpar.Rounding = new Padding(8);
             btnLimpar.Size = new Size(120, 36);
             btnLimpar.TabIndex = 14;
@@ -196,18 +210,18 @@
             // 
             btnPesquisar.CheckButton = false;
             btnPesquisar.Checked = false;
-            btnPesquisar.CheckedBackground = Color.FromArgb(40, 120, 80);
+            btnPesquisar.CheckedBackground = Color.FromArgb(255, 106, 0);
             btnPesquisar.CheckedForeColor = Color.White;
             btnPesquisar.CheckedImageTint = Color.White;
-            btnPesquisar.CheckedOutline = Color.FromArgb(40, 120, 80);
+            btnPesquisar.CheckedOutline = Color.FromArgb(255, 106, 0);
             btnPesquisar.Content = "Pesquisar";
             btnPesquisar.DialogResult = DialogResult.None;
             btnPesquisar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnPesquisar.ForeColor = Color.White;
-            btnPesquisar.HoverBackground = Color.FromArgb(60, 160, 100);
-            btnPesquisar.HoverForeColor = Color.White;
+            btnPesquisar.HoverBackground = Color.White;
+            btnPesquisar.HoverForeColor = Color.Black;
             btnPesquisar.HoverImageTint = Color.White;
-            btnPesquisar.HoverOutline = Color.FromArgb(80, 200, 120);
+            btnPesquisar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnPesquisar.Image = null;
             btnPesquisar.ImageAutoCenter = true;
             btnPesquisar.ImageExpand = new Point(0, 0);
@@ -218,113 +232,174 @@
             btnPesquisar.NormalBackground = Color.FromArgb(40, 120, 80);
             btnPesquisar.NormalForeColor = Color.White;
             btnPesquisar.NormalImageTint = Color.White;
-            btnPesquisar.NormalOutline = Color.FromArgb(40, 120, 80);
+            btnPesquisar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnPesquisar.OutlineThickness = 1F;
-            btnPesquisar.PressedBackground = Color.FromArgb(30, 100, 60);
-            btnPesquisar.PressedForeColor = Color.White;
+            btnPesquisar.PressedBackground = Color.WhiteSmoke;
+            btnPesquisar.PressedForeColor = Color.FromArgb(32, 32, 32);
             btnPesquisar.PressedImageTint = Color.White;
-            btnPesquisar.PressedOutline = Color.FromArgb(30, 100, 60);
+            btnPesquisar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnPesquisar.Rounding = new Padding(8);
             btnPesquisar.Size = new Size(120, 36);
             btnPesquisar.TabIndex = 9;
             btnPesquisar.TextAlignment = StringAlignment.Center;
             btnPesquisar.TextOffset = new Point(0, 0);
             // 
-            // tbPesquisa
+            // pnlWrapperCampo
             // 
-            tbPesquisa.BackColor = Color.FromArgb(40, 41, 52);
-            tbPesquisa.BackgroundColor = Color.White;
-            tbPesquisa.Content = "";
-            tbPesquisa.Cursor = Cursors.IBeam;
-            tbPesquisa.FocusBackgroundColor = Color.White;
-            tbPesquisa.FocusImageTint = Color.FromArgb(40, 41, 52);
-            tbPesquisa.FocusOutlineColor = Color.FromArgb(40, 41, 52);
-            tbPesquisa.Font = new Font("Segoe UI", 9F);
-            tbPesquisa.ForeColor = Color.Black;
-            tbPesquisa.Image = null;
-            tbPesquisa.ImageExpand = new Point(0, 0);
-            tbPesquisa.ImageOffset = new Point(0, 0);
-            tbPesquisa.Location = new Point(378, 10);
-            tbPesquisa.Margin = new Padding(3, 0, 10, 0);
-            tbPesquisa.Multiline = false;
-            tbPesquisa.Name = "tbPesquisa";
-            tbPesquisa.NormalImageTint = Color.FromArgb(40, 41, 52);
-            tbPesquisa.OutlineColor = Color.FromArgb(128, 128, 128, 128);
-            tbPesquisa.Padding = new Padding(16, 10, 16, 0);
-            tbPesquisa.PasswordChar = false;
-            tbPesquisa.PlaceholderColor = SystemColors.WindowText;
-            tbPesquisa.PlaceholderText = "Digite para pesquisar...";
-            tbPesquisa.Rounding = new Padding(8);
-            tbPesquisa.Size = new Size(235, 36);
-            tbPesquisa.TabIndex = 7;
-            tbPesquisa.TextOffset = new Size(0, 0);
-            tbPesquisa.UnderlinedStyle = true;
+            pnlWrapperCampo.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCampo.Controls.Add(panel6);
+            pnlWrapperCampo.Controls.Add(panel5);
+            pnlWrapperCampo.Controls.Add(panel4);
+            pnlWrapperCampo.Controls.Add(picArrowCampo);
+            pnlWrapperCampo.Controls.Add(cbPesquisaCampo);
+            pnlWrapperCampo.Location = new Point(13, 10);
+            pnlWrapperCampo.Name = "pnlWrapperCampo";
+            pnlWrapperCampo.Padding = new Padding(8, 6, 30, 6);
+            pnlWrapperCampo.Size = new Size(169, 36);
+            pnlWrapperCampo.TabIndex = 50;
             // 
-            // cbCondicao
+            // panel6
             // 
-            cbCondicao.BackgroundColor = Color.FromArgb(40, 41, 52);
-            cbCondicao.ButtonCursor = Cursors.Arrow;
-            cbCondicao.ButtonHoverBackground = Color.FromArgb(18, 18, 18);
-            cbCondicao.ButtonHoverOutline = Color.Empty;
-            cbCondicao.ButtonNormalBackground = Color.FromArgb(35, 34, 42);
-            cbCondicao.ButtonNormalOutline = Color.Empty;
-            cbCondicao.ButtonPressedBackground = Color.FromArgb(60, 59, 67);
-            cbCondicao.ButtonPressedOutline = Color.Empty;
-            cbCondicao.DropDownBackgroundColor = Color.FromArgb(40, 41, 52);
-            cbCondicao.DropDownOutlineColor = Color.FromArgb(30, 255, 255, 255);
-            cbCondicao.ExpandArrowColor = Color.White;
-            cbCondicao.ForeColor = Color.White;
-            cbCondicao.Items = new string[]
-    {
-    "Inicia com",
-    "Contendo",
-    "Diferente de"
-    };
-            cbCondicao.Location = new Point(195, 10);
-            cbCondicao.Margin = new Padding(3, 0, 10, 0);
-            cbCondicao.Name = "cbCondicao";
-            cbCondicao.NoSelectionDropdownText = "Selecione a condição";
-            cbCondicao.NoSelectionText = "";
-            cbCondicao.OutlineColor = Color.FromArgb(60, 62, 80);
-            cbCondicao.OutlineThickness = 1F;
-            cbCondicao.Rounding = 8;
-            cbCondicao.Size = new Size(169, 36);
-            cbCondicao.TabIndex = 11;
+            panel6.Location = new Point(5, 4);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(157, 4);
+            panel6.TabIndex = 15;
+            // 
+            // panel5
+            // 
+            panel5.Location = new Point(6, 3);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(4, 30);
+            panel5.TabIndex = 14;
+            // 
+            // panel4
+            // 
+            panel4.Location = new Point(6, 27);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(157, 6);
+            panel4.TabIndex = 13;
+            // 
+            // picArrowCampo
+            // 
+            picArrowCampo.BackColor = Color.FromArgb(40, 41, 52);
+            picArrowCampo.Location = new Point(141, 6);
+            picArrowCampo.Name = "picArrowCampo";
+            picArrowCampo.Size = new Size(24, 24);
+            picArrowCampo.SizeMode = PictureBoxSizeMode.CenterImage;
+            picArrowCampo.TabIndex = 1;
+            picArrowCampo.TabStop = false;
             // 
             // cbPesquisaCampo
             // 
-            cbPesquisaCampo.BackgroundColor = Color.FromArgb(40, 41, 52);
-            cbPesquisaCampo.ButtonCursor = Cursors.Arrow;
-            cbPesquisaCampo.ButtonHoverBackground = Color.FromArgb(18, 18, 18);
-            cbPesquisaCampo.ButtonHoverOutline = Color.Empty;
-            cbPesquisaCampo.ButtonNormalBackground = Color.FromArgb(35, 34, 42);
-            cbPesquisaCampo.ButtonNormalOutline = Color.Empty;
-            cbPesquisaCampo.ButtonPressedBackground = Color.FromArgb(60, 59, 67);
-            cbPesquisaCampo.ButtonPressedOutline = Color.Empty;
-            cbPesquisaCampo.DropDownBackgroundColor = Color.FromArgb(40, 41, 52);
-            cbPesquisaCampo.DropDownOutlineColor = Color.FromArgb(30, 255, 255, 255);
-            cbPesquisaCampo.ExpandArrowColor = Color.White;
+            cbPesquisaCampo.BackColor = Color.FromArgb(40, 41, 52);
+            cbPesquisaCampo.DrawMode = DrawMode.OwnerDrawFixed;
+            cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbPesquisaCampo.FlatStyle = FlatStyle.Flat;
+            cbPesquisaCampo.Font = new Font("Segoe UI", 9F);
             cbPesquisaCampo.ForeColor = Color.White;
-            cbPesquisaCampo.Items = new string[]
-    {
-    "ID",
-    "Nome",
-    "Marca",
-    "Preço",
-    "Qtd do estoque",
-    "Qtd de aviso",
-    "Observação"
-    };
-            cbPesquisaCampo.Location = new Point(13, 10);
+            cbPesquisaCampo.FormattingEnabled = true;
+            cbPesquisaCampo.Items.AddRange(new object[] { "ID", "Nome", "Marca", "Preço", "Qtd do estoque", "Qtd de aviso", "Observação" });
+            cbPesquisaCampo.Location = new Point(8, 6);
             cbPesquisaCampo.Margin = new Padding(3, 0, 10, 0);
             cbPesquisaCampo.Name = "cbPesquisaCampo";
-            cbPesquisaCampo.NoSelectionDropdownText = "Selecione o campo";
-            cbPesquisaCampo.NoSelectionText = "";
-            cbPesquisaCampo.OutlineColor = Color.FromArgb(60, 62, 80);
-            cbPesquisaCampo.OutlineThickness = 1F;
-            cbPesquisaCampo.Rounding = 8;
-            cbPesquisaCampo.Size = new Size(169, 36);
+            cbPesquisaCampo.Size = new Size(156, 24);
             cbPesquisaCampo.TabIndex = 12;
+            // 
+            // pnlWrapperCondicao
+            // 
+            pnlWrapperCondicao.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCondicao.Controls.Add(picArrowCondicao);
+            pnlWrapperCondicao.Controls.Add(panel3);
+            pnlWrapperCondicao.Controls.Add(panel2);
+            pnlWrapperCondicao.Controls.Add(panel1);
+            pnlWrapperCondicao.Controls.Add(cbCondicao);
+            pnlWrapperCondicao.Location = new Point(195, 10);
+            pnlWrapperCondicao.Name = "pnlWrapperCondicao";
+            pnlWrapperCondicao.Padding = new Padding(8, 6, 30, 6);
+            pnlWrapperCondicao.Size = new Size(169, 36);
+            pnlWrapperCondicao.TabIndex = 51;
+            // 
+            // picArrowCondicao
+            // 
+            picArrowCondicao.BackColor = Color.FromArgb(40, 41, 52);
+            picArrowCondicao.ErrorImage = (Image)resources.GetObject("picArrowCondicao.ErrorImage");
+            picArrowCondicao.Location = new Point(140, 6);
+            picArrowCondicao.Name = "picArrowCondicao";
+            picArrowCondicao.Size = new Size(24, 24);
+            picArrowCondicao.SizeMode = PictureBoxSizeMode.Zoom;
+            picArrowCondicao.TabIndex = 1;
+            picArrowCondicao.TabStop = false;
+            // 
+            // panel3
+            // 
+            panel3.Location = new Point(6, 3);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(4, 30);
+            panel3.TabIndex = 14;
+            // 
+            // panel2
+            // 
+            panel2.Location = new Point(7, 6);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(157, 4);
+            panel2.TabIndex = 13;
+            // 
+            // panel1
+            // 
+            panel1.Location = new Point(6, 27);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(157, 6);
+            panel1.TabIndex = 12;
+            // 
+            // cbCondicao
+            // 
+            cbCondicao.BackColor = Color.FromArgb(40, 41, 52);
+            cbCondicao.DrawMode = DrawMode.OwnerDrawFixed;
+            cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCondicao.FlatStyle = FlatStyle.Flat;
+            cbCondicao.Font = new Font("Segoe UI", 9F);
+            cbCondicao.ForeColor = Color.White;
+            cbCondicao.FormattingEnabled = true;
+            cbCondicao.Items.AddRange(new object[] { "Inicia com", "Contendo", "Diferente de" });
+            cbCondicao.Location = new Point(8, 6);
+            cbCondicao.Margin = new Padding(3, 0, 10, 0);
+            cbCondicao.Name = "cbCondicao";
+            cbCondicao.Size = new Size(156, 24);
+            cbCondicao.TabIndex = 11;
+            // 
+            // pnlWrapperPesquisa
+            // 
+            pnlWrapperPesquisa.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPesquisa.Controls.Add(picSearch);
+            pnlWrapperPesquisa.Controls.Add(tbPesquisa);
+            pnlWrapperPesquisa.Location = new Point(377, 10);
+            pnlWrapperPesquisa.Name = "pnlWrapperPesquisa";
+            pnlWrapperPesquisa.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperPesquisa.Size = new Size(235, 36);
+            pnlWrapperPesquisa.TabIndex = 52;
+            // 
+            // picSearch
+            // 
+            picSearch.BackColor = Color.Transparent;
+            picSearch.Dock = DockStyle.Right;
+            picSearch.Location = new Point(203, 6);
+            picSearch.Name = "picSearch";
+            picSearch.Size = new Size(24, 24);
+            picSearch.SizeMode = PictureBoxSizeMode.CenterImage;
+            picSearch.TabIndex = 1;
+            picSearch.TabStop = false;
+            // 
+            // tbPesquisa
+            // 
+            tbPesquisa.BackColor = Color.FromArgb(40, 41, 52);
+            tbPesquisa.BorderStyle = BorderStyle.None;
+            tbPesquisa.Font = new Font("Segoe UI", 9F);
+            tbPesquisa.ForeColor = Color.White;
+            tbPesquisa.Location = new Point(8, 10);
+            tbPesquisa.Margin = new Padding(3, 0, 10, 0);
+            tbPesquisa.Name = "tbPesquisa";
+            tbPesquisa.Size = new Size(219, 16);
+            tbPesquisa.TabIndex = 7;
             // 
             // pnlHeader
             // 
@@ -365,24 +440,48 @@
             ((System.ComponentModel.ISupportInitialize)dgvEstoque).EndInit();
             pnlBottom.ResumeLayout(false);
             pnlFiltros.ResumeLayout(false);
+            pnlWrapperCampo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picArrowCampo).EndInit();
+            pnlWrapperCondicao.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picArrowCondicao).EndInit();
+            pnlWrapperPesquisa.ResumeLayout(false);
+            pnlWrapperPesquisa.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
             pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
+
         }
 
         #endregion
 
-        private Panel pnlContainer;
-        private Panel pnlDgv;
-        private DataGridView dgvEstoque;
-        private Panel pnlBottom;
-        private Label lbTotal;
-        private Panel pnlFiltros;
+        private System.Windows.Forms.Panel pnlContainer;
+        private System.Windows.Forms.Panel pnlDgv;
+        public System.Windows.Forms.DataGridView dgvEstoque;
+        private System.Windows.Forms.Panel pnlBottom;
+        private System.Windows.Forms.Label lbTotal;
+        private System.Windows.Forms.Panel pnlFiltros;
         private CuoreUI.Controls.cuiButton btnLimpar;
         private CuoreUI.Controls.cuiButton btnPesquisar;
-        private CuoreUI.Controls.cuiTextBox tbPesquisa;
-        private CuoreUI.Controls.cuiComboBox cbCondicao;
-        private CuoreUI.Controls.cuiComboBox cbPesquisaCampo;
-        private Panel pnlHeader;
-        private Label lblTitulo;
+        private System.Windows.Forms.Panel pnlHeader;
+        private System.Windows.Forms.Label lblTitulo;
+
+        // novos wrappers e controles para "maquiagem"
+        private System.Windows.Forms.Panel pnlWrapperCampo;
+        private System.Windows.Forms.PictureBox picArrowCampo;
+        private System.Windows.Forms.ComboBox cbPesquisaCampo;
+
+        private System.Windows.Forms.Panel pnlWrapperCondicao;
+        private System.Windows.Forms.PictureBox picArrowCondicao;
+        private System.Windows.Forms.ComboBox cbCondicao;
+
+        private System.Windows.Forms.Panel pnlWrapperPesquisa;
+        private System.Windows.Forms.PictureBox picSearch;
+        private System.Windows.Forms.TextBox tbPesquisa;
+        private Panel panel3;
+        private Panel panel2;
+        private Panel panel1;
+        private Panel panel5;
+        private Panel panel4;
+        private Panel panel6;
     }
 }

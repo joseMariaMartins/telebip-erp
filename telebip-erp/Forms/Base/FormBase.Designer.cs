@@ -105,7 +105,7 @@
             pnlSidebar.ForeColor = Color.FromArgb(23, 24, 29);
             pnlSidebar.Location = new Point(3, 24);
             pnlSidebar.Name = "pnlSidebar";
-            pnlSidebar.Size = new Size(277, 873);
+            pnlSidebar.Size = new Size(277, 644);
             pnlSidebar.TabIndex = 1;
             // 
             // pnlHome
@@ -446,14 +446,14 @@
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(280, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(1317, 873);
+            pnlContainer.Size = new Size(915, 644);
             pnlContainer.TabIndex = 3;
             // 
             // FormBase
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1600, 900);
+            ClientSize = new Size(1198, 671);
             Controls.Add(pnlContainer);
             Controls.Add(pnlSidebar);
             Controls.Add(btnHam);
