@@ -75,7 +75,7 @@
             pnlDgv.Location = new Point(0, 126);
             pnlDgv.Name = "pnlDgv";
             pnlDgv.Padding = new Padding(15);
-            pnlDgv.Size = new Size(1358, 430);
+            pnlDgv.Size = new Size(1358, 485);
             pnlDgv.TabIndex = 4;
             // 
             // dgvEstoque
@@ -126,7 +126,7 @@
             dgvEstoque.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvEstoque.RowTemplate.Height = 36;
             dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvEstoque.Size = new Size(1328, 400);
+            dgvEstoque.Size = new Size(1328, 455);
             dgvEstoque.TabIndex = 0;
             dgvEstoque.CellDoubleClick += DgvEstoque_CellDoubleClick;
             // 
@@ -135,10 +135,10 @@
             pnlBottom.BackColor = Color.FromArgb(32, 33, 39);
             pnlBottom.Controls.Add(lbTotal);
             pnlBottom.Dock = DockStyle.Bottom;
-            pnlBottom.Location = new Point(0, 556);
+            pnlBottom.Location = new Point(0, 611);
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Padding = new Padding(15);
-            pnlBottom.Size = new Size(1358, 104);
+            pnlBottom.Size = new Size(1358, 49);
             pnlBottom.TabIndex = 5;
             // 
             // lbTotal
@@ -148,7 +148,7 @@
             lbTotal.ForeColor = Color.White;
             lbTotal.Location = new Point(1143, 15);
             lbTotal.Name = "lbTotal";
-            lbTotal.Size = new Size(200, 74);
+            lbTotal.Size = new Size(200, 19);
             lbTotal.TabIndex = 0;
             lbTotal.Text = "Total: 0 produtos";
             lbTotal.TextAlign = ContentAlignment.MiddleRight;

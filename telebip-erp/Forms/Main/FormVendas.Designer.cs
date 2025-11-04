@@ -72,7 +72,7 @@
             pnlDgv.Location = new Point(0, 128);
             pnlDgv.Name = "pnlDgv";
             pnlDgv.Padding = new Padding(15);
-            pnlDgv.Size = new Size(1597, 475);
+            pnlDgv.Size = new Size(1597, 532);
             pnlDgv.TabIndex = 4;
             // 
             // dgvVendas
@@ -121,7 +121,7 @@
             dgvVendas.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dgvVendas.RowTemplate.Height = 35;
             dgvVendas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvVendas.Size = new Size(1567, 445);
+            dgvVendas.Size = new Size(1567, 502);
             dgvVendas.TabIndex = 0;
             dgvVendas.CellDoubleClick += dgvVendas_CellDoubleClick;
             // 
@@ -130,10 +130,10 @@
             pnlBottom.BackColor = Color.FromArgb(32, 33, 39);
             pnlBottom.Controls.Add(lbTotal);
             pnlBottom.Dock = DockStyle.Bottom;
-            pnlBottom.Location = new Point(0, 603);
+            pnlBottom.Location = new Point(0, 660);
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Padding = new Padding(15);
-            pnlBottom.Size = new Size(1597, 104);
+            pnlBottom.Size = new Size(1597, 47);
             pnlBottom.TabIndex = 5;
             // 
             // lbTotal
@@ -143,7 +143,7 @@
             lbTotal.ForeColor = Color.White;
             lbTotal.Location = new Point(1382, 15);
             lbTotal.Name = "lbTotal";
-            lbTotal.Size = new Size(200, 74);
+            lbTotal.Size = new Size(200, 17);
             lbTotal.TabIndex = 0;
             lbTotal.Text = "Total: 0 vendas";
             lbTotal.TextAlign = ContentAlignment.MiddleRight;
