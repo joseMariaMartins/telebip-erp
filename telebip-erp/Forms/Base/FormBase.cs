@@ -7,6 +7,9 @@ using System.Windows.Forms;
 using telebip_erp.Forms.Main;
 using telebip_erp.Forms.Modules;
 using telebip_erp.Forms.SubForms;
+using System.IO;
+
+
 
 namespace telebip_erp
 {
@@ -30,6 +33,12 @@ namespace telebip_erp
         // Variáveis para controle de callback
         private Action? callbackAposFecharDropdown = null;
         private bool aguardandoFechamentoDropdown = false;
+        private readonly string caminhoBanco = Path.Combine(
+            Application.StartupPath, "Database", "TeleBipDB.db"
+        );
+        public string UltimaPastaBackup { get; set; } = ConfigHelper.GetSetting("UltimaPastaBackup") ?? "";
+
+
 
         // ========== CONSTRUTOR ==========
         public FormBase()
@@ -639,6 +648,29 @@ namespace telebip_erp
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
+            }
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            try
+            {
+                if (!File.Exists(caminhoBanco))
+                    return;
+
+                // Se o usuário já escolheu uma pasta pra backup manualmente
+                if (!string.IsNullOrEmpty(UltimaPastaBackup) && Directory.Exists(UltimaPastaBackup))
+                {
+                    string nomeArquivo = $"TeleBipDB_AutoBackup_{DateTime.Now:yyyyMMdd_HHmmss}.db";
+                    string caminhoDestino = Path.Combine(UltimaPastaBackup, nomeArquivo);
+
+                    File.Copy(caminhoBanco, caminhoDestino, true);
+                }
+            }
+            catch
+            {
+                // Silencioso: evita travamento se der erro ao fechar
             }
         }
 
