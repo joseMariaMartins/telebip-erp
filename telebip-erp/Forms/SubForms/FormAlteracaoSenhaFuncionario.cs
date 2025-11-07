@@ -24,22 +24,22 @@ namespace telebip_erp.Forms.SubForms
         // ==========================
         private void BtnOlhos_MouseDown(object sender, MouseEventArgs e)
         {
-            tbSenhaFuncionario.PasswordChar = '\0'; // Mostra senha
+            tbSenhaFuncionario.PasswordChar = '\0';
         }
 
         private void BtnOlhos_MouseUp(object sender, MouseEventArgs e)
         {
-            tbSenhaFuncionario.PasswordChar = '*'; // Oculta senha
+            tbSenhaFuncionario.PasswordChar = '*';
         }
 
         private void BtnOlhos2_MouseDown(object sender, MouseEventArgs e)
         {
-            tbSenhaNovamente.PasswordChar = '\0'; // Mostra confirmação
+            tbSenhaNovamente.PasswordChar = '\0';
         }
 
         private void BtnOlhos2_MouseUp(object sender, MouseEventArgs e)
         {
-            tbSenhaNovamente.PasswordChar = '*'; // Oculta confirmação
+            tbSenhaNovamente.PasswordChar = '*';
         }
 
         // ==========================
@@ -50,6 +50,7 @@ namespace telebip_erp.Forms.SubForms
             string novaSenha = tbSenhaFuncionario.Text.Trim();
             string confirmarSenha = tbSenhaNovamente.Text.Trim();
 
+            // Validações
             if (string.IsNullOrWhiteSpace(novaSenha) || string.IsNullOrWhiteSpace(confirmarSenha))
             {
                 MessageBox.Show("Preencha ambos os campos de senha.",
@@ -71,7 +72,7 @@ namespace telebip_erp.Forms.SubForms
                 return;
             }
 
-            // ⚠️ Confirmação antes de alterar
+            // Confirmação final
             DialogResult confirmacao = MessageBox.Show(
                 "Tem certeza que deseja alterar a senha do funcionário?",
                 "Confirmar alteração",
@@ -80,15 +81,15 @@ namespace telebip_erp.Forms.SubForms
             );
 
             if (confirmacao != DialogResult.Yes)
-            {
-                return; // Cancela se o usuário clicar em "Não"
-            }
+                return;
+
+            // 🔐 Criptografa a senha antes de salvar
+            string novaSenhaHash = CryptoHelper.GerarHashSHA256(novaSenha);
 
             string sql = "UPDATE USUARIO SET SENHA = @senha WHERE NIVEL_ACESSO = 0";
-
             var param = new SQLiteParameter[]
             {
-                new SQLiteParameter("@senha", novaSenha)
+                new SQLiteParameter("@senha", novaSenhaHash)
             };
 
             try
@@ -99,8 +100,13 @@ namespace telebip_erp.Forms.SubForms
                 {
                     MessageBox.Show("Senha do funcionário alterada com sucesso!",
                         "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     tbSenhaFuncionario.Clear();
                     tbSenhaNovamente.Clear();
+                    tbSenhaFuncionario.Focus();
+
+                    // Fecha o formulário após sucesso
+                    this.Close();
                 }
                 else
                 {

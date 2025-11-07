@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             lbUsuario = new Guna.UI2.WinForms.Guna2TextBox();
             lbSenha = new Guna.UI2.WinForms.Guna2TextBox();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            lbEsqueci = new Guna.UI2.WinForms.Guna2HtmlLabel();
             btnLogin = new Guna.UI2.WinForms.Guna2Button();
             lbUsuarioInvalido = new Guna.UI2.WinForms.Guna2HtmlLabel();
             lbSenhaInvalida = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lbEsqueci = new Label();
             SuspendLayout();
             // 
             // lbUsuario
             // 
-            lbUsuario.CustomizableEdges = customizableEdges1;
+            lbUsuario.CustomizableEdges = customizableEdges7;
             lbUsuario.DefaultText = "";
             lbUsuario.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             lbUsuario.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -60,13 +60,13 @@
             lbUsuario.Name = "lbUsuario";
             lbUsuario.PlaceholderText = "";
             lbUsuario.SelectedText = "";
-            lbUsuario.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            lbUsuario.ShadowDecoration.CustomizableEdges = customizableEdges8;
             lbUsuario.Size = new Size(276, 36);
             lbUsuario.TabIndex = 0;
             // 
             // lbSenha
             // 
-            lbSenha.CustomizableEdges = customizableEdges3;
+            lbSenha.CustomizableEdges = customizableEdges9;
             lbSenha.DefaultText = "";
             lbSenha.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             lbSenha.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -81,7 +81,7 @@
             lbSenha.PasswordChar = '*';
             lbSenha.PlaceholderText = "";
             lbSenha.SelectedText = "";
-            lbSenha.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            lbSenha.ShadowDecoration.CustomizableEdges = customizableEdges10;
             lbSenha.Size = new Size(276, 36);
             lbSenha.TabIndex = 1;
             // 
@@ -105,23 +105,12 @@
             guna2HtmlLabel2.TabIndex = 5;
             guna2HtmlLabel2.Text = "Senha:";
             // 
-            // lbEsqueci
-            // 
-            lbEsqueci.BackColor = Color.Transparent;
-            lbEsqueci.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbEsqueci.ForeColor = Color.Blue;
-            lbEsqueci.Location = new Point(323, 166);
-            lbEsqueci.Name = "lbEsqueci";
-            lbEsqueci.Size = new Size(96, 19);
-            lbEsqueci.TabIndex = 6;
-            lbEsqueci.Text = "Esqueci a senha";
-            // 
             // btnLogin
             // 
             btnLogin.BackColor = Color.Transparent;
             btnLogin.BorderColor = Color.Transparent;
             btnLogin.BorderRadius = 10;
-            btnLogin.CustomizableEdges = customizableEdges5;
+            btnLogin.CustomizableEdges = customizableEdges11;
             btnLogin.DisabledState.BorderColor = Color.DarkGray;
             btnLogin.DisabledState.CustomBorderColor = Color.DarkGray;
             btnLogin.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -131,7 +120,7 @@
             btnLogin.ForeColor = Color.White;
             btnLogin.Location = new Point(290, 200);
             btnLogin.Name = "btnLogin";
-            btnLogin.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnLogin.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnLogin.Size = new Size(129, 45);
             btnLogin.TabIndex = 7;
             btnLogin.Text = "Confirmar";
@@ -160,16 +149,29 @@
             lbSenhaInvalida.Text = "Senha inválida";
             lbSenhaInvalida.Visible = false;
             // 
+            // lbEsqueci
+            // 
+            lbEsqueci.AutoSize = true;
+            lbEsqueci.BackColor = Color.Transparent;
+            lbEsqueci.Cursor = Cursors.Hand;
+            lbEsqueci.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbEsqueci.ForeColor = Color.RoyalBlue;
+            lbEsqueci.Location = new Point(318, 163);
+            lbEsqueci.Name = "lbEsqueci";
+            lbEsqueci.Size = new Size(101, 17);
+            lbEsqueci.TabIndex = 10;
+            lbEsqueci.Text = "Esqueci a senha";
+            // 
             // FormLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 24, 29);
             ClientSize = new Size(543, 263);
+            Controls.Add(lbEsqueci);
             Controls.Add(lbSenhaInvalida);
             Controls.Add(lbUsuarioInvalido);
             Controls.Add(btnLogin);
-            Controls.Add(lbEsqueci);
             Controls.Add(guna2HtmlLabel2);
             Controls.Add(guna2HtmlLabel1);
             Controls.Add(lbSenha);
@@ -188,9 +190,9 @@
         private Guna.UI2.WinForms.Guna2TextBox lbSenha;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lbEsqueci;
         private Guna.UI2.WinForms.Guna2Button btnLogin;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbUsuarioInvalido;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbSenhaInvalida;
+        private Label lbEsqueci;
     }
 }

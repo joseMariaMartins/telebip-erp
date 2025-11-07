@@ -36,6 +36,9 @@
             cuiButton2 = new CuoreUI.Controls.cuiButton();
             btnOlhos = new Button();
             btnOlhos2 = new Button();
+            tbNovaSenha2 = new TextBox();
+            btnOlhos3 = new Button();
+            label3 = new Label();
             SuspendLayout();
             // 
             // tbSenhaAtual
@@ -165,11 +168,40 @@
             btnOlhos2.TabIndex = 8;
             btnOlhos2.UseVisualStyleBackColor = true;
             // 
+            // tbNovaSenha2
+            // 
+            tbNovaSenha2.Location = new Point(12, 216);
+            tbNovaSenha2.MaxLength = 50;
+            tbNovaSenha2.Name = "tbNovaSenha2";
+            tbNovaSenha2.PasswordChar = '*';
+            tbNovaSenha2.Size = new Size(218, 23);
+            tbNovaSenha2.TabIndex = 9;
+            // 
+            // btnOlhos3
+            // 
+            btnOlhos3.Location = new Point(236, 216);
+            btnOlhos3.Name = "btnOlhos3";
+            btnOlhos3.Size = new Size(23, 23);
+            btnOlhos3.TabIndex = 10;
+            btnOlhos3.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(12, 198);
+            label3.Name = "label3";
+            label3.Size = new Size(144, 15);
+            label3.TabIndex = 11;
+            label3.Text = "Digite a senha novamente";
+            // 
             // FormAlteracaoSenhaGerente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(305, 450);
+            Controls.Add(label3);
+            Controls.Add(btnOlhos3);
+            Controls.Add(tbNovaSenha2);
             Controls.Add(btnOlhos2);
             Controls.Add(btnOlhos);
             Controls.Add(cuiButton2);
@@ -194,5 +226,8 @@
         private CuoreUI.Controls.cuiButton cuiButton2;
         private Button btnOlhos;
         private Button btnOlhos2;
+        private TextBox tbNovaSenha2;
+        private Button btnOlhos3;
+        private Label label3;
     }
 }

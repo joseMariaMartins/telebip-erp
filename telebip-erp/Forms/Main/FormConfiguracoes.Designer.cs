@@ -193,7 +193,6 @@
             btnFuncionario.TabIndex = 9;
             btnFuncionario.TextAlignment = StringAlignment.Center;
             btnFuncionario.TextOffset = new Point(0, 0);
-            btnFuncionario.Click += btnFuncionario_Click;
             // 
             // label7
             // 
@@ -242,7 +241,6 @@
             btnGerente.TabIndex = 7;
             btnGerente.TextAlignment = StringAlignment.Center;
             btnGerente.TextOffset = new Point(0, 0);
-            btnGerente.Click += btnGerente_Click;
             // 
             // label6
             // 
@@ -319,7 +317,6 @@
             lbSuporte.Size = new Size(222, 21);
             lbSuporte.TabIndex = 0;
             lbSuporte.Text = "telebip.suporte@gmail.com";
-            lbSuporte.Click += lbSuporte_Click;
             // 
             // FormConfiguracoes
             // 

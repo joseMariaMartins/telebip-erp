@@ -1,27 +1,26 @@
-﻿using System;
+﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
+using telebip_erp.Forms.SubForms;
+using System;
 using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using telebip_erp.Forms.SubForms; // 👈 pra validar email
+using telebip_erp.Forms.SubForms;
 
 namespace telebip_erp.Forms.Modules
 {
     public partial class FormConfiguracoes : Form
     {
-        // Caminho dinâmico e portátil do banco de dados
-        private readonly string caminhoBanco = Path.Combine(
-            Application.StartupPath, "Database", "TeleBipDB.db"
-        );
+        private readonly string caminhoBanco = Path.Combine(Application.StartupPath, "Database", "TeleBipDB.db");
 
-        private string ultimaPastaBackup = ""; // guarda o último local do backup
-        private string emailAtual = ""; // guarda o e-mail atual salvo
+        private string ultimaPastaBackup = "";
+        private string emailAtual = "";
 
         public FormConfiguracoes()
         {
             InitializeComponent();
 
-            // Carrega o último e-mail e a última pasta salvos no App.config
             ultimaPastaBackup = ConfigHelper.GetSetting("UltimaPastaBackup") ?? "";
             emailAtual = ConfigHelper.GetSetting("EmailRecuperacao") ?? "";
 
@@ -30,11 +29,12 @@ namespace telebip_erp.Forms.Modules
             // Eventos
             btnBackup.Click += BtnBackup_Click;
             btnRestaurarBackup.Click += BtnRestaurarBackup_Click;
-            lbSuporte.Click += lbSuporte_Click;
-
-            // Adiciona eventos para validação e confirmação
+            lbSuporte.Click += LbSuporte_Click;
             tbEmail.KeyDown += TbEmail_KeyDown;
             btnConfirmar.Click += BtnConfirmar_Click;
+
+            btnGerente.Click += BtnGerente_Click;
+            btnFuncionario.Click += BtnFuncionario_Click;
         }
 
         // ==========================
@@ -45,8 +45,9 @@ namespace telebip_erp.Forms.Modules
             if (string.IsNullOrWhiteSpace(email))
                 return false;
 
-            string padrao = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            return Regex.IsMatch(email, padrao, RegexOptions.IgnoreCase);
+            // Regex mais completa, aceita subdomínios e TLDs modernos
+            string padrao = @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
+            return Regex.IsMatch(email, padrao);
         }
 
         private void ConfirmarEmail()
@@ -61,7 +62,6 @@ namespace telebip_erp.Forms.Modules
                 return;
             }
 
-            // Se o e-mail for o mesmo, não faz nada
             if (novoEmail.Equals(emailAtual, StringComparison.OrdinalIgnoreCase))
             {
                 MessageBox.Show("O e-mail informado já está salvo.",
@@ -69,7 +69,7 @@ namespace telebip_erp.Forms.Modules
                 return;
             }
 
-            // 👉 Se não há e-mail salvo ainda, salva direto sem perguntar
+            // Nenhum e-mail anterior → salva direto
             if (string.IsNullOrWhiteSpace(emailAtual))
             {
                 ConfigHelper.SetSetting("EmailRecuperacao", novoEmail);
@@ -80,7 +80,7 @@ namespace telebip_erp.Forms.Modules
                 return;
             }
 
-            // Se já existe e-mail salvo, pede confirmação
+            // Já existe um e-mail anterior → pede confirmação
             DialogResult result = MessageBox.Show(
                 $"Deseja realmente alterar o e-mail de recuperação?\n\nDe: {emailAtual}\nPara: {novoEmail}",
                 "Confirmar alteração",
@@ -98,31 +98,27 @@ namespace telebip_erp.Forms.Modules
             }
             else
             {
-                tbEmail.Text = emailAtual; // restaura o antigo
+                tbEmail.Text = emailAtual;
             }
         }
 
-
-        // Pressionar Enter confirma o e-mail
         private void TbEmail_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 ConfirmarEmail();
-                e.SuppressKeyPress = true; // evita beep
+                e.SuppressKeyPress = true;
             }
         }
 
-        // Botão Confirmar também salva o e-mail
         private void BtnConfirmar_Click(object sender, EventArgs e)
         {
             ConfirmarEmail();
         }
 
         // ==========================
-        // RESTO DO SEU CÓDIGO (BACKUP, RESTAURAR, SUPORTE)
+        // BACKUP
         // ==========================
-
         private void BtnBackup_Click(object sender, EventArgs e)
         {
             try
@@ -140,26 +136,34 @@ namespace telebip_erp.Forms.Modules
 
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
+                        Cursor = Cursors.WaitCursor;
+
                         ultimaPastaBackup = dialog.SelectedPath;
                         string nomeArquivo = $"TeleBipDB_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.db";
                         string caminhoDestino = Path.Combine(ultimaPastaBackup, nomeArquivo);
 
                         File.Copy(caminhoBanco, caminhoDestino, true);
 
+                        ConfigHelper.SetSetting("UltimaPastaBackup", ultimaPastaBackup);
                         MessageBox.Show($"Backup criado com sucesso em:\n{caminhoDestino}",
                             "Backup Concluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        ConfigHelper.SetSetting("UltimaPastaBackup", ultimaPastaBackup);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocorreu um erro ao criar o backup:\n{ex.Message}",
+                MessageBox.Show($"Erro ao criar o backup:\n{ex.Message}",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
             }
         }
 
+        // ==========================
+        // RESTAURAR BACKUP
+        // ==========================
         private void BtnRestaurarBackup_Click(object sender, EventArgs e)
         {
             try
@@ -185,6 +189,8 @@ namespace telebip_erp.Forms.Modules
 
                         if (result == DialogResult.Yes)
                         {
+                            Cursor = Cursors.WaitCursor;
+
                             GC.Collect();
                             GC.WaitForPendingFinalizers();
 
@@ -201,9 +207,16 @@ namespace telebip_erp.Forms.Modules
                 MessageBox.Show($"Erro ao restaurar backup:\n{ex.Message}",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
         }
 
-        private void lbSuporte_Click(object sender, EventArgs e)
+        // ==========================
+        // SUPORTE (ABRIR GMAIL)
+        // ==========================
+        private void LbSuporte_Click(object sender, EventArgs e)
         {
             try
             {
@@ -221,18 +234,33 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
-        private void btnGerente_Click(object sender, EventArgs e)
+        // ==========================
+        // ALTERAÇÃO DE SENHA
+        // ==========================
+        private void BtnGerente_Click(object sender, EventArgs e)
         {
-            var formSenha = new FormAlteracaoSenhaGerente();
-            formSenha.StartPosition = FormStartPosition.CenterParent;
+            // Opcional: permitir só se for gerente logado
+            if (Session.NivelAcesso == 0)
+            {
+                MessageBox.Show("Apenas o gerente pode alterar esta senha.",
+                    "Acesso negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var formSenha = new FormAlteracaoSenhaGerente
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
             formSenha.ShowDialog();
         }
 
-        private void btnFuncionario_Click(object sender, EventArgs e)
+        private void BtnFuncionario_Click(object sender, EventArgs e)
         {
-            var FormSenhaFuncionario = new FormAlteracaoSenhaFuncionario();
-            FormSenhaFuncionario.StartPosition = FormStartPosition.CenterParent;
-            FormSenhaFuncionario.ShowDialog();
+            var formSenhaFuncionario = new FormAlteracaoSenhaFuncionario
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
+            formSenhaFuncionario.ShowDialog();
         }
     }
-}
+}
