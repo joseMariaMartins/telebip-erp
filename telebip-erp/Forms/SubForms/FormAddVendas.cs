@@ -36,18 +36,19 @@ namespace telebip_erp.Forms.SubForms
             ConfigurarMonetarios();
             CriarTabelaTemporaria();
 
-            btnAdicaoProduto.Click += BtnAdicaoProduto_Click;
-            btnTirarProduto.Click += BtnTirarProduto_Click;
+            // NOTE: usa os nomes do Designer que você enviou
+            picAdicaoProduto.Click += BtnAdicaoProduto_Click;
+            picTirarProduto.Click += BtnTirarProduto_Click;
+            btnMaisInformacao.Click += BtnMaisInformacao_Click;
 
             ConfigurarVinculoCombos();
         }
 
         private void FormAddVendas_Load_1(object sender, EventArgs e)
         {
-
-                CarregarFuncionarios();
-                InicializarCampos();
-                AtualizarGridProdutos();
+            CarregarFuncionarios();
+            InicializarCampos();
+            AtualizarGridProdutos();
         }
 
         private void InicializarCampos()
@@ -120,7 +121,6 @@ namespace telebip_erp.Forms.SubForms
                 _ignorarEventoCombo = false;
             }
         }
-
 
         #endregion
 
@@ -254,7 +254,6 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
-
         private void BtnAdicaoProduto_Click(object sender, EventArgs e)
         {
             if (!ValidarProduto()) return;
@@ -296,7 +295,6 @@ namespace telebip_erp.Forms.SubForms
 
             return true;
         }
-
 
         private void AdicionarProduto()
         {
@@ -379,12 +377,14 @@ namespace telebip_erp.Forms.SubForms
 
         private void ConfigurarMonetarios()
         {
+            // agora usa TextBox em vez de Guna2TextBox
             ConfigurarTextBoxMonetario(tbPrecoProduto, TbPrecoProduto_TextChanged);
             ConfigurarTextBoxMonetario(tbDesconto, TbDesconto_TextChanged);
         }
 
-        private void ConfigurarTextBoxMonetario(Guna.UI2.WinForms.Guna2TextBox tb, EventHandler textChanged)
+        private void ConfigurarTextBoxMonetario(TextBox tb, EventHandler textChanged)
         {
+            // remove/reatacha handlers de KeyPress/TextChanged de TextBox
             tb.KeyPress -= TbPreco_KeyPress;
             tb.KeyPress += TbPreco_KeyPress;
 
@@ -397,7 +397,7 @@ namespace telebip_erp.Forms.SubForms
             if (_ignorarEventoPrecoProduto) return;
 
             _ignorarEventoPrecoProduto = true;
-            FormatarMonetario(tbPrecoProduto);
+            FormatarMonetario(sender as TextBox);
             AtualizarLbValorSuper();
             _ignorarEventoPrecoProduto = false;
         }
@@ -407,13 +407,15 @@ namespace telebip_erp.Forms.SubForms
             if (_ignorarEventoDesconto) return;
 
             _ignorarEventoDesconto = true;
-            FormatarMonetario(tbDesconto);
+            FormatarMonetario(sender as TextBox);
             AtualizarLbValorSuper();
             _ignorarEventoDesconto = false;
         }
 
-        private void FormatarMonetario(Guna.UI2.WinForms.Guna2TextBox tb)
+        private void FormatarMonetario(TextBox tb)
         {
+            if (tb == null) return;
+
             string numeros = "";
             foreach (char c in tb.Text)
                 if (char.IsDigit(c)) numeros += c;
@@ -472,7 +474,6 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
-
         private void AtualizarGridProdutos()
         {
             try
@@ -520,7 +521,6 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
-
         private void AtualizarLbValorSuper()
         {
             decimal valorBruto = 0;
@@ -536,34 +536,26 @@ namespace telebip_erp.Forms.SubForms
 
         #endregion
 
-        #region Botões
+        #region Botões / imagens
 
         private void ConfigurarBotoesImagemRadio()
         {
-            Guna.UI2.WinForms.Guna2ImageRadioButton[] botoes = new Guna.UI2.WinForms.Guna2ImageRadioButton[]
-            {
-        btnAdicaoProduto,
-        btnTirarProduto,
-        btnMaisInformacao
-            };
+            // Agora usamos PictureBox/CuiButtons do Designer:
+            // - picAdicaoProduto : adiciona produto
+            // - picTirarProduto  : remove produto
+            // - btnMaisInformacao : abre FormAddProdutoVendas
 
-            foreach (var botao in botoes)
-                botao.Click += (s, e) => botao.Checked = false;
-
-            // Adiciona o CheckedChanged para o btnMaisInformacao
-            btnMaisInformacao.CheckedChanged += BtnMaisInformacao_CheckedChanged;
+            // A lógica anterior que usava Checked/CheckedChanged do Guna foi removida:
+            // apenas garantimos os handlers (vinculados em InicializarComponentes),
+            // e caso haja necessidade de "toggle" visual você pode trocar a imagem manualmente aqui.
         }
 
-        private void BtnMaisInformacao_CheckedChanged(object sender, EventArgs e)
+        private void BtnMaisInformacao_Click(object sender, EventArgs e)
         {
-            if (btnMaisInformacao.Checked)
-            {
-                using var formAddProduto = new FormAddProdutoVendas();
-                formAddProduto.Owner = this;
-                formAddProduto.ShowDialog();
-
-                btnMaisInformacao.Checked = false; // desmarca após fechar
-            }
+            using var formAddProduto = new FormAddProdutoVendas();
+            formAddProduto.Owner = this;
+            formAddProduto.ShowDialog();
+            // Nada de Checked — PictureBox não tem esse estado
         }
 
         private void btnCancelarVendas_Click_1(object sender, EventArgs e)
@@ -613,7 +605,6 @@ namespace telebip_erp.Forms.SubForms
 
             return true;
         }
-
 
         private void ProcessarVenda()
         {

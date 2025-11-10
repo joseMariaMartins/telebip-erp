@@ -1,4 +1,6 @@
-﻿using Guna.UI2.WinForms.Suite;
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace telebip_erp.Forms.SubForms
 {
@@ -6,77 +8,52 @@ namespace telebip_erp.Forms.SubForms
     {
         private System.ComponentModel.IContainer components = null;
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         #region Windows Form Designer generated code
 
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddVendas));
-            CustomizableEdges customizableEdges1 = new CustomizableEdges();
-            CustomizableEdges customizableEdges2 = new CustomizableEdges();
-            CustomizableEdges customizableEdges3 = new CustomizableEdges();
-            CustomizableEdges customizableEdges4 = new CustomizableEdges();
-            CustomizableEdges customizableEdges5 = new CustomizableEdges();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            CustomizableEdges customizableEdges6 = new CustomizableEdges();
-            CustomizableEdges customizableEdges7 = new CustomizableEdges();
-            CustomizableEdges customizableEdges8 = new CustomizableEdges();
-            CustomizableEdges customizableEdges9 = new CustomizableEdges();
-            CustomizableEdges customizableEdges10 = new CustomizableEdges();
-            CustomizableEdges customizableEdges11 = new CustomizableEdges();
-            CustomizableEdges customizableEdges12 = new CustomizableEdges();
-            CustomizableEdges customizableEdges13 = new CustomizableEdges();
-            CustomizableEdges customizableEdges14 = new CustomizableEdges();
-            CustomizableEdges customizableEdges15 = new CustomizableEdges();
-            CustomizableEdges customizableEdges16 = new CustomizableEdges();
-            CustomizableEdges customizableEdges17 = new CustomizableEdges();
-            CustomizableEdges customizableEdges18 = new CustomizableEdges();
-            CustomizableEdges customizableEdges19 = new CustomizableEdges();
-            CustomizableEdges customizableEdges20 = new CustomizableEdges();
-            CustomizableEdges customizableEdges21 = new CustomizableEdges();
             pnlContainer = new Panel();
             pnlMain = new Panel();
             label2 = new Label();
             label1 = new Label();
-            btnMaisInformacao = new Guna.UI2.WinForms.Guna2ImageRadioButton();
             lbValorSuper = new Label();
             lblValorTotal = new Label();
-            btnAdicionarVendas = new Guna.UI2.WinForms.Guna2Button();
-            btnCancelarVendas = new Guna.UI2.WinForms.Guna2Button();
+            btnAdicionarVendas = new CuoreUI.Controls.cuiButton();
+            btnCancelarVendas = new CuoreUI.Controls.cuiButton();
             pnlProdutos = new Panel();
             dgvProdutoTemporarios = new DataGridView();
             pnlBotoesProduto = new Panel();
-            btnTirarProduto = new Guna.UI2.WinForms.Guna2ImageRadioButton();
-            btnAdicaoProduto = new Guna.UI2.WinForms.Guna2ImageRadioButton();
-            lbMarcaProduto = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            lbIdProduto = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            picTirarProduto = new PictureBox();
+            picAdicaoProduto = new PictureBox();
+            lbMarcaProduto = new Label();
+            lbIdProduto = new Label();
             lbQuantidadeAtual = new Label();
+            pnlWrapperData = new telebip_erp.Controls.RoundedPanel();
             mkDataHora = new MaskedTextBox();
-            lblEstadoPagamento = new Label();
-            cbEstado = new Guna.UI2.WinForms.Guna2ComboBox();
-            lblFormaPagamento = new Label();
-            cbForma = new Guna.UI2.WinForms.Guna2ComboBox();
             lblDataHora = new Label();
-            lblDesconto = new Label();
-            tbDesconto = new Guna.UI2.WinForms.Guna2TextBox();
-            lblQuantidadeVendida = new Label();
-            lblPreco = new Label();
-            lblProduto = new Label();
-            tbQProduto = new Guna.UI2.WinForms.Guna2TextBox();
-            tbPrecoProduto = new Guna.UI2.WinForms.Guna2TextBox();
-            tbNomeProduto = new Guna.UI2.WinForms.Guna2TextBox();
-            cbFuncionariosVenda = new Guna.UI2.WinForms.Guna2ComboBox();
+            pnlWrapperEstado = new telebip_erp.Controls.RoundedPanel();
+            cbEstado = new ComboBox();
+            picArrowEstado = new PictureBox();
+            lblEstadoPagamento = new Label();
+            pnlWrapperForma = new telebip_erp.Controls.RoundedPanel();
+            cbForma = new ComboBox();
+            picArrowForma = new PictureBox();
+            lblFormaPagamento = new Label();
+            pnlWrapperFuncionarios = new telebip_erp.Controls.RoundedPanel();
+            cbFuncionariosVenda = new ComboBox();
+            picArrowFuncionarios = new PictureBox();
             lblFuncionario = new Label();
+            roundedPanel1 = new telebip_erp.Controls.RoundedPanel();
+            tbNomeProduto = new TextBox();
+            btnMaisInformacao = new PictureBox();
+            lblProduto = new Label();
+            lblPreco = new Label();
+            tbPrecoProduto = new TextBox();
+            lblQuantidadeVendida = new Label();
+            tbQProduto = new TextBox();
+            lblDesconto = new Label();
+            tbDesconto = new TextBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             pnlContainer.SuspendLayout();
@@ -84,6 +61,17 @@ namespace telebip_erp.Forms.SubForms
             pnlProdutos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProdutoTemporarios).BeginInit();
             pnlBotoesProduto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picTirarProduto).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picAdicaoProduto).BeginInit();
+            pnlWrapperData.SuspendLayout();
+            pnlWrapperEstado.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picArrowEstado).BeginInit();
+            pnlWrapperForma.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picArrowForma).BeginInit();
+            pnlWrapperFuncionarios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picArrowFuncionarios).BeginInit();
+            roundedPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnMaisInformacao).BeginInit();
             pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
@@ -103,7 +91,6 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.BackColor = Color.FromArgb(28, 29, 40);
             pnlMain.Controls.Add(label2);
             pnlMain.Controls.Add(label1);
-            pnlMain.Controls.Add(btnMaisInformacao);
             pnlMain.Controls.Add(lbValorSuper);
             pnlMain.Controls.Add(lblValorTotal);
             pnlMain.Controls.Add(btnAdicionarVendas);
@@ -113,22 +100,22 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.Controls.Add(lbMarcaProduto);
             pnlMain.Controls.Add(lbIdProduto);
             pnlMain.Controls.Add(lbQuantidadeAtual);
-            pnlMain.Controls.Add(mkDataHora);
-            pnlMain.Controls.Add(lblEstadoPagamento);
-            pnlMain.Controls.Add(cbEstado);
-            pnlMain.Controls.Add(lblFormaPagamento);
-            pnlMain.Controls.Add(cbForma);
+            pnlMain.Controls.Add(pnlWrapperData);
             pnlMain.Controls.Add(lblDataHora);
+            pnlMain.Controls.Add(pnlWrapperEstado);
+            pnlMain.Controls.Add(lblEstadoPagamento);
+            pnlMain.Controls.Add(pnlWrapperForma);
+            pnlMain.Controls.Add(lblFormaPagamento);
+            pnlMain.Controls.Add(pnlWrapperFuncionarios);
+            pnlMain.Controls.Add(lblFuncionario);
+            pnlMain.Controls.Add(roundedPanel1);
+            pnlMain.Controls.Add(lblProduto);
+            pnlMain.Controls.Add(lblPreco);
+            pnlMain.Controls.Add(tbPrecoProduto);
+            pnlMain.Controls.Add(lblQuantidadeVendida);
+            pnlMain.Controls.Add(tbQProduto);
             pnlMain.Controls.Add(lblDesconto);
             pnlMain.Controls.Add(tbDesconto);
-            pnlMain.Controls.Add(lblQuantidadeVendida);
-            pnlMain.Controls.Add(lblPreco);
-            pnlMain.Controls.Add(lblProduto);
-            pnlMain.Controls.Add(tbQProduto);
-            pnlMain.Controls.Add(tbPrecoProduto);
-            pnlMain.Controls.Add(tbNomeProduto);
-            pnlMain.Controls.Add(cbFuncionariosVenda);
-            pnlMain.Controls.Add(lblFuncionario);
             pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
@@ -156,20 +143,6 @@ namespace telebip_erp.Forms.SubForms
             label1.TabIndex = 54;
             label1.Text = "-";
             // 
-            // btnMaisInformacao
-            // 
-            btnMaisInformacao.BackColor = Color.Transparent;
-            btnMaisInformacao.CheckedState.Image = (Image)resources.GetObject("resource.Image");
-            btnMaisInformacao.Image = (Image)resources.GetObject("btnMaisInformacao.Image");
-            btnMaisInformacao.ImageOffset = new Point(0, 0);
-            btnMaisInformacao.ImageRotate = 0F;
-            btnMaisInformacao.Location = new Point(425, 154);
-            btnMaisInformacao.Name = "btnMaisInformacao";
-            btnMaisInformacao.ShadowDecoration.CustomizableEdges = customizableEdges1;
-            btnMaisInformacao.Size = new Size(30, 30);
-            btnMaisInformacao.TabIndex = 53;
-            btnMaisInformacao.UseTransparentBackground = true;
-            // 
             // lbValorSuper
             // 
             lbValorSuper.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
@@ -194,45 +167,77 @@ namespace telebip_erp.Forms.SubForms
             // 
             // btnAdicionarVendas
             // 
-            btnAdicionarVendas.BorderRadius = 8;
-            btnAdicionarVendas.CustomizableEdges = customizableEdges2;
-            btnAdicionarVendas.DisabledState.BorderColor = Color.DarkGray;
-            btnAdicionarVendas.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnAdicionarVendas.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnAdicionarVendas.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnAdicionarVendas.FillColor = Color.FromArgb(40, 120, 80);
-            btnAdicionarVendas.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnAdicionarVendas.CheckButton = false;
+            btnAdicionarVendas.Checked = false;
+            btnAdicionarVendas.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnAdicionarVendas.CheckedForeColor = Color.White;
+            btnAdicionarVendas.CheckedImageTint = Color.White;
+            btnAdicionarVendas.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnAdicionarVendas.Content = "Adicionar";
+            btnAdicionarVendas.DialogResult = DialogResult.None;
+            btnAdicionarVendas.Font = new Font("Microsoft Sans Serif", 9.75F);
             btnAdicionarVendas.ForeColor = Color.White;
-            btnAdicionarVendas.HoverState.BorderColor = Color.FromArgb(80, 200, 120);
-            btnAdicionarVendas.HoverState.FillColor = Color.FromArgb(60, 160, 100);
+            btnAdicionarVendas.HoverBackground = Color.White;
+            btnAdicionarVendas.HoverForeColor = Color.Black;
+            btnAdicionarVendas.HoverImageTint = Color.White;
+            btnAdicionarVendas.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnAdicionarVendas.Image = null;
+            btnAdicionarVendas.ImageAutoCenter = true;
+            btnAdicionarVendas.ImageExpand = new Point(0, 0);
+            btnAdicionarVendas.ImageOffset = new Point(0, 0);
             btnAdicionarVendas.Location = new Point(752, 538);
             btnAdicionarVendas.Name = "btnAdicionarVendas";
-            btnAdicionarVendas.ShadowDecoration.CustomizableEdges = customizableEdges3;
+            btnAdicionarVendas.NormalBackground = Color.FromArgb(40, 120, 80);
+            btnAdicionarVendas.NormalForeColor = Color.White;
+            btnAdicionarVendas.NormalImageTint = Color.White;
+            btnAdicionarVendas.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnAdicionarVendas.OutlineThickness = 1F;
+            btnAdicionarVendas.PressedBackground = Color.WhiteSmoke;
+            btnAdicionarVendas.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnAdicionarVendas.PressedImageTint = Color.White;
+            btnAdicionarVendas.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnAdicionarVendas.Rounding = new Padding(8);
             btnAdicionarVendas.Size = new Size(120, 40);
             btnAdicionarVendas.TabIndex = 47;
-            btnAdicionarVendas.Text = "Adicionar";
-            btnAdicionarVendas.Click += this.btnAdicionarVendas_Click_1;
+            btnAdicionarVendas.TextAlignment = StringAlignment.Center;
+            btnAdicionarVendas.TextOffset = new Point(0, 0);
             // 
             // btnCancelarVendas
             // 
-            btnCancelarVendas.BorderRadius = 8;
-            btnCancelarVendas.CustomizableEdges = customizableEdges4;
-            btnCancelarVendas.DisabledState.BorderColor = Color.DarkGray;
-            btnCancelarVendas.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnCancelarVendas.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnCancelarVendas.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnCancelarVendas.FillColor = Color.FromArgb(120, 40, 40);
-            btnCancelarVendas.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnCancelarVendas.CheckButton = false;
+            btnCancelarVendas.Checked = false;
+            btnCancelarVendas.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnCancelarVendas.CheckedForeColor = Color.White;
+            btnCancelarVendas.CheckedImageTint = Color.White;
+            btnCancelarVendas.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnCancelarVendas.Content = "Cancelar";
+            btnCancelarVendas.DialogResult = DialogResult.None;
+            btnCancelarVendas.Font = new Font("Microsoft Sans Serif", 9.75F);
             btnCancelarVendas.ForeColor = Color.White;
-            btnCancelarVendas.HoverState.BorderColor = Color.FromArgb(200, 80, 80);
-            btnCancelarVendas.HoverState.FillColor = Color.FromArgb(160, 60, 60);
+            btnCancelarVendas.HoverBackground = Color.White;
+            btnCancelarVendas.HoverForeColor = Color.Black;
+            btnCancelarVendas.HoverImageTint = Color.White;
+            btnCancelarVendas.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnCancelarVendas.Image = null;
+            btnCancelarVendas.ImageAutoCenter = true;
+            btnCancelarVendas.ImageExpand = new Point(0, 0);
+            btnCancelarVendas.ImageOffset = new Point(0, 0);
             btnCancelarVendas.Location = new Point(622, 538);
             btnCancelarVendas.Name = "btnCancelarVendas";
-            btnCancelarVendas.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            btnCancelarVendas.NormalBackground = Color.FromArgb(120, 40, 40);
+            btnCancelarVendas.NormalForeColor = Color.White;
+            btnCancelarVendas.NormalImageTint = Color.White;
+            btnCancelarVendas.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnCancelarVendas.OutlineThickness = 1F;
+            btnCancelarVendas.PressedBackground = Color.WhiteSmoke;
+            btnCancelarVendas.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnCancelarVendas.PressedImageTint = Color.White;
+            btnCancelarVendas.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnCancelarVendas.Rounding = new Padding(8);
             btnCancelarVendas.Size = new Size(120, 40);
             btnCancelarVendas.TabIndex = 46;
-            btnCancelarVendas.Text = "Cancelar";
-            btnCancelarVendas.Click += this.btnCancelarVendas_Click_1;
+            btnCancelarVendas.TextAlignment = StringAlignment.Center;
+            btnCancelarVendas.TextOffset = new Point(0, 0);
             // 
             // pnlProdutos
             // 
@@ -246,107 +251,62 @@ namespace telebip_erp.Forms.SubForms
             // 
             // dgvProdutoTemporarios
             // 
-            dgvProdutoTemporarios.AllowUserToAddRows = false;
-            dgvProdutoTemporarios.AllowUserToDeleteRows = false;
-            dgvProdutoTemporarios.AllowUserToResizeColumns = false;
-            dgvProdutoTemporarios.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(32, 33, 39);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(50, 90, 130);
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dgvProdutoTemporarios.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvProdutoTemporarios.BackgroundColor = Color.FromArgb(32, 33, 39);
             dgvProdutoTemporarios.BorderStyle = BorderStyle.None;
-            dgvProdutoTemporarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dgvProdutoTemporarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvProdutoTemporarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dgvProdutoTemporarios.ColumnHeadersHeight = 35;
-            dgvProdutoTemporarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(32, 33, 39);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(50, 90, 130);
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvProdutoTemporarios.DefaultCellStyle = dataGridViewCellStyle3;
             dgvProdutoTemporarios.Dock = DockStyle.Fill;
-            dgvProdutoTemporarios.EnableHeadersVisualStyles = false;
-            dgvProdutoTemporarios.GridColor = Color.FromArgb(50, 52, 67);
             dgvProdutoTemporarios.Location = new Point(10, 10);
-            dgvProdutoTemporarios.MultiSelect = false;
             dgvProdutoTemporarios.Name = "dgvProdutoTemporarios";
-            dgvProdutoTemporarios.ReadOnly = true;
-            dgvProdutoTemporarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvProdutoTemporarios.RowHeadersVisible = false;
-            dgvProdutoTemporarios.RowHeadersWidth = 62;
-            dgvProdutoTemporarios.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dgvProdutoTemporarios.RowTemplate.Height = 30;
             dgvProdutoTemporarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProdutoTemporarios.Size = new Size(834, 130);
-            dgvProdutoTemporarios.TabIndex = 41;
+            dgvProdutoTemporarios.TabIndex = 0;
             // 
             // pnlBotoesProduto
             // 
-            pnlBotoesProduto.Controls.Add(btnTirarProduto);
-            pnlBotoesProduto.Controls.Add(btnAdicaoProduto);
+            pnlBotoesProduto.Controls.Add(picTirarProduto);
+            pnlBotoesProduto.Controls.Add(picAdicaoProduto);
             pnlBotoesProduto.Location = new Point(631, 293);
             pnlBotoesProduto.Name = "pnlBotoesProduto";
             pnlBotoesProduto.Size = new Size(114, 36);
-            pnlBotoesProduto.TabIndex = 50;
+            pnlBotoesProduto.TabIndex = 56;
             // 
-            // btnTirarProduto
+            // picTirarProduto
             // 
-            btnTirarProduto.BackColor = Color.Transparent;
-            btnTirarProduto.Image = (Image)resources.GetObject("btnTirarProduto.Image");
-            btnTirarProduto.ImageOffset = new Point(0, 0);
-            btnTirarProduto.ImageRotate = 0F;
-            btnTirarProduto.Location = new Point(5, 5);
-            btnTirarProduto.Name = "btnTirarProduto";
-            btnTirarProduto.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnTirarProduto.Size = new Size(48, 28);
-            btnTirarProduto.TabIndex = 40;
-            btnTirarProduto.UseTransparentBackground = true;
+            picTirarProduto.BackColor = Color.Transparent;
+            picTirarProduto.Image = (Image)resources.GetObject("picTirarProduto.Image");
+            picTirarProduto.Location = new Point(5, 5);
+            picTirarProduto.Name = "picTirarProduto";
+            picTirarProduto.Size = new Size(48, 28);
+            picTirarProduto.SizeMode = PictureBoxSizeMode.Zoom;
+            picTirarProduto.TabIndex = 0;
+            picTirarProduto.TabStop = false;
             // 
-            // btnAdicaoProduto
+            // picAdicaoProduto
             // 
-            btnAdicaoProduto.BackColor = Color.Transparent;
-            btnAdicaoProduto.Image = (Image)resources.GetObject("btnAdicaoProduto.Image");
-            btnAdicaoProduto.ImageOffset = new Point(0, 0);
-            btnAdicaoProduto.ImageRotate = 0F;
-            btnAdicaoProduto.Location = new Point(59, 5);
-            btnAdicaoProduto.Name = "btnAdicaoProduto";
-            btnAdicaoProduto.ShadowDecoration.CustomizableEdges = customizableEdges7;
-            btnAdicaoProduto.Size = new Size(48, 28);
-            btnAdicaoProduto.TabIndex = 40;
-            btnAdicaoProduto.UseTransparentBackground = true;
+            picAdicaoProduto.BackColor = Color.Transparent;
+            picAdicaoProduto.Image = (Image)resources.GetObject("picAdicaoProduto.Image");
+            picAdicaoProduto.Location = new Point(59, 5);
+            picAdicaoProduto.Name = "picAdicaoProduto";
+            picAdicaoProduto.Size = new Size(48, 28);
+            picAdicaoProduto.SizeMode = PictureBoxSizeMode.Zoom;
+            picAdicaoProduto.TabIndex = 1;
+            picAdicaoProduto.TabStop = false;
             // 
             // lbMarcaProduto
             // 
-            lbMarcaProduto.BackColor = Color.Transparent;
-            lbMarcaProduto.ForeColor = Color.White;
             lbMarcaProduto.Location = new Point(855, 32);
             lbMarcaProduto.Name = "lbMarcaProduto";
-            lbMarcaProduto.Size = new Size(9, 17);
-            lbMarcaProduto.TabIndex = 44;
+            lbMarcaProduto.Size = new Size(100, 23);
+            lbMarcaProduto.TabIndex = 57;
             lbMarcaProduto.Text = "1";
             lbMarcaProduto.Visible = false;
             // 
             // lbIdProduto
             // 
-            lbIdProduto.BackColor = Color.Transparent;
-            lbIdProduto.ForeColor = Color.White;
             lbIdProduto.Location = new Point(855, 6);
             lbIdProduto.Name = "lbIdProduto";
-            lbIdProduto.Size = new Size(9, 17);
-            lbIdProduto.TabIndex = 43;
+            lbIdProduto.Size = new Size(100, 23);
+            lbIdProduto.TabIndex = 58;
             lbIdProduto.Text = "0";
             lbIdProduto.Visible = false;
             // 
@@ -357,8 +317,22 @@ namespace telebip_erp.Forms.SubForms
             lbQuantidadeAtual.Location = new Point(706, 199);
             lbQuantidadeAtual.Name = "lbQuantidadeAtual";
             lbQuantidadeAtual.Size = new Size(181, 20);
-            lbQuantidadeAtual.TabIndex = 39;
+            lbQuantidadeAtual.TabIndex = 59;
             lbQuantidadeAtual.Text = "Quantidade atual: 0";
+            // 
+            // pnlWrapperData
+            // 
+            pnlWrapperData.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperData.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperData.BorderThickness = 1;
+            pnlWrapperData.Controls.Add(mkDataHora);
+            pnlWrapperData.CornerRadius = 8;
+            pnlWrapperData.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperData.Location = new Point(33, 231);
+            pnlWrapperData.Name = "pnlWrapperData";
+            pnlWrapperData.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperData.Size = new Size(125, 36);
+            pnlWrapperData.TabIndex = 38;
             // 
             // mkDataHora
             // 
@@ -366,12 +340,56 @@ namespace telebip_erp.Forms.SubForms
             mkDataHora.BorderStyle = BorderStyle.None;
             mkDataHora.Font = new Font("Segoe UI", 10F);
             mkDataHora.ForeColor = Color.White;
-            mkDataHora.Location = new Point(33, 231);
+            mkDataHora.Location = new Point(8, 8);
             mkDataHora.Mask = "00-00-0000 00:00";
             mkDataHora.Name = "mkDataHora";
-            mkDataHora.Size = new Size(125, 18);
-            mkDataHora.TabIndex = 38;
+            mkDataHora.Size = new Size(109, 18);
+            mkDataHora.TabIndex = 300;
             mkDataHora.ValidatingType = typeof(DateTime);
+            // 
+            // lblDataHora
+            // 
+            lblDataHora.Location = new Point(0, 0);
+            lblDataHora.Name = "lblDataHora";
+            lblDataHora.Size = new Size(100, 23);
+            lblDataHora.TabIndex = 60;
+            // 
+            // pnlWrapperEstado
+            // 
+            pnlWrapperEstado.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperEstado.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperEstado.BorderThickness = 1;
+            pnlWrapperEstado.Controls.Add(cbEstado);
+            pnlWrapperEstado.Controls.Add(picArrowEstado);
+            pnlWrapperEstado.CornerRadius = 8;
+            pnlWrapperEstado.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperEstado.Location = new Point(180, 293);
+            pnlWrapperEstado.Name = "pnlWrapperEstado";
+            pnlWrapperEstado.Padding = new Padding(8, 6, 30, 6);
+            pnlWrapperEstado.Size = new Size(125, 36);
+            pnlWrapperEstado.TabIndex = 35;
+            // 
+            // cbEstado
+            // 
+            cbEstado.BackColor = Color.FromArgb(40, 41, 52);
+            cbEstado.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbEstado.FlatStyle = FlatStyle.Flat;
+            cbEstado.Font = new Font("Segoe UI", 9F);
+            cbEstado.ForeColor = Color.White;
+            cbEstado.Location = new Point(8, 6);
+            cbEstado.Name = "cbEstado";
+            cbEstado.Size = new Size(106, 23);
+            cbEstado.TabIndex = 221;
+            // 
+            // picArrowEstado
+            // 
+            picArrowEstado.BackColor = Color.Transparent;
+            picArrowEstado.Location = new Point(106, 13);
+            picArrowEstado.Name = "picArrowEstado";
+            picArrowEstado.Size = new Size(12, 10);
+            picArrowEstado.SizeMode = PictureBoxSizeMode.Zoom;
+            picArrowEstado.TabIndex = 222;
+            picArrowEstado.TabStop = false;
             // 
             // lblEstadoPagamento
             // 
@@ -383,26 +401,42 @@ namespace telebip_erp.Forms.SubForms
             lblEstadoPagamento.TabIndex = 36;
             lblEstadoPagamento.Text = "Estado do Pagamento *";
             // 
-            // cbEstado
+            // pnlWrapperForma
             // 
-            cbEstado.BackColor = Color.Transparent;
-            cbEstado.BorderColor = Color.FromArgb(60, 62, 80);
-            cbEstado.BorderRadius = 8;
-            cbEstado.CustomizableEdges = customizableEdges8;
-            cbEstado.DrawMode = DrawMode.OwnerDrawFixed;
-            cbEstado.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbEstado.FillColor = Color.FromArgb(40, 41, 52);
-            cbEstado.FocusedColor = Color.FromArgb(100, 150, 200);
-            cbEstado.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            cbEstado.Font = new Font("Segoe UI", 9F);
-            cbEstado.ForeColor = Color.White;
-            cbEstado.ItemHeight = 30;
-            cbEstado.Items.AddRange(new object[] { "Pago", "Pendente" });
-            cbEstado.Location = new Point(180, 293);
-            cbEstado.Name = "cbEstado";
-            cbEstado.ShadowDecoration.CustomizableEdges = customizableEdges9;
-            cbEstado.Size = new Size(125, 36);
-            cbEstado.TabIndex = 35;
+            pnlWrapperForma.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperForma.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperForma.BorderThickness = 1;
+            pnlWrapperForma.Controls.Add(cbForma);
+            pnlWrapperForma.Controls.Add(picArrowForma);
+            pnlWrapperForma.CornerRadius = 8;
+            pnlWrapperForma.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperForma.Location = new Point(331, 293);
+            pnlWrapperForma.Name = "pnlWrapperForma";
+            pnlWrapperForma.Padding = new Padding(8, 6, 30, 6);
+            pnlWrapperForma.Size = new Size(128, 36);
+            pnlWrapperForma.TabIndex = 33;
+            // 
+            // cbForma
+            // 
+            cbForma.BackColor = Color.FromArgb(40, 41, 52);
+            cbForma.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbForma.FlatStyle = FlatStyle.Flat;
+            cbForma.Font = new Font("Segoe UI", 9F);
+            cbForma.ForeColor = Color.White;
+            cbForma.Location = new Point(8, 6);
+            cbForma.Name = "cbForma";
+            cbForma.Size = new Size(110, 23);
+            cbForma.TabIndex = 211;
+            // 
+            // picArrowForma
+            // 
+            picArrowForma.BackColor = Color.Transparent;
+            picArrowForma.Location = new Point(113, 13);
+            picArrowForma.Name = "picArrowForma";
+            picArrowForma.Size = new Size(12, 10);
+            picArrowForma.SizeMode = PictureBoxSizeMode.Zoom;
+            picArrowForma.TabIndex = 212;
+            picArrowForma.TabStop = false;
             // 
             // lblFormaPagamento
             // 
@@ -414,36 +448,144 @@ namespace telebip_erp.Forms.SubForms
             lblFormaPagamento.TabIndex = 34;
             lblFormaPagamento.Text = "Forma de Pagamento *";
             // 
-            // cbForma
+            // pnlWrapperFuncionarios
             // 
-            cbForma.BackColor = Color.Transparent;
-            cbForma.BorderColor = Color.FromArgb(60, 62, 80);
-            cbForma.BorderRadius = 8;
-            cbForma.CustomizableEdges = customizableEdges10;
-            cbForma.DrawMode = DrawMode.OwnerDrawFixed;
-            cbForma.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbForma.FillColor = Color.FromArgb(40, 41, 52);
-            cbForma.FocusedColor = Color.FromArgb(100, 150, 200);
-            cbForma.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            cbForma.Font = new Font("Segoe UI", 9F);
-            cbForma.ForeColor = Color.White;
-            cbForma.ItemHeight = 30;
-            cbForma.Items.AddRange(new object[] { "Dinheiro", "Cartao", "Pix", "Ausente" });
-            cbForma.Location = new Point(331, 293);
-            cbForma.Name = "cbForma";
-            cbForma.ShadowDecoration.CustomizableEdges = customizableEdges11;
-            cbForma.Size = new Size(128, 36);
-            cbForma.TabIndex = 33;
+            pnlWrapperFuncionarios.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperFuncionarios.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperFuncionarios.BorderThickness = 1;
+            pnlWrapperFuncionarios.Controls.Add(cbFuncionariosVenda);
+            pnlWrapperFuncionarios.Controls.Add(picArrowFuncionarios);
+            pnlWrapperFuncionarios.CornerRadius = 8;
+            pnlWrapperFuncionarios.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperFuncionarios.Location = new Point(33, 55);
+            pnlWrapperFuncionarios.Name = "pnlWrapperFuncionarios";
+            pnlWrapperFuncionarios.Padding = new Padding(8, 6, 30, 6);
+            pnlWrapperFuncionarios.Size = new Size(854, 36);
+            pnlWrapperFuncionarios.TabIndex = 20;
             // 
-            // lblDataHora
+            // cbFuncionariosVenda
             // 
-            lblDataHora.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblDataHora.ForeColor = Color.White;
-            lblDataHora.Location = new Point(33, 208);
-            lblDataHora.Name = "lblDataHora";
-            lblDataHora.Size = new Size(73, 20);
-            lblDataHora.TabIndex = 32;
-            lblDataHora.Text = "Data e Hora *";
+            cbFuncionariosVenda.BackColor = Color.FromArgb(40, 41, 52);
+            cbFuncionariosVenda.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbFuncionariosVenda.FlatStyle = FlatStyle.Flat;
+            cbFuncionariosVenda.Font = new Font("Segoe UI", 9F);
+            cbFuncionariosVenda.ForeColor = Color.White;
+            cbFuncionariosVenda.Location = new Point(8, 6);
+            cbFuncionariosVenda.Name = "cbFuncionariosVenda";
+            cbFuncionariosVenda.Size = new Size(818, 23);
+            cbFuncionariosVenda.TabIndex = 202;
+            // 
+            // picArrowFuncionarios
+            // 
+            picArrowFuncionarios.BackColor = Color.Transparent;
+            picArrowFuncionarios.Location = new Point(828, 13);
+            picArrowFuncionarios.Name = "picArrowFuncionarios";
+            picArrowFuncionarios.Size = new Size(15, 10);
+            picArrowFuncionarios.SizeMode = PictureBoxSizeMode.Zoom;
+            picArrowFuncionarios.TabIndex = 203;
+            picArrowFuncionarios.TabStop = false;
+            // 
+            // lblFuncionario
+            // 
+            lblFuncionario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblFuncionario.ForeColor = Color.White;
+            lblFuncionario.Location = new Point(33, 32);
+            lblFuncionario.Name = "lblFuncionario";
+            lblFuncionario.Size = new Size(142, 20);
+            lblFuncionario.TabIndex = 1;
+            lblFuncionario.Text = "Funcionário Responsável *";
+            // 
+            // roundedPanel1
+            // 
+            roundedPanel1.BackColor = Color.FromArgb(40, 41, 52);
+            roundedPanel1.BorderColor = Color.FromArgb(60, 62, 80);
+            roundedPanel1.BorderThickness = 1;
+            roundedPanel1.Controls.Add(tbNomeProduto);
+            roundedPanel1.Controls.Add(btnMaisInformacao);
+            roundedPanel1.CornerRadius = 8;
+            roundedPanel1.FillColor = Color.FromArgb(40, 41, 52);
+            roundedPanel1.Location = new Point(33, 155);
+            roundedPanel1.Name = "roundedPanel1";
+            roundedPanel1.Padding = new Padding(8, 6, 30, 6);
+            roundedPanel1.Size = new Size(472, 36);
+            roundedPanel1.TabIndex = 203;
+            // 
+            // tbNomeProduto
+            // 
+            tbNomeProduto.BackColor = Color.FromArgb(40, 41, 52);
+            tbNomeProduto.BorderStyle = BorderStyle.None;
+            tbNomeProduto.Font = new Font("Segoe UI", 9F);
+            tbNomeProduto.ForeColor = Color.White;
+            tbNomeProduto.Location = new Point(8, 9);
+            tbNomeProduto.MaxLength = 100;
+            tbNomeProduto.Name = "tbNomeProduto";
+            tbNomeProduto.Size = new Size(426, 16);
+            tbNomeProduto.TabIndex = 21;
+            // 
+            // btnMaisInformacao
+            // 
+            btnMaisInformacao.BackColor = Color.Transparent;
+            btnMaisInformacao.Image = (Image)resources.GetObject("btnMaisInformacao.Image");
+            btnMaisInformacao.Location = new Point(443, 9);
+            btnMaisInformacao.Name = "btnMaisInformacao";
+            btnMaisInformacao.Size = new Size(20, 18);
+            btnMaisInformacao.SizeMode = PictureBoxSizeMode.Zoom;
+            btnMaisInformacao.TabIndex = 53;
+            btnMaisInformacao.TabStop = false;
+            // 
+            // lblProduto
+            // 
+            lblProduto.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblProduto.ForeColor = Color.White;
+            lblProduto.Location = new Point(33, 132);
+            lblProduto.Name = "lblProduto";
+            lblProduto.Size = new Size(101, 20);
+            lblProduto.TabIndex = 25;
+            lblProduto.Text = "Produto Vendido *";
+            // 
+            // lblPreco
+            // 
+            lblPreco.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblPreco.ForeColor = Color.White;
+            lblPreco.Location = new Point(33, 273);
+            lblPreco.Name = "lblPreco";
+            lblPreco.Size = new Size(41, 20);
+            lblPreco.TabIndex = 26;
+            lblPreco.Text = "Preço *";
+            // 
+            // tbPrecoProduto
+            // 
+            tbPrecoProduto.BackColor = Color.FromArgb(40, 41, 52);
+            tbPrecoProduto.BorderStyle = BorderStyle.None;
+            tbPrecoProduto.Font = new Font("Segoe UI", 9F);
+            tbPrecoProduto.ForeColor = Color.White;
+            tbPrecoProduto.Location = new Point(33, 293);
+            tbPrecoProduto.MaxLength = 11;
+            tbPrecoProduto.Name = "tbPrecoProduto";
+            tbPrecoProduto.Size = new Size(125, 16);
+            tbPrecoProduto.TabIndex = 22;
+            // 
+            // lblQuantidadeVendida
+            // 
+            lblQuantidadeVendida.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblQuantidadeVendida.ForeColor = Color.White;
+            lblQuantidadeVendida.Location = new Point(706, 132);
+            lblQuantidadeVendida.Name = "lblQuantidadeVendida";
+            lblQuantidadeVendida.Size = new Size(116, 20);
+            lblQuantidadeVendida.TabIndex = 27;
+            lblQuantidadeVendida.Text = "Quantidade Vendida*";
+            // 
+            // tbQProduto
+            // 
+            tbQProduto.BackColor = Color.FromArgb(40, 41, 52);
+            tbQProduto.BorderStyle = BorderStyle.None;
+            tbQProduto.Font = new Font("Segoe UI", 9F);
+            tbQProduto.ForeColor = Color.White;
+            tbQProduto.Location = new Point(706, 152);
+            tbQProduto.MaxLength = 5;
+            tbQProduto.Name = "tbQProduto";
+            tbQProduto.Size = new Size(181, 16);
+            tbQProduto.TabIndex = 23;
             // 
             // lblDesconto
             // 
@@ -457,169 +599,15 @@ namespace telebip_erp.Forms.SubForms
             // 
             // tbDesconto
             // 
-            tbDesconto.BorderColor = Color.FromArgb(60, 62, 80);
-            tbDesconto.BorderRadius = 8;
-            tbDesconto.CustomizableEdges = customizableEdges12;
-            tbDesconto.DefaultText = "";
-            tbDesconto.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            tbDesconto.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            tbDesconto.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            tbDesconto.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            tbDesconto.FillColor = Color.FromArgb(40, 41, 52);
-            tbDesconto.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
+            tbDesconto.BackColor = Color.FromArgb(40, 41, 52);
+            tbDesconto.BorderStyle = BorderStyle.None;
             tbDesconto.Font = new Font("Segoe UI", 9F);
             tbDesconto.ForeColor = Color.White;
-            tbDesconto.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
             tbDesconto.Location = new Point(482, 293);
-            tbDesconto.Margin = new Padding(3, 0, 10, 0);
             tbDesconto.MaxLength = 11;
             tbDesconto.Name = "tbDesconto";
-            tbDesconto.PlaceholderForeColor = Color.Gray;
-            tbDesconto.PlaceholderText = "";
-            tbDesconto.SelectedText = "";
-            tbDesconto.ShadowDecoration.CustomizableEdges = customizableEdges13;
-            tbDesconto.Size = new Size(130, 36);
+            tbDesconto.Size = new Size(130, 16);
             tbDesconto.TabIndex = 28;
-            // 
-            // lblQuantidadeVendida
-            // 
-            lblQuantidadeVendida.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblQuantidadeVendida.ForeColor = Color.White;
-            lblQuantidadeVendida.Location = new Point(706, 132);
-            lblQuantidadeVendida.Name = "lblQuantidadeVendida";
-            lblQuantidadeVendida.Size = new Size(116, 20);
-            lblQuantidadeVendida.TabIndex = 27;
-            lblQuantidadeVendida.Text = "Quantidade Vendida*";
-            // 
-            // lblPreco
-            // 
-            lblPreco.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblPreco.ForeColor = Color.White;
-            lblPreco.Location = new Point(33, 273);
-            lblPreco.Name = "lblPreco";
-            lblPreco.Size = new Size(41, 20);
-            lblPreco.TabIndex = 26;
-            lblPreco.Text = "Preço *";
-            // 
-            // lblProduto
-            // 
-            lblProduto.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblProduto.ForeColor = Color.White;
-            lblProduto.Location = new Point(33, 132);
-            lblProduto.Name = "lblProduto";
-            lblProduto.Size = new Size(101, 20);
-            lblProduto.TabIndex = 25;
-            lblProduto.Text = "Produto Vendido *";
-            // 
-            // tbQProduto
-            // 
-            tbQProduto.BorderColor = Color.FromArgb(60, 62, 80);
-            tbQProduto.BorderRadius = 8;
-            tbQProduto.CustomizableEdges = customizableEdges14;
-            tbQProduto.DefaultText = "";
-            tbQProduto.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            tbQProduto.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            tbQProduto.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            tbQProduto.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            tbQProduto.FillColor = Color.FromArgb(40, 41, 52);
-            tbQProduto.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbQProduto.Font = new Font("Segoe UI", 9F);
-            tbQProduto.ForeColor = Color.White;
-            tbQProduto.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbQProduto.Location = new Point(706, 152);
-            tbQProduto.Margin = new Padding(3, 0, 10, 0);
-            tbQProduto.MaxLength = 5;
-            tbQProduto.Name = "tbQProduto";
-            tbQProduto.PlaceholderForeColor = Color.Gray;
-            tbQProduto.PlaceholderText = "Ex: 10";
-            tbQProduto.SelectedText = "";
-            tbQProduto.ShadowDecoration.CustomizableEdges = customizableEdges15;
-            tbQProduto.Size = new Size(181, 36);
-            tbQProduto.TabIndex = 23;
-            // 
-            // tbPrecoProduto
-            // 
-            tbPrecoProduto.BorderColor = Color.FromArgb(60, 62, 80);
-            tbPrecoProduto.BorderRadius = 8;
-            tbPrecoProduto.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
-            tbPrecoProduto.CustomizableEdges = customizableEdges16;
-            tbPrecoProduto.DefaultText = "";
-            tbPrecoProduto.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            tbPrecoProduto.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            tbPrecoProduto.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            tbPrecoProduto.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            tbPrecoProduto.FillColor = Color.FromArgb(40, 41, 52);
-            tbPrecoProduto.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbPrecoProduto.Font = new Font("Segoe UI", 9F);
-            tbPrecoProduto.ForeColor = Color.White;
-            tbPrecoProduto.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbPrecoProduto.Location = new Point(33, 293);
-            tbPrecoProduto.MaxLength = 11;
-            tbPrecoProduto.Name = "tbPrecoProduto";
-            tbPrecoProduto.PlaceholderForeColor = Color.Gray;
-            tbPrecoProduto.PlaceholderText = "";
-            tbPrecoProduto.SelectedText = "";
-            tbPrecoProduto.ShadowDecoration.CustomizableEdges = customizableEdges17;
-            tbPrecoProduto.Size = new Size(125, 36);
-            tbPrecoProduto.TabIndex = 22;
-            tbPrecoProduto.TextChanged += this.TbPrecoProduto_TextChanged;
-            // 
-            // tbNomeProduto
-            // 
-            tbNomeProduto.BorderColor = Color.FromArgb(60, 62, 80);
-            tbNomeProduto.BorderRadius = 8;
-            tbNomeProduto.CustomizableEdges = customizableEdges18;
-            tbNomeProduto.DefaultText = "";
-            tbNomeProduto.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            tbNomeProduto.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            tbNomeProduto.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            tbNomeProduto.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            tbNomeProduto.FillColor = Color.FromArgb(40, 41, 52);
-            tbNomeProduto.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbNomeProduto.Font = new Font("Segoe UI", 9F);
-            tbNomeProduto.ForeColor = Color.White;
-            tbNomeProduto.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbNomeProduto.Location = new Point(33, 152);
-            tbNomeProduto.Margin = new Padding(3, 0, 10, 0);
-            tbNomeProduto.MaxLength = 100;
-            tbNomeProduto.Name = "tbNomeProduto";
-            tbNomeProduto.PlaceholderForeColor = Color.Gray;
-            tbNomeProduto.PlaceholderText = "Ex: Carregador USB-C";
-            tbNomeProduto.SelectedText = "";
-            tbNomeProduto.ShadowDecoration.CustomizableEdges = customizableEdges19;
-            tbNomeProduto.Size = new Size(426, 36);
-            tbNomeProduto.TabIndex = 21;
-            tbNomeProduto.KeyDown += this.tbNomeProduto_KeyDown;
-            // 
-            // cbFuncionariosVenda
-            // 
-            cbFuncionariosVenda.BackColor = Color.Transparent;
-            cbFuncionariosVenda.BorderColor = Color.FromArgb(60, 62, 80);
-            cbFuncionariosVenda.BorderRadius = 8;
-            cbFuncionariosVenda.CustomizableEdges = customizableEdges20;
-            cbFuncionariosVenda.DrawMode = DrawMode.OwnerDrawFixed;
-            cbFuncionariosVenda.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbFuncionariosVenda.FillColor = Color.FromArgb(40, 41, 52);
-            cbFuncionariosVenda.FocusedColor = Color.FromArgb(100, 150, 200);
-            cbFuncionariosVenda.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            cbFuncionariosVenda.Font = new Font("Segoe UI", 9F);
-            cbFuncionariosVenda.ForeColor = Color.White;
-            cbFuncionariosVenda.ItemHeight = 30;
-            cbFuncionariosVenda.Location = new Point(33, 55);
-            cbFuncionariosVenda.Name = "cbFuncionariosVenda";
-            cbFuncionariosVenda.ShadowDecoration.CustomizableEdges = customizableEdges21;
-            cbFuncionariosVenda.Size = new Size(854, 36);
-            cbFuncionariosVenda.TabIndex = 20;
-            // 
-            // lblFuncionario
-            // 
-            lblFuncionario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblFuncionario.ForeColor = Color.White;
-            lblFuncionario.Location = new Point(33, 32);
-            lblFuncionario.Name = "lblFuncionario";
-            lblFuncionario.Size = new Size(142, 20);
-            lblFuncionario.TabIndex = 1;
-            lblFuncionario.Text = "Funcionário Responsável *";
             // 
             // pnlHeader
             // 
@@ -651,20 +639,29 @@ namespace telebip_erp.Forms.SubForms
             BackColor = Color.FromArgb(28, 29, 40);
             ClientSize = new Size(928, 690);
             Controls.Add(pnlContainer);
-            FormStyle = FormStyles.ActionBar_None;
-            MaximumSize = new Size(928, 690);
-            MinimumSize = new Size(928, 690);
             Name = "FormAddVendas";
             Padding = new Padding(3, 24, 3, 3);
             StartPosition = FormStartPosition.CenterParent;
             Text = "FormAddVendas";
-            Load += this.FormAddVendas_Load_1;
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);
             pnlMain.PerformLayout();
             pnlProdutos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvProdutoTemporarios).EndInit();
             pnlBotoesProduto.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picTirarProduto).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picAdicaoProduto).EndInit();
+            pnlWrapperData.ResumeLayout(false);
+            pnlWrapperData.PerformLayout();
+            pnlWrapperEstado.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picArrowEstado).EndInit();
+            pnlWrapperForma.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picArrowForma).EndInit();
+            pnlWrapperFuncionarios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picArrowFuncionarios).EndInit();
+            roundedPanel1.ResumeLayout(false);
+            roundedPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)btnMaisInformacao).EndInit();
             pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -675,36 +672,59 @@ namespace telebip_erp.Forms.SubForms
         private Panel pnlMain;
         private Panel pnlHeader;
         private Label lblTitulo;
-        private Label lblFuncionario;
-        public Guna.UI2.WinForms.Guna2ComboBox cbFuncionariosVenda;
-        public Guna.UI2.WinForms.Guna2TextBox tbNomeProduto;
-        public Guna.UI2.WinForms.Guna2TextBox tbPrecoProduto;
-        public Guna.UI2.WinForms.Guna2TextBox tbQProduto;
+
+        private Label label2;
+        private Label label1;
+        private PictureBox btnMaisInformacao;
+        private Label lbValorSuper;
+        private Label lblValorTotal;
+
+        private CuoreUI.Controls.cuiButton btnAdicionarVendas;
+        private CuoreUI.Controls.cuiButton btnCancelarVendas;
+
+        private Panel pnlProdutos;
+        private DataGridView dgvProdutoTemporarios;
+        private Panel pnlBotoesProduto;
+        private PictureBox picTirarProduto;
+        private PictureBox picAdicaoProduto;
+
+        private Label lbMarcaProduto;
+        private Label lbIdProduto;
+        private Label lbQuantidadeAtual;
+
+        // Wrappers (rounded panels) for ComboBoxes and Date/MaskedBox
+        private telebip_erp.Controls.RoundedPanel pnlWrapperFuncionarios;
+        private PictureBox picArrowFuncionarios;
+        public ComboBox cbFuncionariosVenda;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperForma;
+        private PictureBox picArrowForma;
+        public ComboBox cbForma;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperEstado;
+        private PictureBox picArrowEstado;
+        public ComboBox cbEstado;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperData;
+        public MaskedTextBox mkDataHora;
+
+        // Product name rounded input
+        private telebip_erp.Controls.RoundedPanel roundedPanel1;
+        public TextBox tbNomeProduto;
+
+        // Plain TextBoxes (borderless)
+        public TextBox tbPrecoProduto;
+        public TextBox tbQProduto;
+        public TextBox tbDesconto;
+
+        // Labels and misc
         private Label lblProduto;
         private Label lblPreco;
         private Label lblQuantidadeVendida;
-        public Guna.UI2.WinForms.Guna2TextBox tbDesconto;
         private Label lblDesconto;
         private Label lblDataHora;
-        public Guna.UI2.WinForms.Guna2ComboBox cbForma;
         private Label lblFormaPagamento;
-        public Guna.UI2.WinForms.Guna2ComboBox cbEstado;
         private Label lblEstadoPagamento;
-        private MaskedTextBox mkDataHora;
-        private Label lbQuantidadeAtual;
-        private DataGridView dgvProdutoTemporarios;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lbIdProduto;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lbMarcaProduto;
-        private Guna.UI2.WinForms.Guna2Button btnCancelarVendas;
-        private Guna.UI2.WinForms.Guna2Button btnAdicionarVendas;
-        private Label lbValorSuper;
-        private Label lblValorTotal;
-        private Panel pnlProdutos;
-        private Panel pnlBotoesProduto;
-        private Guna.UI2.WinForms.Guna2ImageRadioButton btnAdicaoProduto;
-        private Guna.UI2.WinForms.Guna2ImageRadioButton btnTirarProduto;
-        private Guna.UI2.WinForms.Guna2ImageRadioButton btnMaisInformacao;
-        private Label label2;
-        private Label label1;
+        private Label lblFuncionario;
     }
 }

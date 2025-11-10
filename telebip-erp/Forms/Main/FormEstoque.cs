@@ -20,197 +20,147 @@ namespace telebip_erp.Forms.Modules
             ConfigurarFormulario();
         }
 
+        #region Configuração Inicial do Formulário
         private void ConfigurarFormulario()
         {
-            // Form
+            // Configurações básicas do Form
             this.FormBorderStyle = FormBorderStyle.None;
             this.ControlBox = false;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Text = "";
 
-            // Eventos botoes
-            btnPesquisar.Click -= BtnPesquisar_Click;
-            btnPesquisar.Click += BtnPesquisar_Click;
+            // Configura eventos
+            ConfigurarEventos();
 
-            btnLimpar.Click -= BtnLimpar_Click;
+            // Aplica estilos visuais
+            AplicarEstilosVisuais();
+
+            // Configurações iniciais
+            ConfiguracoesIniciais();
+
+            this.Shown += FormEstoque_Shown;
+        }
+
+        private void ConfigurarEventos()
+        {
+            // Eventos dos botões
+            btnPesquisar.Click += BtnPesquisar_Click;
             btnLimpar.Click += BtnLimpar_Click;
 
-            // TextBox eventos (placeholder manual + texto)
-            tbPesquisa.GotFocus -= TbPesquisa_GotFocus;
+            // Eventos do TextBox (placeholder)
             tbPesquisa.GotFocus += TbPesquisa_GotFocus;
-            tbPesquisa.LostFocus -= TbPesquisa_LostFocus;
             tbPesquisa.LostFocus += TbPesquisa_LostFocus;
-            tbPesquisa.KeyPress -= TbPesquisa_KeyPress;
             tbPesquisa.KeyPress += TbPesquisa_KeyPress;
-            tbPesquisa.TextChanged -= TbPesquisa_TextChanged;
             tbPesquisa.TextChanged += TbPesquisa_TextChanged;
 
-            // Owner draw combos: handlers nomeados (removíveis)
-            cbPesquisaCampo.DrawItem -= Cb_DrawItem;
+            // Eventos das Comboboxes
             cbPesquisaCampo.DrawItem += Cb_DrawItem;
             cbPesquisaCampo.FlatStyle = FlatStyle.Flat;
-
-            cbCondicao.DrawItem -= Cb_DrawItem;
             cbCondicao.DrawItem += Cb_DrawItem;
             cbCondicao.FlatStyle = FlatStyle.Flat;
 
-            // make the picture arrows clickable to open dropdown
-            picArrowCampo.Click -= PicArrowCampo_Click;
-            picArrowCampo.Click += PicArrowCampo_Click;
-            picArrowCondicao.Click -= PicArrowCondicao_Click;
-            picArrowCondicao.Click += PicArrowCondicao_Click;
+            // Eventos de clique nos wrappers
+            ConfigurarEventosClique();
 
-            // put default icons if available (optional)
-            try
-            {
-                // se você tiver recursos, descomente e ajuste
-                // picArrowCampo.Image = Properties.Resources.arrow_down;
-                // picArrowCondicao.Image = Properties.Resources.arrow_down;
-                // picSearch.Image = Properties.Resources.icon_search;
-            }
-            catch { }
+            // Evento de double click - com verificação para evitar duplicação
+            dgvEstoque.CellDoubleClick -= DgvEstoque_CellDoubleClick;
+            dgvEstoque.CellDoubleClick += DgvEstoque_CellDoubleClick;
+        }
 
-            // aplica estilo visual (borda arredondada simples)
+        private void AplicarEstilosVisuais()
+        {
+            // Estilo dos wrappers
             StyleComboWrapperPanel(pnlWrapperCampo, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
             StyleComboWrapperPanel(pnlWrapperCondicao, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
             StyleTextboxWrapperPanel(pnlWrapperPesquisa, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
 
-            // placeholder inicial
+            // Tema da DataGridView
+            AplicarTemaEscuroDataGridView();
+        }
+
+        private void ConfiguracoesIniciais()
+        {
+            // Placeholder inicial
             tbPesquisa.Text = placeholder;
             tbPesquisa.ForeColor = Color.FromArgb(160, 160, 160);
 
-            // Aplica tema no DataGridView
-            AplicarTemaEscuroDataGridView();
-
-            // APLICA OS AJUSTES DAS COMBOBOXES - CHAMADA NOVA
-            AdjustComboInWrapper(pnlWrapperCampo, cbPesquisaCampo, picArrowCampo);
-            AdjustComboInWrapper(pnlWrapperCondicao, cbCondicao, picArrowCondicao);
-
+            // Comboboxes
             ConfigurarComboBoxInicial();
+
+            // Carrega dados iniciais
             CarregarEstoqueInicial();
-
-            this.Shown -= FormEstoque_Shown;
-            this.Shown += FormEstoque_Shown;
         }
+        #endregion
 
-        // ========== Ajustes para posicionamento e desenho correto das Combos ==========
-        private void AdjustComboInWrapper(Panel wrapper, ComboBox combo, PictureBox arrow, int rightExtra = 6)
+        #region Eventos de Clique nos Controles
+        private void ConfigurarEventosClique()
         {
-            // propriedades visuais
-            combo.FlatStyle = FlatStyle.Flat;
-            combo.BackColor = wrapper.BackColor;
-            combo.ForeColor = Color.White;
-            combo.DropDownStyle = ComboBoxStyle.DropDownList;
-            combo.IntegralHeight = false;           // evita auto-resize do dropdown
-            combo.DropDownHeight = 200;
-            combo.DropDownWidth = Math.Max(200, wrapper.Width); // evita dropdown muito estreito
-            combo.ItemHeight = Math.Max(26, wrapper.Height - 4);
-
-            // remover handlers antigos para segurança
-            wrapper.Resize -= (s, e) => Align();
-            // adicionar handler nomeado para permitir remoção futura
-            wrapper.Resize += (s, e) => Align();
-
-            // alinhamento inicial
-            Align();
-
-            void Align()
+            // Combobox 1 - Campo
+            pnlWrapperCampo.Click += (s, e) =>
             {
-                // calcula espaços (padding já definido no wrapper)
-                int left = wrapper.Padding.Left;
-                int top = wrapper.Padding.Top;
-                int arrowWidth = (arrow != null && arrow.Visible) ? arrow.Width + rightExtra : rightExtra;
-                int innerHeight = wrapper.Height - wrapper.Padding.Top - wrapper.Padding.Bottom;
-                int comboHeight = innerHeight; // altura da combobox para preencher verticalmente
+                cbPesquisaCampo.Focus();
+                cbPesquisaCampo.DroppedDown = true;
+            };
+            pictureBox2.Click += (s, e) =>
+            {
+                cbPesquisaCampo.Focus();
+                cbPesquisaCampo.DroppedDown = true;
+            };
 
-                // position combo
-                combo.Location = new Point(left, top);
-                combo.Size = new Size(Math.Max(40, wrapper.Width - left - wrapper.Padding.Right - arrowWidth), comboHeight);
+            // Combobox 2 - Condição
+            pnlWrapperCondicao.Click += (s, e) =>
+            {
+                cbCondicao.Focus();
+                cbCondicao.DroppedDown = true;
+            };
+            pictureBox1.Click += (s, e) =>
+            {
+                cbCondicao.Focus();
+                cbCondicao.DroppedDown = true;
+            };
 
-                // center arrow verticalmente e posicione à direita
-                if (arrow != null)
-                {
-                    arrow.Width = 24;
-                    arrow.Height = Math.Max(16, innerHeight - 4);
-                    arrow.Visible = true;
-                    arrow.Location = new Point(wrapper.Width - wrapper.Padding.Right - arrow.Width, wrapper.Padding.Top + (innerHeight - arrow.Height) / 2);
-                    arrow.BringToFront();
-                }
-
-                // garante que o texto selecionado do combo fique centralizado verticalmente (quando owner-draw)
-                combo.ItemHeight = Math.Max(20, innerHeight - 6);
-            }
+            // Textbox
+            pnlWrapperPesquisa.Click += (s, e) => tbPesquisa.Focus();
+            picSearch.Click += (s, e) => tbPesquisa.Focus();
         }
+        #endregion
 
-        // Substitui o Cb_DrawItem para também desenhar o texto quando e.Index < 0
+        #region Estilização de Controles
+        // DrawItem customizado para Comboboxes - remove hover padrão
         private void Cb_DrawItem(object sender, DrawItemEventArgs e)
         {
             ComboBox cb = sender as ComboBox;
             if (cb == null) return;
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            e.DrawBackground();
 
             Color back = Color.FromArgb(40, 41, 52);
             Color fore = Color.White;
-            Color selBack = Color.FromArgb(80, 88, 255);
+            Color selBack = Color.FromArgb(60, 62, 80);
 
-            Rectangle bounds = e.Bounds;
+            using (SolidBrush b = new SolidBrush(back))
+                e.Graphics.FillRectangle(b, e.Bounds);
 
-            // Se um item do dropdown está sendo desenhado
             if (e.Index >= 0)
             {
-                bool selected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
-
-                using (SolidBrush b = new SolidBrush(selected ? selBack : back))
-                    e.Graphics.FillRectangle(b, bounds);
-
                 string text = cb.GetItemText(cb.Items[e.Index]);
-                Rectangle textRect = new Rectangle(bounds.X + 8, bounds.Y, bounds.Width - 8, bounds.Height);
-                TextRenderer.DrawText(e.Graphics, text, cb.Font, textRect, fore, TextFormatFlags.VerticalCenter | TextFormatFlags.Left);
 
-                if ((e.State & DrawItemState.Focus) == DrawItemState.Focus)
-                    e.DrawFocusRectangle();
-            }
-            else
-            {
-                // Quando a combobox está fechada: desenhar o texto selecionado/atual adequadamente
-                using (SolidBrush b = new SolidBrush(back))
-                    e.Graphics.FillRectangle(b, bounds);
+                if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                {
+                    using (SolidBrush selBrush = new SolidBrush(selBack))
+                        e.Graphics.FillRectangle(selBrush, e.Bounds);
+                }
 
-                string text = cb.Text;
-                Rectangle textRect = new Rectangle(bounds.X + 8, bounds.Y, bounds.Width - 8, bounds.Height);
+                Rectangle textRect = new Rectangle(e.Bounds.X + 8, e.Bounds.Y, e.Bounds.Width - 8, e.Bounds.Height);
                 TextRenderer.DrawText(e.Graphics, text, cb.Font, textRect, fore, TextFormatFlags.VerticalCenter | TextFormatFlags.Left);
             }
+
+            if ((e.State & DrawItemState.Focus) == DrawItemState.Focus)
+                e.DrawFocusRectangle();
         }
 
-        private void FormEstoque_Shown(object sender, EventArgs e)
-        {
-            dgvEstoque.ClearSelection();
-            dgvEstoque.CurrentCell = null;
-
-            // CORREÇÃO DO BUG DO TAMANHO DA DATAGRIDVIEW
-            // Força o redimensionamento correto após o form ser mostrado
-            AjustarTamanhoDataGridView();
-        }
-
-        // NOVO MÉTODO PARA CORRIGIR O TAMANHO DA DATAGRIDVIEW
-        private void AjustarTamanhoDataGridView()
-        {
-            if (dgvEstoque.Parent is Panel panelPai)
-            {
-                // Calcula o tamanho correto considerando o padding do panel
-                int novaLargura = panelPai.ClientSize.Width - panelPai.Padding.Left - panelPai.Padding.Right;
-                int novaAltura = panelPai.ClientSize.Height - panelPai.Padding.Top - panelPai.Padding.Bottom;
-
-                dgvEstoque.Size = new Size(novaLargura, novaAltura);
-                dgvEstoque.Location = new Point(panelPai.Padding.Left, panelPai.Padding.Top);
-            }
-        }
-
-        #region UI helpers (rounded wrappers)
-
+        // Helpers para bordas arredondadas
         private GraphicsPath GetRoundedRect(Rectangle r, int radius)
         {
             var path = new GraphicsPath();
@@ -230,14 +180,8 @@ namespace telebip_erp.Forms.Modules
 
         private void StyleComboWrapperPanel(Panel wrapper, Color fill, Color border, int radius = 8)
         {
-            // pintura de borda arredondada
             wrapper.BackColor = fill;
-            wrapper.Paint -= Wrapper_Paint;
-            wrapper.Paint += Wrapper_Paint;
-            wrapper.Resize -= Wrapper_Resize;
-            wrapper.Resize += Wrapper_Resize;
-
-            void Wrapper_Paint(object s, PaintEventArgs e)
+            wrapper.Paint += (s, e) =>
             {
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
                 var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
@@ -246,24 +190,14 @@ namespace telebip_erp.Forms.Modules
                 {
                     e.Graphics.DrawPath(pen, path);
                 }
-            }
-
-            void Wrapper_Resize(object s, EventArgs e)
-            {
-                wrapper.Invalidate();
-            }
+            };
+            wrapper.Resize += (s, e) => wrapper.Invalidate();
         }
 
         private void StyleTextboxWrapperPanel(Panel wrapper, Color fill, Color border, int radius = 8)
         {
-            // same as combo wrapper, but keep padding for text
             wrapper.BackColor = fill;
-            wrapper.Paint -= Wrapper_Paint;
-            wrapper.Paint += Wrapper_Paint;
-            wrapper.Resize -= Wrapper_Resize;
-            wrapper.Resize += Wrapper_Resize;
-
-            void Wrapper_Paint(object s, PaintEventArgs e)
+            wrapper.Paint += (s, e) =>
             {
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
                 var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
@@ -272,15 +206,177 @@ namespace telebip_erp.Forms.Modules
                 {
                     e.Graphics.DrawPath(pen, path);
                 }
-            }
+            };
+            wrapper.Resize += (s, e) => wrapper.Invalidate();
+        }
+        #endregion
 
-            void Wrapper_Resize(object s, EventArgs e) => wrapper.Invalidate();
+        #region Configuração e Estilo da DataGridView
+        private void AplicarTemaEscuroDataGridView()
+        {
+            // Configuração geral
+            dgvEstoque.BackgroundColor = Color.FromArgb(32, 33, 39);
+            dgvEstoque.BorderStyle = BorderStyle.None;
+            dgvEstoque.GridColor = Color.FromArgb(50, 52, 67);
+
+            // Remove seleção vertical
+            dgvEstoque.RowHeadersVisible = false;
+
+            // Estilo para cabeçalhos das colunas
+            DataGridViewCellStyle headerStyle = new DataGridViewCellStyle();
+            headerStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            headerStyle.BackColor = Color.FromArgb(25, 26, 35);
+            headerStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            headerStyle.ForeColor = Color.White;
+            headerStyle.SelectionBackColor = Color.FromArgb(25, 26, 35);
+            headerStyle.SelectionForeColor = SystemColors.HighlightText;
+            headerStyle.WrapMode = DataGridViewTriState.True;
+            dgvEstoque.ColumnHeadersDefaultCellStyle = headerStyle;
+            dgvEstoque.ColumnHeadersHeight = 40;
+            dgvEstoque.EnableHeadersVisualStyles = false;
+
+            // Estilo padrão para células
+            DataGridViewCellStyle defaultStyle = new DataGridViewCellStyle();
+            defaultStyle.BackColor = Color.FromArgb(32, 33, 39);
+            defaultStyle.Font = new Font("Segoe UI", 9F);
+            defaultStyle.ForeColor = Color.White;
+            defaultStyle.SelectionBackColor = Color.FromArgb(50, 90, 130);
+            defaultStyle.SelectionForeColor = Color.White;
+            defaultStyle.WrapMode = DataGridViewTriState.False;
+            defaultStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvEstoque.DefaultCellStyle = defaultStyle;
+
+            // Configurações de comportamento - REMOVIDO AutoSizeColumnsMode daqui
+            dgvEstoque.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvEstoque.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvEstoque.ReadOnly = true;
+            dgvEstoque.AllowUserToAddRows = false;
+            dgvEstoque.AllowUserToDeleteRows = false;
+            dgvEstoque.AllowUserToResizeRows = false;
+            dgvEstoque.MultiSelect = false;
+            dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // Altura das linhas
+            dgvEstoque.RowTemplate.Height = 35;
+
+            // Adiciona evento de resize
+            dgvEstoque.Resize += DgvEstoque_Resize;
         }
 
+        private void ConfigurarColunasDataGridView()
+        {
+            if (dgvEstoque.Columns.Count == 0) return;
+
+            // Remove o auto-size das colunas
+            dgvEstoque.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // Configura todas as colunas como fixas, exceto a última
+            for (int i = 0; i < dgvEstoque.Columns.Count; i++)
+            {
+                var coluna = dgvEstoque.Columns[i];
+
+                // Define propriedades comuns
+                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                // Se for a última coluna, configura como fill
+                if (i == dgvEstoque.Columns.Count - 1)
+                {
+                    coluna.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    coluna.MinimumWidth = 100; // Largura mínima para a última coluna
+                }
+                else
+                {
+                    // Colunas fixas
+                    coluna.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    coluna.Resizable = DataGridViewTriState.False;
+                }
+            }
+
+            // Configura cabeçalhos específicos
+            ConfigurarCabecalhosColunas();
+
+            // Aplica o redimensionamento após carregar os dados
+            dgvEstoque.DataBindingComplete += (s, e) => AjustarLarguraColunasFixas();
+        }
+
+        private void ConfigurarCabecalhosColunas()
+        {
+            // Configura os textos dos cabeçalhos
+            if (dgvEstoque.Columns.Contains("ID_PRODUTO"))
+            {
+                dgvEstoque.Columns["ID_PRODUTO"].HeaderText = "ID";
+                dgvEstoque.Columns["ID_PRODUTO"].Width = 60; // Largura fixa para ID
+            }
+
+            if (dgvEstoque.Columns.Contains("NOME"))
+            {
+                dgvEstoque.Columns["NOME"].HeaderText = "Nome do Produto";
+                dgvEstoque.Columns["NOME"].MinimumWidth = 150;
+            }
+
+            if (dgvEstoque.Columns.Contains("MARCA"))
+            {
+                dgvEstoque.Columns["MARCA"].HeaderText = "Marca";
+                dgvEstoque.Columns["MARCA"].MinimumWidth = 120;
+            }
+
+            if (dgvEstoque.Columns.Contains("PRECO"))
+            {
+                dgvEstoque.Columns["PRECO"].HeaderText = "Preço";
+                dgvEstoque.Columns["PRECO"].DefaultCellStyle.Format = "C2";
+                dgvEstoque.Columns["PRECO"].Width = 90;
+            }
+
+            if (dgvEstoque.Columns.Contains("QTD_ESTOQUE"))
+            {
+                dgvEstoque.Columns["QTD_ESTOQUE"].HeaderText = "Estoque Atual";
+                dgvEstoque.Columns["QTD_ESTOQUE"].Width = 100;
+            }
+
+            if (dgvEstoque.Columns.Contains("QTD_AVISO"))
+            {
+                dgvEstoque.Columns["QTD_AVISO"].HeaderText = "Estoque Mínimo";
+                dgvEstoque.Columns["QTD_AVISO"].Width = 110;
+            }
+
+            if (dgvEstoque.Columns.Contains("OBSERVACAO"))
+            {
+                dgvEstoque.Columns["OBSERVACAO"].HeaderText = "Observações";
+                // Esta será a coluna flexível (última)
+            }
+        }
+
+        private void AjustarLarguraColunasFixas()
+        {
+            if (dgvEstoque.Columns.Count == 0) return;
+
+            int larguraTotalFixas = 0;
+
+            // Calcula a largura total das colunas fixas
+            for (int i = 0; i < dgvEstoque.Columns.Count - 1; i++)
+            {
+                larguraTotalFixas += dgvEstoque.Columns[i].Width;
+            }
+
+            // Adiciona margem para as bordas e scrollbar
+            int margem = SystemInformation.VerticalScrollBarWidth + 2;
+
+            // Se a soma das colunas fixas for maior que a área disponível
+            if (larguraTotalFixas + margem > dgvEstoque.ClientSize.Width)
+            {
+                // Habilita a scrollbar horizontal e ajusta a última coluna
+                dgvEstoque.Columns[dgvEstoque.Columns.Count - 1].Width = 100; // Largura mínima
+            }
+        }
+
+        private void DgvEstoque_Resize(object sender, EventArgs e)
+        {
+            AjustarLarguraColunasFixas();
+        }
         #endregion
 
         #region Placeholder TextBox
-
         private void TbPesquisa_GotFocus(object sender, EventArgs e)
         {
             if (tbPesquisa.Text == placeholder)
@@ -301,18 +397,25 @@ namespace telebip_erp.Forms.Modules
 
         private void TbPesquisa_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Atualiza a variável com o texto atual + nova tecla
-            // Não concatena se o placeholder estiver ativo
             if (tbPesquisa.Text == placeholder)
-                textoPesquisa = e.KeyChar.ToString();
-            else
-                textoPesquisa = tbPesquisa.Text + e.KeyChar;
+            {
+                tbPesquisa.Text = "";
+                tbPesquisa.ForeColor = Color.White;
+            }
+
+            textoPesquisa = tbPesquisa.Text + e.KeyChar;
         }
 
         private void TbPesquisa_TextChanged(object sender, EventArgs e)
         {
-            if (tbPesquisa.Text == placeholder) textoPesquisa = "";
-            else textoPesquisa = tbPesquisa.Text;
+            if (tbPesquisa.Text != placeholder)
+            {
+                textoPesquisa = tbPesquisa.Text;
+            }
+            else
+            {
+                textoPesquisa = "";
+            }
         }
 
         private string ObterTextoPesquisa()
@@ -326,19 +429,18 @@ namespace telebip_erp.Forms.Modules
 
             return textoPesquisa;
         }
-
         #endregion
 
+        #region Comboboxes e Filtros
         private void ConfigurarComboBoxInicial()
         {
             try
             {
+                cbCondicao.Items.Clear();
+                cbCondicao.Items.AddRange(new object[] { "Idêntico a", "Inicia com", "Contendo", "Diferente de" });
+
                 SelecionarPrimeiroItem(cbPesquisaCampo);
                 SelecionarPrimeiroItem(cbCondicao);
-
-                // Placeholder inicial já setado
-                tbPesquisa.Text = placeholder;
-                tbPesquisa.ForeColor = Color.FromArgb(160, 160, 160);
             }
             catch (Exception ex)
             {
@@ -362,64 +464,6 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
-        private void AplicarTemaEscuroDataGridView()
-        {
-            // Configuração geral
-            dgvEstoque.BackgroundColor = Color.FromArgb(32, 33, 39);
-            dgvEstoque.BorderStyle = BorderStyle.None;
-            dgvEstoque.GridColor = Color.FromArgb(50, 52, 67);
-
-            // Remove seleção vertical - LINHAS IMPORTANTES
-            dgvEstoque.RowHeadersVisible = false;
-            dgvEstoque.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-
-            // Estilo para linhas alternadas
-            DataGridViewCellStyle alternatingStyle = new DataGridViewCellStyle();
-            alternatingStyle.BackColor = Color.FromArgb(32, 33, 39);
-            alternatingStyle.ForeColor = Color.White;
-            alternatingStyle.SelectionBackColor = Color.FromArgb(50, 90, 130); // Azul mais suave
-            alternatingStyle.SelectionForeColor = Color.White;
-            dgvEstoque.AlternatingRowsDefaultCellStyle = alternatingStyle;
-
-            // Estilo para cabeçalhos das colunas
-            DataGridViewCellStyle headerStyle = new DataGridViewCellStyle();
-            headerStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            headerStyle.BackColor = Color.FromArgb(40, 41, 52);
-            headerStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            headerStyle.ForeColor = Color.White;
-            headerStyle.SelectionBackColor = Color.FromArgb(40, 41, 52);
-            headerStyle.SelectionForeColor = SystemColors.HighlightText;
-            headerStyle.WrapMode = DataGridViewTriState.True;
-            dgvEstoque.ColumnHeadersDefaultCellStyle = headerStyle;
-            dgvEstoque.ColumnHeadersHeight = 40;
-            dgvEstoque.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvEstoque.EnableHeadersVisualStyles = false;
-
-            // Estilo padrão para células
-            DataGridViewCellStyle defaultStyle = new DataGridViewCellStyle();
-            defaultStyle.BackColor = Color.FromArgb(32, 33, 39);
-            defaultStyle.Font = new Font("Segoe UI", 9F);
-            defaultStyle.ForeColor = Color.White;
-            defaultStyle.SelectionBackColor = Color.FromArgb(50, 90, 130); // Azul mais suave
-            defaultStyle.SelectionForeColor = Color.White;
-            defaultStyle.WrapMode = DataGridViewTriState.False;
-            dgvEstoque.DefaultCellStyle = defaultStyle;
-
-            // Configurações de comportamento
-            dgvEstoque.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvEstoque.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dgvEstoque.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dgvEstoque.ReadOnly = true;
-            dgvEstoque.AllowUserToAddRows = false;
-            dgvEstoque.AllowUserToDeleteRows = false;
-            dgvEstoque.AllowUserToResizeRows = false;
-            dgvEstoque.MultiSelect = false; // Apenas uma seleção por vez
-            dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect; // Seleção horizontal completa
-
-            // Altura das linhas
-            dgvEstoque.RowTemplate.Height = 35;
-        }
-
         private string ObterValorSelecionado(ComboBox comboBox)
         {
             try
@@ -434,10 +478,47 @@ namespace telebip_erp.Forms.Modules
                 return "";
             }
         }
+        #endregion
 
-        private void AtualizarTotalItens()
+        #region Operações de Banco de Dados
+        public void CarregarEstoque(string filtroSql = "", SQLiteParameter[] parametros = null, bool limitar20 = false)
         {
-            lbTotal.Text = $"Total de produtos: {dgvEstoque.Rows.Count}";
+            try
+            {
+                string sql = $@"
+                    SELECT 
+                        ID_PRODUTO,
+                        NOME,
+                        MARCA,
+                        PRECO,
+                        QTD_ESTOQUE,
+                        QTD_AVISO,
+                        OBSERVACAO
+                    FROM PRODUTO
+                    {(string.IsNullOrEmpty(filtroSql) ? "" : "WHERE " + filtroSql)}
+                    ORDER BY ID_PRODUTO DESC
+                    {(limitar20 ? "LIMIT 20" : "")};
+                ";
+
+                DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
+                dgvEstoque.DataSource = dt;
+
+                ConfigurarColunasDataGridView();
+
+                dgvEstoque.ClearSelection();
+                dgvEstoque.CurrentCell = null;
+
+                AtualizarTotalItens();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar estoque: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CarregarEstoqueInicial()
+        {
+            CarregarEstoque(limitar20: true);
         }
 
         public void AtualizarTabela()
@@ -461,144 +542,9 @@ namespace telebip_erp.Forms.Modules
                 MessageBox.Show("Erro ao atualizar tabela: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
-        public void CarregarEstoque(string filtroSql = "", SQLiteParameter[] parametros = null, bool limitar20 = false)
-        {
-            try
-            {
-                string sql = $@"
-                    SELECT 
-                        ID_PRODUTO,
-                        NOME,
-                        MARCA,
-                        PRECO,
-                        QTD_ESTOQUE,
-                        QTD_AVISO,
-                        OBSERVACAO
-                    FROM PRODUTO
-                    {(string.IsNullOrEmpty(filtroSql) ? "" : "WHERE " + filtroSql)}
-                    ORDER BY ID_PRODUTO DESC
-                    {(limitar20 ? "LIMIT 20" : "")};
-                ";
-
-                DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
-                dgvEstoque.DataSource = dt;
-
-                // 🔹 CONFIGURA AS COLUNAS APÓS CARREGAR OS DADOS
-                ConfigurarColunasDataGridView();
-
-                dgvEstoque.ClearSelection();
-                dgvEstoque.CurrentCell = null;
-
-                AtualizarTotalItens();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao carregar estoque: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void ConfigurarColunasDataGridView()
-        {
-            // 🔹 APELIDOS PARA AS COLUNAS - Nomes mais amigáveis
-            if (dgvEstoque.Columns.Contains("ID_PRODUTO"))
-            {
-                dgvEstoque.Columns["ID_PRODUTO"].HeaderText = "ID";
-                dgvEstoque.Columns["ID_PRODUTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-
-            if (dgvEstoque.Columns.Contains("NOME"))
-            {
-                dgvEstoque.Columns["NOME"].HeaderText = "Nome do Produto";
-                dgvEstoque.Columns["NOME"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            }
-
-            if (dgvEstoque.Columns.Contains("MARCA"))
-            {
-                dgvEstoque.Columns["MARCA"].HeaderText = "Marca";
-                dgvEstoque.Columns["MARCA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            }
-
-            if (dgvEstoque.Columns.Contains("PRECO"))
-            {
-                dgvEstoque.Columns["PRECO"].HeaderText = "Preço";
-                dgvEstoque.Columns["PRECO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                dgvEstoque.Columns["PRECO"].DefaultCellStyle.Format = "C2";
-            }
-
-            if (dgvEstoque.Columns.Contains("QTD_ESTOQUE"))
-            {
-                dgvEstoque.Columns["QTD_ESTOQUE"].HeaderText = "Estoque Atual";
-                dgvEstoque.Columns["QTD_ESTOQUE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-
-            if (dgvEstoque.Columns.Contains("QTD_AVISO"))
-            {
-                dgvEstoque.Columns["QTD_AVISO"].HeaderText = "Estoque Mínimo";
-                dgvEstoque.Columns["QTD_AVISO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-
-            if (dgvEstoque.Columns.Contains("OBSERVACAO"))
-            {
-                dgvEstoque.Columns["OBSERVACAO"].HeaderText = "Observações";
-                dgvEstoque.Columns["OBSERVACAO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            }
-
-            // 🔹 PESOS DAS COLUNAS PARA PREENCHER MELHOR O ESPAÇO
-            if (dgvEstoque.Columns.Contains("ID_PRODUTO"))
-                dgvEstoque.Columns["ID_PRODUTO"].FillWeight = 8;
-            if (dgvEstoque.Columns.Contains("NOME"))
-                dgvEstoque.Columns["NOME"].FillWeight = 25;
-            if (dgvEstoque.Columns.Contains("MARCA"))
-                dgvEstoque.Columns["MARCA"].FillWeight = 15;
-            if (dgvEstoque.Columns.Contains("PRECO"))
-                dgvEstoque.Columns["PRECO"].FillWeight = 12;
-            if (dgvEstoque.Columns.Contains("QTD_ESTOQUE"))
-                dgvEstoque.Columns["QTD_ESTOQUE"].FillWeight = 12;
-            if (dgvEstoque.Columns.Contains("QTD_AVISO"))
-                dgvEstoque.Columns["QTD_AVISO"].FillWeight = 13;
-            if (dgvEstoque.Columns.Contains("OBSERVACAO"))
-                dgvEstoque.Columns["OBSERVACAO"].FillWeight = 15;
-
-            // Centraliza todos os cabeçalhos
-            foreach (DataGridViewColumn coluna in dgvEstoque.Columns)
-                coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-        }
-
-        private void CarregarEstoqueInicial()
-        {
-            CarregarEstoque(limitar20: true);
-        }
-
-        private void DgvEstoque_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-
-            var linha = dgvEstoque.Rows[e.RowIndex];
-
-            try
-            {
-                int id = Convert.ToInt32(linha.Cells["ID_PRODUTO"].Value);
-                string nome = linha.Cells["NOME"].Value?.ToString() ?? "";
-                string marca = linha.Cells["MARCA"].Value?.ToString() ?? "";
-                decimal preco = Convert.ToDecimal(linha.Cells["PRECO"].Value);
-                int quantidade = Convert.ToInt32(linha.Cells["QTD_ESTOQUE"].Value);
-                int quantidadeAviso = Convert.ToInt32(linha.Cells["QTD_AVISO"].Value);
-                string observacao = linha.Cells["OBSERVACAO"].Value?.ToString() ?? "";
-
-                using (var formView = new FormViewProduto())
-                {
-                    formView.CarregarProduto(id, nome, marca, preco, quantidade, quantidadeAviso, observacao);
-                    formView.ShowDialog(this);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao carregar dados do produto: " + ex.Message,
-                              "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
+        #region Eventos dos Botões
         private void BtnPesquisar_Click(object sender, EventArgs e)
         {
             string campoSelecionado = ObterValorSelecionado(cbPesquisaCampo);
@@ -634,6 +580,27 @@ namespace telebip_erp.Forms.Modules
 
             switch (condicao)
             {
+                case "Idêntico a":
+                    if (campo == "ID_PRODUTO" || campo == "PRECO" || campo == "QTD_ESTOQUE" || campo == "QTD_AVISO")
+                    {
+                        if (decimal.TryParse(valor, out decimal numero))
+                        {
+                            filtroSql = $"{campo} = @valor";
+                            parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", numero) };
+                        }
+                        else
+                        {
+                            MessageBox.Show("Para este campo, digite um valor numérico válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        filtroSql = $"UPPER({campo}) = UPPER(@valor)";
+                        parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
+                    }
+                    break;
+
                 case "Inicia com":
                     filtroSql = $"UPPER({campo}) LIKE @valor";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor + "%") };
@@ -663,8 +630,9 @@ namespace telebip_erp.Forms.Modules
             {
                 textoPesquisa = "";
                 tbPesquisa.Text = "";
-                tbPesquisa.Focus(); // limpa placeholder logic
                 TbPesquisa_LostFocus(tbPesquisa, EventArgs.Empty);
+
+                tbPesquisa.Focus();
 
                 SelecionarPrimeiroItem(cbPesquisaCampo);
                 SelecionarPrimeiroItem(cbCondicao);
@@ -679,7 +647,64 @@ namespace telebip_erp.Forms.Modules
                 MessageBox.Show("Erro ao limpar filtros: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
+        #region Eventos da Interface
+        private void FormEstoque_Shown(object sender, EventArgs e)
+        {
+            dgvEstoque.ClearSelection();
+            dgvEstoque.CurrentCell = null;
+            AjustarTamanhoDataGridView();
+        }
+
+        private void AjustarTamanhoDataGridView()
+        {
+            if (dgvEstoque.Parent is Panel panelPai)
+            {
+                // 🔹 AGORA COM DOCK FILL
+                dgvEstoque.Dock = DockStyle.Fill;
+
+                // Remove margens/padding se necessário
+                dgvEstoque.Margin = new Padding(0);
+            }
+        }
+
+        private void DgvEstoque_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var linha = dgvEstoque.Rows[e.RowIndex];
+
+            try
+            {
+                int id = Convert.ToInt32(linha.Cells["ID_PRODUTO"].Value);
+                string nome = linha.Cells["NOME"].Value?.ToString() ?? "";
+                string marca = linha.Cells["MARCA"].Value?.ToString() ?? "";
+                decimal preco = Convert.ToDecimal(linha.Cells["PRECO"].Value);
+                int quantidade = Convert.ToInt32(linha.Cells["QTD_ESTOQUE"].Value);
+                int quantidadeAviso = Convert.ToInt32(linha.Cells["QTD_AVISO"].Value);
+                string observacao = linha.Cells["OBSERVACAO"].Value?.ToString() ?? "";
+
+                using (var formView = new FormViewProduto())
+                {
+                    formView.CarregarProduto(id, nome, marca, preco, quantidade, quantidadeAviso, observacao);
+                    formView.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar dados do produto: " + ex.Message,
+                              "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AtualizarTotalItens()
+        {
+            lbTotal.Text = $"Total de produtos: {dgvEstoque.Rows.Count}";
+        }
+        #endregion
+
+        #region Métodos Públicos
         public (int Id, string Nome, int Quantidade)? ObterProdutoSelecionado()
         {
             if (dgvEstoque.CurrentRow == null)
@@ -773,8 +798,9 @@ namespace telebip_erp.Forms.Modules
 
             return dtTemp;
         }
+        #endregion
 
-        // arrow picturebox opens dropdown
+        #region Eventos das PictureBox (setas)
         private void PicArrowCampo_Click(object sender, EventArgs e)
         {
             try
@@ -794,5 +820,6 @@ namespace telebip_erp.Forms.Modules
             }
             catch { }
         }
+        #endregion
     }
 }

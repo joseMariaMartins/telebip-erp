@@ -20,27 +20,22 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVendas));
             pnlContainer = new Panel();
             pnlDgv = new Panel();
             dgvVendas = new DataGridView();
             pnlBottom = new Panel();
             lbTotal = new Label();
             pnlFiltros = new Panel();
-            btnLimpar = new Guna.UI2.WinForms.Guna2Button();
-            btnPesquisar = new Guna.UI2.WinForms.Guna2Button();
-            tbPesquisa = new Guna.UI2.WinForms.Guna2TextBox();
-            cbCondicao = new Guna.UI2.WinForms.Guna2ComboBox();
-            cbPesquisaCampo = new Guna.UI2.WinForms.Guna2ComboBox();
+            btnLimpar = new CuoreUI.Controls.cuiButton();
+            btnPesquisar = new CuoreUI.Controls.cuiButton();
+            // Wrappers e controles convertidos
+            pnlWrapperCampo = new telebip_erp.Controls.RoundedPanel();
+            cbPesquisaCampo = new ComboBox();
+            pnlWrapperCondicao = new telebip_erp.Controls.RoundedPanel();
+            cbCondicao = new ComboBox();
+            pnlWrapperPesquisa = new telebip_erp.Controls.RoundedPanel();
+            tbPesquisa = new TextBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             pnlContainer.SuspendLayout();
@@ -153,9 +148,9 @@
             pnlFiltros.BackColor = Color.FromArgb(32, 33, 39);
             pnlFiltros.Controls.Add(btnLimpar);
             pnlFiltros.Controls.Add(btnPesquisar);
-            pnlFiltros.Controls.Add(tbPesquisa);
-            pnlFiltros.Controls.Add(cbCondicao);
-            pnlFiltros.Controls.Add(cbPesquisaCampo);
+            pnlFiltros.Controls.Add(pnlWrapperPesquisa);
+            pnlFiltros.Controls.Add(pnlWrapperCondicao);
+            pnlFiltros.Controls.Add(pnlWrapperCampo);
             pnlFiltros.Dock = DockStyle.Top;
             pnlFiltros.Location = new Point(0, 71);
             pnlFiltros.Name = "pnlFiltros";
@@ -163,116 +158,113 @@
             pnlFiltros.Size = new Size(1597, 57);
             pnlFiltros.TabIndex = 7;
             // 
-            // btnLimpar
+            // btnLimpar (Cuore)
             // 
-            btnLimpar.BorderRadius = 8;
-            btnLimpar.CustomizableEdges = customizableEdges1;
-            btnLimpar.DisabledState.BorderColor = Color.DarkGray;
-            btnLimpar.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnLimpar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnLimpar.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnLimpar.FillColor = Color.FromArgb(120, 40, 40);
+            btnLimpar.CheckButton = false;
+            btnLimpar.Checked = false;
+            btnLimpar.Content = "Limpar";
             btnLimpar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnLimpar.ForeColor = Color.White;
-            btnLimpar.HoverState.BorderColor = Color.FromArgb(200, 80, 80);
-            btnLimpar.HoverState.FillColor = Color.FromArgb(160, 60, 60);
             btnLimpar.Location = new Point(759, 10);
             btnLimpar.Margin = new Padding(3, 0, 10, 0);
             btnLimpar.Name = "btnLimpar";
-            btnLimpar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnLimpar.NormalBackground = Color.FromArgb(120, 40, 40);
+            btnLimpar.NormalForeColor = Color.White;
+            btnLimpar.OutlineThickness = 1F;
+            btnLimpar.Rounding = new Padding(8);
             btnLimpar.Size = new Size(120, 36);
             btnLimpar.TabIndex = 14;
-            btnLimpar.Text = "Limpar";
+            btnLimpar.TextAlignment = StringAlignment.Center;
             // 
-            // btnPesquisar
+            // btnPesquisar (Cuore)
             // 
-            btnPesquisar.BorderRadius = 8;
-            btnPesquisar.CustomizableEdges = customizableEdges3;
-            btnPesquisar.DisabledState.BorderColor = Color.DarkGray;
-            btnPesquisar.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnPesquisar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnPesquisar.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnPesquisar.FillColor = Color.FromArgb(40, 120, 80);
+            btnPesquisar.CheckButton = false;
+            btnPesquisar.Checked = false;
+            btnPesquisar.Content = "Pesquisar";
             btnPesquisar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnPesquisar.ForeColor = Color.White;
-            btnPesquisar.HoverState.BorderColor = Color.FromArgb(80, 200, 120);
-            btnPesquisar.HoverState.FillColor = Color.FromArgb(60, 160, 100);
             btnPesquisar.Location = new Point(626, 10);
             btnPesquisar.Margin = new Padding(3, 0, 10, 0);
             btnPesquisar.Name = "btnPesquisar";
-            btnPesquisar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnPesquisar.NormalBackground = Color.FromArgb(40, 120, 80);
+            btnPesquisar.NormalForeColor = Color.White;
+            btnPesquisar.OutlineThickness = 1F;
+            btnPesquisar.Rounding = new Padding(8);
             btnPesquisar.Size = new Size(120, 36);
             btnPesquisar.TabIndex = 9;
-            btnPesquisar.Text = "Pesquisar";
+            btnPesquisar.TextAlignment = StringAlignment.Center;
             // 
-            // tbPesquisa
+            // pnlWrapperCampo (RoundedPanel)
             // 
-            tbPesquisa.BorderColor = Color.FromArgb(60, 62, 80);
-            tbPesquisa.BorderRadius = 8;
-            tbPesquisa.CustomizableEdges = customizableEdges5;
-            tbPesquisa.DefaultText = "";
-            tbPesquisa.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            tbPesquisa.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            tbPesquisa.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            tbPesquisa.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            tbPesquisa.FillColor = Color.FromArgb(40, 41, 52);
-            tbPesquisa.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbPesquisa.Font = new Font("Segoe UI", 9F);
-            tbPesquisa.ForeColor = Color.White;
-            tbPesquisa.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbPesquisa.Location = new Point(378, 10);
-            tbPesquisa.Margin = new Padding(3, 0, 10, 0);
-            tbPesquisa.Name = "tbPesquisa";
-            tbPesquisa.PlaceholderForeColor = Color.Gray;
-            tbPesquisa.PlaceholderText = "Digite para pesquisar...";
-            tbPesquisa.SelectedText = "";
-            tbPesquisa.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            tbPesquisa.Size = new Size(235, 36);
-            tbPesquisa.TabIndex = 7;
-            // 
-            // cbCondicao
-            // 
-            cbCondicao.BackColor = Color.Transparent;
-            cbCondicao.BorderColor = Color.FromArgb(60, 62, 80);
-            cbCondicao.BorderRadius = 8;
-            cbCondicao.CustomizableEdges = customizableEdges7;
-            cbCondicao.DrawMode = DrawMode.OwnerDrawFixed;
-            cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbCondicao.FillColor = Color.FromArgb(40, 41, 52);
-            cbCondicao.FocusedColor = Color.FromArgb(100, 150, 200);
-            cbCondicao.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            cbCondicao.Font = new Font("Segoe UI", 9F);
-            cbCondicao.ForeColor = Color.White;
-            cbCondicao.ItemHeight = 30;
-            cbCondicao.Items.AddRange(new object[] { "Inicia com", "Contendo", "Diferente de" });
-            cbCondicao.Location = new Point(195, 10);
-            cbCondicao.Margin = new Padding(3, 0, 10, 0);
-            cbCondicao.Name = "cbCondicao";
-            cbCondicao.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            cbCondicao.Size = new Size(170, 36);
-            cbCondicao.TabIndex = 11;
+            pnlWrapperCampo.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCampo.Location = new Point(13, 10);
+            pnlWrapperCampo.Name = "pnlWrapperCampo";
+            pnlWrapperCampo.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperCampo.Size = new Size(170, 36);
+            pnlWrapperCampo.TabIndex = 12;
             // 
             // cbPesquisaCampo
             // 
-            cbPesquisaCampo.BackColor = Color.Transparent;
-            cbPesquisaCampo.BorderColor = Color.FromArgb(60, 62, 80);
-            cbPesquisaCampo.BorderRadius = 8;
-            cbPesquisaCampo.CustomizableEdges = customizableEdges9;
-            cbPesquisaCampo.DrawMode = DrawMode.OwnerDrawFixed;
+            cbPesquisaCampo.BackColor = Color.FromArgb(40, 41, 52);
             cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbPesquisaCampo.FillColor = Color.FromArgb(40, 41, 52);
-            cbPesquisaCampo.FocusedColor = Color.FromArgb(100, 150, 200);
-            cbPesquisaCampo.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
+            cbPesquisaCampo.FlatStyle = FlatStyle.Flat;
             cbPesquisaCampo.Font = new Font("Segoe UI", 9F);
             cbPesquisaCampo.ForeColor = Color.White;
-            cbPesquisaCampo.ItemHeight = 30;
+            cbPesquisaCampo.FormattingEnabled = true;
             cbPesquisaCampo.Items.AddRange(new object[] { "ID", "Funcionário", "Data", "Valor total", "Desconto" });
-            cbPesquisaCampo.Location = new Point(13, 10);
+            cbPesquisaCampo.Location = new Point(8, 6);
             cbPesquisaCampo.Margin = new Padding(3, 0, 10, 0);
             cbPesquisaCampo.Name = "cbPesquisaCampo";
-            cbPesquisaCampo.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            cbPesquisaCampo.Size = new Size(170, 36);
+            cbPesquisaCampo.Size = new Size(154, 24);
             cbPesquisaCampo.TabIndex = 12;
+            pnlWrapperCampo.Controls.Add(cbPesquisaCampo);
+            // 
+            // pnlWrapperCondicao (RoundedPanel)
+            // 
+            pnlWrapperCondicao.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCondicao.Location = new Point(195, 10);
+            pnlWrapperCondicao.Name = "pnlWrapperCondicao";
+            pnlWrapperCondicao.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperCondicao.Size = new Size(170, 36);
+            pnlWrapperCondicao.TabIndex = 11;
+            // 
+            // cbCondicao
+            // 
+            cbCondicao.BackColor = Color.FromArgb(40, 41, 52);
+            cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCondicao.FlatStyle = FlatStyle.Flat;
+            cbCondicao.Font = new Font("Segoe UI", 9F);
+            cbCondicao.ForeColor = Color.White;
+            cbCondicao.FormattingEnabled = true;
+            cbCondicao.Items.AddRange(new object[] { "Inicia com", "Contendo", "Diferente de" });
+            cbCondicao.Location = new Point(8, 6);
+            cbCondicao.Margin = new Padding(3, 0, 10, 0);
+            cbCondicao.Name = "cbCondicao";
+            cbCondicao.Size = new Size(154, 24);
+            cbCondicao.TabIndex = 11;
+            pnlWrapperCondicao.Controls.Add(cbCondicao);
+            // 
+            // pnlWrapperPesquisa (RoundedPanel)
+            // 
+            pnlWrapperPesquisa.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPesquisa.Location = new Point(378, 10);
+            pnlWrapperPesquisa.Name = "pnlWrapperPesquisa";
+            pnlWrapperPesquisa.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperPesquisa.Size = new Size(235, 36);
+            pnlWrapperPesquisa.TabIndex = 7;
+            // 
+            // tbPesquisa (TextBox inside wrapper)
+            // 
+            tbPesquisa.BackColor = Color.FromArgb(40, 41, 52);
+            tbPesquisa.BorderStyle = BorderStyle.None;
+            tbPesquisa.Font = new Font("Segoe UI", 9F);
+            tbPesquisa.ForeColor = Color.White;
+            tbPesquisa.Location = new Point(8, 10);
+            tbPesquisa.Margin = new Padding(3, 0, 10, 0);
+            tbPesquisa.Name = "tbPesquisa";
+            tbPesquisa.Size = new Size(219, 16);
+            tbPesquisa.TabIndex = 7;
+            pnlWrapperPesquisa.Controls.Add(tbPesquisa);
             // 
             // pnlHeader
             // 
@@ -325,11 +317,19 @@
         private Panel pnlBottom;
         private Label lbTotal;
         private Panel pnlFiltros;
-        private Guna.UI2.WinForms.Guna2Button btnLimpar;
-        private Guna.UI2.WinForms.Guna2Button btnPesquisar;
-        private Guna.UI2.WinForms.Guna2TextBox tbPesquisa;
-        private Guna.UI2.WinForms.Guna2ComboBox cbCondicao;
-        private Guna.UI2.WinForms.Guna2ComboBox cbPesquisaCampo;
+        private CuoreUI.Controls.cuiButton btnLimpar;
+        private CuoreUI.Controls.cuiButton btnPesquisar;
+
+        // wrappers convertidos para RoundedPanel + controles WinForms
+        private telebip_erp.Controls.RoundedPanel pnlWrapperCampo;
+        private ComboBox cbPesquisaCampo;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperCondicao;
+        private ComboBox cbCondicao;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperPesquisa;
+        private TextBox tbPesquisa;
+
         private Panel pnlHeader;
         private Label lblTitulo;
     }

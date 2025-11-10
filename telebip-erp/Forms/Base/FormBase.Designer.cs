@@ -61,6 +61,7 @@
             sidebarTransition = new System.Windows.Forms.Timer(components);
             MenuTransitionEstoque = new System.Windows.Forms.Timer(components);
             pnlContainer = new Panel();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)btnHam).BeginInit();
             pnlSidebar.SuspendLayout();
             pnlHome.SuspendLayout();
@@ -449,11 +450,21 @@
             pnlContainer.Size = new Size(915, 644);
             pnlContainer.TabIndex = 3;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(23, 24, 29);
+            panel1.Dock = DockStyle.Left;
+            panel1.Location = new Point(280, 24);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(3, 644);
+            panel1.TabIndex = 5;
+            // 
             // FormBase
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(1198, 671);
+            Controls.Add(panel1);
             Controls.Add(pnlContainer);
             Controls.Add(pnlSidebar);
             Controls.Add(btnHam);
@@ -519,5 +530,6 @@
         protected Panel panel8;
         private System.Windows.Forms.Timer MenuTransitionEstoque;
         private Panel pnlContainer;
+        private Panel panel1;
     }
 }

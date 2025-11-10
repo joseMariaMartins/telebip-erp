@@ -35,13 +35,13 @@ namespace telebip_erp.Forms.SubForms
         {
             ConfigurarMonetarios();
             CriarTabelaTemporaria();
-
         }
 
         private void FormAddVendas_Load_1(object sender, EventArgs e)
         {
             lbidVendaSelecionada.Text = $"ID {VendaID}";
             tbFuncionario.Text = NomeFuncionario;
+            // tbDesconto assumed to be a standard TextBox
             tbDesconto.Text = Desconto.ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
             lbValorSuper.Text = ValorTotal.ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
             mkDataHora.Text = DataHora;
@@ -58,7 +58,7 @@ namespace telebip_erp.Forms.SubForms
                 string sql = "SELECT ESTADO, FORMA FROM PAGAMENTO WHERE ID_VENDA = @idVenda LIMIT 1";
                 var parametros = new SQLiteParameter[]
                 {
-            new SQLiteParameter("@idVenda", VendaID)
+                    new SQLiteParameter("@idVenda", VendaID)
                 };
 
                 var dt = DatabaseHelper.ExecuteQuery(sql, parametros);
@@ -86,13 +86,21 @@ namespace telebip_erp.Forms.SubForms
 
         private void ConfigurarMonetarios()
         {
+            // tbDesconto deve ser System.Windows.Forms.TextBox no Designer
             ConfigurarTextBoxMonetario(tbDesconto, TbDesconto_TextChanged);
         }
 
-        private void ConfigurarTextBoxMonetario(Guna.UI2.WinForms.Guna2TextBox tb, EventHandler textChanged)
+        // Atualizado para System.Windows.Forms.TextBox
+        private void ConfigurarTextBoxMonetario(TextBox tb, EventHandler textChanged)
         {
+            if (tb == null) return;
+
             tb.TextChanged -= textChanged;
             tb.TextChanged += textChanged;
+
+            // garante que o KeyPress bloqueador de não-dígitos esteja ativo
+            tb.KeyPress -= TbPreco_KeyPress;
+            tb.KeyPress += TbPreco_KeyPress;
         }
 
 
@@ -101,13 +109,16 @@ namespace telebip_erp.Forms.SubForms
             if (_ignorarEventoDesconto) return;
 
             _ignorarEventoDesconto = true;
-            FormatarMonetario(tbDesconto);
+            FormatarMonetario(sender as TextBox);
             AtualizarLbValorSuper();
             _ignorarEventoDesconto = false;
         }
 
-        private void FormatarMonetario(Guna.UI2.WinForms.Guna2TextBox tb)
+        // Atualizado para aceitar System.Windows.Forms.TextBox
+        private void FormatarMonetario(TextBox tb)
         {
+            if (tb == null) return;
+
             string numeros = "";
             foreach (char c in tb.Text)
                 if (char.IsDigit(c)) numeros += c;
@@ -230,8 +241,6 @@ namespace telebip_erp.Forms.SubForms
             this.Close();
         }
 
-
-
         private void LimparTabelaTemporaria(SQLiteConnection conn, SQLiteTransaction transaction)
         {
             string sqlLimpar = "DELETE FROM PRODUTOS_TEMPORARIOS;";
@@ -284,7 +293,6 @@ namespace telebip_erp.Forms.SubForms
                     }
                 }
 
-
                 transaction.Commit();
 
                 // Atualiza o DataGridView
@@ -295,7 +303,5 @@ namespace telebip_erp.Forms.SubForms
                 MessageBox.Show("Erro ao preencher produtos da venda: " + ex.Message);
             }
         }
-
     }
-
 }

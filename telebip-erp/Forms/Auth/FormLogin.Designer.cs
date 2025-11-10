@@ -245,7 +245,7 @@ namespace telebip_erp.Forms.Auth
             btnLogin.NormalImageTint = Color.White;
             btnLogin.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnLogin.OutlineThickness = 1F;
-            btnLogin.PressedBackground = Color.FromArgb(40, 120, 80);
+            btnLogin.PressedBackground = Color.WhiteSmoke;
             btnLogin.PressedForeColor = Color.FromArgb(32, 32, 32);
             btnLogin.PressedImageTint = Color.White;
             btnLogin.PressedOutline = Color.FromArgb(64, 128, 128, 128);

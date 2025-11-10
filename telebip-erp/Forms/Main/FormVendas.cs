@@ -3,9 +3,9 @@ using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
-using MaterialSkin.Controls;
-using telebip_erp.Forms.SubForms;
 using System.Collections.Generic;
+using telebip_erp.Forms.SubForms;
+using telebip_erp.Controls; // caso precise referenciar RoundedPanel (opcional)
 
 namespace telebip_erp.Forms.Modules
 {
@@ -32,9 +32,12 @@ namespace telebip_erp.Forms.Modules
             this.MinimizeBox = false;
             this.Text = "";
 
-            // Eventos
+            // Eventos dos botões (Cuore)
             btnPesquisar.Click += BtnPesquisar_Click;
             btnLimpar.Click += BtnLimpar_Click;
+
+            // Eventos dos wrappers para imitar o comportamento do Guna
+            ConfigurarWrappers();
 
             this.Shown += (s, e) =>
             {
@@ -48,11 +51,46 @@ namespace telebip_erp.Forms.Modules
 
         private void ConfigurarComboboxes()
         {
-            cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
+            // Os ComboBoxes do designer já possuem itens; garante estilo WinForms
+            try
+            {
+                cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
+                cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            cbPesquisaCampo.SelectedIndex = 0;
-            cbCondicao.SelectedIndex = 0;
+                if (cbPesquisaCampo.Items.Count > 0) cbPesquisaCampo.SelectedIndex = 0;
+                if (cbCondicao.Items.Count > 0) cbCondicao.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao configurar comboboxes: " + ex.Message);
+            }
+        }
+
+        private void ConfigurarWrappers()
+        {
+            // Quando o usuário clicar no wrapper queremos abrir o dropdown / focar o textbox
+            try
+            {
+                // wrapper campo
+                pnlWrapperCampo.Click += (s, e) =>
+                {
+                    cbPesquisaCampo.Focus();
+                    cbPesquisaCampo.DroppedDown = true;
+                };
+                // wrapper condicao
+                pnlWrapperCondicao.Click += (s, e) =>
+                {
+                    cbCondicao.Focus();
+                    cbCondicao.DroppedDown = true;
+                };
+                // wrapper pesquisa
+                pnlWrapperPesquisa.Click += (s, e) => tbPesquisa.Focus();
+
+                // caso o usuário clique diretamente no ComboBox, deixa o comportamento normal
+                cbPesquisaCampo.Click += (s, e) => cbPesquisaCampo.DroppedDown = true;
+                cbCondicao.Click += (s, e) => cbCondicao.DroppedDown = true;
+            }
+            catch { /* não criticar falhas visuais aqui */ }
         }
 
         private void AtualizarTotalItens()
@@ -97,12 +135,17 @@ namespace telebip_erp.Forms.Modules
                 DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
                 dgvVendas.DataSource = dt;
 
-                // 🔹 Renomeia cabeçalhos
-                dgvVendas.Columns["ID_VENDA"].HeaderText = "ID";
-                dgvVendas.Columns["NOME_FUNCIONARIO"].HeaderText = "Funcionário";
-                dgvVendas.Columns["DATA_HORA"].HeaderText = "Data";
-                dgvVendas.Columns["VALOR_TOTAL"].HeaderText = "Valor total";
-                dgvVendas.Columns["DESCONTO"].HeaderText = "Desconto";
+                // 🔹 Renomeia cabeçalhos (se existirem)
+                if (dgvVendas.Columns.Contains("ID_VENDA"))
+                    dgvVendas.Columns["ID_VENDA"].HeaderText = "ID";
+                if (dgvVendas.Columns.Contains("NOME_FUNCIONARIO"))
+                    dgvVendas.Columns["NOME_FUNCIONARIO"].HeaderText = "Funcionário";
+                if (dgvVendas.Columns.Contains("DATA_HORA"))
+                    dgvVendas.Columns["DATA_HORA"].HeaderText = "Data";
+                if (dgvVendas.Columns.Contains("VALOR_TOTAL"))
+                    dgvVendas.Columns["VALOR_TOTAL"].HeaderText = "Valor total";
+                if (dgvVendas.Columns.Contains("DESCONTO"))
+                    dgvVendas.Columns["DESCONTO"].HeaderText = "Desconto";
 
                 // 🔹 Centraliza cabeçalhos
                 foreach (DataGridViewColumn coluna in dgvVendas.Columns)
@@ -111,23 +154,23 @@ namespace telebip_erp.Forms.Modules
                 // 🔹 Ajusta para preencher a tela
                 dgvVendas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                // 🔹 Pesos das colunas
-                dgvVendas.Columns["ID_VENDA"].FillWeight = 15;
-                dgvVendas.Columns["NOME_FUNCIONARIO"].FillWeight = 30;
-                dgvVendas.Columns["DATA_HORA"].FillWeight = 25;
-                dgvVendas.Columns["VALOR_TOTAL"].FillWeight = 15;
-                dgvVendas.Columns["DESCONTO"].FillWeight = 15;
+                // 🔹 Pesos das colunas (se existirem)
+                if (dgvVendas.Columns.Contains("ID_VENDA")) dgvVendas.Columns["ID_VENDA"].FillWeight = 15;
+                if (dgvVendas.Columns.Contains("NOME_FUNCIONARIO")) dgvVendas.Columns["NOME_FUNCIONARIO"].FillWeight = 30;
+                if (dgvVendas.Columns.Contains("DATA_HORA")) dgvVendas.Columns["DATA_HORA"].FillWeight = 25;
+                if (dgvVendas.Columns.Contains("VALOR_TOTAL")) dgvVendas.Columns["VALOR_TOTAL"].FillWeight = 15;
+                if (dgvVendas.Columns.Contains("DESCONTO")) dgvVendas.Columns["DESCONTO"].FillWeight = 15;
 
                 // 🔹 Alinhamento de conteúdo
-                dgvVendas.Columns["ID_VENDA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dgvVendas.Columns["NOME_FUNCIONARIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                dgvVendas.Columns["DATA_HORA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dgvVendas.Columns["VALOR_TOTAL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dgvVendas.Columns["DESCONTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (dgvVendas.Columns.Contains("ID_VENDA")) dgvVendas.Columns["ID_VENDA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (dgvVendas.Columns.Contains("NOME_FUNCIONARIO")) dgvVendas.Columns["NOME_FUNCIONARIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                if (dgvVendas.Columns.Contains("DATA_HORA")) dgvVendas.Columns["DATA_HORA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (dgvVendas.Columns.Contains("VALOR_TOTAL")) dgvVendas.Columns["VALOR_TOTAL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (dgvVendas.Columns.Contains("DESCONTO")) dgvVendas.Columns["DESCONTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 // 🔹 Formatação monetária
-                dgvVendas.Columns["VALOR_TOTAL"].DefaultCellStyle.Format = "C2";
-                dgvVendas.Columns["DESCONTO"].DefaultCellStyle.Format = "C2";
+                if (dgvVendas.Columns.Contains("VALOR_TOTAL")) dgvVendas.Columns["VALOR_TOTAL"].DefaultCellStyle.Format = "C2";
+                if (dgvVendas.Columns.Contains("DESCONTO")) dgvVendas.Columns["DESCONTO"].DefaultCellStyle.Format = "C2";
 
                 dgvVendas.ClearSelection();
                 dgvVendas.CurrentCell = null;
@@ -186,14 +229,21 @@ namespace telebip_erp.Forms.Modules
 
         private void BtnLimpar_Click(object? sender, EventArgs e)
         {
-            tbPesquisa.Text = "";
-            cbPesquisaCampo.SelectedIndex = 0;
-            cbCondicao.SelectedIndex = 0;
+            try
+            {
+                tbPesquisa.Text = "";
+                if (cbPesquisaCampo.Items.Count > 0) cbPesquisaCampo.SelectedIndex = 0;
+                if (cbCondicao.Items.Count > 0) cbCondicao.SelectedIndex = 0;
 
-            CarregarVendas(limitar20: true);
+                CarregarVendas(limitar20: true);
 
-            dgvVendas.ClearSelection();
-            dgvVendas.CurrentCell = null;
+                dgvVendas.ClearSelection();
+                dgvVendas.CurrentCell = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao limpar filtros: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public DataTable ObterVendasComoDataTable()
@@ -267,10 +317,10 @@ namespace telebip_erp.Forms.Modules
             if (e.RowIndex < 0) return;
 
             int idVendaSelecionada = Convert.ToInt32(dgvVendas.Rows[e.RowIndex].Cells["ID_VENDA"].Value);
-            string nomeFuncionario = dgvVendas.Rows[e.RowIndex].Cells["NOME_FUNCIONARIO"].Value.ToString();
-            double Desconto = Convert.ToDouble(dgvVendas.Rows[e.RowIndex].Cells["DESCONTO"].Value);
-            double ValorTotal = Convert.ToDouble(dgvVendas.Rows[e.RowIndex].Cells["VALOR_TOTAL"].Value);
-            string DataHora = dgvVendas.Rows[e.RowIndex].Cells["DATA_HORA"].Value.ToString();
+            string nomeFuncionario = dgvVendas.Rows[e.RowIndex].Cells["NOME_FUNCIONARIO"].Value?.ToString() ?? "";
+            double Desconto = Convert.ToDouble(dgvVendas.Rows[e.RowIndex].Cells["DESCONTO"].Value ?? 0);
+            double ValorTotal = Convert.ToDouble(dgvVendas.Rows[e.RowIndex].Cells["VALOR_TOTAL"].Value ?? 0);
+            string DataHora = dgvVendas.Rows[e.RowIndex].Cells["DATA_HORA"].Value?.ToString() ?? "";
 
             var formConsulta = new FormAddVendasConsulta();
             formConsulta.VendaID = idVendaSelecionada;

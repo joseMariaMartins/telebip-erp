@@ -1,63 +1,59 @@
-﻿namespace telebip_erp.Forms.SubForms
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace telebip_erp.Forms.SubForms
 {
     partial class FormAddEstoque
     {
         private System.ComponentModel.IContainer components = null;
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         #region Windows Form Designer generated code
 
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlContainer = new Panel();
             pnlMain = new Panel();
-            cbFuncionarios = new Guna.UI2.WinForms.Guna2ComboBox();
+            pnlWrapperFuncionarios = new telebip_erp.Controls.RoundedPanel();
+            panelF1 = new Panel();
+            panelF2 = new Panel();
+            panelF3 = new Panel();
+            picArrowFuncionarios = new PictureBox();
+            cbFuncionarios = new ComboBox();
             lblFuncionario = new Label();
-            lbQuantidadeAtual = new Label();
-            btnCancelar = new Guna.UI2.WinForms.Guna2Button();
-            btnAdicionar = new Guna.UI2.WinForms.Guna2Button();
-            tbObservacao = new Guna.UI2.WinForms.Guna2TextBox();
-            lblObservacao = new Label();
-            tbQAviso = new Guna.UI2.WinForms.Guna2TextBox();
-            tbQEstoque = new Guna.UI2.WinForms.Guna2TextBox();
-            tbPreco = new Guna.UI2.WinForms.Guna2TextBox();
-            tbMarca = new Guna.UI2.WinForms.Guna2TextBox();
-            tbNome = new Guna.UI2.WinForms.Guna2TextBox();
-            lblQAviso = new Label();
-            lblQEstoque = new Label();
-            lblPreco = new Label();
-            lblMarca = new Label();
+            pnlWrapperNome = new telebip_erp.Controls.RoundedPanel();
+            tbNome = new TextBox();
             lblNome = new Label();
+            pnlWrapperMarca = new telebip_erp.Controls.RoundedPanel();
+            tbMarca = new TextBox();
+            lblMarca = new Label();
+            pnlWrapperPreco = new telebip_erp.Controls.RoundedPanel();
+            tbPreco = new TextBox();
+            lblPreco = new Label();
+            pnlWrapperQEstoque = new telebip_erp.Controls.RoundedPanel();
+            tbQEstoque = new TextBox();
+            lblQEstoque = new Label();
+            pnlWrapperQAviso = new telebip_erp.Controls.RoundedPanel();
+            tbQAviso = new TextBox();
+            lblQAviso = new Label();
+            pnlWrapperObservacao = new telebip_erp.Controls.RoundedPanel();
+            tbObservacao = new TextBox();
+            lblObservacao = new Label();
+            lbQuantidadeAtual = new Label();
+            btnCancelar = new CuoreUI.Controls.cuiButton();
+            btnAdicionar = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
+            pnlWrapperFuncionarios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picArrowFuncionarios).BeginInit();
+            pnlWrapperNome.SuspendLayout();
+            pnlWrapperMarca.SuspendLayout();
+            pnlWrapperPreco.SuspendLayout();
+            pnlWrapperQEstoque.SuspendLayout();
+            pnlWrapperQAviso.SuspendLayout();
+            pnlWrapperObservacao.SuspendLayout();
             pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
@@ -75,23 +71,23 @@
             // pnlMain
             // 
             pnlMain.BackColor = Color.FromArgb(28, 29, 40);
-            pnlMain.Controls.Add(cbFuncionarios);
+            pnlMain.Controls.Add(pnlWrapperFuncionarios);
             pnlMain.Controls.Add(lblFuncionario);
+            pnlMain.Controls.Add(pnlWrapperNome);
+            pnlMain.Controls.Add(lblNome);
+            pnlMain.Controls.Add(pnlWrapperMarca);
+            pnlMain.Controls.Add(lblMarca);
+            pnlMain.Controls.Add(pnlWrapperPreco);
+            pnlMain.Controls.Add(lblPreco);
+            pnlMain.Controls.Add(pnlWrapperQEstoque);
+            pnlMain.Controls.Add(lblQEstoque);
+            pnlMain.Controls.Add(pnlWrapperQAviso);
+            pnlMain.Controls.Add(lblQAviso);
+            pnlMain.Controls.Add(pnlWrapperObservacao);
+            pnlMain.Controls.Add(lblObservacao);
             pnlMain.Controls.Add(lbQuantidadeAtual);
             pnlMain.Controls.Add(btnCancelar);
             pnlMain.Controls.Add(btnAdicionar);
-            pnlMain.Controls.Add(tbObservacao);
-            pnlMain.Controls.Add(lblObservacao);
-            pnlMain.Controls.Add(tbQAviso);
-            pnlMain.Controls.Add(tbQEstoque);
-            pnlMain.Controls.Add(tbPreco);
-            pnlMain.Controls.Add(tbMarca);
-            pnlMain.Controls.Add(tbNome);
-            pnlMain.Controls.Add(lblQAviso);
-            pnlMain.Controls.Add(lblQEstoque);
-            pnlMain.Controls.Add(lblPreco);
-            pnlMain.Controls.Add(lblMarca);
-            pnlMain.Controls.Add(lblNome);
             pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
@@ -99,25 +95,68 @@
             pnlMain.Size = new Size(652, 447);
             pnlMain.TabIndex = 1;
             // 
+            // pnlWrapperFuncionarios
+            // 
+            pnlWrapperFuncionarios.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperFuncionarios.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperFuncionarios.BorderThickness = 1;
+            pnlWrapperFuncionarios.Controls.Add(panelF1);
+            pnlWrapperFuncionarios.Controls.Add(panelF2);
+            pnlWrapperFuncionarios.Controls.Add(panelF3);
+            pnlWrapperFuncionarios.Controls.Add(picArrowFuncionarios);
+            pnlWrapperFuncionarios.Controls.Add(cbFuncionarios);
+            pnlWrapperFuncionarios.CornerRadius = 8;
+            pnlWrapperFuncionarios.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperFuncionarios.Location = new Point(33, 55);
+            pnlWrapperFuncionarios.Name = "pnlWrapperFuncionarios";
+            pnlWrapperFuncionarios.Padding = new Padding(8, 6, 30, 6);
+            pnlWrapperFuncionarios.Size = new Size(588, 36);
+            pnlWrapperFuncionarios.TabIndex = 100;
+            // 
+            // panelF1
+            // 
+            panelF1.Location = new Point(5, 6);
+            panelF1.Name = "panelF1";
+            panelF1.Size = new Size(560, 7);
+            panelF1.TabIndex = 0;
+            // 
+            // panelF2
+            // 
+            panelF2.Location = new Point(6, 3);
+            panelF2.Name = "panelF2";
+            panelF2.Size = new Size(4, 30);
+            panelF2.TabIndex = 1;
+            // 
+            // panelF3
+            // 
+            panelF3.Location = new Point(6, 23);
+            panelF3.Name = "panelF3";
+            panelF3.Size = new Size(559, 7);
+            panelF3.TabIndex = 2;
+            // 
+            // picArrowFuncionarios
+            // 
+            picArrowFuncionarios.BackColor = Color.Transparent;
+            picArrowFuncionarios.Location = new Point(547, 13);
+            picArrowFuncionarios.Name = "picArrowFuncionarios";
+            picArrowFuncionarios.Size = new Size(18, 10);
+            picArrowFuncionarios.SizeMode = PictureBoxSizeMode.Zoom;
+            picArrowFuncionarios.TabIndex = 1;
+            picArrowFuncionarios.TabStop = false;
+            // 
             // cbFuncionarios
             // 
-            cbFuncionarios.BackColor = Color.Transparent;
-            cbFuncionarios.BorderColor = Color.FromArgb(60, 62, 80);
-            cbFuncionarios.BorderRadius = 8;
-            cbFuncionarios.CustomizableEdges = customizableEdges1;
-            cbFuncionarios.DrawMode = DrawMode.OwnerDrawFixed;
+            cbFuncionarios.BackColor = Color.FromArgb(40, 41, 52);
             cbFuncionarios.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbFuncionarios.FillColor = Color.FromArgb(40, 41, 52);
-            cbFuncionarios.FocusedColor = Color.FromArgb(100, 150, 200);
-            cbFuncionarios.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
+            cbFuncionarios.FlatStyle = FlatStyle.Flat;
             cbFuncionarios.Font = new Font("Segoe UI", 9F);
-            cbFuncionarios.ForeColor = Color.White;
-            cbFuncionarios.ItemHeight = 30;
-            cbFuncionarios.Location = new Point(33, 55);
+            cbFuncionarios.ForeColor = Color.White; // força branco
+            cbFuncionarios.FormattingEnabled = true;
+            cbFuncionarios.Location = new Point(8, 6);
+            cbFuncionarios.Margin = new Padding(3, 0, 10, 0);
             cbFuncionarios.Name = "cbFuncionarios";
-            cbFuncionarios.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            cbFuncionarios.Size = new Size(588, 36);
-            cbFuncionarios.TabIndex = 19;
+            cbFuncionarios.Size = new Size(557, 24);
+            cbFuncionarios.TabIndex = 101;
             // 
             // lblFuncionario
             // 
@@ -128,6 +167,223 @@
             lblFuncionario.Size = new Size(200, 20);
             lblFuncionario.TabIndex = 18;
             lblFuncionario.Text = "Funcionário Responsável *";
+            // 
+            // pnlWrapperNome
+            // 
+            pnlWrapperNome.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperNome.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperNome.BorderThickness = 1;
+            pnlWrapperNome.Controls.Add(tbNome);
+            pnlWrapperNome.CornerRadius = 8;
+            pnlWrapperNome.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperNome.Location = new Point(33, 145);
+            pnlWrapperNome.Name = "pnlWrapperNome";
+            pnlWrapperNome.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperNome.Size = new Size(300, 36);
+            pnlWrapperNome.TabIndex = 110;
+            // 
+            // tbNome
+            // 
+            tbNome.BackColor = Color.FromArgb(40, 41, 52);
+            tbNome.BorderStyle = BorderStyle.None;
+            tbNome.Font = new Font("Segoe UI", 9F);
+            tbNome.ForeColor = Color.White;
+            tbNome.Location = new Point(8, 10);
+            tbNome.Margin = new Padding(3, 0, 10, 0);
+            tbNome.Name = "tbNome";
+            tbNome.Size = new Size(284, 16);
+            tbNome.TabIndex = 1;
+            // 
+            // lblNome
+            // 
+            lblNome.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblNome.ForeColor = Color.White;
+            lblNome.Location = new Point(33, 120);
+            lblNome.Name = "lblNome";
+            lblNome.Size = new Size(100, 20);
+            lblNome.TabIndex = 12;
+            lblNome.Text = "Produto *";
+            // 
+            // pnlWrapperMarca
+            // 
+            pnlWrapperMarca.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperMarca.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperMarca.BorderThickness = 1;
+            pnlWrapperMarca.Controls.Add(tbMarca);
+            pnlWrapperMarca.CornerRadius = 8;
+            pnlWrapperMarca.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperMarca.Location = new Point(381, 145);
+            pnlWrapperMarca.Name = "pnlWrapperMarca";
+            pnlWrapperMarca.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperMarca.Size = new Size(240, 36);
+            pnlWrapperMarca.TabIndex = 120;
+            // 
+            // tbMarca
+            // 
+            tbMarca.BackColor = Color.FromArgb(40, 41, 52);
+            tbMarca.BorderStyle = BorderStyle.None;
+            tbMarca.Font = new Font("Segoe UI", 9F);
+            tbMarca.ForeColor = Color.White;
+            tbMarca.Location = new Point(8, 10);
+            tbMarca.Margin = new Padding(3, 0, 10, 0);
+            tbMarca.Name = "tbMarca";
+            tbMarca.Size = new Size(228, 16);
+            tbMarca.TabIndex = 2;
+            // 
+            // lblMarca
+            // 
+            lblMarca.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblMarca.ForeColor = Color.White;
+            lblMarca.Location = new Point(381, 120);
+            lblMarca.Name = "lblMarca";
+            lblMarca.Size = new Size(100, 20);
+            lblMarca.TabIndex = 13;
+            lblMarca.Text = "Marca *";
+            // 
+            // pnlWrapperPreco
+            // 
+            pnlWrapperPreco.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPreco.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperPreco.BorderThickness = 1;
+            pnlWrapperPreco.Controls.Add(tbPreco);
+            pnlWrapperPreco.CornerRadius = 8;
+            pnlWrapperPreco.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPreco.Location = new Point(33, 220);
+            pnlWrapperPreco.Name = "pnlWrapperPreco";
+            pnlWrapperPreco.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperPreco.Size = new Size(100, 36);
+            pnlWrapperPreco.TabIndex = 130;
+            // 
+            // tbPreco
+            // 
+            tbPreco.BackColor = Color.FromArgb(40, 41, 52);
+            tbPreco.BorderStyle = BorderStyle.None;
+            tbPreco.Font = new Font("Segoe UI", 9F);
+            tbPreco.ForeColor = Color.White;
+            tbPreco.Location = new Point(8, 10);
+            tbPreco.Margin = new Padding(3, 0, 10, 0);
+            tbPreco.Name = "tbPreco";
+            tbPreco.Size = new Size(84, 16);
+            tbPreco.TabIndex = 3;
+            // 
+            // lblPreco
+            // 
+            lblPreco.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblPreco.ForeColor = Color.White;
+            lblPreco.Location = new Point(33, 195);
+            lblPreco.Name = "lblPreco";
+            lblPreco.Size = new Size(100, 20);
+            lblPreco.TabIndex = 10;
+            lblPreco.Text = "Preço *";
+            // 
+            // pnlWrapperQEstoque
+            // 
+            pnlWrapperQEstoque.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperQEstoque.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperQEstoque.BorderThickness = 1;
+            pnlWrapperQEstoque.Controls.Add(tbQEstoque);
+            pnlWrapperQEstoque.CornerRadius = 8;
+            pnlWrapperQEstoque.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperQEstoque.Location = new Point(230, 220);
+            pnlWrapperQEstoque.Name = "pnlWrapperQEstoque";
+            pnlWrapperQEstoque.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperQEstoque.Size = new Size(100, 36);
+            pnlWrapperQEstoque.TabIndex = 140;
+            // 
+            // tbQEstoque
+            // 
+            tbQEstoque.BackColor = Color.FromArgb(40, 41, 52);
+            tbQEstoque.BorderStyle = BorderStyle.None;
+            tbQEstoque.Font = new Font("Segoe UI", 9F);
+            tbQEstoque.ForeColor = Color.White;
+            tbQEstoque.Location = new Point(8, 10);
+            tbQEstoque.Margin = new Padding(3, 0, 10, 0);
+            tbQEstoque.Name = "tbQEstoque";
+            tbQEstoque.Size = new Size(84, 16);
+            tbQEstoque.TabIndex = 4;
+            // 
+            // lblQEstoque
+            // 
+            lblQEstoque.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblQEstoque.ForeColor = Color.White;
+            lblQEstoque.Location = new Point(230, 195);
+            lblQEstoque.Name = "lblQEstoque";
+            lblQEstoque.Size = new Size(100, 20);
+            lblQEstoque.TabIndex = 11;
+            lblQEstoque.Text = "Quantidade *";
+            // 
+            // pnlWrapperQAviso
+            // 
+            pnlWrapperQAviso.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperQAviso.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperQAviso.BorderThickness = 1;
+            pnlWrapperQAviso.Controls.Add(tbQAviso);
+            pnlWrapperQAviso.CornerRadius = 8;
+            pnlWrapperQAviso.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperQAviso.Location = new Point(381, 220);
+            pnlWrapperQAviso.Name = "pnlWrapperQAviso";
+            pnlWrapperQAviso.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperQAviso.Size = new Size(100, 36);
+            pnlWrapperQAviso.TabIndex = 150;
+            // 
+            // tbQAviso
+            // 
+            tbQAviso.BackColor = Color.FromArgb(40, 41, 52);
+            tbQAviso.BorderStyle = BorderStyle.None;
+            tbQAviso.Font = new Font("Segoe UI", 9F);
+            tbQAviso.ForeColor = Color.White;
+            tbQAviso.Location = new Point(8, 10);
+            tbQAviso.Margin = new Padding(3, 0, 10, 0);
+            tbQAviso.Name = "tbQAviso";
+            tbQAviso.Size = new Size(84, 16);
+            tbQAviso.TabIndex = 5;
+            // 
+            // lblQAviso
+            // 
+            lblQAviso.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblQAviso.ForeColor = Color.White;
+            lblQAviso.Location = new Point(381, 195);
+            lblQAviso.Name = "lblQAviso";
+            lblQAviso.Size = new Size(200, 20);
+            lblQAviso.TabIndex = 9;
+            lblQAviso.Text = "Qtd. Aviso *";
+            // 
+            // pnlWrapperObservacao
+            // 
+            pnlWrapperObservacao.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperObservacao.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperObservacao.BorderThickness = 1;
+            pnlWrapperObservacao.Controls.Add(tbObservacao);
+            pnlWrapperObservacao.CornerRadius = 8;
+            pnlWrapperObservacao.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperObservacao.Location = new Point(33, 322);
+            pnlWrapperObservacao.Name = "pnlWrapperObservacao";
+            pnlWrapperObservacao.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperObservacao.Size = new Size(588, 40);
+            pnlWrapperObservacao.TabIndex = 160;
+            // 
+            // tbObservacao
+            // 
+            tbObservacao.BackColor = Color.FromArgb(40, 41, 52);
+            tbObservacao.BorderStyle = BorderStyle.None;
+            tbObservacao.Font = new Font("Segoe UI", 9F);
+            tbObservacao.ForeColor = Color.White;
+            tbObservacao.Location = new Point(8, 10);
+            tbObservacao.Margin = new Padding(3, 0, 10, 0);
+            tbObservacao.Multiline = true;
+            tbObservacao.Name = "tbObservacao";
+            tbObservacao.Size = new Size(572, 24);
+            tbObservacao.TabIndex = 6;
+            // 
+            // lblObservacao
+            // 
+            lblObservacao.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblObservacao.ForeColor = Color.White;
+            lblObservacao.Location = new Point(33, 292);
+            lblObservacao.Name = "lblObservacao";
+            lblObservacao.Size = new Size(200, 20);
+            lblObservacao.TabIndex = 7;
+            lblObservacao.Text = "Observação";
             // 
             // lbQuantidadeAtual
             // 
@@ -143,260 +399,79 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.BorderRadius = 8;
-            btnCancelar.CustomizableEdges = customizableEdges3;
-            btnCancelar.DisabledState.BorderColor = Color.DarkGray;
-            btnCancelar.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnCancelar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnCancelar.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnCancelar.FillColor = Color.FromArgb(120, 40, 40);
+            btnCancelar.CheckButton = false;
+            btnCancelar.Checked = false;
+            btnCancelar.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnCancelar.CheckedForeColor = Color.White;
+            btnCancelar.CheckedImageTint = Color.White;
+            btnCancelar.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnCancelar.Content = "Cancelar";
+            btnCancelar.DialogResult = DialogResult.None;
             btnCancelar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnCancelar.ForeColor = Color.White;
-            btnCancelar.HoverState.BorderColor = Color.FromArgb(200, 80, 80);
-            btnCancelar.HoverState.FillColor = Color.FromArgb(160, 60, 60);
+            btnCancelar.HoverBackground = Color.White;
+            btnCancelar.HoverForeColor = Color.Black;
+            btnCancelar.HoverImageTint = Color.White;
+            btnCancelar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnCancelar.Image = null;
+            btnCancelar.ImageAutoCenter = true;
+            btnCancelar.ImageExpand = new Point(0, 0);
+            btnCancelar.ImageOffset = new Point(0, 0);
             btnCancelar.Location = new Point(381, 384);
+            btnCancelar.Margin = new Padding(3, 0, 10, 0);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnCancelar.NormalBackground = Color.FromArgb(120, 40, 40);
+            btnCancelar.NormalForeColor = Color.White;
+            btnCancelar.NormalImageTint = Color.White;
+            btnCancelar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnCancelar.OutlineThickness = 1F;
+            btnCancelar.PressedBackground = Color.WhiteSmoke;
+            btnCancelar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnCancelar.PressedImageTint = Color.White;
+            btnCancelar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnCancelar.Rounding = new Padding(8);
             btnCancelar.Size = new Size(120, 40);
             btnCancelar.TabIndex = 16;
-            btnCancelar.Text = "Cancelar";
+            btnCancelar.TextAlignment = StringAlignment.Center;
+            btnCancelar.TextOffset = new Point(0, 0);
             // 
             // btnAdicionar
             // 
-            btnAdicionar.BorderRadius = 8;
-            btnAdicionar.CustomizableEdges = customizableEdges5;
-            btnAdicionar.DisabledState.BorderColor = Color.DarkGray;
-            btnAdicionar.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnAdicionar.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnAdicionar.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnAdicionar.FillColor = Color.FromArgb(40, 120, 80);
+            btnAdicionar.CheckButton = false;
+            btnAdicionar.Checked = false;
+            btnAdicionar.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnAdicionar.CheckedForeColor = Color.White;
+            btnAdicionar.CheckedImageTint = Color.White;
+            btnAdicionar.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnAdicionar.Content = "Adicionar";
+            btnAdicionar.DialogResult = DialogResult.None;
             btnAdicionar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnAdicionar.ForeColor = Color.White;
-            btnAdicionar.HoverState.BorderColor = Color.FromArgb(80, 200, 120);
-            btnAdicionar.HoverState.FillColor = Color.FromArgb(60, 160, 100);
+            btnAdicionar.HoverBackground = Color.White;
+            btnAdicionar.HoverForeColor = Color.Black;
+            btnAdicionar.HoverImageTint = Color.White;
+            btnAdicionar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnAdicionar.Image = null;
+            btnAdicionar.ImageAutoCenter = true;
+            btnAdicionar.ImageExpand = new Point(0, 0);
+            btnAdicionar.ImageOffset = new Point(0, 0);
             btnAdicionar.Location = new Point(511, 384);
+            btnAdicionar.Margin = new Padding(3, 0, 10, 0);
             btnAdicionar.Name = "btnAdicionar";
-            btnAdicionar.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnAdicionar.NormalBackground = Color.FromArgb(40, 120, 80);
+            btnAdicionar.NormalForeColor = Color.White;
+            btnAdicionar.NormalImageTint = Color.White;
+            btnAdicionar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnAdicionar.OutlineThickness = 1F;
+            btnAdicionar.PressedBackground = Color.WhiteSmoke;
+            btnAdicionar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnAdicionar.PressedImageTint = Color.White;
+            btnAdicionar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnAdicionar.Rounding = new Padding(8);
             btnAdicionar.Size = new Size(110, 40);
             btnAdicionar.TabIndex = 15;
-            btnAdicionar.Text = "Adicionar";
-            // 
-            // tbObservacao
-            // 
-            tbObservacao.BorderColor = Color.FromArgb(60, 62, 80);
-            tbObservacao.BorderRadius = 8;
-            tbObservacao.CustomizableEdges = customizableEdges7;
-            tbObservacao.DefaultText = "";
-            tbObservacao.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            tbObservacao.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            tbObservacao.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            tbObservacao.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            tbObservacao.FillColor = Color.FromArgb(40, 41, 52);
-            tbObservacao.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbObservacao.Font = new Font("Segoe UI", 9F);
-            tbObservacao.ForeColor = Color.White;
-            tbObservacao.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbObservacao.Location = new Point(33, 322);
-            tbObservacao.Margin = new Padding(3, 0, 10, 0);
-            tbObservacao.MaxLength = 300;
-            tbObservacao.Multiline = true;
-            tbObservacao.Name = "tbObservacao";
-            tbObservacao.PlaceholderForeColor = Color.Gray;
-            tbObservacao.PlaceholderText = "Observações adicionais...";
-            tbObservacao.SelectedText = "";
-            tbObservacao.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            tbObservacao.Size = new Size(588, 40);
-            tbObservacao.TabIndex = 6;
-            // 
-            // lblObservacao
-            // 
-            lblObservacao.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblObservacao.ForeColor = Color.White;
-            lblObservacao.Location = new Point(33, 292);
-            lblObservacao.Name = "lblObservacao";
-            lblObservacao.Size = new Size(200, 20);
-            lblObservacao.TabIndex = 7;
-            lblObservacao.Text = "Observação";
-            // 
-            // tbQAviso
-            // 
-            tbQAviso.BorderColor = Color.FromArgb(60, 62, 80);
-            tbQAviso.BorderRadius = 8;
-            tbQAviso.CustomizableEdges = customizableEdges9;
-            tbQAviso.DefaultText = "";
-            tbQAviso.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            tbQAviso.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            tbQAviso.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            tbQAviso.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            tbQAviso.FillColor = Color.FromArgb(40, 41, 52);
-            tbQAviso.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbQAviso.Font = new Font("Segoe UI", 9F);
-            tbQAviso.ForeColor = Color.White;
-            tbQAviso.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbQAviso.Location = new Point(381, 220);
-            tbQAviso.Margin = new Padding(3, 0, 10, 0);
-            tbQAviso.MaxLength = 5;
-            tbQAviso.Name = "tbQAviso";
-            tbQAviso.PlaceholderForeColor = Color.Gray;
-            tbQAviso.PlaceholderText = "Ex: 5";
-            tbQAviso.SelectedText = "";
-            tbQAviso.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            tbQAviso.Size = new Size(100, 36);
-            tbQAviso.TabIndex = 5;
-            // 
-            // tbQEstoque
-            // 
-            tbQEstoque.BorderColor = Color.FromArgb(60, 62, 80);
-            tbQEstoque.BorderRadius = 8;
-            tbQEstoque.CustomizableEdges = customizableEdges11;
-            tbQEstoque.DefaultText = "";
-            tbQEstoque.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            tbQEstoque.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            tbQEstoque.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            tbQEstoque.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            tbQEstoque.FillColor = Color.FromArgb(40, 41, 52);
-            tbQEstoque.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbQEstoque.Font = new Font("Segoe UI", 9F);
-            tbQEstoque.ForeColor = Color.White;
-            tbQEstoque.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbQEstoque.Location = new Point(230, 220);
-            tbQEstoque.Margin = new Padding(3, 0, 10, 0);
-            tbQEstoque.MaxLength = 5;
-            tbQEstoque.Name = "tbQEstoque";
-            tbQEstoque.PlaceholderForeColor = Color.Gray;
-            tbQEstoque.PlaceholderText = "Ex: 10";
-            tbQEstoque.SelectedText = "";
-            tbQEstoque.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            tbQEstoque.Size = new Size(100, 36);
-            tbQEstoque.TabIndex = 4;
-            // 
-            // tbPreco
-            // 
-            tbPreco.BorderColor = Color.FromArgb(60, 62, 80);
-            tbPreco.BorderRadius = 8;
-            tbPreco.CustomizableEdges = customizableEdges13;
-            tbPreco.DefaultText = "";
-            tbPreco.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            tbPreco.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            tbPreco.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            tbPreco.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            tbPreco.FillColor = Color.FromArgb(40, 41, 52);
-            tbPreco.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbPreco.Font = new Font("Segoe UI", 9F);
-            tbPreco.ForeColor = Color.White;
-            tbPreco.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbPreco.Location = new Point(33, 220);
-            tbPreco.Margin = new Padding(3, 0, 10, 0);
-            tbPreco.MaxLength = 11;
-            tbPreco.Name = "tbPreco";
-            tbPreco.PlaceholderForeColor = Color.Gray;
-            tbPreco.PlaceholderText = "Ex: 29,90";
-            tbPreco.SelectedText = "";
-            tbPreco.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            tbPreco.Size = new Size(100, 36);
-            tbPreco.TabIndex = 3;
-            // 
-            // tbMarca
-            // 
-            tbMarca.BorderColor = Color.FromArgb(60, 62, 80);
-            tbMarca.BorderRadius = 8;
-            tbMarca.CustomizableEdges = customizableEdges15;
-            tbMarca.DefaultText = "";
-            tbMarca.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            tbMarca.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            tbMarca.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            tbMarca.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            tbMarca.FillColor = Color.FromArgb(40, 41, 52);
-            tbMarca.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbMarca.Font = new Font("Segoe UI", 9F);
-            tbMarca.ForeColor = Color.White;
-            tbMarca.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbMarca.Location = new Point(381, 145);
-            tbMarca.Margin = new Padding(3, 0, 10, 0);
-            tbMarca.MaxLength = 50;
-            tbMarca.Name = "tbMarca";
-            tbMarca.PlaceholderForeColor = Color.Gray;
-            tbMarca.PlaceholderText = "Ex: Samsung";
-            tbMarca.SelectedText = "";
-            tbMarca.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            tbMarca.Size = new Size(240, 36);
-            tbMarca.TabIndex = 2;
-            // 
-            // tbNome
-            // 
-            tbNome.BorderColor = Color.FromArgb(60, 62, 80);
-            tbNome.BorderRadius = 8;
-            tbNome.CustomizableEdges = customizableEdges17;
-            tbNome.DefaultText = "";
-            tbNome.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            tbNome.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            tbNome.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            tbNome.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            tbNome.FillColor = Color.FromArgb(40, 41, 52);
-            tbNome.FocusedState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbNome.Font = new Font("Segoe UI", 9F);
-            tbNome.ForeColor = Color.White;
-            tbNome.HoverState.BorderColor = Color.FromArgb(100, 150, 200);
-            tbNome.Location = new Point(33, 145);
-            tbNome.Margin = new Padding(3, 0, 10, 0);
-            tbNome.MaxLength = 100;
-            tbNome.Name = "tbNome";
-            tbNome.PlaceholderForeColor = Color.Gray;
-            tbNome.PlaceholderText = "Ex: Carregador USB-C";
-            tbNome.SelectedText = "";
-            tbNome.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            tbNome.Size = new Size(300, 36);
-            tbNome.TabIndex = 1;
-            // 
-            // lblQAviso
-            // 
-            lblQAviso.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblQAviso.ForeColor = Color.White;
-            lblQAviso.Location = new Point(381, 195);
-            lblQAviso.Name = "lblQAviso";
-            lblQAviso.Size = new Size(200, 20);
-            lblQAviso.TabIndex = 9;
-            lblQAviso.Text = "Qtd. Aviso *";
-            // 
-            // lblQEstoque
-            // 
-            lblQEstoque.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblQEstoque.ForeColor = Color.White;
-            lblQEstoque.Location = new Point(230, 195);
-            lblQEstoque.Name = "lblQEstoque";
-            lblQEstoque.Size = new Size(100, 20);
-            lblQEstoque.TabIndex = 11;
-            lblQEstoque.Text = "Quantidade *";
-            // 
-            // lblPreco
-            // 
-            lblPreco.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblPreco.ForeColor = Color.White;
-            lblPreco.Location = new Point(33, 195);
-            lblPreco.Name = "lblPreco";
-            lblPreco.Size = new Size(100, 20);
-            lblPreco.TabIndex = 10;
-            lblPreco.Text = "Preço *";
-            // 
-            // lblMarca
-            // 
-            lblMarca.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblMarca.ForeColor = Color.White;
-            lblMarca.Location = new Point(381, 120);
-            lblMarca.Name = "lblMarca";
-            lblMarca.Size = new Size(100, 20);
-            lblMarca.TabIndex = 13;
-            lblMarca.Text = "Marca *";
-            // 
-            // lblNome
-            // 
-            lblNome.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblNome.ForeColor = Color.White;
-            lblNome.Location = new Point(33, 120);
-            lblNome.Name = "lblNome";
-            lblNome.Size = new Size(100, 20);
-            lblNome.TabIndex = 12;
-            lblNome.Text = "Produto *";
+            btnAdicionar.TextAlignment = StringAlignment.Center;
+            btnAdicionar.TextOffset = new Point(0, 0);
             // 
             // pnlHeader
             // 
@@ -437,32 +512,67 @@
             Text = "FormAddEstoque";
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);
+            pnlWrapperFuncionarios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picArrowFuncionarios).EndInit();
+            pnlWrapperNome.ResumeLayout(false);
+            pnlWrapperNome.PerformLayout();
+            pnlWrapperMarca.ResumeLayout(false);
+            pnlWrapperMarca.PerformLayout();
+            pnlWrapperPreco.ResumeLayout(false);
+            pnlWrapperPreco.PerformLayout();
+            pnlWrapperQEstoque.ResumeLayout(false);
+            pnlWrapperQEstoque.PerformLayout();
+            pnlWrapperQAviso.ResumeLayout(false);
+            pnlWrapperQAviso.PerformLayout();
+            pnlWrapperObservacao.ResumeLayout(false);
+            pnlWrapperObservacao.PerformLayout();
             pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
+        // Designer fields
         private Panel pnlContainer;
+        private Panel pnlMain;
+        private telebip_erp.Controls.RoundedPanel pnlWrapperFuncionarios;
+        private Panel panelF1;
+        private Panel panelF2;
+        private Panel panelF3;
+        private PictureBox picArrowFuncionarios;
+        public ComboBox cbFuncionarios;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperNome;
+        public TextBox tbNome;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperMarca;
+        public TextBox tbMarca;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperPreco;
+        public TextBox tbPreco;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperQEstoque;
+        public TextBox tbQEstoque;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperQAviso;
+        public TextBox tbQAviso;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperObservacao;
+        public TextBox tbObservacao;
+
+        private Label lblFuncionario;
+        private Label lblNome;
+        private Label lblMarca;
+        private Label lblPreco;
+        private Label lblQEstoque;
+        private Label lblQAviso;
+        private Label lblObservacao;
+
+        public Label lbQuantidadeAtual;
+        private CuoreUI.Controls.cuiButton btnCancelar;
+        private CuoreUI.Controls.cuiButton btnAdicionar;
+
         private Panel pnlHeader;
         private Label lblTitulo;
-        private Panel pnlMain;
-        public Guna.UI2.WinForms.Guna2TextBox tbNome;
-        public Guna.UI2.WinForms.Guna2TextBox tbMarca;
-        public Guna.UI2.WinForms.Guna2TextBox tbPreco;
-        public Guna.UI2.WinForms.Guna2TextBox tbQEstoque;
-        public Guna.UI2.WinForms.Guna2TextBox tbQAviso;
-        public Guna.UI2.WinForms.Guna2TextBox tbObservacao;
-        private Label lblObservacao;
-        private Label lblQAviso;
-        private Label lblQEstoque;
-        private Label lblPreco;
-        private Label lblMarca;
-        private Label lblNome;
-        private Guna.UI2.WinForms.Guna2Button btnAdicionar;
-        private Guna.UI2.WinForms.Guna2Button btnCancelar;
-        public Label lbQuantidadeAtual;
-        public Guna.UI2.WinForms.Guna2ComboBox cbFuncionarios;
-        private Label lblFuncionario;
     }
 }

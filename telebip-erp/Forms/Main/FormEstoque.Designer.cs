@@ -23,19 +23,21 @@
             pnlFiltros = new Panel();
             btnLimpar = new CuoreUI.Controls.cuiButton();
             btnPesquisar = new CuoreUI.Controls.cuiButton();
-            pnlWrapperCampo = new Panel();
+            pnlWrapperCampo = new telebip_erp.Controls.RoundedPanel();
+            panel8 = new Panel();
+            pictureBox2 = new PictureBox();
             panel6 = new Panel();
             panel5 = new Panel();
             panel4 = new Panel();
-            picArrowCampo = new PictureBox();
             cbPesquisaCampo = new ComboBox();
-            pnlWrapperCondicao = new Panel();
-            picArrowCondicao = new PictureBox();
-            panel3 = new Panel();
+            pnlWrapperCondicao = new telebip_erp.Controls.RoundedPanel();
+            panel7 = new Panel();
             panel2 = new Panel();
+            pictureBox1 = new PictureBox();
+            panel3 = new Panel();
             panel1 = new Panel();
             cbCondicao = new ComboBox();
-            pnlWrapperPesquisa = new Panel();
+            pnlWrapperPesquisa = new telebip_erp.Controls.RoundedPanel();
             picSearch = new PictureBox();
             tbPesquisa = new TextBox();
             pnlHeader = new Panel();
@@ -46,9 +48,9 @@
             pnlBottom.SuspendLayout();
             pnlFiltros.SuspendLayout();
             pnlWrapperCampo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picArrowCampo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             pnlWrapperCondicao.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picArrowCondicao).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlWrapperPesquisa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picSearch).BeginInit();
             pnlHeader.SuspendLayout();
@@ -247,10 +249,11 @@
             // pnlWrapperCampo
             // 
             pnlWrapperCampo.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCampo.Controls.Add(panel8);
+            pnlWrapperCampo.Controls.Add(pictureBox2);
             pnlWrapperCampo.Controls.Add(panel6);
             pnlWrapperCampo.Controls.Add(panel5);
             pnlWrapperCampo.Controls.Add(panel4);
-            pnlWrapperCampo.Controls.Add(picArrowCampo);
             pnlWrapperCampo.Controls.Add(cbPesquisaCampo);
             pnlWrapperCampo.Location = new Point(13, 10);
             pnlWrapperCampo.Name = "pnlWrapperCampo";
@@ -258,11 +261,28 @@
             pnlWrapperCampo.Size = new Size(169, 36);
             pnlWrapperCampo.TabIndex = 50;
             // 
+            // panel8
+            // 
+            panel8.Location = new Point(159, 3);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(6, 30);
+            panel8.TabIndex = 17;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(145, 13);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(15, 10);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 16;
+            pictureBox2.TabStop = false;
+            // 
             // panel6
             // 
-            panel6.Location = new Point(5, 4);
+            panel6.Location = new Point(5, 6);
             panel6.Name = "panel6";
-            panel6.Size = new Size(157, 4);
+            panel6.Size = new Size(160, 7);
             panel6.TabIndex = 15;
             // 
             // panel5
@@ -274,20 +294,10 @@
             // 
             // panel4
             // 
-            panel4.Location = new Point(6, 27);
+            panel4.Location = new Point(6, 23);
             panel4.Name = "panel4";
-            panel4.Size = new Size(157, 6);
+            panel4.Size = new Size(159, 7);
             panel4.TabIndex = 13;
-            // 
-            // picArrowCampo
-            // 
-            picArrowCampo.BackColor = Color.FromArgb(40, 41, 52);
-            picArrowCampo.Location = new Point(141, 6);
-            picArrowCampo.Name = "picArrowCampo";
-            picArrowCampo.Size = new Size(24, 24);
-            picArrowCampo.SizeMode = PictureBoxSizeMode.CenterImage;
-            picArrowCampo.TabIndex = 1;
-            picArrowCampo.TabStop = false;
             // 
             // cbPesquisaCampo
             // 
@@ -308,9 +318,10 @@
             // pnlWrapperCondicao
             // 
             pnlWrapperCondicao.BackColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperCondicao.Controls.Add(picArrowCondicao);
-            pnlWrapperCondicao.Controls.Add(panel3);
+            pnlWrapperCondicao.Controls.Add(panel7);
             pnlWrapperCondicao.Controls.Add(panel2);
+            pnlWrapperCondicao.Controls.Add(pictureBox1);
+            pnlWrapperCondicao.Controls.Add(panel3);
             pnlWrapperCondicao.Controls.Add(panel1);
             pnlWrapperCondicao.Controls.Add(cbCondicao);
             pnlWrapperCondicao.Location = new Point(195, 10);
@@ -319,16 +330,29 @@
             pnlWrapperCondicao.Size = new Size(169, 36);
             pnlWrapperCondicao.TabIndex = 51;
             // 
-            // picArrowCondicao
+            // panel7
             // 
-            picArrowCondicao.BackColor = Color.FromArgb(40, 41, 52);
-            picArrowCondicao.ErrorImage = (Image)resources.GetObject("picArrowCondicao.ErrorImage");
-            picArrowCondicao.Location = new Point(140, 6);
-            picArrowCondicao.Name = "picArrowCondicao";
-            picArrowCondicao.Size = new Size(24, 24);
-            picArrowCondicao.SizeMode = PictureBoxSizeMode.Zoom;
-            picArrowCondicao.TabIndex = 1;
-            picArrowCondicao.TabStop = false;
+            panel7.Location = new Point(158, 3);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(6, 27);
+            panel7.TabIndex = 16;
+            // 
+            // panel2
+            // 
+            panel2.Location = new Point(7, 6);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(157, 7);
+            panel2.TabIndex = 13;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(143, 13);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(15, 10);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 15;
+            pictureBox1.TabStop = false;
             // 
             // panel3
             // 
@@ -337,18 +361,11 @@
             panel3.Size = new Size(4, 30);
             panel3.TabIndex = 14;
             // 
-            // panel2
-            // 
-            panel2.Location = new Point(7, 6);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(157, 4);
-            panel2.TabIndex = 13;
-            // 
             // panel1
             // 
-            panel1.Location = new Point(6, 27);
+            panel1.Location = new Point(6, 23);
             panel1.Name = "panel1";
-            panel1.Size = new Size(157, 6);
+            panel1.Size = new Size(159, 7);
             panel1.TabIndex = 12;
             // 
             // cbCondicao
@@ -360,7 +377,7 @@
             cbCondicao.Font = new Font("Segoe UI", 9F);
             cbCondicao.ForeColor = Color.White;
             cbCondicao.FormattingEnabled = true;
-            cbCondicao.Items.AddRange(new object[] { "Inicia com", "Contendo", "Diferente de" });
+            cbCondicao.Items.AddRange(new object[] { "Inicia com", "Contendo", "Diferente de", "Identico a" });
             cbCondicao.Location = new Point(8, 6);
             cbCondicao.Margin = new Padding(3, 0, 10, 0);
             cbCondicao.Name = "cbCondicao";
@@ -382,10 +399,11 @@
             // 
             picSearch.BackColor = Color.Transparent;
             picSearch.Dock = DockStyle.Right;
-            picSearch.Location = new Point(203, 6);
+            picSearch.Image = (Image)resources.GetObject("picSearch.Image");
+            picSearch.Location = new Point(212, 6);
             picSearch.Name = "picSearch";
-            picSearch.Size = new Size(24, 24);
-            picSearch.SizeMode = PictureBoxSizeMode.CenterImage;
+            picSearch.Size = new Size(15, 24);
+            picSearch.SizeMode = PictureBoxSizeMode.Zoom;
             picSearch.TabIndex = 1;
             picSearch.TabStop = false;
             // 
@@ -441,9 +459,9 @@
             pnlBottom.ResumeLayout(false);
             pnlFiltros.ResumeLayout(false);
             pnlWrapperCampo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picArrowCampo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             pnlWrapperCondicao.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picArrowCondicao).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlWrapperPesquisa.ResumeLayout(false);
             pnlWrapperPesquisa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
@@ -466,15 +484,13 @@
         private System.Windows.Forms.Label lblTitulo;
 
         // novos wrappers e controles para "maquiagem"
-        private System.Windows.Forms.Panel pnlWrapperCampo;
-        private System.Windows.Forms.PictureBox picArrowCampo;
+        private telebip_erp.Controls.RoundedPanel pnlWrapperCampo;
         private System.Windows.Forms.ComboBox cbPesquisaCampo;
 
-        private System.Windows.Forms.Panel pnlWrapperCondicao;
-        private System.Windows.Forms.PictureBox picArrowCondicao;
+        private telebip_erp.Controls.RoundedPanel pnlWrapperCondicao;
         private System.Windows.Forms.ComboBox cbCondicao;
 
-        private System.Windows.Forms.Panel pnlWrapperPesquisa;
+        private telebip_erp.Controls.RoundedPanel pnlWrapperPesquisa;
         private System.Windows.Forms.PictureBox picSearch;
         private System.Windows.Forms.TextBox tbPesquisa;
         private Panel panel3;
@@ -483,5 +499,9 @@
         private Panel panel5;
         private Panel panel4;
         private Panel panel6;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox1;
+        private Panel panel8;
+        private Panel panel7;
     }
 }
