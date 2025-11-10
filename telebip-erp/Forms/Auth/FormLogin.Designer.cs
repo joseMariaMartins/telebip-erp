@@ -1,16 +1,39 @@
-﻿namespace telebip_erp.Forms.Auth
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace telebip_erp.Forms.Auth
 {
     partial class FormLogin
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
+
+        // Controles usados pela lógica em FormLogin.cs
+        private Panel pnlWrapperUsuario;
+        private TextBox txtUsuario;
+        private Label lblUsuario;
+
+        private Panel pnlWrapperSenha;
+        private TextBox txtSenha;
+        private PictureBox picToggleSenha;
+        private Label lblSenha;
+        private Label lblEsqueci;
+
+        private Label lblUsuarioInvalido;
+        private Label lblSenhaInvalida;
+
+        private Label lblAppName;
+        private Label lblTitulo;
+
+        private Panel panel1;
 
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,177 +45,240 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            lbUsuario = new Guna.UI2.WinForms.Guna2TextBox();
-            lbSenha = new Guna.UI2.WinForms.Guna2TextBox();
-            guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            btnLogin = new Guna.UI2.WinForms.Guna2Button();
-            lbUsuarioInvalido = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            lbSenhaInvalida = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            lbEsqueci = new Label();
+            lblAppName = new Label();
+            lblTitulo = new Label();
+            lblUsuario = new Label();
+            pnlWrapperUsuario = new Panel();
+            txtUsuario = new TextBox();
+            lblUsuarioInvalido = new Label();
+            lblSenha = new Label();
+            pnlWrapperSenha = new Panel();
+            txtSenha = new TextBox();
+            picToggleSenha = new PictureBox();
+            lblSenhaInvalida = new Label();
+            lblEsqueci = new Label();
+            panel1 = new Panel();
+            btnLogin = new CuoreUI.Controls.cuiButton();
+            pnlWrapperUsuario.SuspendLayout();
+            pnlWrapperSenha.SuspendLayout();
+            ((ISupportInitialize)picToggleSenha).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
-            // lbUsuario
+            // lblAppName
             // 
-            lbUsuario.CustomizableEdges = customizableEdges7;
-            lbUsuario.DefaultText = "";
-            lbUsuario.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            lbUsuario.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            lbUsuario.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            lbUsuario.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            lbUsuario.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            lbUsuario.Font = new Font("Segoe UI", 9F);
-            lbUsuario.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            lbUsuario.Location = new Point(143, 67);
-            lbUsuario.MaxLength = 6;
-            lbUsuario.Name = "lbUsuario";
-            lbUsuario.PlaceholderText = "";
-            lbUsuario.SelectedText = "";
-            lbUsuario.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            lbUsuario.Size = new Size(276, 36);
-            lbUsuario.TabIndex = 0;
+            lblAppName.AutoSize = true;
+            lblAppName.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblAppName.ForeColor = Color.FromArgb(140, 180, 255);
+            lblAppName.Location = new Point(158, 5);
+            lblAppName.Name = "lblAppName";
+            lblAppName.Size = new Size(120, 19);
+            lblAppName.TabIndex = 0;
+            lblAppName.Text = "Telebip Organizer";
             // 
-            // lbSenha
+            // lblTitulo
             // 
-            lbSenha.CustomizableEdges = customizableEdges9;
-            lbSenha.DefaultText = "";
-            lbSenha.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            lbSenha.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            lbSenha.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            lbSenha.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            lbSenha.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            lbSenha.Font = new Font("Segoe UI", 9F);
-            lbSenha.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            lbSenha.Location = new Point(143, 124);
-            lbSenha.MaxLength = 50;
-            lbSenha.Name = "lbSenha";
-            lbSenha.PasswordChar = '*';
-            lbSenha.PlaceholderText = "";
-            lbSenha.SelectedText = "";
-            lbSenha.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            lbSenha.Size = new Size(276, 36);
-            lbSenha.TabIndex = 1;
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Segoe UI", 12F);
+            lblTitulo.ForeColor = Color.FromArgb(230, 230, 235);
+            lblTitulo.Location = new Point(175, 23);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(86, 21);
+            lblTitulo.TabIndex = 1;
+            lblTitulo.Text = "Bem-vindo";
             // 
-            // guna2HtmlLabel1
+            // lblUsuario
             // 
-            guna2HtmlLabel1.BackColor = Color.Transparent;
-            guna2HtmlLabel1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guna2HtmlLabel1.Location = new Point(77, 67);
-            guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(60, 23);
-            guna2HtmlLabel1.TabIndex = 4;
-            guna2HtmlLabel1.Text = "Usuário:";
+            lblUsuario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblUsuario.ForeColor = Color.FromArgb(230, 230, 235);
+            lblUsuario.Location = new Point(36, 58);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(120, 20);
+            lblUsuario.TabIndex = 2;
+            lblUsuario.Text = "Usuário";
             // 
-            // guna2HtmlLabel2
+            // pnlWrapperUsuario
             // 
-            guna2HtmlLabel2.BackColor = Color.Transparent;
-            guna2HtmlLabel2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guna2HtmlLabel2.Location = new Point(88, 124);
-            guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            guna2HtmlLabel2.Size = new Size(49, 23);
-            guna2HtmlLabel2.TabIndex = 5;
-            guna2HtmlLabel2.Text = "Senha:";
+            pnlWrapperUsuario.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperUsuario.Controls.Add(txtUsuario);
+            pnlWrapperUsuario.Location = new Point(36, 78);
+            pnlWrapperUsuario.Name = "pnlWrapperUsuario";
+            pnlWrapperUsuario.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperUsuario.Size = new Size(364, 40);
+            pnlWrapperUsuario.TabIndex = 3;
+            // 
+            // txtUsuario
+            // 
+            txtUsuario.BackColor = Color.FromArgb(40, 41, 52);
+            txtUsuario.BorderStyle = BorderStyle.None;
+            txtUsuario.Font = new Font("Segoe UI", 9F);
+            txtUsuario.ForeColor = Color.White;
+            txtUsuario.Location = new Point(8, 10);
+            txtUsuario.MaxLength = 6;
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.Size = new Size(324, 16);
+            txtUsuario.TabIndex = 0;
+            // 
+            // lblUsuarioInvalido
+            // 
+            lblUsuarioInvalido.Font = new Font("Segoe UI", 8F);
+            lblUsuarioInvalido.ForeColor = Color.FromArgb(255, 100, 100);
+            lblUsuarioInvalido.Location = new Point(36, 122);
+            lblUsuarioInvalido.Name = "lblUsuarioInvalido";
+            lblUsuarioInvalido.Size = new Size(364, 16);
+            lblUsuarioInvalido.TabIndex = 4;
+            lblUsuarioInvalido.Text = "Usuário inválido";
+            lblUsuarioInvalido.Visible = false;
+            // 
+            // lblSenha
+            // 
+            lblSenha.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblSenha.ForeColor = Color.FromArgb(230, 230, 235);
+            lblSenha.Location = new Point(36, 142);
+            lblSenha.Name = "lblSenha";
+            lblSenha.Size = new Size(120, 20);
+            lblSenha.TabIndex = 5;
+            lblSenha.Text = "Senha";
+            // 
+            // pnlWrapperSenha
+            // 
+            pnlWrapperSenha.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperSenha.Controls.Add(txtSenha);
+            pnlWrapperSenha.Controls.Add(picToggleSenha);
+            pnlWrapperSenha.Location = new Point(36, 162);
+            pnlWrapperSenha.Name = "pnlWrapperSenha";
+            pnlWrapperSenha.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperSenha.Size = new Size(364, 40);
+            pnlWrapperSenha.TabIndex = 6;
+            // 
+            // txtSenha
+            // 
+            txtSenha.BackColor = Color.FromArgb(40, 41, 52);
+            txtSenha.BorderStyle = BorderStyle.None;
+            txtSenha.Font = new Font("Segoe UI", 9F);
+            txtSenha.ForeColor = Color.White;
+            txtSenha.Location = new Point(8, 10);
+            txtSenha.Name = "txtSenha";
+            txtSenha.Size = new Size(288, 16);
+            txtSenha.TabIndex = 0;
+            txtSenha.UseSystemPasswordChar = true;
+            // 
+            // picToggleSenha
+            // 
+            picToggleSenha.Cursor = Cursors.Hand;
+            picToggleSenha.Location = new Point(325, 8);
+            picToggleSenha.Name = "picToggleSenha";
+            picToggleSenha.Size = new Size(28, 24);
+            picToggleSenha.SizeMode = PictureBoxSizeMode.CenterImage;
+            picToggleSenha.TabIndex = 1;
+            picToggleSenha.TabStop = false;
+            // 
+            // lblSenhaInvalida
+            // 
+            lblSenhaInvalida.Font = new Font("Segoe UI", 8F);
+            lblSenhaInvalida.ForeColor = Color.FromArgb(255, 100, 100);
+            lblSenhaInvalida.Location = new Point(36, 206);
+            lblSenhaInvalida.Name = "lblSenhaInvalida";
+            lblSenhaInvalida.Size = new Size(364, 16);
+            lblSenhaInvalida.TabIndex = 7;
+            lblSenhaInvalida.Text = "Senha inválida";
+            lblSenhaInvalida.Visible = false;
+            // 
+            // lblEsqueci
+            // 
+            lblEsqueci.AutoSize = true;
+            lblEsqueci.Cursor = Cursors.Hand;
+            lblEsqueci.Font = new Font("Segoe UI", 9F);
+            lblEsqueci.ForeColor = Color.FromArgb(100, 150, 255);
+            lblEsqueci.Location = new Point(297, 207);
+            lblEsqueci.Name = "lblEsqueci";
+            lblEsqueci.Size = new Size(103, 15);
+            lblEsqueci.TabIndex = 8;
+            lblEsqueci.Text = "Esqueci a senha →";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(28, 29, 40);
+            panel1.Controls.Add(btnLogin);
+            panel1.Controls.Add(lblAppName);
+            panel1.Controls.Add(lblTitulo);
+            panel1.Controls.Add(lblEsqueci);
+            panel1.Controls.Add(lblUsuario);
+            panel1.Controls.Add(lblSenhaInvalida);
+            panel1.Controls.Add(pnlWrapperUsuario);
+            panel1.Controls.Add(pnlWrapperSenha);
+            panel1.Controls.Add(lblUsuarioInvalido);
+            panel1.Controls.Add(lblSenha);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(3, 24);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(431, 298);
+            panel1.TabIndex = 10;
             // 
             // btnLogin
             // 
-            btnLogin.BackColor = Color.Transparent;
-            btnLogin.BorderColor = Color.Transparent;
-            btnLogin.BorderRadius = 10;
-            btnLogin.CustomizableEdges = customizableEdges11;
-            btnLogin.DisabledState.BorderColor = Color.DarkGray;
-            btnLogin.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnLogin.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnLogin.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnLogin.FillColor = Color.FromArgb(40, 120, 80);
-            btnLogin.Font = new Font("Segoe UI", 9F);
+            btnLogin.CheckButton = false;
+            btnLogin.Checked = false;
+            btnLogin.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnLogin.CheckedForeColor = Color.White;
+            btnLogin.CheckedImageTint = Color.White;
+            btnLogin.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnLogin.Content = "Entrar";
+            btnLogin.DialogResult = DialogResult.None;
+            btnLogin.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(290, 200);
+            btnLogin.HoverBackground = Color.White;
+            btnLogin.HoverForeColor = Color.Black;
+            btnLogin.HoverImageTint = Color.White;
+            btnLogin.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnLogin.Image = null;
+            btnLogin.ImageAutoCenter = true;
+            btnLogin.ImageExpand = new Point(0, 0);
+            btnLogin.ImageOffset = new Point(0, 0);
+            btnLogin.Location = new Point(280, 235);
+            btnLogin.Margin = new Padding(3, 0, 10, 0);
             btnLogin.Name = "btnLogin";
-            btnLogin.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            btnLogin.Size = new Size(129, 45);
-            btnLogin.TabIndex = 7;
-            btnLogin.Text = "Confirmar";
-            // 
-            // lbUsuarioInvalido
-            // 
-            lbUsuarioInvalido.BackColor = Color.Transparent;
-            lbUsuarioInvalido.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbUsuarioInvalido.ForeColor = Color.Red;
-            lbUsuarioInvalido.Location = new Point(425, 67);
-            lbUsuarioInvalido.Name = "lbUsuarioInvalido";
-            lbUsuarioInvalido.Size = new Size(97, 19);
-            lbUsuarioInvalido.TabIndex = 8;
-            lbUsuarioInvalido.Text = "Usuário inválido";
-            lbUsuarioInvalido.Visible = false;
-            // 
-            // lbSenhaInvalida
-            // 
-            lbSenhaInvalida.BackColor = Color.Transparent;
-            lbSenhaInvalida.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbSenhaInvalida.ForeColor = Color.Red;
-            lbSenhaInvalida.Location = new Point(425, 124);
-            lbSenhaInvalida.Name = "lbSenhaInvalida";
-            lbSenhaInvalida.Size = new Size(86, 19);
-            lbSenhaInvalida.TabIndex = 9;
-            lbSenhaInvalida.Text = "Senha inválida";
-            lbSenhaInvalida.Visible = false;
-            // 
-            // lbEsqueci
-            // 
-            lbEsqueci.AutoSize = true;
-            lbEsqueci.BackColor = Color.Transparent;
-            lbEsqueci.Cursor = Cursors.Hand;
-            lbEsqueci.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbEsqueci.ForeColor = Color.RoyalBlue;
-            lbEsqueci.Location = new Point(318, 163);
-            lbEsqueci.Name = "lbEsqueci";
-            lbEsqueci.Size = new Size(101, 17);
-            lbEsqueci.TabIndex = 10;
-            lbEsqueci.Text = "Esqueci a senha";
+            btnLogin.NormalBackground = Color.FromArgb(40, 120, 80);
+            btnLogin.NormalForeColor = Color.White;
+            btnLogin.NormalImageTint = Color.White;
+            btnLogin.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnLogin.OutlineThickness = 1F;
+            btnLogin.PressedBackground = Color.FromArgb(40, 120, 80);
+            btnLogin.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnLogin.PressedImageTint = Color.White;
+            btnLogin.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnLogin.Rounding = new Padding(8);
+            btnLogin.Size = new Size(120, 36);
+            btnLogin.TabIndex = 11;
+            btnLogin.TextAlignment = StringAlignment.Center;
+            btnLogin.TextOffset = new Point(0, 0);
             // 
             // FormLogin
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(23, 24, 29);
-            ClientSize = new Size(543, 263);
-            Controls.Add(lbEsqueci);
-            Controls.Add(lbSenhaInvalida);
-            Controls.Add(lbUsuarioInvalido);
-            Controls.Add(btnLogin);
-            Controls.Add(guna2HtmlLabel2);
-            Controls.Add(guna2HtmlLabel1);
-            Controls.Add(lbSenha);
-            Controls.Add(lbUsuario);
+            BackColor = Color.FromArgb(28, 29, 40);
+            ClientSize = new Size(440, 328);
+            Controls.Add(panel1);
             FormStyle = FormStyles.ActionBar_None;
+            MaximumSize = new Size(440, 328);
+            MinimumSize = new Size(440, 328);
             Name = "FormLogin";
-            Padding = new Padding(3, 24, 3, 3);
-            Text = "FormLogin";
+            Padding = new Padding(3, 24, 6, 6);
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Login - Telebip Organizer";
+            pnlWrapperUsuario.ResumeLayout(false);
+            pnlWrapperUsuario.PerformLayout();
+            pnlWrapperSenha.ResumeLayout(false);
+            pnlWrapperSenha.PerformLayout();
+            ((ISupportInitialize)picToggleSenha).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2TextBox lbUsuario;
-        private Guna.UI2.WinForms.Guna2TextBox lbSenha;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private Guna.UI2.WinForms.Guna2Button btnLogin;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lbUsuarioInvalido;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lbSenhaInvalida;
-        private Label lbEsqueci;
+        private CuoreUI.Controls.cuiButton btnLogin;
     }
 }

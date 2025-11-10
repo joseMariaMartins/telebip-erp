@@ -5,10 +5,12 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace telebip_erp.Forms.Auth
 {
-    public partial class FormRecuperacaoSenha : Form
+    public partial class FormRecuperacaoSenha : MaterialForm
     {
         private const string RemetenteSuporte = "telebip.suporte@gmail.com";
 
