@@ -20,7 +20,6 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVendas));
             pnlContainer = new Panel();
             pnlDgv = new Panel();
             dgvVendas = new DataGridView();
@@ -29,13 +28,12 @@
             pnlFiltros = new Panel();
             btnLimpar = new CuoreUI.Controls.cuiButton();
             btnPesquisar = new CuoreUI.Controls.cuiButton();
-            // Wrappers e controles convertidos
-            pnlWrapperCampo = new telebip_erp.Controls.RoundedPanel();
-            cbPesquisaCampo = new ComboBox();
-            pnlWrapperCondicao = new telebip_erp.Controls.RoundedPanel();
-            cbCondicao = new ComboBox();
             pnlWrapperPesquisa = new telebip_erp.Controls.RoundedPanel();
             tbPesquisa = new TextBox();
+            pnlWrapperCondicao = new telebip_erp.Controls.RoundedPanel();
+            cbCondicao = new ComboBox();
+            pnlWrapperCampo = new telebip_erp.Controls.RoundedPanel();
+            cbPesquisaCampo = new ComboBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             pnlContainer.SuspendLayout();
@@ -43,6 +41,9 @@
             ((System.ComponentModel.ISupportInitialize)dgvVendas).BeginInit();
             pnlBottom.SuspendLayout();
             pnlFiltros.SuspendLayout();
+            pnlWrapperPesquisa.SuspendLayout();
+            pnlWrapperCondicao.SuspendLayout();
+            pnlWrapperCampo.SuspendLayout();
             pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
@@ -158,70 +159,116 @@
             pnlFiltros.Size = new Size(1597, 57);
             pnlFiltros.TabIndex = 7;
             // 
-            // btnLimpar (Cuore)
+            // btnLimpar
             // 
             btnLimpar.CheckButton = false;
             btnLimpar.Checked = false;
+            btnLimpar.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnLimpar.CheckedForeColor = Color.White;
+            btnLimpar.CheckedImageTint = Color.White;
+            btnLimpar.CheckedOutline = Color.FromArgb(255, 106, 0);
             btnLimpar.Content = "Limpar";
+            btnLimpar.DialogResult = DialogResult.None;
             btnLimpar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnLimpar.ForeColor = Color.White;
+            btnLimpar.HoverBackground = Color.White;
+            btnLimpar.HoverForeColor = Color.Black;
+            btnLimpar.HoverImageTint = Color.White;
+            btnLimpar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnLimpar.Image = null;
+            btnLimpar.ImageAutoCenter = true;
+            btnLimpar.ImageExpand = new Point(0, 0);
+            btnLimpar.ImageOffset = new Point(0, 0);
             btnLimpar.Location = new Point(759, 10);
             btnLimpar.Margin = new Padding(3, 0, 10, 0);
             btnLimpar.Name = "btnLimpar";
             btnLimpar.NormalBackground = Color.FromArgb(120, 40, 40);
             btnLimpar.NormalForeColor = Color.White;
+            btnLimpar.NormalImageTint = Color.White;
+            btnLimpar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnLimpar.OutlineThickness = 1F;
+            btnLimpar.PressedBackground = Color.WhiteSmoke;
+            btnLimpar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnLimpar.PressedImageTint = Color.White;
+            btnLimpar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnLimpar.Rounding = new Padding(8);
             btnLimpar.Size = new Size(120, 36);
             btnLimpar.TabIndex = 14;
             btnLimpar.TextAlignment = StringAlignment.Center;
+            btnLimpar.TextOffset = new Point(0, 0);
             // 
-            // btnPesquisar (Cuore)
+            // btnPesquisar
             // 
             btnPesquisar.CheckButton = false;
             btnPesquisar.Checked = false;
+            btnPesquisar.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnPesquisar.CheckedForeColor = Color.White;
+            btnPesquisar.CheckedImageTint = Color.White;
+            btnPesquisar.CheckedOutline = Color.FromArgb(255, 106, 0);
             btnPesquisar.Content = "Pesquisar";
+            btnPesquisar.DialogResult = DialogResult.None;
             btnPesquisar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnPesquisar.ForeColor = Color.White;
+            btnPesquisar.HoverBackground = Color.White;
+            btnPesquisar.HoverForeColor = Color.Black;
+            btnPesquisar.HoverImageTint = Color.White;
+            btnPesquisar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnPesquisar.Image = null;
+            btnPesquisar.ImageAutoCenter = true;
+            btnPesquisar.ImageExpand = new Point(0, 0);
+            btnPesquisar.ImageOffset = new Point(0, 0);
             btnPesquisar.Location = new Point(626, 10);
             btnPesquisar.Margin = new Padding(3, 0, 10, 0);
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.NormalBackground = Color.FromArgb(40, 120, 80);
             btnPesquisar.NormalForeColor = Color.White;
+            btnPesquisar.NormalImageTint = Color.White;
+            btnPesquisar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnPesquisar.OutlineThickness = 1F;
+            btnPesquisar.PressedBackground = Color.WhiteSmoke;
+            btnPesquisar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnPesquisar.PressedImageTint = Color.White;
+            btnPesquisar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnPesquisar.Rounding = new Padding(8);
             btnPesquisar.Size = new Size(120, 36);
             btnPesquisar.TabIndex = 9;
             btnPesquisar.TextAlignment = StringAlignment.Center;
+            btnPesquisar.TextOffset = new Point(0, 0);
             // 
-            // pnlWrapperCampo (RoundedPanel)
+            // pnlWrapperPesquisa
             // 
-            pnlWrapperCampo.BackColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperCampo.Location = new Point(13, 10);
-            pnlWrapperCampo.Name = "pnlWrapperCampo";
-            pnlWrapperCampo.Padding = new Padding(8, 6, 8, 6);
-            pnlWrapperCampo.Size = new Size(170, 36);
-            pnlWrapperCampo.TabIndex = 12;
+            pnlWrapperPesquisa.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPesquisa.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperPesquisa.BorderThickness = 1;
+            pnlWrapperPesquisa.Controls.Add(tbPesquisa);
+            pnlWrapperPesquisa.CornerRadius = 8;
+            pnlWrapperPesquisa.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPesquisa.Location = new Point(378, 10);
+            pnlWrapperPesquisa.Name = "pnlWrapperPesquisa";
+            pnlWrapperPesquisa.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperPesquisa.Size = new Size(235, 36);
+            pnlWrapperPesquisa.TabIndex = 7;
             // 
-            // cbPesquisaCampo
+            // tbPesquisa
             // 
-            cbPesquisaCampo.BackColor = Color.FromArgb(40, 41, 52);
-            cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbPesquisaCampo.FlatStyle = FlatStyle.Flat;
-            cbPesquisaCampo.Font = new Font("Segoe UI", 9F);
-            cbPesquisaCampo.ForeColor = Color.White;
-            cbPesquisaCampo.FormattingEnabled = true;
-            cbPesquisaCampo.Items.AddRange(new object[] { "ID", "Funcionário", "Data", "Valor total", "Desconto" });
-            cbPesquisaCampo.Location = new Point(8, 6);
-            cbPesquisaCampo.Margin = new Padding(3, 0, 10, 0);
-            cbPesquisaCampo.Name = "cbPesquisaCampo";
-            cbPesquisaCampo.Size = new Size(154, 24);
-            cbPesquisaCampo.TabIndex = 12;
-            pnlWrapperCampo.Controls.Add(cbPesquisaCampo);
+            tbPesquisa.BackColor = Color.FromArgb(40, 41, 52);
+            tbPesquisa.BorderStyle = BorderStyle.None;
+            tbPesquisa.Font = new Font("Segoe UI", 9F);
+            tbPesquisa.ForeColor = Color.White;
+            tbPesquisa.Location = new Point(8, 10);
+            tbPesquisa.Margin = new Padding(3, 0, 10, 0);
+            tbPesquisa.Name = "tbPesquisa";
+            tbPesquisa.Size = new Size(219, 16);
+            tbPesquisa.TabIndex = 7;
             // 
-            // pnlWrapperCondicao (RoundedPanel)
+            // pnlWrapperCondicao
             // 
             pnlWrapperCondicao.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCondicao.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperCondicao.BorderThickness = 1;
+            pnlWrapperCondicao.Controls.Add(cbCondicao);
+            pnlWrapperCondicao.CornerRadius = 8;
+            pnlWrapperCondicao.FillColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCondicao.Location = new Point(195, 10);
             pnlWrapperCondicao.Name = "pnlWrapperCondicao";
             pnlWrapperCondicao.Padding = new Padding(8, 6, 8, 6);
@@ -240,31 +287,37 @@
             cbCondicao.Location = new Point(8, 6);
             cbCondicao.Margin = new Padding(3, 0, 10, 0);
             cbCondicao.Name = "cbCondicao";
-            cbCondicao.Size = new Size(154, 24);
+            cbCondicao.Size = new Size(154, 23);
             cbCondicao.TabIndex = 11;
-            pnlWrapperCondicao.Controls.Add(cbCondicao);
             // 
-            // pnlWrapperPesquisa (RoundedPanel)
+            // pnlWrapperCampo
             // 
-            pnlWrapperPesquisa.BackColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperPesquisa.Location = new Point(378, 10);
-            pnlWrapperPesquisa.Name = "pnlWrapperPesquisa";
-            pnlWrapperPesquisa.Padding = new Padding(8, 6, 8, 6);
-            pnlWrapperPesquisa.Size = new Size(235, 36);
-            pnlWrapperPesquisa.TabIndex = 7;
+            pnlWrapperCampo.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCampo.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperCampo.BorderThickness = 1;
+            pnlWrapperCampo.Controls.Add(cbPesquisaCampo);
+            pnlWrapperCampo.CornerRadius = 8;
+            pnlWrapperCampo.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCampo.Location = new Point(13, 10);
+            pnlWrapperCampo.Name = "pnlWrapperCampo";
+            pnlWrapperCampo.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperCampo.Size = new Size(170, 36);
+            pnlWrapperCampo.TabIndex = 12;
             // 
-            // tbPesquisa (TextBox inside wrapper)
+            // cbPesquisaCampo
             // 
-            tbPesquisa.BackColor = Color.FromArgb(40, 41, 52);
-            tbPesquisa.BorderStyle = BorderStyle.None;
-            tbPesquisa.Font = new Font("Segoe UI", 9F);
-            tbPesquisa.ForeColor = Color.White;
-            tbPesquisa.Location = new Point(8, 10);
-            tbPesquisa.Margin = new Padding(3, 0, 10, 0);
-            tbPesquisa.Name = "tbPesquisa";
-            tbPesquisa.Size = new Size(219, 16);
-            tbPesquisa.TabIndex = 7;
-            pnlWrapperPesquisa.Controls.Add(tbPesquisa);
+            cbPesquisaCampo.BackColor = Color.FromArgb(40, 41, 52);
+            cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbPesquisaCampo.FlatStyle = FlatStyle.Flat;
+            cbPesquisaCampo.Font = new Font("Segoe UI", 9F);
+            cbPesquisaCampo.ForeColor = Color.White;
+            cbPesquisaCampo.FormattingEnabled = true;
+            cbPesquisaCampo.Items.AddRange(new object[] { "ID", "Funcionário", "Data", "Valor total", "Desconto" });
+            cbPesquisaCampo.Location = new Point(8, 6);
+            cbPesquisaCampo.Margin = new Padding(3, 0, 10, 0);
+            cbPesquisaCampo.Name = "cbPesquisaCampo";
+            cbPesquisaCampo.Size = new Size(154, 23);
+            cbPesquisaCampo.TabIndex = 12;
             // 
             // pnlHeader
             // 
@@ -305,6 +358,10 @@
             ((System.ComponentModel.ISupportInitialize)dgvVendas).EndInit();
             pnlBottom.ResumeLayout(false);
             pnlFiltros.ResumeLayout(false);
+            pnlWrapperPesquisa.ResumeLayout(false);
+            pnlWrapperPesquisa.PerformLayout();
+            pnlWrapperCondicao.ResumeLayout(false);
+            pnlWrapperCampo.ResumeLayout(false);
             pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
         }

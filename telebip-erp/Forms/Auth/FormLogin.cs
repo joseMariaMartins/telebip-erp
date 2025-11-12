@@ -3,13 +3,12 @@ using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
-using telebip_erp.Forms.Modules;
-using telebip_erp.Forms.Auth;
 
 namespace telebip_erp.Forms.Auth
 {
@@ -27,7 +26,7 @@ namespace telebip_erp.Forms.Auth
             {
                 ThemeManager.ApplyDarkTheme();
             }
-            catch { /* Evita crash caso tema falhe */ }
+            catch { /* evita crash caso tema falhe */ }
 
             txtUsuario.MaxLength = 6;
 
@@ -46,18 +45,21 @@ namespace telebip_erp.Forms.Auth
             btnLogin.MouseLeave += BtnLogin_MouseLeave;
 
             lblEsqueci.Click += LblEsqueci_Click;
-            picToggleSenha.Click += PicToggleSenha_Click;
-            picToggleSenha.Cursor = Cursors.Hand;
-            picToggleSenha.SizeMode = PictureBoxSizeMode.CenterImage;
 
-            // Aplicar bordas arredondadas
+            // garante que picToggleSenha existe antes de anexar
+            if (picToggleSenha != null)
+            {
+                picToggleSenha.Click += PicToggleSenha_Click;
+                picToggleSenha.Cursor = Cursors.Hand;
+                picToggleSenha.SizeMode = PictureBoxSizeMode.CenterImage;
+            }
+
+            // Aplicar bordas arredondadas e estilos
             AplicarBordasArredondadas();
 
-            // Criar ícones simples para o eye (open/closed) desenhados em runtime para não depender de resources externos
-            eyeOpenBmp = CreateEyeBitmap(24, 24, true);
-            eyeClosedBmp = CreateEyeBitmap(24, 24, false);
-
-            AtualizarVisibilidadeSenha();
+            // Carregar imagens do "eye" e configurar botão visual
+            LoadEyeImages();
+            ConfigureLoginButtonVisuals();
 
             // Focus inicial
             this.Load += (s, e) => txtUsuario.Focus();
@@ -84,13 +86,9 @@ namespace telebip_erp.Forms.Auth
         private void StyleTextboxWrapperPanel(Panel wrapper, Color fill, Color border, int radius = 8)
         {
             wrapper.BackColor = fill;
-            // Armazenamos a cor de borda atual no Tag para permitir mudança dinâmica
             wrapper.Tag = border;
-
-            // Remover handlers duplicados caso já existam (evita múltiplas assinaturas em reloads)
             wrapper.Paint -= Wrapper_Paint;
             wrapper.Paint += Wrapper_Paint;
-
             wrapper.Resize -= (s, e) => wrapper.Invalidate();
             wrapper.Resize += (s, e) => wrapper.Invalidate();
         }
@@ -114,16 +112,13 @@ namespace telebip_erp.Forms.Auth
             Color fillColor = Color.FromArgb(40, 41, 52);
             int radius = 8;
 
-            // Aplica bordas arredondadas nos wrappers
             StyleTextboxWrapperPanel(pnlWrapperUsuario, fillColor, borderColor, radius);
             StyleTextboxWrapperPanel(pnlWrapperSenha, fillColor, borderColor, radius);
 
-            // Ajustes visuais do botão
             btnLogin.BackColor = Color.FromArgb(40, 120, 80);
             btnLogin.ForeColor = Color.White;
             btnLogin.Cursor = Cursors.Hand;
 
-            // Labels com cores suaves
             lblAppName.ForeColor = Color.FromArgb(140, 180, 255);
             lblTitulo.ForeColor = Color.White;
         }
@@ -139,60 +134,108 @@ namespace telebip_erp.Forms.Auth
         }
         #endregion
 
-        #region Eye Icon Runtime
-        private Bitmap CreateEyeBitmap(int width, int height, bool open)
+        #region Toggle Visibilidade da Senha / Eye images
+        private void LoadEyeImages()
         {
-            var bmp = new Bitmap(width, height);
+            // tenta carregar eye images explicitamente via Properties.Resources (nomes comuns)
+            try
+            {
+                // tenta nomes explícitos (se existirem no Resources)
+                // (substitua pelos nomes reais se quiser forçar)
+                var resType = typeof(Properties.Resources);
+
+                // Tentativa direta por nomes conhecidos
+                var tryNames = new[] { "eye_open", "eyeopen", "eyeOpen", "eye_open_white", "view", "show" };
+                foreach (var name in tryNames)
+                {
+                    var prop = resType.GetProperty(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.IgnoreCase);
+                    if (prop != null && prop.GetValue(null) is Image im)
+                    {
+                        eyeOpenBmp = new Bitmap(im);
+                        break;
+                    }
+                }
+
+                var tryNamesClosed = new[] { "eye_closed", "eyeclose", "eye_closed_white", "hide", "hide_eye" };
+                foreach (var name in tryNamesClosed)
+                {
+                    var prop = resType.GetProperty(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.IgnoreCase);
+                    if (prop != null && prop.GetValue(null) is Image im)
+                    {
+                        eyeClosedBmp = new Bitmap(im);
+                        break;
+                    }
+                }
+            }
+            catch { /* ignore */ }
+
+            // Se não encontrou, tenta varrer Resources por imagens candidatas
+            if (eyeOpenBmp == null || eyeClosedBmp == null)
+            {
+                try
+                {
+                    var props = typeof(Properties.Resources).GetProperties(BindingFlags.Static | BindingFlags.Public);
+                    foreach (var p in props)
+                    {
+                        if (!typeof(Image).IsAssignableFrom(p.PropertyType)) continue;
+                        var img = p.GetValue(null) as Image;
+                        if (img == null) continue;
+                        var name = p.Name.ToLowerInvariant();
+
+                        if (eyeOpenBmp == null && (name.Contains("eye") && (name.Contains("open") || name.Contains("view") || name.Contains("show"))))
+                            eyeOpenBmp = new Bitmap(img);
+
+                        if (eyeClosedBmp == null && (name.Contains("eye") && (name.Contains("close") || name.Contains("closed") || name.Contains("hide") || name.Contains("ocultar"))))
+                            eyeClosedBmp = new Bitmap(img);
+
+                        if (eyeOpenBmp != null && eyeClosedBmp != null) break;
+                    }
+                }
+                catch { /* ignore */ }
+            }
+
+            // Se ainda não encontrou, usa a imagem que já está no PictureBox (designer) como closed
+            try
+            {
+                if (eyeClosedBmp == null && picToggleSenha?.Image is Bitmap bmpFromDesigner)
+                    eyeClosedBmp = new Bitmap(bmpFromDesigner);
+            }
+            catch { /* ignore */ }
+
+            // fallback: desenha ícones simples
+            if (eyeOpenBmp == null) eyeOpenBmp = DrawSimpleEye(20, 20, true);
+            if (eyeClosedBmp == null) eyeClosedBmp = DrawSimpleEye(20, 20, false);
+
+            // garante que picturebox comece com closed
+            if (picToggleSenha != null && picToggleSenha.Image == null)
+                picToggleSenha.Image = eyeClosedBmp;
+        }
+
+        private Bitmap DrawSimpleEye(int w, int h, bool open)
+        {
+            var bmp = new Bitmap(w, h);
             using (var g = Graphics.FromImage(bmp))
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.Clear(Color.Transparent);
-
-                // Coordenadas base
-                float cx = width / 2f;
-                float cy = height / 2f;
-                float rx = width * 0.45f;
-                float ry = height * 0.25f;
-
-                using (var pen = new Pen(Color.FromArgb(200, 200, 200), 2f))
-                using (var brush = new SolidBrush(Color.FromArgb(200, 200, 200)))
+                using (var pen = new Pen(Color.White, 1.5f))
+                using (var brush = new SolidBrush(Color.White))
                 {
-                    // Desenha contorno do olho (elipse estilizada)
-                    var eyePath = new GraphicsPath();
-                    // vamos desenhar uma forma mais elíptica estilizada:
-                    var pts = new PointF[]
-                    {
-                        new PointF(cx - rx, cy),
-                        new PointF(cx - rx/2, cy - ry),
-                        new PointF(cx + rx/2, cy - ry),
-                        new PointF(cx + rx, cy),
-                        new PointF(cx + rx/2, cy + ry),
-                        new PointF(cx - rx/2, cy + ry)
-                    };
-                    eyePath.AddPolygon(pts);
-                    g.DrawPath(pen, eyePath);
-
-                    // Iris / Pupila
+                    // contorno do olho
+                    g.DrawEllipse(pen, 2, 6, w - 4, h - 12);
                     if (open)
                     {
-                        g.FillEllipse(brush, cx - rx * 0.35f, cy - ry * 0.35f, rx * 0.7f, ry * 0.7f);
-                        g.FillEllipse(Brushes.Black, cx - rx * 0.12f, cy - ry * 0.12f, rx * 0.24f, ry * 0.24f);
+                        g.FillEllipse(brush, w / 2 - 3, h / 2 - 3, 6, 6);
                     }
                     else
                     {
-                        // Linha cortando o olho para indicar fechado
-                        using (var penLine = new Pen(Color.FromArgb(200, 200, 200), 2.5f))
-                        {
-                            g.DrawLine(penLine, cx - rx, cy + ry * 0.1f, cx + rx, cy - ry * 0.1f);
-                        }
+                        g.DrawLine(pen, 3, h / 2, w - 3, h / 2);
                     }
                 }
             }
             return bmp;
         }
-        #endregion
 
-        #region Toggle Visibilidade da Senha
         private void PicToggleSenha_Click(object sender, EventArgs e)
         {
             senhaVisivel = !senhaVisivel;
@@ -203,16 +246,14 @@ namespace telebip_erp.Forms.Auth
         {
             if (senhaVisivel)
             {
-                txtSenha.UseSystemPasswordChar = false; // Mostrar texto
-                picToggleSenha.Image = eyeOpenBmp;
-                picToggleSenha.Cursor = Cursors.Hand;
+                txtSenha.UseSystemPasswordChar = false;
+                if (eyeOpenBmp != null) picToggleSenha.Image = eyeOpenBmp;
                 picToggleSenha.AccessibleDescription = "Ocultar senha";
             }
             else
             {
-                txtSenha.UseSystemPasswordChar = true; // Esconder texto
-                picToggleSenha.Image = eyeClosedBmp;
-                picToggleSenha.Cursor = Cursors.Hand;
+                txtSenha.UseSystemPasswordChar = true;
+                if (eyeClosedBmp != null) picToggleSenha.Image = eyeClosedBmp;
                 picToggleSenha.AccessibleDescription = "Mostrar senha";
             }
         }
@@ -232,8 +273,6 @@ namespace telebip_erp.Forms.Auth
             btnLogin.BackColor = Color.FromArgb(40, 120, 80);
         }
 
-        // ==========================
-        // Aceita apenas números no campo de login
         // ==========================
         private void TxtUsuario_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -258,9 +297,6 @@ namespace telebip_erp.Forms.Auth
             }
         }
 
-        // ==========================
-        // Enter na senha faz login
-        // ==========================
         private void TxtSenha_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -270,9 +306,6 @@ namespace telebip_erp.Forms.Auth
             }
         }
 
-        // ==========================
-        // BOTÃO LOGIN
-        // ==========================
         private async void BtnLogin_Click(object sender, EventArgs e)
         {
             lblUsuarioInvalido.Visible = false;
@@ -350,9 +383,6 @@ namespace telebip_erp.Forms.Auth
             }
         }
 
-        // ==========================
-        // ESQUECI MINHA SENHA
-        // ==========================
         private void LblEsqueci_Click(object sender, EventArgs e)
         {
             var formRecuperacao = new FormRecuperacaoSenha
@@ -362,9 +392,29 @@ namespace telebip_erp.Forms.Auth
             formRecuperacao.ShowDialog(this);
         }
 
+        private void ConfigureLoginButtonVisuals()
+        {
+            try
+            {
+                btnLogin.NormalBackground = Color.FromArgb(40, 120, 80);
+                btnLogin.NormalForeColor = Color.White;
+                btnLogin.NormalOutline = Color.FromArgb(200, 200, 200);
+                btnLogin.OutlineThickness = 1F;
+                btnLogin.Rounding = new Padding(8);
+
+                btnLogin.HoverBackground = ControlPaint.Light(btnLogin.NormalBackground);
+                btnLogin.HoverForeColor = btnLogin.NormalForeColor;
+                btnLogin.HoverOutline = btnLogin.NormalOutline;
+
+                btnLogin.PressedBackground = ControlPaint.Dark(btnLogin.NormalBackground);
+                btnLogin.PressedForeColor = btnLogin.NormalForeColor;
+                btnLogin.PressedOutline = btnLogin.NormalOutline;
+            }
+            catch { /* evita crash caso controle mude */ }
+        }
+
         private void FormLogin_Load(object sender, EventArgs e)
         {
-            // Foca no campo de usuário ao carregar
             txtUsuario.Focus();
         }
     }

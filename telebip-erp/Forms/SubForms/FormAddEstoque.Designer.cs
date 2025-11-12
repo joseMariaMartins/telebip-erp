@@ -150,12 +150,12 @@ namespace telebip_erp.Forms.SubForms
             cbFuncionarios.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFuncionarios.FlatStyle = FlatStyle.Flat;
             cbFuncionarios.Font = new Font("Segoe UI", 9F);
-            cbFuncionarios.ForeColor = Color.White; // força branco
+            cbFuncionarios.ForeColor = Color.White;
             cbFuncionarios.FormattingEnabled = true;
             cbFuncionarios.Location = new Point(8, 6);
             cbFuncionarios.Margin = new Padding(3, 0, 10, 0);
             cbFuncionarios.Name = "cbFuncionarios";
-            cbFuncionarios.Size = new Size(557, 24);
+            cbFuncionarios.Size = new Size(557, 23);
             cbFuncionarios.TabIndex = 101;
             // 
             // lblFuncionario

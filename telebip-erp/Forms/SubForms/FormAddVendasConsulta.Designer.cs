@@ -19,6 +19,8 @@ namespace telebip_erp.Forms.SubForms
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnlContainer = new Panel();
             pnlMain = new Panel();
+            roundedPanel1 = new RoundedPanel();
+            mkDataHora = new MaskedTextBox();
             lbidVendaSelecionada = new Label();
             label1 = new Label();
             pnlWrapperFuncionario = new RoundedPanel();
@@ -32,7 +34,6 @@ namespace telebip_erp.Forms.SubForms
             btnCancelarVendas = new cuiButton();
             pnlProdutos = new Panel();
             dgvProdutoTemporarios = new DataGridView();
-            mkDataHora = new MaskedTextBox();
             lblEstadoPagamento = new Label();
             lblFormaPagamento = new Label();
             lblDataHora = new Label();
@@ -41,9 +42,9 @@ namespace telebip_erp.Forms.SubForms
             tbDesconto = new TextBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
-            roundedPanel1 = new RoundedPanel();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
+            roundedPanel1.SuspendLayout();
             pnlWrapperFuncionario.SuspendLayout();
             pnlWrapperEstado.SuspendLayout();
             pnlWrapperForma.SuspendLayout();
@@ -51,7 +52,6 @@ namespace telebip_erp.Forms.SubForms
             ((System.ComponentModel.ISupportInitialize)dgvProdutoTemporarios).BeginInit();
             pnlWrapperDesconto.SuspendLayout();
             pnlHeader.SuspendLayout();
-            roundedPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlContainer
@@ -89,6 +89,33 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.Padding = new Padding(30);
             pnlMain.Size = new Size(922, 603);
             pnlMain.TabIndex = 1;
+            // 
+            // roundedPanel1
+            // 
+            roundedPanel1.BackColor = Color.FromArgb(40, 41, 52);
+            roundedPanel1.BorderColor = Color.FromArgb(60, 62, 80);
+            roundedPanel1.BorderThickness = 1;
+            roundedPanel1.Controls.Add(mkDataHora);
+            roundedPanel1.CornerRadius = 8;
+            roundedPanel1.FillColor = Color.FromArgb(40, 41, 52);
+            roundedPanel1.Location = new Point(33, 208);
+            roundedPanel1.Name = "roundedPanel1";
+            roundedPanel1.Padding = new Padding(8, 6, 8, 6);
+            roundedPanel1.Size = new Size(146, 36);
+            roundedPanel1.TabIndex = 104;
+            // 
+            // mkDataHora
+            // 
+            mkDataHora.BackColor = Color.FromArgb(40, 41, 52);
+            mkDataHora.BorderStyle = BorderStyle.None;
+            mkDataHora.Font = new Font("Segoe UI", 10F);
+            mkDataHora.ForeColor = Color.White;
+            mkDataHora.Location = new Point(11, 9);
+            mkDataHora.Mask = "00-00-0000 00:00";
+            mkDataHora.Name = "mkDataHora";
+            mkDataHora.Size = new Size(125, 18);
+            mkDataHora.TabIndex = 38;
+            mkDataHora.ValidatingType = typeof(DateTime);
             // 
             // lbidVendaSelecionada
             // 
@@ -152,6 +179,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             // tbEstado
             // 
+            tbEstado.AutoCompleteCustomSource.AddRange(new string[] { "Pago", "Pendente" });
             tbEstado.BackColor = Color.FromArgb(40, 41, 52);
             tbEstado.BorderStyle = BorderStyle.None;
             tbEstado.Font = new Font("Segoe UI", 9F);
@@ -178,6 +206,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             // tbForma
             // 
+            tbForma.AutoCompleteCustomSource.AddRange(new string[] { "Pix", "Dinheiro", "Debito ", "Credito", "Ausente" });
             tbForma.BackColor = Color.FromArgb(40, 41, 52);
             tbForma.BorderStyle = BorderStyle.None;
             tbForma.Font = new Font("Segoe UI", 9F);
@@ -308,19 +337,6 @@ namespace telebip_erp.Forms.SubForms
             dgvProdutoTemporarios.Size = new Size(834, 130);
             dgvProdutoTemporarios.TabIndex = 41;
             // 
-            // mkDataHora
-            // 
-            mkDataHora.BackColor = Color.FromArgb(40, 41, 52);
-            mkDataHora.BorderStyle = BorderStyle.None;
-            mkDataHora.Font = new Font("Segoe UI", 10F);
-            mkDataHora.ForeColor = Color.White;
-            mkDataHora.Location = new Point(11, 9);
-            mkDataHora.Mask = "00-00-0000 00:00";
-            mkDataHora.Name = "mkDataHora";
-            mkDataHora.Size = new Size(125, 18);
-            mkDataHora.TabIndex = 38;
-            mkDataHora.ValidatingType = typeof(DateTime);
-            // 
             // lblEstadoPagamento
             // 
             lblEstadoPagamento.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
@@ -411,20 +427,6 @@ namespace telebip_erp.Forms.SubForms
             lblTitulo.Text = "Consultar Venda";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // roundedPanel1
-            // 
-            roundedPanel1.BackColor = Color.FromArgb(40, 41, 52);
-            roundedPanel1.BorderColor = Color.FromArgb(60, 62, 80);
-            roundedPanel1.BorderThickness = 1;
-            roundedPanel1.Controls.Add(mkDataHora);
-            roundedPanel1.CornerRadius = 8;
-            roundedPanel1.FillColor = Color.FromArgb(40, 41, 52);
-            roundedPanel1.Location = new Point(33, 208);
-            roundedPanel1.Name = "roundedPanel1";
-            roundedPanel1.Padding = new Padding(8, 6, 8, 6);
-            roundedPanel1.Size = new Size(146, 36);
-            roundedPanel1.TabIndex = 104;
-            // 
             // FormAddVendasConsulta
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -443,6 +445,8 @@ namespace telebip_erp.Forms.SubForms
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);
             pnlMain.PerformLayout();
+            roundedPanel1.ResumeLayout(false);
+            roundedPanel1.PerformLayout();
             pnlWrapperFuncionario.ResumeLayout(false);
             pnlWrapperFuncionario.PerformLayout();
             pnlWrapperEstado.ResumeLayout(false);
@@ -454,8 +458,6 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperDesconto.ResumeLayout(false);
             pnlWrapperDesconto.PerformLayout();
             pnlHeader.ResumeLayout(false);
-            roundedPanel1.ResumeLayout(false);
-            roundedPanel1.PerformLayout();
             ResumeLayout(false);
         }
 

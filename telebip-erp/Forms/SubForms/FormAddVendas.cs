@@ -20,7 +20,6 @@ namespace telebip_erp.Forms.SubForms
         public bool ModoConsulta { get; set; } = false;
         public int? VendaID { get; set; } = null;
 
-
         public FormAddVendas()
         {
             InitializeComponent();
@@ -32,16 +31,26 @@ namespace telebip_erp.Forms.SubForms
 
         private void InicializarComponentes()
         {
+            // Vincula handlers de UI
             ConfigurarBotoesImagemRadio();
             ConfigurarMonetarios();
             CriarTabelaTemporaria();
 
-            // NOTE: usa os nomes do Designer que você enviou
+            // Handlers de controles visuais/inputs
             picAdicaoProduto.Click += BtnAdicaoProduto_Click;
             picTirarProduto.Click += BtnTirarProduto_Click;
             btnMaisInformacao.Click += BtnMaisInformacao_Click;
 
+            // Botões principais (agora garantidos no Init)
+            btnAdicionarVendas.Click += btnAdicionarVendas_Click_1;
+            btnCancelarVendas.Click += btnCancelarVendas_Click_1;
+
+            // Combos: popular primeiro, depois vincular eventos
+            PopularCombosPagamento();
             ConfigurarVinculoCombos();
+
+            // Load do form (garante que o método seja executado ao abrir)
+            this.Load += FormAddVendas_Load_1;
         }
 
         private void FormAddVendas_Load_1(object sender, EventArgs e)
@@ -62,10 +71,63 @@ namespace telebip_erp.Forms.SubForms
 
         #region Combos
 
+        private void PopularCombosPagamento()
+        {
+            // Previne que os handlers reajam durante a população
+            _ignorarEventoCombo = true;
+            try
+            {
+                cbForma.Items.Clear();
+                cbForma.Items.AddRange(new object[] {
+                    "Dinheiro",
+                    "Credito",
+                    "Pix QR",
+                    "Pix",
+                    "Ausente"
+                });
+
+                cbEstado.Items.Clear();
+                cbEstado.Items.AddRange(new object[] {
+                    "Pago",
+                    "Pendente"
+                });
+
+                // não selecionar nada por padrão
+                cbForma.SelectedIndex = -1;
+                cbEstado.SelectedIndex = -1;
+            }
+            finally
+            {
+                _ignorarEventoCombo = false;
+            }
+        }
+
         private void ConfigurarVinculoCombos()
         {
+            // evita dupla inscrição caso o método seja chamado novamente
+            cbEstado.SelectedIndexChanged -= CbEstado_SelectedIndexChanged;
+            cbForma.SelectedIndexChanged -= CbForma_SelectedIndexChanged;
+
             cbEstado.SelectedIndexChanged += CbEstado_SelectedIndexChanged;
             cbForma.SelectedIndexChanged += CbForma_SelectedIndexChanged;
+        }
+
+        // Helper para selecionar item por texto (case-insensitive, trim)
+        private void SelecionarItemPorTexto(ComboBox cb, string texto)
+        {
+            if (cb == null || texto == null) return;
+
+            for (int i = 0; i < cb.Items.Count; i++)
+            {
+                var itemText = cb.Items[i]?.ToString()?.Trim();
+                if (string.Equals(itemText, texto.Trim(), StringComparison.OrdinalIgnoreCase))
+                {
+                    cb.SelectedIndex = i;
+                    return;
+                }
+            }
+
+            cb.SelectedIndex = -1;
         }
 
         private void CbEstado_SelectedIndexChanged(object sender, EventArgs e)
@@ -76,16 +138,20 @@ namespace telebip_erp.Forms.SubForms
             {
                 _ignorarEventoCombo = true;
 
-                if (cbEstado.SelectedItem?.ToString() == "Pendente")
+                string estado = (cbEstado.SelectedItem?.ToString() ?? cbEstado.Text)?.Trim();
+
+                if (!string.IsNullOrEmpty(estado) && estado.Equals("Pendente", StringComparison.OrdinalIgnoreCase))
                 {
-                    cbForma.SelectedItem = "Ausente"; // seleciona automaticamente
-                    cbForma.Enabled = false;          // bloqueia
+                    // seleciona "Ausente" na forma (usando helper) e desabilita
+                    SelecionarItemPorTexto(cbForma, "Ausente");
+                    cbForma.Enabled = false;
                 }
                 else
                 {
-                    cbForma.Enabled = true;           // desbloqueia
-                                                      // limpa se ainda estiver “Ausente” por causa do Pendente
-                    if (cbForma.SelectedItem?.ToString() == "Ausente")
+                    // desbloqueia forma e se estiver "Ausente" limpa (apenas se a seleção textual corresponder)
+                    cbForma.Enabled = true;
+                    string formaAtual = (cbForma.SelectedItem?.ToString() ?? cbForma.Text)?.Trim();
+                    if (!string.IsNullOrEmpty(formaAtual) && formaAtual.Equals("Ausente", StringComparison.OrdinalIgnoreCase))
                         cbForma.SelectedIndex = -1;
                 }
             }
@@ -103,16 +169,19 @@ namespace telebip_erp.Forms.SubForms
             {
                 _ignorarEventoCombo = true;
 
-                if (cbForma.SelectedItem?.ToString() == "Ausente")
+                string forma = (cbForma.SelectedItem?.ToString() ?? cbForma.Text)?.Trim();
+
+                if (!string.IsNullOrEmpty(forma) && forma.Equals("Ausente", StringComparison.OrdinalIgnoreCase))
                 {
-                    cbEstado.SelectedItem = "Pendente"; // seleciona automaticamente
-                    cbEstado.Enabled = false;           // bloqueia
+                    // seleciona "Pendente" no estado (usando helper) e desabilita
+                    SelecionarItemPorTexto(cbEstado, "Pendente");
+                    cbEstado.Enabled = false;
                 }
                 else
                 {
-                    cbEstado.Enabled = true;            // desbloqueia
-                                                        // limpa se ainda estiver “Pendente” por causa do Ausente
-                    if (cbEstado.SelectedItem?.ToString() == "Pendente")
+                    cbEstado.Enabled = true;
+                    string estadoAtual = (cbEstado.SelectedItem?.ToString() ?? cbEstado.Text)?.Trim();
+                    if (!string.IsNullOrEmpty(estadoAtual) && estadoAtual.Equals("Pendente", StringComparison.OrdinalIgnoreCase))
                         cbEstado.SelectedIndex = -1;
                 }
             }
@@ -284,7 +353,9 @@ namespace telebip_erp.Forms.SubForms
             }
 
             // Aqui vamos checar se a quantidade informada é maior que a quantidade atual
-            int qtdAtual = int.Parse(lbQuantidadeAtual.Text.Replace("Quantidade atual: ", ""));
+            if (!int.TryParse(lbQuantidadeAtual.Text.Replace("Quantidade atual: ", ""), out int qtdAtual))
+                qtdAtual = 0;
+
             if (qtd > qtdAtual)
             {
                 MessageBox.Show($"A quantidade informada ({qtd}) é maior que a quantidade disponível ({qtdAtual}).", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -525,7 +596,10 @@ namespace telebip_erp.Forms.SubForms
         {
             decimal valorBruto = 0;
             foreach (DataGridViewRow row in dgvProdutoTemporarios.Rows)
-                valorBruto += Convert.ToDecimal(row.Cells["SUBTOTAL"].Value);
+            {
+                if (row.Cells["SUBTOTAL"].Value != null)
+                    valorBruto += Convert.ToDecimal(row.Cells["SUBTOTAL"].Value);
+            }
 
             decimal desconto = 0;
             decimal.TryParse(tbDesconto.Text.Replace("R$", "").Trim(), NumberStyles.Currency, CultureInfo.GetCultureInfo("pt-BR"), out desconto);
@@ -540,14 +614,10 @@ namespace telebip_erp.Forms.SubForms
 
         private void ConfigurarBotoesImagemRadio()
         {
-            // Agora usamos PictureBox/CuiButtons do Designer:
+            // Now uses PictureBox/CuiButtons from Designer:
             // - picAdicaoProduto : adiciona produto
             // - picTirarProduto  : remove produto
             // - btnMaisInformacao : abre FormAddProdutoVendas
-
-            // A lógica anterior que usava Checked/CheckedChanged do Guna foi removida:
-            // apenas garantimos os handlers (vinculados em InicializarComponentes),
-            // e caso haja necessidade de "toggle" visual você pode trocar a imagem manualmente aqui.
         }
 
         private void BtnMaisInformacao_Click(object sender, EventArgs e)
@@ -555,7 +625,6 @@ namespace telebip_erp.Forms.SubForms
             using var formAddProduto = new FormAddProdutoVendas();
             formAddProduto.Owner = this;
             formAddProduto.ShowDialog();
-            // Nada de Checked — PictureBox não tem esse estado
         }
 
         private void btnCancelarVendas_Click_1(object sender, EventArgs e)
@@ -678,10 +747,15 @@ namespace telebip_erp.Forms.SubForms
             ";
 
             using var cmdPagamento = new SQLiteCommand(sqlPagamento, conn, transaction);
+
+            // Usa .Text para evitar NullReference e garante trim + uppercase
+            string formaParaBanco = (cbForma.Text ?? "").Trim().ToUpperInvariant();
+            string estadoParaBanco = (cbEstado.Text ?? "").Trim().ToUpperInvariant();
+
             cmdPagamento.Parameters.AddWithValue("@idVenda", idVenda);
-            cmdPagamento.Parameters.AddWithValue("@forma", cbForma.SelectedItem.ToString().ToUpper());
+            cmdPagamento.Parameters.AddWithValue("@forma", formaParaBanco);
             cmdPagamento.Parameters.AddWithValue("@valor", valorTotal);
-            cmdPagamento.Parameters.AddWithValue("@estado", cbEstado.SelectedItem.ToString().ToUpper());
+            cmdPagamento.Parameters.AddWithValue("@estado", estadoParaBanco);
             cmdPagamento.ExecuteNonQuery();
         }
 

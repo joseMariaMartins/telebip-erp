@@ -15,6 +15,12 @@ namespace telebip_erp.Forms.SubForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddVendas));
             pnlContainer = new Panel();
             pnlMain = new Panel();
+            roundedPanel4 = new telebip_erp.Controls.RoundedPanel();
+            tbPrecoProduto = new TextBox();
+            roundedPanel3 = new telebip_erp.Controls.RoundedPanel();
+            tbDesconto = new TextBox();
+            roundedPanel2 = new telebip_erp.Controls.RoundedPanel();
+            tbQProduto = new TextBox();
             label2 = new Label();
             label1 = new Label();
             lbValorSuper = new Label();
@@ -34,30 +40,27 @@ namespace telebip_erp.Forms.SubForms
             lblDataHora = new Label();
             pnlWrapperEstado = new telebip_erp.Controls.RoundedPanel();
             cbEstado = new ComboBox();
-            picArrowEstado = new PictureBox();
             lblEstadoPagamento = new Label();
             pnlWrapperForma = new telebip_erp.Controls.RoundedPanel();
             cbForma = new ComboBox();
-            picArrowForma = new PictureBox();
             lblFormaPagamento = new Label();
             pnlWrapperFuncionarios = new telebip_erp.Controls.RoundedPanel();
             cbFuncionariosVenda = new ComboBox();
-            picArrowFuncionarios = new PictureBox();
             lblFuncionario = new Label();
             roundedPanel1 = new telebip_erp.Controls.RoundedPanel();
             tbNomeProduto = new TextBox();
             btnMaisInformacao = new PictureBox();
             lblProduto = new Label();
             lblPreco = new Label();
-            tbPrecoProduto = new TextBox();
             lblQuantidadeVendida = new Label();
-            tbQProduto = new TextBox();
             lblDesconto = new Label();
-            tbDesconto = new TextBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
+            roundedPanel4.SuspendLayout();
+            roundedPanel3.SuspendLayout();
+            roundedPanel2.SuspendLayout();
             pnlProdutos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProdutoTemporarios).BeginInit();
             pnlBotoesProduto.SuspendLayout();
@@ -65,11 +68,8 @@ namespace telebip_erp.Forms.SubForms
             ((System.ComponentModel.ISupportInitialize)picAdicaoProduto).BeginInit();
             pnlWrapperData.SuspendLayout();
             pnlWrapperEstado.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picArrowEstado).BeginInit();
             pnlWrapperForma.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picArrowForma).BeginInit();
             pnlWrapperFuncionarios.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picArrowFuncionarios).BeginInit();
             roundedPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnMaisInformacao).BeginInit();
             pnlHeader.SuspendLayout();
@@ -89,6 +89,9 @@ namespace telebip_erp.Forms.SubForms
             // pnlMain
             // 
             pnlMain.BackColor = Color.FromArgb(28, 29, 40);
+            pnlMain.Controls.Add(roundedPanel4);
+            pnlMain.Controls.Add(roundedPanel3);
+            pnlMain.Controls.Add(roundedPanel2);
             pnlMain.Controls.Add(label2);
             pnlMain.Controls.Add(label1);
             pnlMain.Controls.Add(lbValorSuper);
@@ -111,11 +114,8 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.Controls.Add(roundedPanel1);
             pnlMain.Controls.Add(lblProduto);
             pnlMain.Controls.Add(lblPreco);
-            pnlMain.Controls.Add(tbPrecoProduto);
             pnlMain.Controls.Add(lblQuantidadeVendida);
-            pnlMain.Controls.Add(tbQProduto);
             pnlMain.Controls.Add(lblDesconto);
-            pnlMain.Controls.Add(tbDesconto);
             pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
@@ -123,11 +123,89 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.Size = new Size(922, 603);
             pnlMain.TabIndex = 1;
             // 
+            // roundedPanel4
+            // 
+            roundedPanel4.BackColor = Color.FromArgb(40, 41, 52);
+            roundedPanel4.BorderColor = Color.FromArgb(60, 62, 80);
+            roundedPanel4.BorderThickness = 1;
+            roundedPanel4.Controls.Add(tbPrecoProduto);
+            roundedPanel4.CornerRadius = 8;
+            roundedPanel4.FillColor = Color.FromArgb(40, 41, 52);
+            roundedPanel4.Location = new Point(33, 296);
+            roundedPanel4.Name = "roundedPanel4";
+            roundedPanel4.Padding = new Padding(8, 6, 30, 6);
+            roundedPanel4.Size = new Size(140, 36);
+            roundedPanel4.TabIndex = 225;
+            // 
+            // tbPrecoProduto
+            // 
+            tbPrecoProduto.BackColor = Color.FromArgb(40, 41, 52);
+            tbPrecoProduto.BorderStyle = BorderStyle.None;
+            tbPrecoProduto.Font = new Font("Segoe UI", 9F);
+            tbPrecoProduto.ForeColor = Color.White;
+            tbPrecoProduto.Location = new Point(7, 11);
+            tbPrecoProduto.MaxLength = 11;
+            tbPrecoProduto.Name = "tbPrecoProduto";
+            tbPrecoProduto.Size = new Size(125, 16);
+            tbPrecoProduto.TabIndex = 22;
+            // 
+            // roundedPanel3
+            // 
+            roundedPanel3.BackColor = Color.FromArgb(40, 41, 52);
+            roundedPanel3.BorderColor = Color.FromArgb(60, 62, 80);
+            roundedPanel3.BorderThickness = 1;
+            roundedPanel3.Controls.Add(tbDesconto);
+            roundedPanel3.CornerRadius = 8;
+            roundedPanel3.FillColor = Color.FromArgb(40, 41, 52);
+            roundedPanel3.Location = new Point(505, 296);
+            roundedPanel3.Name = "roundedPanel3";
+            roundedPanel3.Padding = new Padding(8, 6, 30, 6);
+            roundedPanel3.Size = new Size(140, 36);
+            roundedPanel3.TabIndex = 224;
+            // 
+            // tbDesconto
+            // 
+            tbDesconto.BackColor = Color.FromArgb(40, 41, 52);
+            tbDesconto.BorderStyle = BorderStyle.None;
+            tbDesconto.Font = new Font("Segoe UI", 9F);
+            tbDesconto.ForeColor = Color.White;
+            tbDesconto.Location = new Point(7, 11);
+            tbDesconto.MaxLength = 11;
+            tbDesconto.Name = "tbDesconto";
+            tbDesconto.Size = new Size(130, 16);
+            tbDesconto.TabIndex = 28;
+            // 
+            // roundedPanel2
+            // 
+            roundedPanel2.BackColor = Color.FromArgb(40, 41, 52);
+            roundedPanel2.BorderColor = Color.FromArgb(60, 62, 80);
+            roundedPanel2.BorderThickness = 1;
+            roundedPanel2.Controls.Add(tbQProduto);
+            roundedPanel2.CornerRadius = 8;
+            roundedPanel2.FillColor = Color.FromArgb(40, 41, 52);
+            roundedPanel2.Location = new Point(706, 155);
+            roundedPanel2.Name = "roundedPanel2";
+            roundedPanel2.Padding = new Padding(8, 6, 30, 6);
+            roundedPanel2.Size = new Size(181, 36);
+            roundedPanel2.TabIndex = 223;
+            // 
+            // tbQProduto
+            // 
+            tbQProduto.BackColor = Color.FromArgb(40, 41, 52);
+            tbQProduto.BorderStyle = BorderStyle.None;
+            tbQProduto.Font = new Font("Segoe UI", 9F);
+            tbQProduto.ForeColor = Color.White;
+            tbQProduto.Location = new Point(11, 10);
+            tbQProduto.MaxLength = 5;
+            tbQProduto.Name = "tbQProduto";
+            tbQProduto.Size = new Size(160, 16);
+            tbQProduto.TabIndex = 23;
+            // 
             // label2
             // 
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(706, 270);
+            label2.Location = new Point(743, 273);
             label2.Name = "label2";
             label2.Size = new Size(15, 20);
             label2.TabIndex = 55;
@@ -137,7 +215,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(651, 270);
+            label1.Location = new Point(688, 273);
             label1.Name = "label1";
             label1.Size = new Size(15, 20);
             label1.TabIndex = 54;
@@ -147,7 +225,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             lbValorSuper.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lbValorSuper.ForeColor = Color.LightGreen;
-            lbValorSuper.Location = new Point(462, 538);
+            lbValorSuper.Location = new Point(119, 533);
             lbValorSuper.Name = "lbValorSuper";
             lbValorSuper.Size = new Size(150, 40);
             lbValorSuper.TabIndex = 48;
@@ -158,7 +236,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             lblValorTotal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblValorTotal.ForeColor = Color.White;
-            lblValorTotal.Location = new Point(369, 538);
+            lblValorTotal.Location = new Point(33, 533);
             lblValorTotal.Name = "lblValorTotal";
             lblValorTotal.Size = new Size(87, 40);
             lblValorTotal.TabIndex = 49;
@@ -167,6 +245,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             // btnAdicionarVendas
             // 
+            btnAdicionarVendas.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnAdicionarVendas.CheckButton = false;
             btnAdicionarVendas.Checked = false;
             btnAdicionarVendas.CheckedBackground = Color.FromArgb(255, 106, 0);
@@ -204,6 +283,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             // btnCancelarVendas
             // 
+            btnCancelarVendas.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnCancelarVendas.CheckButton = false;
             btnCancelarVendas.Checked = false;
             btnCancelarVendas.CheckedBackground = Color.FromArgb(255, 106, 0);
@@ -265,7 +345,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             pnlBotoesProduto.Controls.Add(picTirarProduto);
             pnlBotoesProduto.Controls.Add(picAdicaoProduto);
-            pnlBotoesProduto.Location = new Point(631, 293);
+            pnlBotoesProduto.Location = new Point(668, 296);
             pnlBotoesProduto.Name = "pnlBotoesProduto";
             pnlBotoesProduto.Size = new Size(114, 36);
             pnlBotoesProduto.TabIndex = 56;
@@ -360,10 +440,9 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperEstado.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperEstado.BorderThickness = 1;
             pnlWrapperEstado.Controls.Add(cbEstado);
-            pnlWrapperEstado.Controls.Add(picArrowEstado);
             pnlWrapperEstado.CornerRadius = 8;
             pnlWrapperEstado.FillColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperEstado.Location = new Point(180, 293);
+            pnlWrapperEstado.Location = new Point(199, 296);
             pnlWrapperEstado.Name = "pnlWrapperEstado";
             pnlWrapperEstado.Padding = new Padding(8, 6, 30, 6);
             pnlWrapperEstado.Size = new Size(125, 36);
@@ -376,26 +455,17 @@ namespace telebip_erp.Forms.SubForms
             cbEstado.FlatStyle = FlatStyle.Flat;
             cbEstado.Font = new Font("Segoe UI", 9F);
             cbEstado.ForeColor = Color.White;
+            cbEstado.Items.AddRange(new object[] { "PAGO ", "PENDENTE" });
             cbEstado.Location = new Point(8, 6);
             cbEstado.Name = "cbEstado";
             cbEstado.Size = new Size(106, 23);
             cbEstado.TabIndex = 221;
             // 
-            // picArrowEstado
-            // 
-            picArrowEstado.BackColor = Color.Transparent;
-            picArrowEstado.Location = new Point(106, 13);
-            picArrowEstado.Name = "picArrowEstado";
-            picArrowEstado.Size = new Size(12, 10);
-            picArrowEstado.SizeMode = PictureBoxSizeMode.Zoom;
-            picArrowEstado.TabIndex = 222;
-            picArrowEstado.TabStop = false;
-            // 
             // lblEstadoPagamento
             // 
             lblEstadoPagamento.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblEstadoPagamento.ForeColor = Color.White;
-            lblEstadoPagamento.Location = new Point(178, 270);
+            lblEstadoPagamento.Location = new Point(197, 273);
             lblEstadoPagamento.Name = "lblEstadoPagamento";
             lblEstadoPagamento.Size = new Size(127, 20);
             lblEstadoPagamento.TabIndex = 36;
@@ -407,10 +477,9 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperForma.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperForma.BorderThickness = 1;
             pnlWrapperForma.Controls.Add(cbForma);
-            pnlWrapperForma.Controls.Add(picArrowForma);
             pnlWrapperForma.CornerRadius = 8;
             pnlWrapperForma.FillColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperForma.Location = new Point(331, 293);
+            pnlWrapperForma.Location = new Point(350, 296);
             pnlWrapperForma.Name = "pnlWrapperForma";
             pnlWrapperForma.Padding = new Padding(8, 6, 30, 6);
             pnlWrapperForma.Size = new Size(128, 36);
@@ -423,26 +492,17 @@ namespace telebip_erp.Forms.SubForms
             cbForma.FlatStyle = FlatStyle.Flat;
             cbForma.Font = new Font("Segoe UI", 9F);
             cbForma.ForeColor = Color.White;
+            cbForma.Items.AddRange(new object[] { "DINHEIRO", "CREDITO", "DEBITO", "PIX QR", "PIX", "AUSENTE" });
             cbForma.Location = new Point(8, 6);
             cbForma.Name = "cbForma";
             cbForma.Size = new Size(110, 23);
             cbForma.TabIndex = 211;
             // 
-            // picArrowForma
-            // 
-            picArrowForma.BackColor = Color.Transparent;
-            picArrowForma.Location = new Point(113, 13);
-            picArrowForma.Name = "picArrowForma";
-            picArrowForma.Size = new Size(12, 10);
-            picArrowForma.SizeMode = PictureBoxSizeMode.Zoom;
-            picArrowForma.TabIndex = 212;
-            picArrowForma.TabStop = false;
-            // 
             // lblFormaPagamento
             // 
             lblFormaPagamento.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblFormaPagamento.ForeColor = Color.White;
-            lblFormaPagamento.Location = new Point(331, 270);
+            lblFormaPagamento.Location = new Point(350, 273);
             lblFormaPagamento.Name = "lblFormaPagamento";
             lblFormaPagamento.Size = new Size(128, 20);
             lblFormaPagamento.TabIndex = 34;
@@ -454,7 +514,6 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperFuncionarios.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperFuncionarios.BorderThickness = 1;
             pnlWrapperFuncionarios.Controls.Add(cbFuncionariosVenda);
-            pnlWrapperFuncionarios.Controls.Add(picArrowFuncionarios);
             pnlWrapperFuncionarios.CornerRadius = 8;
             pnlWrapperFuncionarios.FillColor = Color.FromArgb(40, 41, 52);
             pnlWrapperFuncionarios.Location = new Point(33, 55);
@@ -472,18 +531,8 @@ namespace telebip_erp.Forms.SubForms
             cbFuncionariosVenda.ForeColor = Color.White;
             cbFuncionariosVenda.Location = new Point(8, 6);
             cbFuncionariosVenda.Name = "cbFuncionariosVenda";
-            cbFuncionariosVenda.Size = new Size(818, 23);
+            cbFuncionariosVenda.Size = new Size(836, 23);
             cbFuncionariosVenda.TabIndex = 202;
-            // 
-            // picArrowFuncionarios
-            // 
-            picArrowFuncionarios.BackColor = Color.Transparent;
-            picArrowFuncionarios.Location = new Point(828, 13);
-            picArrowFuncionarios.Name = "picArrowFuncionarios";
-            picArrowFuncionarios.Size = new Size(15, 10);
-            picArrowFuncionarios.SizeMode = PictureBoxSizeMode.Zoom;
-            picArrowFuncionarios.TabIndex = 203;
-            picArrowFuncionarios.TabStop = false;
             // 
             // lblFuncionario
             // 
@@ -553,18 +602,6 @@ namespace telebip_erp.Forms.SubForms
             lblPreco.TabIndex = 26;
             lblPreco.Text = "Preço *";
             // 
-            // tbPrecoProduto
-            // 
-            tbPrecoProduto.BackColor = Color.FromArgb(40, 41, 52);
-            tbPrecoProduto.BorderStyle = BorderStyle.None;
-            tbPrecoProduto.Font = new Font("Segoe UI", 9F);
-            tbPrecoProduto.ForeColor = Color.White;
-            tbPrecoProduto.Location = new Point(33, 293);
-            tbPrecoProduto.MaxLength = 11;
-            tbPrecoProduto.Name = "tbPrecoProduto";
-            tbPrecoProduto.Size = new Size(125, 16);
-            tbPrecoProduto.TabIndex = 22;
-            // 
             // lblQuantidadeVendida
             // 
             lblQuantidadeVendida.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
@@ -575,39 +612,15 @@ namespace telebip_erp.Forms.SubForms
             lblQuantidadeVendida.TabIndex = 27;
             lblQuantidadeVendida.Text = "Quantidade Vendida*";
             // 
-            // tbQProduto
-            // 
-            tbQProduto.BackColor = Color.FromArgb(40, 41, 52);
-            tbQProduto.BorderStyle = BorderStyle.None;
-            tbQProduto.Font = new Font("Segoe UI", 9F);
-            tbQProduto.ForeColor = Color.White;
-            tbQProduto.Location = new Point(706, 152);
-            tbQProduto.MaxLength = 5;
-            tbQProduto.Name = "tbQProduto";
-            tbQProduto.Size = new Size(181, 16);
-            tbQProduto.TabIndex = 23;
-            // 
             // lblDesconto
             // 
             lblDesconto.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblDesconto.ForeColor = Color.White;
-            lblDesconto.Location = new Point(482, 273);
+            lblDesconto.Location = new Point(502, 273);
             lblDesconto.Name = "lblDesconto";
             lblDesconto.Size = new Size(143, 20);
             lblDesconto.TabIndex = 29;
             lblDesconto.Text = "Desconto sobre o Total";
-            // 
-            // tbDesconto
-            // 
-            tbDesconto.BackColor = Color.FromArgb(40, 41, 52);
-            tbDesconto.BorderStyle = BorderStyle.None;
-            tbDesconto.Font = new Font("Segoe UI", 9F);
-            tbDesconto.ForeColor = Color.White;
-            tbDesconto.Location = new Point(482, 293);
-            tbDesconto.MaxLength = 11;
-            tbDesconto.Name = "tbDesconto";
-            tbDesconto.Size = new Size(130, 16);
-            tbDesconto.TabIndex = 28;
             // 
             // pnlHeader
             // 
@@ -645,7 +658,12 @@ namespace telebip_erp.Forms.SubForms
             Text = "FormAddVendas";
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);
-            pnlMain.PerformLayout();
+            roundedPanel4.ResumeLayout(false);
+            roundedPanel4.PerformLayout();
+            roundedPanel3.ResumeLayout(false);
+            roundedPanel3.PerformLayout();
+            roundedPanel2.ResumeLayout(false);
+            roundedPanel2.PerformLayout();
             pnlProdutos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvProdutoTemporarios).EndInit();
             pnlBotoesProduto.ResumeLayout(false);
@@ -654,11 +672,8 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperData.ResumeLayout(false);
             pnlWrapperData.PerformLayout();
             pnlWrapperEstado.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picArrowEstado).EndInit();
             pnlWrapperForma.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picArrowForma).EndInit();
             pnlWrapperFuncionarios.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picArrowFuncionarios).EndInit();
             roundedPanel1.ResumeLayout(false);
             roundedPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)btnMaisInformacao).EndInit();
@@ -694,15 +709,12 @@ namespace telebip_erp.Forms.SubForms
 
         // Wrappers (rounded panels) for ComboBoxes and Date/MaskedBox
         private telebip_erp.Controls.RoundedPanel pnlWrapperFuncionarios;
-        private PictureBox picArrowFuncionarios;
         public ComboBox cbFuncionariosVenda;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperForma;
-        private PictureBox picArrowForma;
         public ComboBox cbForma;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperEstado;
-        private PictureBox picArrowEstado;
         public ComboBox cbEstado;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperData;
@@ -726,5 +738,8 @@ namespace telebip_erp.Forms.SubForms
         private Label lblFormaPagamento;
         private Label lblEstadoPagamento;
         private Label lblFuncionario;
+        private Controls.RoundedPanel roundedPanel2;
+        private Controls.RoundedPanel roundedPanel4;
+        private Controls.RoundedPanel roundedPanel3;
     }
 }

@@ -31,6 +31,8 @@ namespace telebip_erp.Forms.Auth
 
         private Panel panel1;
 
+        public CuoreUI.Controls.cuiButton btnLogin;
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -47,6 +49,7 @@ namespace telebip_erp.Forms.Auth
 
         private void InitializeComponent()
         {
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(FormLogin));
             lblAppName = new Label();
             lblTitulo = new Label();
             lblUsuario = new Label();
@@ -61,6 +64,7 @@ namespace telebip_erp.Forms.Auth
             lblEsqueci = new Label();
             panel1 = new Panel();
             btnLogin = new CuoreUI.Controls.cuiButton();
+
             pnlWrapperUsuario.SuspendLayout();
             pnlWrapperSenha.SuspendLayout();
             ((ISupportInitialize)picToggleSenha).BeginInit();
@@ -72,7 +76,7 @@ namespace telebip_erp.Forms.Auth
             lblAppName.AutoSize = true;
             lblAppName.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
             lblAppName.ForeColor = Color.FromArgb(140, 180, 255);
-            lblAppName.Location = new Point(158, 5);
+            lblAppName.Location = new Point(154, 13);
             lblAppName.Name = "lblAppName";
             lblAppName.Size = new Size(120, 19);
             lblAppName.TabIndex = 0;
@@ -83,7 +87,7 @@ namespace telebip_erp.Forms.Auth
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Segoe UI", 12F);
             lblTitulo.ForeColor = Color.FromArgb(230, 230, 235);
-            lblTitulo.Location = new Point(175, 23);
+            lblTitulo.Location = new Point(171, 31);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(86, 21);
             lblTitulo.TabIndex = 1;
@@ -93,7 +97,7 @@ namespace telebip_erp.Forms.Auth
             // 
             lblUsuario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblUsuario.ForeColor = Color.FromArgb(230, 230, 235);
-            lblUsuario.Location = new Point(36, 58);
+            lblUsuario.Location = new Point(39, 59);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(120, 20);
             lblUsuario.TabIndex = 2;
@@ -103,7 +107,7 @@ namespace telebip_erp.Forms.Auth
             // 
             pnlWrapperUsuario.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperUsuario.Controls.Add(txtUsuario);
-            pnlWrapperUsuario.Location = new Point(36, 78);
+            pnlWrapperUsuario.Location = new Point(39, 79);
             pnlWrapperUsuario.Name = "pnlWrapperUsuario";
             pnlWrapperUsuario.Padding = new Padding(8, 6, 8, 6);
             pnlWrapperUsuario.Size = new Size(364, 40);
@@ -125,7 +129,7 @@ namespace telebip_erp.Forms.Auth
             // 
             lblUsuarioInvalido.Font = new Font("Segoe UI", 8F);
             lblUsuarioInvalido.ForeColor = Color.FromArgb(255, 100, 100);
-            lblUsuarioInvalido.Location = new Point(36, 122);
+            lblUsuarioInvalido.Location = new Point(39, 123);
             lblUsuarioInvalido.Name = "lblUsuarioInvalido";
             lblUsuarioInvalido.Size = new Size(364, 16);
             lblUsuarioInvalido.TabIndex = 4;
@@ -136,7 +140,7 @@ namespace telebip_erp.Forms.Auth
             // 
             lblSenha.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblSenha.ForeColor = Color.FromArgb(230, 230, 235);
-            lblSenha.Location = new Point(36, 142);
+            lblSenha.Location = new Point(39, 143);
             lblSenha.Name = "lblSenha";
             lblSenha.Size = new Size(120, 20);
             lblSenha.TabIndex = 5;
@@ -147,7 +151,7 @@ namespace telebip_erp.Forms.Auth
             pnlWrapperSenha.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperSenha.Controls.Add(txtSenha);
             pnlWrapperSenha.Controls.Add(picToggleSenha);
-            pnlWrapperSenha.Location = new Point(36, 162);
+            pnlWrapperSenha.Location = new Point(39, 163);
             pnlWrapperSenha.Name = "pnlWrapperSenha";
             pnlWrapperSenha.Padding = new Padding(8, 6, 8, 6);
             pnlWrapperSenha.Size = new Size(364, 40);
@@ -168,10 +172,17 @@ namespace telebip_erp.Forms.Auth
             // picToggleSenha
             // 
             picToggleSenha.Cursor = Cursors.Hand;
-            picToggleSenha.Location = new Point(325, 8);
+            // o designer pode já ter definido uma imagem (hide) por resources; mantemos isso
+            try
+            {
+                var res = (Image)resources.GetObject("picToggleSenha.Image");
+                if (res != null) picToggleSenha.Image = res;
+            }
+            catch { }
+            picToggleSenha.Location = new Point(333, 11);
             picToggleSenha.Name = "picToggleSenha";
-            picToggleSenha.Size = new Size(28, 24);
-            picToggleSenha.SizeMode = PictureBoxSizeMode.CenterImage;
+            picToggleSenha.Size = new Size(20, 20);
+            picToggleSenha.SizeMode = PictureBoxSizeMode.Zoom;
             picToggleSenha.TabIndex = 1;
             picToggleSenha.TabStop = false;
             // 
@@ -179,7 +190,7 @@ namespace telebip_erp.Forms.Auth
             // 
             lblSenhaInvalida.Font = new Font("Segoe UI", 8F);
             lblSenhaInvalida.ForeColor = Color.FromArgb(255, 100, 100);
-            lblSenhaInvalida.Location = new Point(36, 206);
+            lblSenhaInvalida.Location = new Point(39, 207);
             lblSenhaInvalida.Name = "lblSenhaInvalida";
             lblSenhaInvalida.Size = new Size(364, 16);
             lblSenhaInvalida.TabIndex = 7;
@@ -192,7 +203,7 @@ namespace telebip_erp.Forms.Auth
             lblEsqueci.Cursor = Cursors.Hand;
             lblEsqueci.Font = new Font("Segoe UI", 9F);
             lblEsqueci.ForeColor = Color.FromArgb(100, 150, 255);
-            lblEsqueci.Location = new Point(297, 207);
+            lblEsqueci.Location = new Point(300, 208);
             lblEsqueci.Name = "lblEsqueci";
             lblEsqueci.Size = new Size(103, 15);
             lblEsqueci.TabIndex = 8;
@@ -237,7 +248,7 @@ namespace telebip_erp.Forms.Auth
             btnLogin.ImageAutoCenter = true;
             btnLogin.ImageExpand = new Point(0, 0);
             btnLogin.ImageOffset = new Point(0, 0);
-            btnLogin.Location = new Point(280, 235);
+            btnLogin.Location = new Point(271, 236);
             btnLogin.Margin = new Padding(3, 0, 10, 0);
             btnLogin.Name = "btnLogin";
             btnLogin.NormalBackground = Color.FromArgb(40, 120, 80);
@@ -250,8 +261,8 @@ namespace telebip_erp.Forms.Auth
             btnLogin.PressedImageTint = Color.White;
             btnLogin.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnLogin.Rounding = new Padding(8);
-            btnLogin.Size = new Size(120, 36);
-            btnLogin.TabIndex = 11;
+            btnLogin.Size = new Size(132, 36);
+            btnLogin.TabIndex = 12;
             btnLogin.TextAlignment = StringAlignment.Center;
             btnLogin.TextOffset = new Point(0, 0);
             // 
@@ -276,9 +287,6 @@ namespace telebip_erp.Forms.Auth
             panel1.PerformLayout();
             ResumeLayout(false);
         }
-
         #endregion
-
-        private CuoreUI.Controls.cuiButton btnLogin;
     }
 }

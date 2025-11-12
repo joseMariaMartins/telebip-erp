@@ -214,54 +214,70 @@ namespace telebip_erp.Forms.Modules
         #region Configuração e Estilo da DataGridView
         private void AplicarTemaEscuroDataGridView()
         {
-            // Configuração geral
-            dgvEstoque.BackgroundColor = Color.FromArgb(32, 33, 39);
+            dgvEstoque.SuspendLayout();
+
+            Color background = Color.FromArgb(32, 33, 39);
+            Color headerBack = Color.FromArgb(40, 41, 52);
+            Color gridColor = Color.FromArgb(50, 52, 67);
+            Color selectionBack = Color.FromArgb(50, 90, 130);
+            Color fore = Color.White;
+
+            // Configurações gerais
+            dgvEstoque.BackgroundColor = background;
             dgvEstoque.BorderStyle = BorderStyle.None;
-            dgvEstoque.GridColor = Color.FromArgb(50, 52, 67);
-
-            // Remove seleção vertical
-            dgvEstoque.RowHeadersVisible = false;
-
-            // Estilo para cabeçalhos das colunas
-            DataGridViewCellStyle headerStyle = new DataGridViewCellStyle();
-            headerStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            headerStyle.BackColor = Color.FromArgb(25, 26, 35);
-            headerStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            headerStyle.ForeColor = Color.White;
-            headerStyle.SelectionBackColor = Color.FromArgb(25, 26, 35);
-            headerStyle.SelectionForeColor = SystemColors.HighlightText;
-            headerStyle.WrapMode = DataGridViewTriState.True;
-            dgvEstoque.ColumnHeadersDefaultCellStyle = headerStyle;
-            dgvEstoque.ColumnHeadersHeight = 40;
+            dgvEstoque.GridColor = gridColor;
             dgvEstoque.EnableHeadersVisualStyles = false;
 
-            // Estilo padrão para células
-            DataGridViewCellStyle defaultStyle = new DataGridViewCellStyle();
-            defaultStyle.BackColor = Color.FromArgb(32, 33, 39);
-            defaultStyle.Font = new Font("Segoe UI", 9F);
-            defaultStyle.ForeColor = Color.White;
-            defaultStyle.SelectionBackColor = Color.FromArgb(50, 90, 130);
-            defaultStyle.SelectionForeColor = Color.White;
-            defaultStyle.WrapMode = DataGridViewTriState.False;
-            defaultStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dgvEstoque.DefaultCellStyle = defaultStyle;
-
-            // Configurações de comportamento - REMOVIDO AutoSizeColumnsMode daqui
-            dgvEstoque.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            // Cabeçalho
+            var headerStyle = new DataGridViewCellStyle()
+            {
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                BackColor = headerBack,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = fore,
+                SelectionBackColor = headerBack,
+                SelectionForeColor = SystemColors.HighlightText,
+                WrapMode = DataGridViewTriState.True
+            };
+            dgvEstoque.ColumnHeadersDefaultCellStyle = headerStyle;
+            dgvEstoque.ColumnHeadersHeight = 40;
+            dgvEstoque.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvEstoque.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dgvEstoque.ReadOnly = true;
+
+            // Linhas
+            var cellStyle = new DataGridViewCellStyle()
+            {
+                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                BackColor = background,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = fore,
+                SelectionBackColor = selectionBack,
+                SelectionForeColor = fore,
+                WrapMode = DataGridViewTriState.False
+            };
+            dgvEstoque.DefaultCellStyle = cellStyle;
+            dgvEstoque.RowsDefaultCellStyle = cellStyle;
+            dgvEstoque.AlternatingRowsDefaultCellStyle = cellStyle;
+            dgvEstoque.RowTemplate.Height = 35;
+            dgvEstoque.RowTemplate.DefaultCellStyle = cellStyle;
+
             dgvEstoque.AllowUserToAddRows = false;
             dgvEstoque.AllowUserToDeleteRows = false;
             dgvEstoque.AllowUserToResizeRows = false;
             dgvEstoque.MultiSelect = false;
             dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvEstoque.ReadOnly = true;
+            dgvEstoque.RowHeadersVisible = false;
+            dgvEstoque.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
 
-            // Altura das linhas
-            dgvEstoque.RowTemplate.Height = 35;
+            dgvEstoque.ClearSelection();
+            dgvEstoque.CurrentCell = null;
+            dgvEstoque.Refresh();
 
-            // Adiciona evento de resize
-            dgvEstoque.Resize += DgvEstoque_Resize;
+            dgvEstoque.ResumeLayout();
         }
+
+
 
         private void ConfigurarColunasDataGridView()
         {
