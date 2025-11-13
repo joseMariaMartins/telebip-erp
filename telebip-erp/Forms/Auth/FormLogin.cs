@@ -54,12 +54,33 @@ namespace telebip_erp.Forms.Auth
                 picToggleSenha.SizeMode = PictureBoxSizeMode.CenterImage;
             }
 
-            // Aplicar bordas arredondadas e estilos
-            AplicarBordasArredondadas();
-
             // Carregar imagens do "eye" e configurar botão visual
             LoadEyeImages();
             ConfigureLoginButtonVisuals();
+
+            // Aplica estilo de bordas arredondadas aos wrappers (cor de fundo, cor da borda, raio)
+            try
+            {
+                // cores de exemplo (mesmas paletas que você usa no resto do app)
+                StyleTextboxWrapperPanel(pnlWrapperUsuario, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
+                StyleTextboxWrapperPanel(pnlWrapperSenha, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
+
+                // garante estado inicial visual
+                SetWrapperFocused(pnlWrapperUsuario, false);
+                SetWrapperFocused(pnlWrapperSenha, false);
+
+                // força redraw após load para evitar Width/Height = 0 no design-time
+                this.Load += (s, e) =>
+                {
+                    try
+                    {
+                        pnlWrapperUsuario?.Invalidate();
+                        pnlWrapperSenha?.Invalidate();
+                    }
+                    catch { }
+                };
+            }
+            catch { /* silencioso */ }
 
             // Focus inicial
             this.Load += (s, e) => txtUsuario.Focus();
@@ -83,54 +104,94 @@ namespace telebip_erp.Forms.Auth
             return path;
         }
 
+        /// <summary>
+        /// Configura um painel wrapper para desenhar borda arredondada.
+        /// - wrapper.Tag será usado para armazenar a cor da borda.
+        /// - wrapper.AccessibleDescription será usado para armazenar o raio.
+        /// </summary>
         private void StyleTextboxWrapperPanel(Panel wrapper, Color fill, Color border, int radius = 8)
         {
+            if (wrapper == null) return;
+
+            // define visual
             wrapper.BackColor = fill;
+
+            // usa Tag para armazenar a cor atual da borda (SetWrapperFocused depende disso)
             wrapper.Tag = border;
+
+            // guarda o raio em AccessibleDescription (não atrapalha design-time e evita trocar Tag)
+            wrapper.AccessibleDescription = radius.ToString();
+
+            // remove handler existente (evita múltiplas inscrições)
             wrapper.Paint -= Wrapper_Paint;
             wrapper.Paint += Wrapper_Paint;
-            wrapper.Resize -= (s, e) => wrapper.Invalidate();
-            wrapper.Resize += (s, e) => wrapper.Invalidate();
+
+            // redimensionar pede redraw
+            wrapper.Resize -= Wrapper_Resize;
+            wrapper.Resize += Wrapper_Resize;
+
+            // invalidar para desenhar imediatamente se possível
+            try { wrapper.Invalidate(); } catch { }
+        }
+
+        private void Wrapper_Resize(object sender, EventArgs e)
+        {
+            if (sender is Control c)
+                c.Invalidate();
         }
 
         private void Wrapper_Paint(object sender, PaintEventArgs e)
         {
             if (!(sender is Panel wrapper)) return;
+
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
-            using (var path = GetRoundedRect(rect, 8))
-            using (var pen = new Pen((Color)wrapper.Tag, 1))
+
+            // tenta ler raio guardado; fallback p/ 8
+            int radius = 8;
+            try
             {
-                e.Graphics.FillPath(new SolidBrush(wrapper.BackColor), path);
+                if (!string.IsNullOrEmpty(wrapper.AccessibleDescription) && int.TryParse(wrapper.AccessibleDescription, out int r))
+                    radius = Math.Max(0, r);
+            }
+            catch { radius = 8; }
+
+            var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
+
+            // cor da borda está no Tag (SetWrapperFocused manipula Tag)
+            Color borderColor = Color.FromArgb(60, 62, 80);
+            try
+            {
+                if (wrapper.Tag is Color c) borderColor = c;
+            }
+            catch { /* ignore */ }
+
+            using (var path = GetRoundedRect(rect, radius))
+            using (var pen = new Pen(borderColor, 1))
+            {
+                // preenche o fundo com a cor do panel e desenha borda
+                using (var fillBrush = new SolidBrush(wrapper.BackColor))
+                {
+                    e.Graphics.FillPath(fillBrush, path);
+                }
                 e.Graphics.DrawPath(pen, path);
             }
-        }
-
-        private void AplicarBordasArredondadas()
-        {
-            Color borderColor = Color.FromArgb(60, 62, 80);
-            Color fillColor = Color.FromArgb(40, 41, 52);
-            int radius = 8;
-
-            StyleTextboxWrapperPanel(pnlWrapperUsuario, fillColor, borderColor, radius);
-            StyleTextboxWrapperPanel(pnlWrapperSenha, fillColor, borderColor, radius);
-
-            btnLogin.BackColor = Color.FromArgb(40, 120, 80);
-            btnLogin.ForeColor = Color.White;
-            btnLogin.Cursor = Cursors.Hand;
-
-            lblAppName.ForeColor = Color.FromArgb(140, 180, 255);
-            lblTitulo.ForeColor = Color.White;
         }
         #endregion
 
         #region Focus Helpers
         private void SetWrapperFocused(Panel wrapper, bool focused)
         {
+            if (wrapper == null) return;
+
+            // cores usadas quando focado / normal
             Color active = Color.FromArgb(100, 150, 255);
             Color normal = Color.FromArgb(60, 62, 80);
+
+            // atualiza Tag (que o Paint usa como cor da borda)
             wrapper.Tag = focused ? active : normal;
-            wrapper.Invalidate();
+
+            // invalida para repintar
+            try { wrapper.Invalidate(); } catch { }
         }
         #endregion
 

@@ -1,4 +1,5 @@
-﻿using ClosedXML.Excel;
+﻿// FormRelatorios.cs (com ApplyRoundedRegion seguro em runtime)
+using ClosedXML.Excel;
 using System;
 using System.Data;
 using System.Data.SQLite;
@@ -41,17 +42,41 @@ namespace telebip_erp.Forms.Modules
             // aplicar rounded regions após o form ter tamanho real (evita Width = 0)
             this.Load += (s, e) =>
             {
-                // Alguns designers podem não ter painéis extras; confere null antes
                 try
                 {
-                    var p1 = this.GetType().GetField("pnlWrapperTipoRelatorio", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-                    var p2 = this.GetType().GetField("pnlWrapperPeriodo", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                    // Usa BeginInvoke para garantir que os controles tenham Size correto
+                    this.BeginInvoke((Action)(() =>
+                    {
+                        try
+                        {
+                            if (pnlWrapperTipoRelatorio != null)
+                                TryApplyRoundedRegion(pnlWrapperTipoRelatorio, 8);
 
-                    Control ctrl1 = p1?.GetValue(this) as Control;
-                    Control ctrl2 = p2?.GetValue(this) as Control;
+                            if (pnlWrapperPeriodo != null)
+                                TryApplyRoundedRegion(pnlWrapperPeriodo, 8);
+                        }
+                        catch
+                        {
+                            // silencioso — não deixa o form quebrar por causa de UI cosmetics
+                        }
+                    }));
+                }
+                catch
+                {
+                    // fallback silencioso
+                }
+            };
 
-                    if (ctrl1 != null) TryApplyRoundedRegion(ctrl1, 8);
-                    if (ctrl2 != null) TryApplyRoundedRegion(ctrl2, 8);
+            // reaplica quando redimensionar (opcional, útil se os wrappers mudarem de tamanho em runtime)
+            this.Resize += (s, e) =>
+            {
+                try
+                {
+                    if (pnlWrapperTipoRelatorio != null)
+                        TryApplyRoundedRegion(pnlWrapperTipoRelatorio, 8);
+
+                    if (pnlWrapperPeriodo != null)
+                        TryApplyRoundedRegion(pnlWrapperPeriodo, 8);
                 }
                 catch { }
             };
@@ -705,7 +730,7 @@ namespace telebip_erp.Forms.Modules
             }
             catch
             {
-                // ignore
+                // ignore - cosmetics only
             }
         }
     }

@@ -39,12 +39,24 @@ namespace telebip_erp.Forms.SubForms
             mkDataHora = new MaskedTextBox();
             lblDataHora = new Label();
             pnlWrapperEstado = new telebip_erp.Controls.RoundedPanel();
+            pictureBox2 = new PictureBox();
+            panel6 = new Panel();
+            panel5 = new Panel();
+            panel4 = new Panel();
             cbEstado = new ComboBox();
             lblEstadoPagamento = new Label();
             pnlWrapperForma = new telebip_erp.Controls.RoundedPanel();
+            pictureBox3 = new PictureBox();
+            panel9 = new Panel();
+            panel8 = new Panel();
+            panel7 = new Panel();
             cbForma = new ComboBox();
             lblFormaPagamento = new Label();
             pnlWrapperFuncionarios = new telebip_erp.Controls.RoundedPanel();
+            pictureBox1 = new PictureBox();
+            panel3 = new Panel();
+            panel2 = new Panel();
+            panel1 = new Panel();
             cbFuncionariosVenda = new ComboBox();
             lblFuncionario = new Label();
             roundedPanel1 = new telebip_erp.Controls.RoundedPanel();
@@ -68,8 +80,11 @@ namespace telebip_erp.Forms.SubForms
             ((System.ComponentModel.ISupportInitialize)picAdicaoProduto).BeginInit();
             pnlWrapperData.SuspendLayout();
             pnlWrapperEstado.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             pnlWrapperForma.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             pnlWrapperFuncionarios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             roundedPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnMaisInformacao).BeginInit();
             pnlHeader.SuspendLayout();
@@ -439,6 +454,10 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperEstado.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperEstado.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperEstado.BorderThickness = 1;
+            pnlWrapperEstado.Controls.Add(pictureBox2);
+            pnlWrapperEstado.Controls.Add(panel6);
+            pnlWrapperEstado.Controls.Add(panel5);
+            pnlWrapperEstado.Controls.Add(panel4);
             pnlWrapperEstado.Controls.Add(cbEstado);
             pnlWrapperEstado.CornerRadius = 8;
             pnlWrapperEstado.FillColor = Color.FromArgb(40, 41, 52);
@@ -447,6 +466,35 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperEstado.Padding = new Padding(8, 6, 30, 6);
             pnlWrapperEstado.Size = new Size(125, 36);
             pnlWrapperEstado.TabIndex = 35;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Location = new Point(94, 9);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(20, 15);
+            pictureBox2.TabIndex = 225;
+            pictureBox2.TabStop = false;
+            // 
+            // panel6
+            // 
+            panel6.Location = new Point(8, 6);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(4, 23);
+            panel6.TabIndex = 224;
+            // 
+            // panel5
+            // 
+            panel5.Location = new Point(8, 24);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(106, 6);
+            panel5.TabIndex = 223;
+            // 
+            // panel4
+            // 
+            panel4.Location = new Point(8, 3);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(106, 6);
+            panel4.TabIndex = 222;
             // 
             // cbEstado
             // 
@@ -476,6 +524,10 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperForma.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperForma.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperForma.BorderThickness = 1;
+            pnlWrapperForma.Controls.Add(pictureBox3);
+            pnlWrapperForma.Controls.Add(panel9);
+            pnlWrapperForma.Controls.Add(panel8);
+            pnlWrapperForma.Controls.Add(panel7);
             pnlWrapperForma.Controls.Add(cbForma);
             pnlWrapperForma.CornerRadius = 8;
             pnlWrapperForma.FillColor = Color.FromArgb(40, 41, 52);
@@ -484,6 +536,35 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperForma.Padding = new Padding(8, 6, 30, 6);
             pnlWrapperForma.Size = new Size(128, 36);
             pnlWrapperForma.TabIndex = 33;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Location = new Point(98, 9);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(20, 15);
+            pictureBox3.TabIndex = 215;
+            pictureBox3.TabStop = false;
+            // 
+            // panel9
+            // 
+            panel9.Location = new Point(8, 7);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(4, 19);
+            panel9.TabIndex = 214;
+            // 
+            // panel8
+            // 
+            panel8.Location = new Point(8, 24);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(110, 5);
+            panel8.TabIndex = 213;
+            // 
+            // panel7
+            // 
+            panel7.Location = new Point(8, 5);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(110, 6);
+            panel7.TabIndex = 212;
             // 
             // cbForma
             // 
@@ -513,6 +594,10 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperFuncionarios.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperFuncionarios.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperFuncionarios.BorderThickness = 1;
+            pnlWrapperFuncionarios.Controls.Add(pictureBox1);
+            pnlWrapperFuncionarios.Controls.Add(panel3);
+            pnlWrapperFuncionarios.Controls.Add(panel2);
+            pnlWrapperFuncionarios.Controls.Add(panel1);
             pnlWrapperFuncionarios.Controls.Add(cbFuncionariosVenda);
             pnlWrapperFuncionarios.CornerRadius = 8;
             pnlWrapperFuncionarios.FillColor = Color.FromArgb(40, 41, 52);
@@ -521,6 +606,35 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperFuncionarios.Padding = new Padding(8, 6, 30, 6);
             pnlWrapperFuncionarios.Size = new Size(854, 36);
             pnlWrapperFuncionarios.TabIndex = 20;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(822, 9);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(22, 18);
+            pictureBox1.TabIndex = 206;
+            pictureBox1.TabStop = false;
+            // 
+            // panel3
+            // 
+            panel3.Location = new Point(6, 5);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(5, 24);
+            panel3.TabIndex = 205;
+            // 
+            // panel2
+            // 
+            panel2.Location = new Point(6, 24);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(838, 6);
+            panel2.TabIndex = 204;
+            // 
+            // panel1
+            // 
+            panel1.Location = new Point(7, 5);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(837, 7);
+            panel1.TabIndex = 203;
             // 
             // cbFuncionariosVenda
             // 
@@ -652,6 +766,7 @@ namespace telebip_erp.Forms.SubForms
             BackColor = Color.FromArgb(28, 29, 40);
             ClientSize = new Size(928, 690);
             Controls.Add(pnlContainer);
+            FormStyle = FormStyles.ActionBar_None;
             Name = "FormAddVendas";
             Padding = new Padding(3, 24, 3, 3);
             StartPosition = FormStartPosition.CenterParent;
@@ -672,8 +787,11 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperData.ResumeLayout(false);
             pnlWrapperData.PerformLayout();
             pnlWrapperEstado.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             pnlWrapperForma.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             pnlWrapperFuncionarios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             roundedPanel1.ResumeLayout(false);
             roundedPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)btnMaisInformacao).EndInit();
@@ -741,5 +859,17 @@ namespace telebip_erp.Forms.SubForms
         private Controls.RoundedPanel roundedPanel2;
         private Controls.RoundedPanel roundedPanel4;
         private Controls.RoundedPanel roundedPanel3;
+        private Panel panel6;
+        private Panel panel5;
+        private Panel panel4;
+        private PictureBox pictureBox1;
+        private Panel panel3;
+        private Panel panel2;
+        private Panel panel1;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
+        private Panel panel9;
+        private Panel panel8;
+        private Panel panel7;
     }
 }

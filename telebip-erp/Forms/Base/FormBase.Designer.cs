@@ -106,7 +106,7 @@
             pnlSidebar.ForeColor = Color.FromArgb(23, 24, 29);
             pnlSidebar.Location = new Point(3, 24);
             pnlSidebar.Name = "pnlSidebar";
-            pnlSidebar.Size = new Size(277, 644);
+            pnlSidebar.Size = new Size(280, 644);
             pnlSidebar.TabIndex = 1;
             // 
             // pnlHome
@@ -115,7 +115,7 @@
             pnlHome.Location = new Point(3, 30);
             pnlHome.Margin = new Padding(3, 30, 3, 0);
             pnlHome.Name = "pnlHome";
-            pnlHome.Size = new Size(283, 50);
+            pnlHome.Size = new Size(401, 50);
             pnlHome.TabIndex = 6;
             // 
             // btnHome
@@ -128,7 +128,7 @@
             btnHome.Location = new Point(-4, -8);
             btnHome.Name = "btnHome";
             btnHome.Padding = new Padding(9, 0, 0, 0);
-            btnHome.Size = new Size(405, 63);
+            btnHome.Size = new Size(378, 63);
             btnHome.TabIndex = 3;
             btnHome.Text = "                    Home";
             btnHome.TextAlign = ContentAlignment.MiddleLeft;
@@ -153,7 +153,7 @@
             panel3.Controls.Add(btnVendas);
             panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(274, 47);
+            panel3.Size = new Size(374, 47);
             panel3.TabIndex = 3;
             // 
             // btnVendas
@@ -179,7 +179,7 @@
             panel5.Controls.Add(rmvVenda);
             panel5.Location = new Point(2, 101);
             panel5.Name = "panel5";
-            panel5.Size = new Size(274, 50);
+            panel5.Size = new Size(402, 50);
             panel5.TabIndex = 6;
             // 
             // rmvVenda
@@ -194,7 +194,7 @@
             rmvVenda.Margin = new Padding(0);
             rmvVenda.Name = "rmvVenda";
             rmvVenda.Padding = new Padding(13, 0, 0, 0);
-            rmvVenda.Size = new Size(402, 58);
+            rmvVenda.Size = new Size(375, 58);
             rmvVenda.TabIndex = 4;
             rmvVenda.Text = "                    Remover";
             rmvVenda.TextAlign = ContentAlignment.MiddleLeft;
@@ -206,7 +206,7 @@
             panel2.Controls.Add(addVenda);
             panel2.Location = new Point(2, 53);
             panel2.Name = "panel2";
-            panel2.Size = new Size(274, 50);
+            panel2.Size = new Size(402, 50);
             panel2.TabIndex = 2;
             // 
             // addVenda
@@ -221,7 +221,7 @@
             addVenda.Margin = new Padding(0);
             addVenda.Name = "addVenda";
             addVenda.Padding = new Padding(13, 0, 0, 0);
-            addVenda.Size = new Size(402, 62);
+            addVenda.Size = new Size(375, 62);
             addVenda.TabIndex = 3;
             addVenda.Text = "                    Adicionar";
             addVenda.TextAlign = ContentAlignment.MiddleLeft;
@@ -246,7 +246,7 @@
             panel10.Controls.Add(btnEstoque);
             panel10.Location = new Point(3, 3);
             panel10.Name = "panel10";
-            panel10.Size = new Size(274, 47);
+            panel10.Size = new Size(401, 47);
             panel10.TabIndex = 3;
             // 
             // btnEstoque
@@ -259,7 +259,7 @@
             btnEstoque.Location = new Point(-4, -10);
             btnEstoque.Name = "btnEstoque";
             btnEstoque.Padding = new Padding(9, 0, 0, 0);
-            btnEstoque.Size = new Size(405, 69);
+            btnEstoque.Size = new Size(378, 69);
             btnEstoque.TabIndex = 4;
             btnEstoque.Text = "                    Estoque";
             btnEstoque.TextAlign = ContentAlignment.MiddleLeft;
@@ -271,7 +271,7 @@
             panel11.Controls.Add(rmvEstoque);
             panel11.Location = new Point(2, 101);
             panel11.Name = "panel11";
-            panel11.Size = new Size(274, 50);
+            panel11.Size = new Size(375, 50);
             panel11.TabIndex = 6;
             // 
             // rmvEstoque
@@ -297,7 +297,7 @@
             panel12.Controls.Add(addEstoque);
             panel12.Location = new Point(2, 53);
             panel12.Name = "panel12";
-            panel12.Size = new Size(274, 50);
+            panel12.Size = new Size(402, 50);
             panel12.TabIndex = 2;
             // 
             // addEstoque
@@ -311,7 +311,7 @@
             addEstoque.Location = new Point(0, -11);
             addEstoque.Name = "addEstoque";
             addEstoque.Padding = new Padding(13, 0, 0, 0);
-            addEstoque.Size = new Size(402, 69);
+            addEstoque.Size = new Size(375, 69);
             addEstoque.TabIndex = 3;
             addEstoque.Text = "                    Adicionar";
             addEstoque.TextAlign = ContentAlignment.MiddleLeft;
@@ -334,7 +334,7 @@
             panel6.Controls.Add(btnRelatorios);
             panel6.Location = new Point(3, 3);
             panel6.Name = "panel6";
-            panel6.Size = new Size(274, 47);
+            panel6.Size = new Size(374, 47);
             panel6.TabIndex = 3;
             // 
             // btnRelatorios
@@ -370,7 +370,7 @@
             panel9.Controls.Add(btnFuncionarios);
             panel9.Location = new Point(3, 3);
             panel9.Name = "panel9";
-            panel9.Size = new Size(274, 47);
+            panel9.Size = new Size(374, 47);
             panel9.TabIndex = 3;
             // 
             // btnFuncionarios
@@ -383,7 +383,7 @@
             btnFuncionarios.Location = new Point(-4, -10);
             btnFuncionarios.Name = "btnFuncionarios";
             btnFuncionarios.Padding = new Padding(9, 0, 0, 0);
-            btnFuncionarios.Size = new Size(405, 69);
+            btnFuncionarios.Size = new Size(378, 69);
             btnFuncionarios.TabIndex = 4;
             btnFuncionarios.Text = "                    Funcionários";
             btnFuncionarios.TextAlign = ContentAlignment.MiddleLeft;
@@ -406,7 +406,7 @@
             panel8.Controls.Add(btnConfiguracoes);
             panel8.Location = new Point(3, 3);
             panel8.Name = "panel8";
-            panel8.Size = new Size(280, 47);
+            panel8.Size = new Size(374, 47);
             panel8.TabIndex = 3;
             // 
             // btnConfiguracoes
@@ -419,7 +419,7 @@
             btnConfiguracoes.Location = new Point(-4, -10);
             btnConfiguracoes.Name = "btnConfiguracoes";
             btnConfiguracoes.Padding = new Padding(9, 0, 0, 0);
-            btnConfiguracoes.Size = new Size(405, 69);
+            btnConfiguracoes.Size = new Size(378, 69);
             btnConfiguracoes.TabIndex = 4;
             btnConfiguracoes.Text = "                    Configurações";
             btnConfiguracoes.TextAlign = ContentAlignment.MiddleLeft;
@@ -445,16 +445,16 @@
             // 
             pnlContainer.BackColor = Color.FromArgb(28, 29, 40);
             pnlContainer.Dock = DockStyle.Fill;
-            pnlContainer.Location = new Point(280, 24);
+            pnlContainer.Location = new Point(283, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(915, 644);
+            pnlContainer.Size = new Size(912, 644);
             pnlContainer.TabIndex = 3;
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(23, 24, 29);
             panel1.Dock = DockStyle.Left;
-            panel1.Location = new Point(280, 24);
+            panel1.Location = new Point(283, 24);
             panel1.Name = "panel1";
             panel1.Size = new Size(3, 644);
             panel1.TabIndex = 5;

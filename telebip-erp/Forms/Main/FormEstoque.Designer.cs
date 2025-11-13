@@ -249,12 +249,16 @@
             // pnlWrapperCampo
             // 
             pnlWrapperCampo.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCampo.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperCampo.BorderThickness = 1;
             pnlWrapperCampo.Controls.Add(panel8);
             pnlWrapperCampo.Controls.Add(pictureBox2);
             pnlWrapperCampo.Controls.Add(panel6);
             pnlWrapperCampo.Controls.Add(panel5);
             pnlWrapperCampo.Controls.Add(panel4);
             pnlWrapperCampo.Controls.Add(cbPesquisaCampo);
+            pnlWrapperCampo.CornerRadius = 8;
+            pnlWrapperCampo.FillColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCampo.Location = new Point(13, 10);
             pnlWrapperCampo.Name = "pnlWrapperCampo";
             pnlWrapperCampo.Padding = new Padding(8, 6, 30, 6);
@@ -318,12 +322,16 @@
             // pnlWrapperCondicao
             // 
             pnlWrapperCondicao.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCondicao.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperCondicao.BorderThickness = 1;
             pnlWrapperCondicao.Controls.Add(panel7);
             pnlWrapperCondicao.Controls.Add(panel2);
             pnlWrapperCondicao.Controls.Add(pictureBox1);
             pnlWrapperCondicao.Controls.Add(panel3);
             pnlWrapperCondicao.Controls.Add(panel1);
             pnlWrapperCondicao.Controls.Add(cbCondicao);
+            pnlWrapperCondicao.CornerRadius = 8;
+            pnlWrapperCondicao.FillColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCondicao.Location = new Point(195, 10);
             pnlWrapperCondicao.Name = "pnlWrapperCondicao";
             pnlWrapperCondicao.Padding = new Padding(8, 6, 30, 6);
@@ -387,8 +395,12 @@
             // pnlWrapperPesquisa
             // 
             pnlWrapperPesquisa.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPesquisa.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperPesquisa.BorderThickness = 1;
             pnlWrapperPesquisa.Controls.Add(picSearch);
             pnlWrapperPesquisa.Controls.Add(tbPesquisa);
+            pnlWrapperPesquisa.CornerRadius = 8;
+            pnlWrapperPesquisa.FillColor = Color.FromArgb(40, 41, 52);
             pnlWrapperPesquisa.Location = new Point(377, 10);
             pnlWrapperPesquisa.Name = "pnlWrapperPesquisa";
             pnlWrapperPesquisa.Padding = new Padding(8, 6, 8, 6);

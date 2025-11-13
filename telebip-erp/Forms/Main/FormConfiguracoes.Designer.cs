@@ -10,42 +10,39 @@ namespace telebip_erp.Forms.Modules
     {
         private IContainer components = null;
 
-        #region Controles
-        private Panel pnlDgv;
-        private TableLayoutPanel mainLayout;
+        #region Designer
 
-        // Left card
-        private Panel pnlLeftCard;
-        private TableLayoutPanel leftLayout;
-        private Label labelUserTitle;
-        private Label lbContato;
-        private Panel pnlEmailWrapper;
+        private Panel pnlRoot;
+        private Panel pnlHeader;
+        private Label lblTitulo;
+
+        private TableLayoutPanel tblMain;
+        private Panel pnlLeft;
+        private Panel pnlRight;
+
+        // Left controls
+        private GroupBox grpEmail;
+        private Label lblEmail;
         private TextBox tbEmail;
-        private cuiButton btnConfirmar;
+        private Label lblEmailHelp;
+        private Label lblExemplos;
 
-        private Label lblGerenteTitle;
+        private GroupBox grpSenha;
         private cuiButton btnGerente;
-        private Label lblFuncionarioTitle;
         private cuiButton btnFuncionario;
 
-        // Right card
-        private Panel pnlRightCard;
-        private TableLayoutPanel rightLayout;
-        private Label labelBackupTitle;
-        private Label labelBackupQuestion;
-        private FlowLayoutPanel panelBackupButtons;
+        // Right controls
+        private GroupBox grpBackup;
+        private Label lblBackupTitle;
+        private Label lbUltimoBackup;
+        private Label lbPastaBackup;
         private cuiButton btnBackup;
         private cuiButton btnRestaurarBackup;
 
-        private Label labelSupportTitle;
-        private Label labelSupportLine1;
-        private Label labelSupportLine2;
-        private Label lbSuporte;
+        private cuiButton btnConfirmar;
 
-        // Separators
-        private Panel sepLeft;
-        private Panel sepRight;
-        #endregion
+        private Label lbSuporte;
+        private LinkLabel lnkSuporte;
 
         protected override void Dispose(bool disposing)
         {
@@ -54,358 +51,510 @@ namespace telebip_erp.Forms.Modules
             base.Dispose(disposing);
         }
 
-        #region Designer
         private void InitializeComponent()
         {
-            components = new Container();
-
-            // Root
-            pnlDgv = new Panel();
-            mainLayout = new TableLayoutPanel();
-
-            // Left
-            pnlLeftCard = new Panel();
-            leftLayout = new TableLayoutPanel();
-            labelUserTitle = new Label();
-            lbContato = new Label();
-            pnlEmailWrapper = new Panel();
+            pnlRoot = new Panel();
+            tblMain = new TableLayoutPanel();
+            pnlLeft = new Panel();
+            grpEmail = new GroupBox();
+            lblEmail = new Label();
             tbEmail = new TextBox();
-            btnConfirmar = new cuiButton();
-            sepLeft = new Panel();
-            lblGerenteTitle = new Label();
+            lblEmailHelp = new Label();
+            lblExemplos = new Label();
+            grpSenha = new GroupBox();
+            tableLayoutPanel1 = new TableLayoutPanel();
             btnGerente = new cuiButton();
-            lblFuncionarioTitle = new Label();
             btnFuncionario = new cuiButton();
-
-            // Right
-            pnlRightCard = new Panel();
-            rightLayout = new TableLayoutPanel();
-            labelBackupTitle = new Label();
-            labelBackupQuestion = new Label();
-            panelBackupButtons = new FlowLayoutPanel();
+            pnlRight = new Panel();
+            grpBackup = new GroupBox();
+            tableLayoutPanel2 = new TableLayoutPanel();
             btnBackup = new cuiButton();
             btnRestaurarBackup = new cuiButton();
-            sepRight = new Panel();
-            labelSupportTitle = new Label();
-            labelSupportLine1 = new Label();
-            labelSupportLine2 = new Label();
+            lblBackupTitle = new Label();
+            lbUltimoBackup = new Label();
+            lbPastaBackup = new Label();
             lbSuporte = new Label();
-
+            lnkSuporte = new LinkLabel();
+            btnConfirmar = new cuiButton();
+            pnlHeader = new Panel();
+            lblTitulo = new Label();
+            pnlRoot.SuspendLayout();
+            tblMain.SuspendLayout();
+            pnlLeft.SuspendLayout();
+            grpEmail.SuspendLayout();
+            grpSenha.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            pnlRight.SuspendLayout();
+            grpBackup.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            pnlHeader.SuspendLayout();
             SuspendLayout();
-
-            // ======================
-            // pnlDgv (root)
-            // ======================
-            pnlDgv.Dock = DockStyle.Fill;
-            pnlDgv.Padding = new Padding(20);
-            pnlDgv.BackColor = Color.FromArgb(34, 35, 49);
-            pnlDgv.Name = "pnlDgv";
-
-            // ======================
-            // mainLayout: duas colunas responsivas (48/52)
-            // ======================
-            mainLayout.Dock = DockStyle.Fill;
-            mainLayout.ColumnCount = 2;
-            mainLayout.RowCount = 1;
-            mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 48F));
-            mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 52F));
-            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            mainLayout.BackColor = Color.Transparent;
-            mainLayout.Padding = new Padding(0);
-            mainLayout.Margin = new Padding(0);
-
-            // ======================
-            // Left card (fill only, no stroke)
-            // ======================
-            pnlLeftCard.Dock = DockStyle.Fill;
-            pnlLeftCard.Margin = new Padding(8);
-            pnlLeftCard.BackColor = Color.FromArgb(32, 33, 39);
-            pnlLeftCard.Padding = new Padding(18);
-            pnlLeftCard.Name = "pnlLeftCard";
-            pnlLeftCard.Paint += (s, e) => DrawRoundedPanelFill(s as Panel, e, pnlLeftCard.BackColor);
-
-            // leftLayout: vertical flow with predictable rows
-            leftLayout.Dock = DockStyle.Fill;
-            leftLayout.ColumnCount = 1;
-            leftLayout.RowCount = 12;
-            leftLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            leftLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); // title
-            leftLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F)); // gap
-            leftLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); // contato label
-            leftLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); // email row
-            leftLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 12F)); // gap
-            leftLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); // sep
-            leftLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 12F)); // gap
-            leftLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); // gerente title
-            leftLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); // gerente btn
-            leftLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 12F)); // gap
-            leftLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); // funcionario btn
-
-            // labelUserTitle
-            labelUserTitle.AutoSize = false;
-            labelUserTitle.Dock = DockStyle.Fill;
-            labelUserTitle.Text = "Configurações de Usuário";
-            labelUserTitle.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            labelUserTitle.ForeColor = Color.FromArgb(230, 230, 230);
-            labelUserTitle.Height = 32;
-
-            // lbContato
-            lbContato.AutoSize = true;
-            lbContato.Text = "E-mail para contato";
-            lbContato.Font = new Font("Segoe UI", 11F);
-            lbContato.ForeColor = Color.FromArgb(200, 200, 200);
-
-            // pnlEmailWrapper (arredondado) - ADJUSTED to avoid squeezing
-            pnlEmailWrapper.Dock = DockStyle.Fill;
-            pnlEmailWrapper.Padding = new Padding(12, 8, 12, 8);
-            pnlEmailWrapper.BackColor = Color.FromArgb(40, 41, 52);
-            pnlEmailWrapper.Margin = new Padding(0);
-            // set a reasonable minimum width so it doesn't squeeze too much on narrow windows
-            pnlEmailWrapper.MinimumSize = new Size(200, 40);
-            pnlEmailWrapper.Paint += (s, e) =>
-            {
-                var panel = s as Panel;
-                if (panel == null) return;
-                var r = panel.ClientRectangle;
-                int radius = 8;
-                using (var path = new System.Drawing.Drawing2D.GraphicsPath())
-                using (var brush = new SolidBrush(panel.BackColor))
-                {
-                    int d = radius * 2;
-                    path.StartFigure();
-                    path.AddArc(r.Left, r.Top, d, d, 180, 90);
-                    path.AddArc(r.Right - d, r.Top, d, d, 270, 90);
-                    path.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
-                    path.AddArc(r.Left, r.Bottom - d, d, d, 90, 90);
-                    path.CloseFigure();
-                    e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                    e.Graphics.FillPath(brush, path);
-                }
-            };
-
-            tbEmail.BorderStyle = BorderStyle.None;
-            tbEmail.Dock = DockStyle.Fill;
-            tbEmail.Font = new Font("Segoe UI", 9F);
+            // 
+            // pnlRoot
+            // 
+            pnlRoot.BackColor = Color.FromArgb(28, 29, 40);
+            pnlRoot.Controls.Add(tblMain);
+            pnlRoot.Controls.Add(pnlHeader);
+            pnlRoot.Dock = DockStyle.Fill;
+            pnlRoot.Location = new Point(3, 0);
+            pnlRoot.Name = "pnlRoot";
+            pnlRoot.Padding = new Padding(12);
+            pnlRoot.Size = new Size(1365, 797);
+            pnlRoot.TabIndex = 0;
+            // 
+            // tblMain
+            // 
+            tblMain.ColumnCount = 2;
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
+            tblMain.Controls.Add(pnlLeft, 0, 0);
+            tblMain.Controls.Add(pnlRight, 1, 0);
+            tblMain.Dock = DockStyle.Fill;
+            tblMain.Location = new Point(12, 84);
+            tblMain.Name = "tblMain";
+            tblMain.Padding = new Padding(8);
+            tblMain.RowCount = 1;
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tblMain.Size = new Size(1341, 701);
+            tblMain.TabIndex = 0;
+            // 
+            // pnlLeft
+            // 
+            pnlLeft.BackColor = Color.FromArgb(28, 29, 40);
+            pnlLeft.Controls.Add(grpEmail);
+            pnlLeft.Controls.Add(grpSenha);
+            pnlLeft.Dock = DockStyle.Fill;
+            pnlLeft.Location = new Point(11, 11);
+            pnlLeft.Name = "pnlLeft";
+            pnlLeft.Padding = new Padding(8);
+            pnlLeft.Size = new Size(855, 679);
+            pnlLeft.TabIndex = 0;
+            // 
+            // grpEmail
+            // 
+            grpEmail.BackColor = Color.FromArgb(28, 29, 40);
+            grpEmail.Controls.Add(lblEmail);
+            grpEmail.Controls.Add(lbSuporte);
+            grpEmail.Controls.Add(tbEmail);
+            grpEmail.Controls.Add(lnkSuporte);
+            grpEmail.Controls.Add(lblEmailHelp);
+            grpEmail.Controls.Add(lblExemplos);
+            grpEmail.Dock = DockStyle.Top;
+            grpEmail.ForeColor = Color.White;
+            grpEmail.Location = new Point(8, 128);
+            grpEmail.Name = "grpEmail";
+            grpEmail.Size = new Size(839, 198);
+            grpEmail.TabIndex = 0;
+            grpEmail.TabStop = false;
+            grpEmail.Text = "Configuração de E-mail";
+            // 
+            // lblEmail
+            // 
+            lblEmail.Font = new Font("Segoe UI", 10F);
+            lblEmail.ForeColor = Color.WhiteSmoke;
+            lblEmail.Location = new Point(12, 22);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(100, 23);
+            lblEmail.TabIndex = 0;
+            lblEmail.Text = "E-mail de envio (SMTP)";
+            // 
+            // tbEmail
+            // 
+            tbEmail.BackColor = Color.FromArgb(40, 41, 52);
+            tbEmail.BorderStyle = BorderStyle.FixedSingle;
             tbEmail.ForeColor = Color.White;
-            tbEmail.BackColor = pnlEmailWrapper.BackColor;
-            tbEmail.Margin = new Padding(0);
-            // also give a minimum size to the textbox so the inner text doesn't get cut
-            tbEmail.MinimumSize = new Size(140, 22);
-
-            // btnConfirmar (cuiButton) fixed size
-            btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.Content = "OK";
-            btnConfirmar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnConfirmar.NormalBackground = Color.FromArgb(40, 120, 80);
-            btnConfirmar.NormalForeColor = Color.White;
-            btnConfirmar.Rounding = new Padding(6);
-            btnConfirmar.Size = new Size(84, 36);
-            btnConfirmar.Anchor = AnchorStyles.Right;
-            btnConfirmar.Cursor = Cursors.Hand;
-
-            // separator left
-            sepLeft.Height = 1;
-            sepLeft.Dock = DockStyle.Top;
-            sepLeft.BackColor = Color.FromArgb(60, 62, 80);
-            sepLeft.Margin = new Padding(0, 12, 0, 12);
-
-            // gerente and funcionario controls (kept same)
-            lblGerenteTitle.AutoSize = true;
-            lblGerenteTitle.Text = "Alterar senha do perfil gerente";
-            lblGerenteTitle.Font = new Font("Segoe UI", 11F);
-            lblGerenteTitle.ForeColor = Color.FromArgb(200, 200, 200);
-            lblGerenteTitle.Margin = new Padding(0, 6, 0, 6);
-
+            tbEmail.Location = new Point(12, 45);
+            tbEmail.Name = "tbEmail";
+            tbEmail.Size = new Size(400, 23);
+            tbEmail.TabIndex = 1;
+            // 
+            // lblEmailHelp
+            // 
+            lblEmailHelp.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            lblEmailHelp.ForeColor = Color.LightGray;
+            lblEmailHelp.Location = new Point(12, 75);
+            lblEmailHelp.Name = "lblEmailHelp";
+            lblEmailHelp.Size = new Size(400, 18);
+            lblEmailHelp.TabIndex = 2;
+            lblEmailHelp.Text = "E-mail usado para notificações e recuperação.";
+            // 
+            // lblExemplos
+            // 
+            lblExemplos.Font = new Font("Segoe UI", 9F);
+            lblExemplos.ForeColor = Color.Gainsboro;
+            lblExemplos.Location = new Point(12, 110);
+            lblExemplos.Name = "lblExemplos";
+            lblExemplos.Size = new Size(400, 60);
+            lblExemplos.TabIndex = 3;
+            lblExemplos.Text = "Exemplos:\n• Gmail: usuario@gmail.com\n• Outlook: usuario@empresa.com\nDica: prefira um e-mail dedicado.";
+            // 
+            // grpSenha
+            // 
+            grpSenha.BackColor = Color.FromArgb(28, 29, 40);
+            grpSenha.Controls.Add(tableLayoutPanel1);
+            grpSenha.Dock = DockStyle.Top;
+            grpSenha.ForeColor = Color.White;
+            grpSenha.Location = new Point(8, 8);
+            grpSenha.Name = "grpSenha";
+            grpSenha.Size = new Size(839, 120);
+            grpSenha.TabIndex = 1;
+            grpSenha.TabStop = false;
+            grpSenha.Text = "Alteração de Senha";
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(btnGerente, 0, 0);
+            tableLayoutPanel1.Controls.Add(btnFuncionario, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(3, 19);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.Padding = new Padding(6, 20, 6, 20);
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(833, 98);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // btnGerente
+            // 
+            btnGerente.CheckButton = false;
+            btnGerente.Checked = false;
+            btnGerente.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnGerente.CheckedForeColor = Color.White;
+            btnGerente.CheckedImageTint = Color.White;
+            btnGerente.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnGerente.Content = "Alterar senha (Gerente)";
+            btnGerente.DialogResult = DialogResult.None;
+            btnGerente.Dock = DockStyle.Fill;
+            btnGerente.Font = new Font("Microsoft Sans Serif", 9.75F);
+            btnGerente.ForeColor = Color.White;
+            btnGerente.HoverBackground = Color.White;
+            btnGerente.HoverForeColor = Color.Black;
+            btnGerente.HoverImageTint = Color.White;
+            btnGerente.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnGerente.Image = null;
+            btnGerente.ImageAutoCenter = true;
+            btnGerente.ImageExpand = new Point(0, 0);
+            btnGerente.ImageOffset = new Point(0, 0);
+            btnGerente.Location = new Point(12, 26);
+            btnGerente.Margin = new Padding(6);
             btnGerente.Name = "btnGerente";
-            btnGerente.Content = "Alterar senha gerente";
-            btnGerente.Font = new Font("Segoe UI", 9.75F);
-            btnGerente.NormalBackground = Color.FromArgb(60, 63, 75);
+            btnGerente.NormalBackground = Color.FromArgb(40, 41, 52);
             btnGerente.NormalForeColor = Color.White;
-            btnGerente.Rounding = new Padding(8);
-            btnGerente.Size = new Size(220, 44);
-            btnGerente.Cursor = Cursors.Hand;
-            btnGerente.Anchor = AnchorStyles.Left;
-
-            lblFuncionarioTitle.AutoSize = true;
-            lblFuncionarioTitle.Text = "Alterar senha do perfil do Funcionário";
-            lblFuncionarioTitle.Font = new Font("Segoe UI", 11F);
-            lblFuncionarioTitle.ForeColor = Color.FromArgb(200, 200, 200);
-            lblFuncionarioTitle.Margin = new Padding(0, 6, 0, 6);
-
+            btnGerente.NormalImageTint = Color.White;
+            btnGerente.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnGerente.OutlineThickness = 1F;
+            btnGerente.PressedBackground = Color.WhiteSmoke;
+            btnGerente.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnGerente.PressedImageTint = Color.White;
+            btnGerente.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnGerente.Rounding = new Padding(6);
+            btnGerente.Size = new Size(398, 46);
+            btnGerente.TabIndex = 0;
+            btnGerente.TextAlignment = StringAlignment.Center;
+            btnGerente.TextOffset = new Point(0, 0);
+            // 
+            // btnFuncionario
+            // 
+            btnFuncionario.CheckButton = false;
+            btnFuncionario.Checked = false;
+            btnFuncionario.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnFuncionario.CheckedForeColor = Color.White;
+            btnFuncionario.CheckedImageTint = Color.White;
+            btnFuncionario.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnFuncionario.Content = "Alterar senha (Funcionário)";
+            btnFuncionario.DialogResult = DialogResult.None;
+            btnFuncionario.Dock = DockStyle.Fill;
+            btnFuncionario.Font = new Font("Microsoft Sans Serif", 9.75F);
+            btnFuncionario.ForeColor = Color.White;
+            btnFuncionario.HoverBackground = Color.White;
+            btnFuncionario.HoverForeColor = Color.Black;
+            btnFuncionario.HoverImageTint = Color.White;
+            btnFuncionario.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnFuncionario.Image = null;
+            btnFuncionario.ImageAutoCenter = true;
+            btnFuncionario.ImageExpand = new Point(0, 0);
+            btnFuncionario.ImageOffset = new Point(0, 0);
+            btnFuncionario.Location = new Point(422, 26);
+            btnFuncionario.Margin = new Padding(6);
             btnFuncionario.Name = "btnFuncionario";
-            btnFuncionario.Content = "Alterar senha funcionário";
-            btnFuncionario.Font = new Font("Segoe UI", 9.75F);
-            btnFuncionario.NormalBackground = Color.FromArgb(60, 63, 75);
+            btnFuncionario.NormalBackground = Color.FromArgb(40, 41, 52);
             btnFuncionario.NormalForeColor = Color.White;
-            btnFuncionario.Rounding = new Padding(8);
-            btnFuncionario.Size = new Size(220, 44);
-            btnFuncionario.Cursor = Cursors.Hand;
-            btnFuncionario.Anchor = AnchorStyles.Left;
-
-            // Assemble leftLayout
-            var emailRow = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2 };
-            emailRow.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F)); // email expands
-            emailRow.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));     // button fixed
-            emailRow.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            emailRow.Margin = new Padding(0);
-            emailRow.Padding = new Padding(0);
-            emailRow.Controls.Add(pnlEmailWrapper, 0, 0);
-            emailRow.Controls.Add(btnConfirmar, 1, 0);
-            pnlEmailWrapper.Controls.Add(tbEmail);
-
-            leftLayout.Controls.Add(labelUserTitle, 0, 0);
-            leftLayout.Controls.Add(lbContato, 0, 2);
-            leftLayout.Controls.Add(emailRow, 0, 4);
-            leftLayout.Controls.Add(sepLeft, 0, 6);
-            leftLayout.Controls.Add(lblGerenteTitle, 0, 8);
-            leftLayout.Controls.Add(btnGerente, 0, 9);
-            leftLayout.Controls.Add(lblFuncionarioTitle, 0, 10);
-            leftLayout.Controls.Add(btnFuncionario, 0, 11);
-
-            leftLayout.Dock = DockStyle.Fill;
-            leftLayout.Padding = new Padding(0);
-            leftLayout.Margin = new Padding(0);
-
-            pnlLeftCard.Controls.Add(leftLayout);
-
-            // ======================
-            // Right card (kept same)
-            // ======================
-            pnlRightCard.Dock = DockStyle.Fill;
-            pnlRightCard.Margin = new Padding(8);
-            pnlRightCard.BackColor = Color.FromArgb(32, 33, 39);
-            pnlRightCard.Padding = new Padding(18);
-            pnlRightCard.Name = "pnlRightCard";
-            pnlRightCard.Paint += (s, e) => DrawRoundedPanelFill(s as Panel, e, pnlRightCard.BackColor);
-
-            rightLayout.Dock = DockStyle.Fill;
-            rightLayout.ColumnCount = 1;
-            rightLayout.RowCount = 10;
-            rightLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            for (int i = 0; i < 10; i++) rightLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            rightLayout.Padding = new Padding(0);
-
-            labelBackupTitle.AutoSize = false;
-            labelBackupTitle.Dock = DockStyle.Fill;
-            labelBackupTitle.Text = "Configurações Backup";
-            labelBackupTitle.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            labelBackupTitle.ForeColor = Color.FromArgb(230, 230, 230);
-            labelBackupTitle.Height = 32;
-
-            labelBackupQuestion.AutoSize = true;
-            labelBackupQuestion.Text = "Qual local será guardado o backup do banco de dados?";
-            labelBackupQuestion.Font = new Font("Segoe UI", 11F);
-            labelBackupQuestion.ForeColor = Color.FromArgb(200, 200, 200);
-            labelBackupQuestion.Margin = new Padding(0, 8, 0, 6);
-
-            panelBackupButtons.FlowDirection = FlowDirection.LeftToRight;
-            panelBackupButtons.AutoSize = true;
-            panelBackupButtons.Dock = DockStyle.Fill;
-            panelBackupButtons.WrapContents = false;
-
+            btnFuncionario.NormalImageTint = Color.White;
+            btnFuncionario.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnFuncionario.OutlineThickness = 1F;
+            btnFuncionario.Padding = new Padding(40);
+            btnFuncionario.PressedBackground = Color.WhiteSmoke;
+            btnFuncionario.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnFuncionario.PressedImageTint = Color.White;
+            btnFuncionario.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnFuncionario.Rounding = new Padding(6);
+            btnFuncionario.Size = new Size(399, 46);
+            btnFuncionario.TabIndex = 1;
+            btnFuncionario.TextAlignment = StringAlignment.Center;
+            btnFuncionario.TextOffset = new Point(0, 0);
+            // 
+            // pnlRight
+            // 
+            pnlRight.BackColor = Color.FromArgb(28, 29, 40);
+            pnlRight.Controls.Add(grpBackup);
+            pnlRight.Controls.Add(btnConfirmar);
+            pnlRight.Dock = DockStyle.Fill;
+            pnlRight.Location = new Point(872, 11);
+            pnlRight.Name = "pnlRight";
+            pnlRight.Padding = new Padding(8);
+            pnlRight.Size = new Size(458, 679);
+            pnlRight.TabIndex = 1;
+            // 
+            // grpBackup
+            // 
+            grpBackup.BackColor = Color.FromArgb(28, 29, 40);
+            grpBackup.Controls.Add(tableLayoutPanel2);
+            grpBackup.Controls.Add(lblBackupTitle);
+            grpBackup.Controls.Add(lbUltimoBackup);
+            grpBackup.Controls.Add(lbPastaBackup);
+            grpBackup.Dock = DockStyle.Top;
+            grpBackup.ForeColor = Color.White;
+            grpBackup.Location = new Point(8, 8);
+            grpBackup.Name = "grpBackup";
+            grpBackup.Size = new Size(442, 165);
+            grpBackup.TabIndex = 0;
+            grpBackup.TabStop = false;
+            grpBackup.Text = "Backup & Restauração";
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(btnBackup, 0, 0);
+            tableLayoutPanel2.Controls.Add(btnRestaurarBackup, 1, 0);
+            tableLayoutPanel2.Dock = DockStyle.Bottom;
+            tableLayoutPanel2.Location = new Point(3, 96);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.Padding = new Padding(0, 8, 0, 3);
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new Size(436, 66);
+            tableLayoutPanel2.TabIndex = 3;
+            // 
+            // btnBackup
+            // 
+            btnBackup.CheckButton = false;
+            btnBackup.Checked = false;
+            btnBackup.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnBackup.CheckedForeColor = Color.White;
+            btnBackup.CheckedImageTint = Color.White;
+            btnBackup.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnBackup.Content = "Fazer Backup";
+            btnBackup.DialogResult = DialogResult.None;
+            btnBackup.Dock = DockStyle.Fill;
+            btnBackup.Font = new Font("Microsoft Sans Serif", 9.75F);
+            btnBackup.ForeColor = Color.White;
+            btnBackup.HoverBackground = Color.White;
+            btnBackup.HoverForeColor = Color.Black;
+            btnBackup.HoverImageTint = Color.White;
+            btnBackup.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnBackup.Image = null;
+            btnBackup.ImageAutoCenter = true;
+            btnBackup.ImageExpand = new Point(0, 0);
+            btnBackup.ImageOffset = new Point(0, 0);
+            btnBackup.Location = new Point(6, 14);
+            btnBackup.Margin = new Padding(6);
             btnBackup.Name = "btnBackup";
-            btnBackup.Content = "Criar backup";
-            btnBackup.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnBackup.NormalBackground = Color.FromArgb(40, 120, 80);
             btnBackup.NormalForeColor = Color.White;
+            btnBackup.NormalImageTint = Color.White;
+            btnBackup.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnBackup.OutlineThickness = 1F;
+            btnBackup.PressedBackground = Color.WhiteSmoke;
+            btnBackup.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnBackup.PressedImageTint = Color.White;
+            btnBackup.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnBackup.Rounding = new Padding(6);
-            btnBackup.Size = new Size(140, 36);
-            btnBackup.Margin = new Padding(0, 0, 12, 0);
-            btnBackup.Cursor = Cursors.Hand;
-
+            btnBackup.Size = new Size(206, 43);
+            btnBackup.TabIndex = 0;
+            btnBackup.TextAlignment = StringAlignment.Center;
+            btnBackup.TextOffset = new Point(0, 0);
+            // 
+            // btnRestaurarBackup
+            // 
+            btnRestaurarBackup.CheckButton = false;
+            btnRestaurarBackup.Checked = false;
+            btnRestaurarBackup.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnRestaurarBackup.CheckedForeColor = Color.White;
+            btnRestaurarBackup.CheckedImageTint = Color.White;
+            btnRestaurarBackup.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnRestaurarBackup.Content = "Restaurar Backup";
+            btnRestaurarBackup.DialogResult = DialogResult.None;
+            btnRestaurarBackup.Dock = DockStyle.Fill;
+            btnRestaurarBackup.Font = new Font("Microsoft Sans Serif", 9.75F);
+            btnRestaurarBackup.ForeColor = Color.White;
+            btnRestaurarBackup.HoverBackground = Color.White;
+            btnRestaurarBackup.HoverForeColor = Color.Black;
+            btnRestaurarBackup.HoverImageTint = Color.White;
+            btnRestaurarBackup.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnRestaurarBackup.Image = null;
+            btnRestaurarBackup.ImageAutoCenter = true;
+            btnRestaurarBackup.ImageExpand = new Point(0, 0);
+            btnRestaurarBackup.ImageOffset = new Point(0, 0);
+            btnRestaurarBackup.Location = new Point(224, 14);
+            btnRestaurarBackup.Margin = new Padding(6);
             btnRestaurarBackup.Name = "btnRestaurarBackup";
-            btnRestaurarBackup.Content = "Restaurar backup";
-            btnRestaurarBackup.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnRestaurarBackup.NormalBackground = Color.FromArgb(120, 40, 40);
+            btnRestaurarBackup.NormalBackground = Color.FromArgb(200, 80, 50);
             btnRestaurarBackup.NormalForeColor = Color.White;
+            btnRestaurarBackup.NormalImageTint = Color.White;
+            btnRestaurarBackup.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnRestaurarBackup.OutlineThickness = 1F;
+            btnRestaurarBackup.PressedBackground = Color.WhiteSmoke;
+            btnRestaurarBackup.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnRestaurarBackup.PressedImageTint = Color.White;
+            btnRestaurarBackup.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnRestaurarBackup.Rounding = new Padding(6);
-            btnRestaurarBackup.Size = new Size(160, 36);
-            btnRestaurarBackup.Cursor = Cursors.Hand;
-
-            panelBackupButtons.Controls.Add(btnBackup);
-            panelBackupButtons.Controls.Add(btnRestaurarBackup);
-
-            sepRight.Height = 1;
-            sepRight.Dock = DockStyle.Top;
-            sepRight.BackColor = Color.FromArgb(60, 62, 80);
-            sepRight.Margin = new Padding(0, 12, 0, 12);
-
-            labelSupportTitle.AutoSize = true;
-            labelSupportTitle.Text = "Atualizar o banco de dados por um backup?";
-            labelSupportTitle.Font = new Font("Segoe UI", 11F);
-            labelSupportTitle.ForeColor = Color.FromArgb(200, 200, 200);
-            labelSupportTitle.Margin = new Padding(0, 6, 0, 6);
-
-            labelSupportLine1.AutoSize = true;
-            labelSupportLine1.Text = "Em caso de dúvidas ou necessidade de assistência técnica,";
-            labelSupportLine1.Font = new Font("Segoe UI", 11F);
-            labelSupportLine1.ForeColor = Color.FromArgb(200, 200, 200);
-
-            labelSupportLine2.AutoSize = true;
-            labelSupportLine2.Text = "entre em contato com nossa equipe de suporte através do e-mail:";
-            labelSupportLine2.Font = new Font("Segoe UI", 11F);
-            labelSupportLine2.ForeColor = Color.FromArgb(200, 200, 200);
-
-            lbSuporte.AutoSize = true;
-            lbSuporte.Cursor = Cursors.Hand;
-            lbSuporte.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Underline);
-            lbSuporte.ForeColor = Color.FromArgb(100, 150, 255);
-            lbSuporte.Margin = new Padding(0, 8, 0, 0);
-            lbSuporte.Text = "telebip.suporte@gmail.com";
-
-            rightLayout.Controls.Add(labelBackupTitle, 0, 0);
-            rightLayout.Controls.Add(labelBackupQuestion, 0, 1);
-            rightLayout.Controls.Add(panelBackupButtons, 0, 2);
-            rightLayout.Controls.Add(sepRight, 0, 3);
-            rightLayout.Controls.Add(labelSupportTitle, 0, 4);
-            rightLayout.Controls.Add(labelSupportLine1, 0, 5);
-            rightLayout.Controls.Add(labelSupportLine2, 0, 6);
-            rightLayout.Controls.Add(lbSuporte, 0, 7);
-
-            rightLayout.Dock = DockStyle.Fill;
-
-            pnlRightCard.Controls.Add(rightLayout);
-
-            // add cards to mainLayout
-            mainLayout.Controls.Add(pnlLeftCard, 0, 0);
-            mainLayout.Controls.Add(pnlRightCard, 1, 0);
-
-            pnlDgv.Controls.Add(mainLayout);
-
-            // Form
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(34, 35, 49);
-            ClientSize = new Size(1120, 540);
-            Controls.Add(pnlDgv);
-            FormBorderStyle = FormBorderStyle.None;
+            btnRestaurarBackup.Size = new Size(206, 43);
+            btnRestaurarBackup.TabIndex = 1;
+            btnRestaurarBackup.TextAlignment = StringAlignment.Center;
+            btnRestaurarBackup.TextOffset = new Point(0, 0);
+            // 
+            // lblBackupTitle
+            // 
+            lblBackupTitle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblBackupTitle.ForeColor = Color.White;
+            lblBackupTitle.Location = new Point(12, 22);
+            lblBackupTitle.Name = "lblBackupTitle";
+            lblBackupTitle.Size = new Size(100, 23);
+            lblBackupTitle.TabIndex = 0;
+            lblBackupTitle.Text = "Backup & Restauração";
+            // 
+            // lbUltimoBackup
+            // 
+            lbUltimoBackup.ForeColor = Color.Gainsboro;
+            lbUltimoBackup.Location = new Point(12, 50);
+            lbUltimoBackup.Name = "lbUltimoBackup";
+            lbUltimoBackup.Size = new Size(100, 23);
+            lbUltimoBackup.TabIndex = 1;
+            lbUltimoBackup.Text = "Último backup: —";
+            // 
+            // lbPastaBackup
+            // 
+            lbPastaBackup.ForeColor = Color.Gainsboro;
+            lbPastaBackup.Location = new Point(12, 70);
+            lbPastaBackup.Name = "lbPastaBackup";
+            lbPastaBackup.Size = new Size(100, 23);
+            lbPastaBackup.TabIndex = 2;
+            lbPastaBackup.Text = "Pasta padrão: —";
+            // 
+            // lbSuporte
+            // 
+            lbSuporte.ForeColor = Color.Gainsboro;
+            lbSuporte.Location = new Point(12, 172);
+            lbSuporte.Name = "lbSuporte";
+            lbSuporte.Size = new Size(53, 23);
+            lbSuporte.TabIndex = 1;
+            lbSuporte.Text = "Suporte:";
+            // 
+            // lnkSuporte
+            // 
+            lnkSuporte.LinkColor = Color.LightSkyBlue;
+            lnkSuporte.Location = new Point(62, 172);
+            lnkSuporte.Name = "lnkSuporte";
+            lnkSuporte.Size = new Size(125, 23);
+            lnkSuporte.TabIndex = 2;
+            lnkSuporte.TabStop = true;
+            lnkSuporte.Text = "suporte@telebip.com";
+            // 
+            // btnConfirmar
+            // 
+            btnConfirmar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnConfirmar.CheckButton = false;
+            btnConfirmar.Checked = false;
+            btnConfirmar.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnConfirmar.CheckedForeColor = Color.White;
+            btnConfirmar.CheckedImageTint = Color.White;
+            btnConfirmar.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnConfirmar.Content = "Salvar";
+            btnConfirmar.DialogResult = DialogResult.None;
+            btnConfirmar.Font = new Font("Microsoft Sans Serif", 9.75F);
+            btnConfirmar.ForeColor = Color.White;
+            btnConfirmar.HoverBackground = Color.White;
+            btnConfirmar.HoverForeColor = Color.Black;
+            btnConfirmar.HoverImageTint = Color.White;
+            btnConfirmar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnConfirmar.Image = null;
+            btnConfirmar.ImageAutoCenter = true;
+            btnConfirmar.ImageExpand = new Point(0, 0);
+            btnConfirmar.ImageOffset = new Point(0, 0);
+            btnConfirmar.Location = new Point(368, 999);
+            btnConfirmar.Name = "btnConfirmar";
+            btnConfirmar.NormalBackground = Color.FromArgb(40, 120, 80);
+            btnConfirmar.NormalForeColor = Color.White;
+            btnConfirmar.NormalImageTint = Color.White;
+            btnConfirmar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnConfirmar.OutlineThickness = 1F;
+            btnConfirmar.PressedBackground = Color.WhiteSmoke;
+            btnConfirmar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnConfirmar.PressedImageTint = Color.White;
+            btnConfirmar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnConfirmar.Rounding = new Padding(6);
+            btnConfirmar.Size = new Size(160, 44);
+            btnConfirmar.TabIndex = 3;
+            btnConfirmar.TextAlignment = StringAlignment.Center;
+            btnConfirmar.TextOffset = new Point(0, 0);
+            // 
+            // pnlHeader
+            // 
+            pnlHeader.BackColor = Color.FromArgb(28, 29, 40);
+            pnlHeader.Controls.Add(lblTitulo);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(12, 12);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Padding = new Padding(12);
+            pnlHeader.Size = new Size(1341, 72);
+            pnlHeader.TabIndex = 1;
+            // 
+            // lblTitulo
+            // 
+            lblTitulo.Dock = DockStyle.Fill;
+            lblTitulo.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            lblTitulo.ForeColor = Color.White;
+            lblTitulo.Location = new Point(12, 12);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(1317, 48);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Configurações";
+            lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // FormConfiguracoes
+            // 
+            BackColor = Color.FromArgb(28, 29, 40);
+            ClientSize = new Size(1371, 800);
+            Controls.Add(pnlRoot);
+            Font = new Font("Segoe UI", 9F);
+            ForeColor = Color.White;
+            FormStyle = FormStyles.StatusAndActionBar_None;
+            MinimumSize = new Size(900, 700);
             Name = "FormConfiguracoes";
+            Padding = new Padding(3, 0, 3, 3);
             Text = "Configurações";
+            pnlRoot.ResumeLayout(false);
+            tblMain.ResumeLayout(false);
+            pnlLeft.ResumeLayout(false);
+            grpEmail.ResumeLayout(false);
+            grpEmail.PerformLayout();
+            grpSenha.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            pnlRight.ResumeLayout(false);
+            grpBackup.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
+
         #endregion
 
-        #region Helpers
-        private void DrawRoundedPanelFill(Panel panel, PaintEventArgs e, Color fill)
-        {
-            if (panel == null) return;
-            var r = panel.ClientRectangle;
-            int radius = 12;
-            using (var path = new System.Drawing.Drawing2D.GraphicsPath())
-            using (var brush = new SolidBrush(fill))
-            {
-                int d = radius * 2;
-                path.StartFigure();
-                path.AddArc(r.Left, r.Top, d, d, 180, 90);
-                path.AddArc(r.Right - d, r.Top, d, d, 270, 90);
-                path.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
-                path.AddArc(r.Left, r.Bottom - d, d, d, 90, 90);
-                path.CloseFigure();
-
-                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                e.Graphics.FillPath(brush, path);
-            }
-        }
-        #endregion
+        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanel2;
     }
 }

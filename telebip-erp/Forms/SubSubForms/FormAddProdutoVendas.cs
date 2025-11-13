@@ -85,8 +85,10 @@ namespace telebip_erp.Forms.SubSubForms
                 cbCondicaoMini.BackColor = Color.FromArgb(40, 41, 52);
                 cbCondicaoMini.ForeColor = Color.White;
                 cbCondicaoMini.Items.Clear();
+                // <-- incluí "Idêntico a" aqui (renderizado a partir do código)
                 cbCondicaoMini.Items.AddRange(new object[]
                 {
+                    "Idêntico a",
                     "Inicia com",
                     "Contendo",
                     "Diferente de"
@@ -103,6 +105,9 @@ namespace telebip_erp.Forms.SubSubForms
         {
             try
             {
+                string whereNotIn = "WHERE ID_PRODUTO NOT IN (SELECT ID_PRODUTO FROM PRODUTOS_TEMPORARIOS)";
+                string complemento = string.IsNullOrEmpty(filtroSql) ? "" : " AND " + filtroSql;
+
                 string sql = $@"
                     SELECT 
                         ID_PRODUTO,
@@ -113,14 +118,19 @@ namespace telebip_erp.Forms.SubSubForms
                         QTD_AVISO,
                         OBSERVACAO
                     FROM PRODUTO
-                    WHERE ID_PRODUTO NOT IN (SELECT ID_PRODUTO FROM PRODUTOS_TEMPORARIOS)
-                    {(string.IsNullOrEmpty(filtroSql) ? "" : "AND " + filtroSql)}
+                    {whereNotIn}
+                    {complemento}
                     ORDER BY ID_PRODUTO DESC
                     {(limitar20 ? "LIMIT 20" : "")};
                 ";
 
                 DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
                 dgvProdutosMini.DataSource = dt;
+
+                // Aparência: tornar igual ao dgvVendas
+                dgvProdutosMini.AllowUserToAddRows = false;
+                dgvProdutosMini.AllowUserToResizeColumns = false;
+                dgvProdutosMini.RowHeadersVisible = false;
 
                 // Proteções caso colunas não existam
                 if (dgvProdutosMini.Columns.Contains("ID_PRODUTO")) dgvProdutosMini.Columns["ID_PRODUTO"].HeaderText = "ID";
@@ -131,30 +141,31 @@ namespace telebip_erp.Forms.SubSubForms
                 if (dgvProdutosMini.Columns.Contains("QTD_AVISO")) dgvProdutosMini.Columns["QTD_AVISO"].HeaderText = "Qtd de aviso";
                 if (dgvProdutosMini.Columns.Contains("OBSERVACAO")) dgvProdutosMini.Columns["OBSERVACAO"].HeaderText = "Observação";
 
+                // Centraliza cabeçalhos
                 foreach (DataGridViewColumn coluna in dgvProdutosMini.Columns)
                     coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                // Ajustes de largura/auto-size
-                dgvProdutosMini.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+                // Ajustes: usar Fill e definir FillWeight (como em FormVendas)
+                dgvProdutosMini.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                if (dgvProdutosMini.Columns.Contains("OBSERVACAO"))
-                    dgvProdutosMini.Columns["OBSERVACAO"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                if (dgvProdutosMini.Columns.Contains("ID_PRODUTO")) dgvProdutosMini.Columns["ID_PRODUTO"].FillWeight = 12;
+                if (dgvProdutosMini.Columns.Contains("NOME")) dgvProdutosMini.Columns["NOME"].FillWeight = 30;
+                if (dgvProdutosMini.Columns.Contains("MARCA")) dgvProdutosMini.Columns["MARCA"].FillWeight = 18;
+                if (dgvProdutosMini.Columns.Contains("PRECO")) dgvProdutosMini.Columns["PRECO"].FillWeight = 12;
+                if (dgvProdutosMini.Columns.Contains("QTD_ESTOQUE")) dgvProdutosMini.Columns["QTD_ESTOQUE"].FillWeight = 8;
+                if (dgvProdutosMini.Columns.Contains("QTD_AVISO")) dgvProdutosMini.Columns["QTD_AVISO"].FillWeight = 8;
+                if (dgvProdutosMini.Columns.Contains("OBSERVACAO")) dgvProdutosMini.Columns["OBSERVACAO"].FillWeight = 20;
 
-                if (dgvProdutosMini.Columns.Contains("ID_PRODUTO")) dgvProdutosMini.Columns["ID_PRODUTO"].Width = 100;
-                if (dgvProdutosMini.Columns.Contains("NOME")) dgvProdutosMini.Columns["NOME"].Width = 150;
-                if (dgvProdutosMini.Columns.Contains("MARCA")) dgvProdutosMini.Columns["MARCA"].Width = 95;
-                if (dgvProdutosMini.Columns.Contains("PRECO")) dgvProdutosMini.Columns["PRECO"].Width = 70;
-                if (dgvProdutosMini.Columns.Contains("QTD_ESTOQUE")) dgvProdutosMini.Columns["QTD_ESTOQUE"].Width = 100;
-                if (dgvProdutosMini.Columns.Contains("QTD_AVISO")) dgvProdutosMini.Columns["QTD_AVISO"].Width = 100;
-
+                // Alinhamento de conteúdo
                 if (dgvProdutosMini.Columns.Contains("ID_PRODUTO")) dgvProdutosMini.Columns["ID_PRODUTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (dgvProdutosMini.Columns.Contains("NOME")) dgvProdutosMini.Columns["NOME"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                if (dgvProdutosMini.Columns.Contains("MARCA")) dgvProdutosMini.Columns["MARCA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 if (dgvProdutosMini.Columns.Contains("PRECO")) dgvProdutosMini.Columns["PRECO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 if (dgvProdutosMini.Columns.Contains("QTD_ESTOQUE")) dgvProdutosMini.Columns["QTD_ESTOQUE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 if (dgvProdutosMini.Columns.Contains("QTD_AVISO")) dgvProdutosMini.Columns["QTD_AVISO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                if (dgvProdutosMini.Columns.Contains("NOME")) dgvProdutosMini.Columns["NOME"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                if (dgvProdutosMini.Columns.Contains("MARCA")) dgvProdutosMini.Columns["MARCA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                if (dgvProdutosMini.Columns.Contains("OBSERVACAO")) dgvProdutosMini.Columns["OBSERVACAO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (dgvProdutosMini.Columns.Contains("OBSERVACAO")) dgvProdutosMini.Columns["OBSERVACAO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
+                // Formatação monetária
                 if (dgvProdutosMini.Columns.Contains("PRECO"))
                     dgvProdutosMini.Columns["PRECO"].DefaultCellStyle.Format = "C2";
 
@@ -172,6 +183,87 @@ namespace telebip_erp.Forms.SubSubForms
             CarregarProdutos(limitar20: true);
         }
 
+        // tenta encontrar correspondência exata primeiro; retorna true se encontrou e já colocou no grid
+        private bool TentarBuscaExata(string campoBanco, string valor)
+        {
+            try
+            {
+                string whereNotIn = "WHERE ID_PRODUTO NOT IN (SELECT ID_PRODUTO FROM PRODUTOS_TEMPORARIOS)";
+
+                string sql;
+                SQLiteParameter[] parametros;
+
+                // Se o campo for ID_PRODUTO e valor for numérico, busca por igualdade numérica
+                if (campoBanco.Equals("ID_PRODUTO", StringComparison.OrdinalIgnoreCase) && int.TryParse(valor, out int idVal))
+                {
+                    sql = $@"
+                        SELECT ID_PRODUTO, NOME, MARCA, PRECO, QTD_ESTOQUE, QTD_AVISO, OBSERVACAO
+                        FROM PRODUTO
+                        {whereNotIn} AND ID_PRODUTO = @valor
+                        ORDER BY ID_PRODUTO DESC;
+                    ";
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", idVal) };
+                }
+                else
+                {
+                    // comparação case-insensitive de igualdade
+                    sql = $@"
+                        SELECT ID_PRODUTO, NOME, MARCA, PRECO, QTD_ESTOQUE, QTD_AVISO, OBSERVACAO
+                        FROM PRODUTO
+                        {whereNotIn} AND UPPER({campoBanco}) = UPPER(@valor)
+                        ORDER BY ID_PRODUTO DESC;
+                    ";
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
+                }
+
+                DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    dgvProdutosMini.DataSource = dt;
+
+                    // aplica o mesmo visual que CarregarProdutos faria
+                    dgvProdutosMini.AllowUserToAddRows = false;
+                    dgvProdutosMini.AllowUserToResizeColumns = false;
+                    dgvProdutosMini.RowHeadersVisible = false;
+
+                    foreach (DataGridViewColumn coluna in dgvProdutosMini.Columns)
+                        coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                    dgvProdutosMini.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                    if (dgvProdutosMini.Columns.Contains("ID_PRODUTO")) dgvProdutosMini.Columns["ID_PRODUTO"].FillWeight = 12;
+                    if (dgvProdutosMini.Columns.Contains("NOME")) dgvProdutosMini.Columns["NOME"].FillWeight = 30;
+                    if (dgvProdutosMini.Columns.Contains("MARCA")) dgvProdutosMini.Columns["MARCA"].FillWeight = 18;
+                    if (dgvProdutosMini.Columns.Contains("PRECO")) dgvProdutosMini.Columns["PRECO"].FillWeight = 12;
+                    if (dgvProdutosMini.Columns.Contains("QTD_ESTOQUE")) dgvProdutosMini.Columns["QTD_ESTOQUE"].FillWeight = 8;
+                    if (dgvProdutosMini.Columns.Contains("QTD_AVISO")) dgvProdutosMini.Columns["QTD_AVISO"].FillWeight = 8;
+                    if (dgvProdutosMini.Columns.Contains("OBSERVACAO")) dgvProdutosMini.Columns["OBSERVACAO"].FillWeight = 20;
+
+                    if (dgvProdutosMini.Columns.Contains("ID_PRODUTO")) dgvProdutosMini.Columns["ID_PRODUTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    if (dgvProdutosMini.Columns.Contains("NOME")) dgvProdutosMini.Columns["NOME"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    if (dgvProdutosMini.Columns.Contains("MARCA")) dgvProdutosMini.Columns["MARCA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    if (dgvProdutosMini.Columns.Contains("PRECO")) dgvProdutosMini.Columns["PRECO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    if (dgvProdutosMini.Columns.Contains("QTD_ESTOQUE")) dgvProdutosMini.Columns["QTD_ESTOQUE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    if (dgvProdutosMini.Columns.Contains("QTD_AVISO")) dgvProdutosMini.Columns["QTD_AVISO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    if (dgvProdutosMini.Columns.Contains("OBSERVACAO")) dgvProdutosMini.Columns["OBSERVACAO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                    if (dgvProdutosMini.Columns.Contains("PRECO"))
+                        dgvProdutosMini.Columns["PRECO"].DefaultCellStyle.Format = "C2";
+
+                    dgvProdutosMini.ClearSelection();
+                    dgvProdutosMini.CurrentCell = null;
+
+                    return true;
+                }
+            }
+            catch
+            {
+                // falhar silenciosamente para fallback
+            }
+
+            return false;
+        }
+
         private void BtnPesquisar_Click(object? sender, EventArgs e)
         {
             if (cbPesquisaCampoMini.SelectedItem == null || cbCondicaoMini.SelectedItem == null)
@@ -183,14 +275,29 @@ namespace telebip_erp.Forms.SubSubForms
             string campoExibicao = cbPesquisaCampoMini.SelectedItem.ToString()!;
             string campoBanco = campoMap.ContainsKey(campoExibicao) ? campoMap[campoExibicao] : campoExibicao;
             string condicao = cbCondicaoMini.SelectedItem.ToString()!;
-            string valor = tbPesquisaMini.Text.Trim().ToUpper();
+            string valorOriginal = tbPesquisaMini.Text.Trim();
+            string valor = valorOriginal.ToUpper();
 
-            if (string.IsNullOrEmpty(valor))
+            if (string.IsNullOrEmpty(valorOriginal))
             {
                 MessageBox.Show("Digite um termo para pesquisar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // Se a condição for "Idêntico a", apenas tenta a busca exata e informa se não encontrar
+            if (condicao.Equals("Idêntico a", StringComparison.OrdinalIgnoreCase))
+            {
+                bool achouExato = TentarBuscaExata(campoBanco, valorOriginal);
+                if (!achouExato)
+                    MessageBox.Show("Nenhum produto encontrado com correspondência exata.", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // 1) tenta busca exata primeiro (==) para os demais casos — se achar, exibe e retorna
+            bool achouExatoFallback = TentarBuscaExata(campoBanco, valorOriginal);
+            if (achouExatoFallback) return;
+
+            // 2) fallback para comportamentos antigos (LIKE / <>)
             string filtroSql = "";
             SQLiteParameter[] parametros;
 
@@ -205,6 +312,7 @@ namespace telebip_erp.Forms.SubSubForms
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", "%" + valor + "%") };
                     break;
                 case "Diferente de":
+                    // Diferente: usa <> com UPPER para case-insensitive
                     filtroSql = $"UPPER({campoBanco}) <> UPPER(@valor)";
                     parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
                     break;
@@ -213,6 +321,7 @@ namespace telebip_erp.Forms.SubSubForms
                     return;
             }
 
+            // Carrega com o filtro (não limitar)
             CarregarProdutos(filtroSql, parametros, limitar20: false);
         }
 

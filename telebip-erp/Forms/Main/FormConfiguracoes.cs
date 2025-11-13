@@ -7,10 +7,14 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using telebip_erp.Forms.SubForms;
+using telebip_erp.Forms.Main;
+using telebip_erp.Forms.Modules;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace telebip_erp.Forms.Modules
 {
-    public partial class FormConfiguracoes : Form
+    public partial class FormConfiguracoes : MaterialForm
     {
         private readonly string caminhoBanco = Path.Combine(Application.StartupPath, "Database", "TeleBipDB.db");
 
@@ -263,4 +267,4 @@ namespace telebip_erp.Forms.Modules
             formSenhaFuncionario.ShowDialog();
         }
     }
-}
+}

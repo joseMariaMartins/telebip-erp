@@ -17,7 +17,6 @@
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormViewProduto));
             pnlContainer = new Panel();
             pnlMain = new Panel();
             btnFechar = new CuoreUI.Controls.cuiButton();
@@ -371,7 +370,7 @@
             BackColor = Color.FromArgb(28, 29, 40);
             ClientSize = new Size(600, 529);
             Controls.Add(pnlContainer);
-            FormBorderStyle = FormBorderStyle.None;
+            FormStyle = FormStyles.ActionBar_None;
             MaximumSize = new Size(600, 529);
             MinimumSize = new Size(600, 529);
             Name = "FormViewProduto";

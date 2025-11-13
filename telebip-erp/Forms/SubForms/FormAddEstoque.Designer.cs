@@ -115,9 +115,9 @@ namespace telebip_erp.Forms.SubForms
             // 
             // panelF1
             // 
-            panelF1.Location = new Point(5, 6);
+            panelF1.Location = new Point(5, 3);
             panelF1.Name = "panelF1";
-            panelF1.Size = new Size(560, 7);
+            panelF1.Size = new Size(581, 10);
             panelF1.TabIndex = 0;
             // 
             // panelF2
@@ -131,15 +131,15 @@ namespace telebip_erp.Forms.SubForms
             // 
             panelF3.Location = new Point(6, 23);
             panelF3.Name = "panelF3";
-            panelF3.Size = new Size(559, 7);
+            panelF3.Size = new Size(578, 7);
             panelF3.TabIndex = 2;
             // 
             // picArrowFuncionarios
             // 
             picArrowFuncionarios.BackColor = Color.Transparent;
-            picArrowFuncionarios.Location = new Point(547, 13);
+            picArrowFuncionarios.Location = new Point(566, 9);
             picArrowFuncionarios.Name = "picArrowFuncionarios";
-            picArrowFuncionarios.Size = new Size(18, 10);
+            picArrowFuncionarios.Size = new Size(18, 18);
             picArrowFuncionarios.SizeMode = PictureBoxSizeMode.Zoom;
             picArrowFuncionarios.TabIndex = 1;
             picArrowFuncionarios.TabStop = false;
@@ -155,7 +155,7 @@ namespace telebip_erp.Forms.SubForms
             cbFuncionarios.Location = new Point(8, 6);
             cbFuncionarios.Margin = new Padding(3, 0, 10, 0);
             cbFuncionarios.Name = "cbFuncionarios";
-            cbFuncionarios.Size = new Size(557, 23);
+            cbFuncionarios.Size = new Size(576, 23);
             cbFuncionarios.TabIndex = 101;
             // 
             // lblFuncionario

@@ -121,7 +121,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             lbidVendaSelecionada.AutoSize = true;
             lbidVendaSelecionada.ForeColor = Color.White;
-            lbidVendaSelecionada.Location = new Point(91, 60);
+            lbidVendaSelecionada.Location = new Point(33, 30);
             lbidVendaSelecionada.Name = "lbidVendaSelecionada";
             lbidVendaSelecionada.Size = new Size(13, 15);
             lbidVendaSelecionada.TabIndex = 57;
@@ -259,7 +259,7 @@ namespace telebip_erp.Forms.SubForms
             btnCancelarVendas.ImageAutoCenter = true;
             btnCancelarVendas.ImageExpand = new Point(0, 0);
             btnCancelarVendas.ImageOffset = new Point(0, 0);
-            btnCancelarVendas.Location = new Point(757, 530);
+            btnCancelarVendas.Location = new Point(762, 533);
             btnCancelarVendas.Margin = new Padding(3, 0, 10, 0);
             btnCancelarVendas.Name = "btnCancelarVendas";
             btnCancelarVendas.NormalBackground = Color.FromArgb(120, 40, 40);

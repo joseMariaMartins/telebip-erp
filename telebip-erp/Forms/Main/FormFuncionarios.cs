@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// FormFuncionarios.cs (minimal)
+using System;
 using System.Windows.Forms;
 
 namespace telebip_erp.Forms.Modules
@@ -15,6 +9,12 @@ namespace telebip_erp.Forms.Modules
         public FormFuncionarios()
         {
             InitializeComponent();
+
+            // textos iniciais
+            lblNome.Text = "Nome: Não Registrado";
+            lblCargo.Text = "Cargo: Não Registrado";
+            lblEmail.Text = "E-mail: exemplo@etc";
+            lblTelefone.Text = "Telefone: Não Registrado";
         }
     }
 }

@@ -6,6 +6,9 @@ using System.Xml.Linq;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using telebip_erp.Forms.SubSubForms;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace telebip_erp.Forms.SubForms
 {
@@ -21,12 +24,18 @@ namespace telebip_erp.Forms.SubForms
         public double Desconto { get; set; }
         public string DataHora { get; set; }
 
-
         public FormAddVendasConsulta()
         {
             InitializeComponent();
             ThemeManager.ApplyDarkTheme();
             InicializarComponentes();
+
+            // Bloqueia Delete/Backspace no DataGridView
+            if (dgvProdutoTemporarios != null)
+            {
+                dgvProdutoTemporarios.KeyDown -= DgvProdutoTemporarios_KeyDown;
+                dgvProdutoTemporarios.KeyDown += DgvProdutoTemporarios_KeyDown;
+            }
         }
 
         #region Inicialização
@@ -35,16 +44,201 @@ namespace telebip_erp.Forms.SubForms
         {
             ConfigurarMonetarios();
             CriarTabelaTemporaria();
+
+            // altera apenas a cor da letra (ForeColor) para cinza — NÃO altera BackColor das TextBox
+            AplicarCorCinzaAControles();
+
+            // trava as TextBoxes/MaskedTextBoxes para impedir edição pelo usuário
+            TravarTextBoxesParaConsulta();
+
+            // aplica bordas arredondadas nos panels que contenham textboxes (usando FormViewProduto como referência)
+            AplicarBordasArredondadasEmWrappers();
+        }
+
+        /// <summary>
+        /// Pinta apenas a cor do texto (ForeColor) dos controles relevantes como cinza.
+        /// Não altera BackColor de nada.
+        /// </summary>
+        private void AplicarCorCinzaAControles()
+        {
+            Color corCinza = Color.Gray;
+
+            try
+            {
+                // Labels/controles informativos — proteções caso não existam no designer
+                if (lbidVendaSelecionada != null) lbidVendaSelecionada.ForeColor = corCinza;
+                if (tbFuncionario != null) tbFuncionario.ForeColor = corCinza;
+                if (tbDesconto != null) tbDesconto.ForeColor = corCinza;
+                if (lbValorSuper != null) lbValorSuper.ForeColor = corCinza;
+                if (mkDataHora != null) mkDataHora.ForeColor = corCinza;
+                if (tbEstado != null) tbEstado.ForeColor = corCinza;
+                if (tbForma != null) tbForma.ForeColor = corCinza;
+            }
+            catch
+            {
+                // não lançar — é apenas um ajuste visual
+            }
+        }
+
+        /// <summary>
+        /// Percorre recursivamente os controles do formulário e trava TextBox/MaskedTextBox para leitura:
+        /// - ReadOnly = true
+        /// - TabStop = false
+        /// - ShortcutsEnabled = false (quando disponível)
+        /// - remove menu de contexto (evita colar pelo botão direito) usando ContextMenuStrip
+        /// Não altera BackColor para preservar o visual.
+        /// </summary>
+        private void TravarTextBoxesParaConsulta()
+        {
+            try
+            {
+                void Ajustar(Control parent)
+                {
+                    foreach (Control c in parent.Controls)
+                    {
+                        if (c is TextBox tb)
+                        {
+                            tb.ReadOnly = true;
+                            tb.TabStop = false;
+                            try { tb.ShortcutsEnabled = false; } catch { } // segurança
+                            try { tb.ContextMenuStrip = new ContextMenuStrip(); } catch { }
+                            tb.ForeColor = Color.Gray; // garante cor do texto
+                        }
+                        else if (c is MaskedTextBox mtb)
+                        {
+                            mtb.ReadOnly = true;
+                            mtb.TabStop = false;
+                            try { mtb.ContextMenuStrip = new ContextMenuStrip(); } catch { }
+                            mtb.ForeColor = Color.Gray;
+                        }
+
+                        // recursão para containers (Panels, GroupBoxes, etc.)
+                        if (c.HasChildren) Ajustar(c);
+                    }
+                }
+
+                Ajustar(this);
+            }
+            catch
+            {
+                // falhar silenciosamente — não crítico
+            }
+        }
+
+        #endregion
+
+        #region Bordas arredondadas (inspirado em FormViewProduto)
+
+        private GraphicsPath GetRoundedRect(Rectangle r, int radius)
+        {
+            var path = new GraphicsPath();
+            int d = Math.Max(0, radius * 2);
+            if (radius <= 0)
+            {
+                path.AddRectangle(r);
+                return path;
+            }
+            path.AddArc(r.X, r.Y, d, d, 180, 90);
+            path.AddArc(r.Right - d, r.Y, d, d, 270, 90);
+            path.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
+            path.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
+            path.CloseFigure();
+            return path;
+        }
+
+        private void StyleTextboxWrapperPanel(Panel wrapper, Color fill, Color border, int radius = 8)
+        {
+            if (wrapper == null) return;
+
+            // mantém o BackColor do panel (não altera as TextBox)
+            wrapper.BackColor = fill;
+            // remove event handlers existentes para evitar múltiplos attachments
+            wrapper.Paint -= Wrapper_Paint;
+            wrapper.Paint += Wrapper_Paint;
+            wrapper.Tag = new Tuple<Color, Color, int>(fill, border, radius);
+
+            void Wrapper_Paint(object s, PaintEventArgs e)
+            {
+                try
+                {
+                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
+                    using (var path = GetRoundedRect(rect, radius))
+                    using (var pen = new Pen(border, 1))
+                    {
+                        e.Graphics.DrawPath(pen, path);
+                    }
+                }
+                catch { /* seguro */ }
+            }
+
+            // Força redraw no resize
+            wrapper.Resize -= (s, e) => wrapper.Invalidate();
+            wrapper.Resize += (s, e) => wrapper.Invalidate();
+        }
+
+        /// <summary>
+        /// Encontra panels que contenham TextBox/MaskedTextBox e aplica o estilo
+        /// (versão genérica para não depender de nomes de designer específicos).
+        /// </summary>
+        private void AplicarBordasArredondadasEmWrappers()
+        {
+            try
+            {
+                Color borderColor = Color.FromArgb(60, 62, 80);
+                Color fillColor = Color.FromArgb(40, 41, 52);
+                int radius = 8;
+
+                void Ajustar(Control parent)
+                {
+                    foreach (Control c in parent.Controls)
+                    {
+                        if (c is Panel pnl)
+                        {
+                            bool contemTextBox =
+                                pnl.Controls.OfType<TextBox>().Any() ||
+                                pnl.Controls.OfType<MaskedTextBox>().Any();
+
+                            if (contemTextBox)
+                            {
+                                StyleTextboxWrapperPanel(pnl, fillColor, borderColor, radius);
+                            }
+                        }
+
+                        if (c.HasChildren) Ajustar(c);
+                    }
+                }
+
+                Ajustar(this);
+            }
+            catch
+            {
+                // seguro — se algo falhar não é crítico
+            }
+        }
+
+        #endregion
+
+        private void DgvProdutoTemporarios_KeyDown(object? sender, KeyEventArgs e)
+        {
+            // Bloqueia Delete e Backspace no grid (evita remoção via tecla)
+            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
         }
 
         private void FormAddVendas_Load_1(object sender, EventArgs e)
         {
             lbidVendaSelecionada.Text = $"ID {VendaID}";
-            tbFuncionario.Text = NomeFuncionario;
+            if (tbFuncionario != null) tbFuncionario.Text = NomeFuncionario;
             // tbDesconto assumed to be a standard TextBox
-            tbDesconto.Text = Desconto.ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
-            lbValorSuper.Text = ValorTotal.ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
-            mkDataHora.Text = DataHora;
+            if (tbDesconto != null)
+                tbDesconto.Text = Desconto.ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
+            if (lbValorSuper != null)
+                lbValorSuper.Text = ValorTotal.ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
+            if (mkDataHora != null) mkDataHora.Text = DataHora;
 
             PreencherPagamento(); // chama método para pegar estado e forma
             PreencherProdutosVenda();
@@ -56,21 +250,18 @@ namespace telebip_erp.Forms.SubForms
             try
             {
                 string sql = "SELECT ESTADO, FORMA FROM PAGAMENTO WHERE ID_VENDA = @idVenda LIMIT 1";
-                var parametros = new SQLiteParameter[]
-                {
-                    new SQLiteParameter("@idVenda", VendaID)
-                };
+                var parametros = new SQLiteParameter[] { new SQLiteParameter("@idVenda", VendaID) };
 
                 var dt = DatabaseHelper.ExecuteQuery(sql, parametros);
                 if (dt.Rows.Count > 0)
                 {
-                    tbEstado.Text = dt.Rows[0]["ESTADO"].ToString();
-                    tbForma.Text = dt.Rows[0]["FORMA"].ToString();
+                    if (tbEstado != null) tbEstado.Text = dt.Rows[0]["ESTADO"].ToString();
+                    if (tbForma != null) tbForma.Text = dt.Rows[0]["FORMA"].ToString();
                 }
                 else
                 {
-                    tbEstado.Text = "";
-                    tbForma.Text = "";
+                    if (tbEstado != null) tbEstado.Text = "";
+                    if (tbForma != null) tbForma.Text = "";
                 }
             }
             catch (Exception ex)
@@ -79,15 +270,17 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
-
-        #endregion
-
         #region Monetários
 
         private void ConfigurarMonetarios()
         {
             // tbDesconto deve ser System.Windows.Forms.TextBox no Designer
-            ConfigurarTextBoxMonetario(tbDesconto, TbDesconto_TextChanged);
+            try
+            {
+                if (tbDesconto != null)
+                    ConfigurarTextBoxMonetario(tbDesconto, TbDesconto_TextChanged);
+            }
+            catch { }
         }
 
         // Atualizado para System.Windows.Forms.TextBox
@@ -102,7 +295,6 @@ namespace telebip_erp.Forms.SubForms
             tb.KeyPress -= TbPreco_KeyPress;
             tb.KeyPress += TbPreco_KeyPress;
         }
-
 
         private void TbDesconto_TextChanged(object sender, EventArgs e)
         {
@@ -170,7 +362,6 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
-
         private void AtualizarGridProdutos()
         {
             try
@@ -180,33 +371,56 @@ namespace telebip_erp.Forms.SubForms
                 var dt = DatabaseHelper.ExecuteQuery(sql);
                 dgvProdutoTemporarios.DataSource = dt;
 
-                // Configura visibilidade e títulos
-                dgvProdutoTemporarios.Columns["ID_TEMP"].Visible = false;
-                dgvProdutoTemporarios.Columns["ID_PRODUTO"].HeaderText = "ID";
-                dgvProdutoTemporarios.Columns["NOME"].HeaderText = "Produto";
-                dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].HeaderText = "Preço Unitário";
-                dgvProdutoTemporarios.Columns["QUANTIDADE"].HeaderText = "Qtd";
-                dgvProdutoTemporarios.Columns["SUBTOTAL"].HeaderText = "Total";
+                // Segurança: impede edição pelo usuário
+                dgvProdutoTemporarios.AllowUserToAddRows = false;
+                dgvProdutoTemporarios.AllowUserToDeleteRows = false;
+                dgvProdutoTemporarios.AllowUserToResizeColumns = false;
+                dgvProdutoTemporarios.RowHeadersVisible = false;
+                dgvProdutoTemporarios.ReadOnly = true;
+                dgvProdutoTemporarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvProdutoTemporarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                // Configura largura fixa das colunas
-                dgvProdutoTemporarios.Columns["ID_PRODUTO"].Width = 70;
-                dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].Width = 150;
-                dgvProdutoTemporarios.Columns["QUANTIDADE"].Width = 70;
-                dgvProdutoTemporarios.Columns["SUBTOTAL"].Width = 100;
+                // Configura visibilidade e títulos
+                if (dgvProdutoTemporarios.Columns.Contains("ID_TEMP"))
+                    dgvProdutoTemporarios.Columns["ID_TEMP"].Visible = false;
+                if (dgvProdutoTemporarios.Columns.Contains("ID_PRODUTO"))
+                    dgvProdutoTemporarios.Columns["ID_PRODUTO"].HeaderText = "ID";
+                if (dgvProdutoTemporarios.Columns.Contains("NOME"))
+                    dgvProdutoTemporarios.Columns["NOME"].HeaderText = "Produto";
+                if (dgvProdutoTemporarios.Columns.Contains("PRECO_UNITARIO"))
+                    dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].HeaderText = "Preço Unitário";
+                if (dgvProdutoTemporarios.Columns.Contains("QUANTIDADE"))
+                    dgvProdutoTemporarios.Columns["QUANTIDADE"].HeaderText = "Qtd";
+                if (dgvProdutoTemporarios.Columns.Contains("SUBTOTAL"))
+                    dgvProdutoTemporarios.Columns["SUBTOTAL"].HeaderText = "Total";
+
+                // Configura largura fixa das colunas (só se existirem)
+                if (dgvProdutoTemporarios.Columns.Contains("ID_PRODUTO")) dgvProdutoTemporarios.Columns["ID_PRODUTO"].Width = 70;
+                if (dgvProdutoTemporarios.Columns.Contains("PRECO_UNITARIO")) dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].Width = 150;
+                if (dgvProdutoTemporarios.Columns.Contains("QUANTIDADE")) dgvProdutoTemporarios.Columns["QUANTIDADE"].Width = 70;
+                if (dgvProdutoTemporarios.Columns.Contains("SUBTOTAL")) dgvProdutoTemporarios.Columns["SUBTOTAL"].Width = 100;
 
                 // Coluna NOME ocupa o restante do espaço
-                dgvProdutoTemporarios.Columns["NOME"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                if (dgvProdutoTemporarios.Columns.Contains("NOME"))
+                    dgvProdutoTemporarios.Columns["NOME"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
                 // Alinhamento do texto
-                dgvProdutoTemporarios.Columns["ID_PRODUTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dgvProdutoTemporarios.Columns["QUANTIDADE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dgvProdutoTemporarios.Columns["SUBTOTAL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                dgvProdutoTemporarios.Columns["NOME"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                if (dgvProdutoTemporarios.Columns.Contains("ID_PRODUTO"))
+                    dgvProdutoTemporarios.Columns["ID_PRODUTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (dgvProdutoTemporarios.Columns.Contains("PRECO_UNITARIO"))
+                    dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (dgvProdutoTemporarios.Columns.Contains("QUANTIDADE"))
+                    dgvProdutoTemporarios.Columns["QUANTIDADE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (dgvProdutoTemporarios.Columns.Contains("SUBTOTAL"))
+                    dgvProdutoTemporarios.Columns["SUBTOTAL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                if (dgvProdutoTemporarios.Columns.Contains("NOME"))
+                    dgvProdutoTemporarios.Columns["NOME"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
                 // Formato monetário para PRECO_UNITARIO e SUBTOTAL
-                dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].DefaultCellStyle.Format = "C2";
-                dgvProdutoTemporarios.Columns["SUBTOTAL"].DefaultCellStyle.Format = "C2";
+                if (dgvProdutoTemporarios.Columns.Contains("PRECO_UNITARIO"))
+                    dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].DefaultCellStyle.Format = "C2";
+                if (dgvProdutoTemporarios.Columns.Contains("SUBTOTAL"))
+                    dgvProdutoTemporarios.Columns["SUBTOTAL"].DefaultCellStyle.Format = "C2";
 
                 // Seleção limpa
                 dgvProdutoTemporarios.ClearSelection();
@@ -218,7 +432,6 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
-
         private void AtualizarLbValorSuper()
         {
             decimal valorBruto = 0;
@@ -229,7 +442,8 @@ namespace telebip_erp.Forms.SubForms
             decimal.TryParse(tbDesconto.Text.Replace("R$", "").Trim(), NumberStyles.Currency, CultureInfo.GetCultureInfo("pt-BR"), out desconto);
 
             decimal valorFinal = Math.Max(0, valorBruto - desconto);
-            lbValorSuper.Text = "R$ " + valorFinal.ToString("N2", CultureInfo.GetCultureInfo("pt-BR"));
+            if (lbValorSuper != null)
+                lbValorSuper.Text = "R$ " + valorFinal.ToString("N2", CultureInfo.GetCultureInfo("pt-BR"));
         }
 
         #endregion

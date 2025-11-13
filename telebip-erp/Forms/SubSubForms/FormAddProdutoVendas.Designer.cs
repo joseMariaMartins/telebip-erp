@@ -314,7 +314,7 @@ namespace telebip_erp.Forms.SubSubForms
             cbCondicaoMini.Font = new Font("Segoe UI", 9F);
             cbCondicaoMini.ForeColor = Color.White;
             cbCondicaoMini.FormattingEnabled = true;
-            cbCondicaoMini.Items.AddRange(new object[] { "Inicia com", "Contendo", "Diferente de" });
+            cbCondicaoMini.Items.AddRange(new object[] { "Identico a", "Inicia com", "Contendo", "Diferente de" });
             cbCondicaoMini.Location = new Point(8, 6);
             cbCondicaoMini.Margin = new Padding(3, 0, 10, 0);
             cbCondicaoMini.Name = "cbCondicaoMini";

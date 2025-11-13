@@ -1,4 +1,4 @@
-﻿// FormRelatorios.Designer.cs (modificado: wrappers arredondados para ComboBoxes)
+﻿// FormRelatorios.Designer.cs (sem criação de Regions no designer)
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -636,31 +636,6 @@ namespace telebip_erp.Forms.Modules
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormRelatorios";
             Text = "FormRelatorios";
-
-            // --- cria Regions arredondadas para os wrappers (executa após Size definido)
-            {
-                int radius = 8;
-                using (GraphicsPath gp = new GraphicsPath())
-                {
-                    gp.AddArc(0, 0, radius * 2, radius * 2, 180, 90);
-                    gp.AddArc(pnlWrapperTipoRelatorio.Width - radius * 2, 0, radius * 2, radius * 2, 270, 90);
-                    gp.AddArc(pnlWrapperTipoRelatorio.Width - radius * 2, pnlWrapperTipoRelatorio.Height - radius * 2, radius * 2, radius * 2, 0, 90);
-                    gp.AddArc(0, pnlWrapperTipoRelatorio.Height - radius * 2, radius * 2, radius * 2, 90, 90);
-                    gp.CloseFigure();
-                    pnlWrapperTipoRelatorio.Region = new Region(gp);
-                }
-
-                using (GraphicsPath gp2 = new GraphicsPath())
-                {
-                    int r = 8;
-                    gp2.AddArc(0, 0, r * 2, r * 2, 180, 90);
-                    gp2.AddArc(pnlWrapperPeriodo.Width - r * 2, 0, r * 2, r * 2, 270, 90);
-                    gp2.AddArc(pnlWrapperPeriodo.Width - r * 2, pnlWrapperPeriodo.Height - r * 2, r * 2, r * 2, 0, 90);
-                    gp2.AddArc(0, pnlWrapperPeriodo.Height - r * 2, r * 2, r * 2, 90, 90);
-                    gp2.CloseFigure();
-                    pnlWrapperPeriodo.Region = new Region(gp2);
-                }
-            }
 
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);

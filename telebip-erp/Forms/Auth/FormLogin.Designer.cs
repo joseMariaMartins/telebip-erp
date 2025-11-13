@@ -27,7 +27,6 @@ namespace telebip_erp.Forms.Auth
         private Label lblSenhaInvalida;
 
         private Label lblAppName;
-        private Label lblTitulo;
 
         private Panel panel1;
 
@@ -49,9 +48,7 @@ namespace telebip_erp.Forms.Auth
 
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(FormLogin));
             lblAppName = new Label();
-            lblTitulo = new Label();
             lblUsuario = new Label();
             pnlWrapperUsuario = new Panel();
             txtUsuario = new TextBox();
@@ -64,7 +61,6 @@ namespace telebip_erp.Forms.Auth
             lblEsqueci = new Label();
             panel1 = new Panel();
             btnLogin = new CuoreUI.Controls.cuiButton();
-
             pnlWrapperUsuario.SuspendLayout();
             pnlWrapperSenha.SuspendLayout();
             ((ISupportInitialize)picToggleSenha).BeginInit();
@@ -81,17 +77,6 @@ namespace telebip_erp.Forms.Auth
             lblAppName.Size = new Size(120, 19);
             lblAppName.TabIndex = 0;
             lblAppName.Text = "Telebip Organizer";
-            // 
-            // lblTitulo
-            // 
-            lblTitulo.AutoSize = true;
-            lblTitulo.Font = new Font("Segoe UI", 12F);
-            lblTitulo.ForeColor = Color.FromArgb(230, 230, 235);
-            lblTitulo.Location = new Point(171, 31);
-            lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(86, 21);
-            lblTitulo.TabIndex = 1;
-            lblTitulo.Text = "Bem-vindo";
             // 
             // lblUsuario
             // 
@@ -172,13 +157,6 @@ namespace telebip_erp.Forms.Auth
             // picToggleSenha
             // 
             picToggleSenha.Cursor = Cursors.Hand;
-            // o designer pode já ter definido uma imagem (hide) por resources; mantemos isso
-            try
-            {
-                var res = (Image)resources.GetObject("picToggleSenha.Image");
-                if (res != null) picToggleSenha.Image = res;
-            }
-            catch { }
             picToggleSenha.Location = new Point(333, 11);
             picToggleSenha.Name = "picToggleSenha";
             picToggleSenha.Size = new Size(20, 20);
@@ -214,7 +192,6 @@ namespace telebip_erp.Forms.Auth
             panel1.BackColor = Color.FromArgb(28, 29, 40);
             panel1.Controls.Add(btnLogin);
             panel1.Controls.Add(lblAppName);
-            panel1.Controls.Add(lblTitulo);
             panel1.Controls.Add(lblEsqueci);
             panel1.Controls.Add(lblUsuario);
             panel1.Controls.Add(lblSenhaInvalida);
@@ -254,7 +231,7 @@ namespace telebip_erp.Forms.Auth
             btnLogin.NormalBackground = Color.FromArgb(40, 120, 80);
             btnLogin.NormalForeColor = Color.White;
             btnLogin.NormalImageTint = Color.White;
-            btnLogin.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnLogin.NormalOutline = Color.Transparent;
             btnLogin.OutlineThickness = 1F;
             btnLogin.PressedBackground = Color.WhiteSmoke;
             btnLogin.PressedForeColor = Color.FromArgb(32, 32, 32);

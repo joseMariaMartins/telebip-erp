@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Data.SQLite;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -24,6 +26,35 @@ namespace telebip_erp.Forms.Auth
 
             btnConfirmar.Click += BtnConfirmar_Click;
             btnCancelar.Click += (s, e) => this.Close();
+
+            // ---------------------------
+            // Tenta localizar o panel "wrapper" do tbId de forma segura:
+            // sobe na hierarquia a partir de tbId até encontrar um Panel cujo nome
+            // contenha "wrapper" ou comece com "pnl".
+            // ---------------------------
+            try
+            {
+                Panel wrapper = FindWrapperPanelFromControl(tbId);
+                if (wrapper != null)
+                {
+                    // aplica estilo arredondado e comportamento de foco
+                    StyleTextboxWrapperPanel(wrapper, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
+
+                    // avisa visualmente quando o textbox ganhar/perder foco
+                    tbId.GotFocus += (s, e) => SetWrapperFocused(wrapper, true);
+                    tbId.LostFocus += (s, e) => SetWrapperFocused(wrapper, false);
+
+                    // estado inicial
+                    SetWrapperFocused(wrapper, false);
+
+                    // garante redraw após load (evita Width=0 em design-time)
+                    this.Load += (s, e) => { try { wrapper.Invalidate(); } catch { } };
+                }
+            }
+            catch
+            {
+                // silencioso — não queremos quebrar a lógica principal se algo falhar aqui
+            }
         }
 
         // ==========================
@@ -224,6 +255,86 @@ namespace telebip_erp.Forms.Auth
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+        }
+
+        // ==========================
+        // Helpers visuais: bordas arredondadas e foco
+        // ==========================
+        private GraphicsPath GetRoundedRect(Rectangle r, int radius)
+        {
+            var path = new GraphicsPath();
+            int d = Math.Max(0, radius * 2);
+            if (radius <= 0)
+            {
+                path.AddRectangle(r);
+                return path;
+            }
+            path.AddArc(r.X, r.Y, d, d, 180, 90);
+            path.AddArc(r.Right - d, r.Y, d, d, 270, 90);
+            path.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
+            path.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
+            path.CloseFigure();
+            return path;
+        }
+
+        private void StyleTextboxWrapperPanel(Panel wrapper, Color fill, Color border, int radius = 8)
+        {
+            if (wrapper == null) return;
+            wrapper.BackColor = fill;
+            wrapper.Tag = border; // guardamos a cor da borda no Tag para o paint handler
+            wrapper.Paint -= Wrapper_Paint;
+            wrapper.Paint += Wrapper_Paint;
+            wrapper.Resize -= (s, e) => wrapper.Invalidate();
+            wrapper.Resize += (s, e) => wrapper.Invalidate();
+        }
+
+        private void Wrapper_Paint(object sender, PaintEventArgs e)
+        {
+            if (!(sender is Panel wrapper)) return;
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
+            using (var path = GetRoundedRect(rect, 8))
+            using (var pen = new Pen((Color)wrapper.Tag, 1))
+            {
+                // preencher fundo com a cor do wrapper para evitar artefatos
+                using (var fillBrush = new SolidBrush(wrapper.BackColor))
+                    e.Graphics.FillPath(fillBrush, path);
+
+                e.Graphics.DrawPath(pen, path);
+            }
+        }
+
+        private void SetWrapperFocused(Panel wrapper, bool focused)
+        {
+            if (wrapper == null) return;
+            Color active = Color.FromArgb(100, 150, 255);
+            Color normal = Color.FromArgb(60, 62, 80);
+            wrapper.Tag = focused ? active : normal;
+            try { wrapper.Invalidate(); } catch { }
+        }
+
+        // ----------------------------
+        // Procura um Panel "wrapper" subindo na hierarquia a partir de um controle
+        // ----------------------------
+        private Panel FindWrapperPanelFromControl(Control start)
+        {
+            if (start == null) return null;
+
+            Control current = start.Parent;
+            while (current != null)
+            {
+                // prefer panels com nomes que indiquem wrapper/pnl
+                if (current is Panel p)
+                {
+                    string name = (p.Name ?? "").ToLowerInvariant();
+                    if (name.Contains("wrapper") || name.StartsWith("pnl") || name.Contains("panel"))
+                        return p;
+                }
+                current = current.Parent;
+            }
+
+            // se não encontrou nada significativo, tenta retornar o immediate parent (se panel)
+            return start.Parent as Panel;
         }
     }
 }

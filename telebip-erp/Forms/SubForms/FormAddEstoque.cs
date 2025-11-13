@@ -70,9 +70,7 @@ namespace telebip_erp.Forms.SubForms
             catch
             {
                 cbFuncionarios.Items.Clear();
-                // opcional: se quiser preencher com ADMIN apenas se der erro de conexão
-                // cbFuncionarios.Items.Add("ADMINISTRADOR");
-                cbFuncionarios.SelectedIndex = -1; // Começa vazio mesmo
+                cbFuncionarios.SelectedIndex = -1;
             }
         }
 
@@ -80,32 +78,73 @@ namespace telebip_erp.Forms.SubForms
         {
             try
             {
-                string nome = tbNome.Text.Trim().ToUpper();
-                string marca = tbMarca.Text.Trim().ToUpper();
-                string observacao = tbObservacao.Text.Trim().ToUpper();
+                // VALIDAÇÕES: todos os campos obrigatórios e tipos corretos
+                string nomeRaw = tbNome.Text ?? "";
+                string marcaRaw = tbMarca.Text ?? "";
+                string observacaoRaw = tbObservacao.Text ?? "";
 
-                string precoTexto = tbPreco.Text.Replace("R$", "").Replace(".", "").Replace(",", ".");
-                if (!decimal.TryParse(precoTexto, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal preco))
+                string nome = nomeRaw.Trim().ToUpper();
+                string marca = marcaRaw.Trim().ToUpper();
+                string observacao = observacaoRaw.Trim().ToUpper();
+
+                if (string.IsNullOrWhiteSpace(nome))
                 {
-                    MessageBox.Show("Preço inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Preencha o campo Nome do produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    tbNome.Focus();
                     return;
                 }
 
-                if (!int.TryParse(tbQEstoque.Text, out int qtdAdicional) || qtdAdicional <= 0)
+                if (string.IsNullOrWhiteSpace(marca))
                 {
-                    MessageBox.Show("Informe uma quantidade válida para adicionar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Preencha o campo Marca do produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    tbMarca.Focus();
                     return;
                 }
 
-                if (!int.TryParse(tbQAviso.Text, out int qtdAviso))
+                // Tenta parse do preço usando o formato brasileiro (aceita "R$ 1.234,56" ou "1234,56")
+                decimal preco;
+                bool precoParseOk = decimal.TryParse(
+                    tbPreco.Text,
+                    NumberStyles.Currency,
+                    CultureInfo.GetCultureInfo("pt-BR"),
+                    out preco
+                );
+
+                if (!precoParseOk)
                 {
-                    MessageBox.Show("Quantidade de aviso inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Tenta um fallback removendo "R$" e usando invariant (caso o usuário tenha digitado com . e , trocados)
+                    string precoFallback = tbPreco.Text.Replace("R$", "").Replace(" ", "").Replace(".", "").Replace(",", ".");
+                    precoParseOk = decimal.TryParse(precoFallback, NumberStyles.Any, CultureInfo.InvariantCulture, out preco);
+                }
+
+                if (!precoParseOk || preco < 0m)
+                {
+                    MessageBox.Show("Preço inválido. Insira um valor válido (ex: R$ 12,34).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    tbPreco.Focus();
                     return;
                 }
 
+                // Quantidade a adicionar (obrigatória e > 0)
+                if (!int.TryParse(tbQEstoque.Text.Trim(), out int qtdAdicional) || qtdAdicional <= 0)
+                {
+                    MessageBox.Show("Informe uma quantidade válida para adicionar (inteiro maior que 0).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    tbQEstoque.Focus();
+                    return;
+                }
+
+                // Quantidade de aviso (obrigatória; pode ser zero)
+                if (!int.TryParse(tbQAviso.Text.Trim(), out int qtdAviso) || qtdAviso < 0)
+                {
+                    MessageBox.Show("Informe uma quantidade de aviso válida (inteiro >= 0).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    tbQAviso.Focus();
+                    return;
+                }
+
+                // Funcionário selecionado
                 if (cbFuncionarios.SelectedItem == null)
                 {
                     MessageBox.Show("Selecione um funcionário!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cbFuncionarios.Focus();
                     return;
                 }
 
@@ -116,14 +155,21 @@ namespace telebip_erp.Forms.SubForms
 
                 if (ProdutoSelecionado != null)
                 {
+                    // Atualiza produto existente: exige que tbNome e tbMarca confiram com o produto selecionado?
+                    // Aqui apenas atualiza o estoque mantendo os dados já existentes do produto.
                     using var cmdSelect = new SQLiteCommand("SELECT QTD_ESTOQUE FROM PRODUTO WHERE ID_PRODUTO = @ID", conn);
                     cmdSelect.Parameters.AddWithValue("@ID", ProdutoSelecionado.Value.Id);
-                    int estoqueAtual = Convert.ToInt32(cmdSelect.ExecuteScalar());
+                    object scalar = cmdSelect.ExecuteScalar();
+                    int estoqueAtual = 0;
+                    if (scalar != null && int.TryParse(scalar.ToString(), out int parsedEst))
+                        estoqueAtual = parsedEst;
+
                     int novaQuantidade = estoqueAtual + qtdAdicional;
 
-                    string sqlUpdate = "UPDATE PRODUTO SET QTD_ESTOQUE = @QTD_ESTOQUE WHERE ID_PRODUTO = @ID;";
+                    string sqlUpdate = "UPDATE PRODUTO SET QTD_ESTOQUE = @QTD_ESTOQUE, QTD_AVISO = @QTD_AVISO WHERE ID_PRODUTO = @ID;";
                     using var cmd = new SQLiteCommand(sqlUpdate, conn);
                     cmd.Parameters.AddWithValue("@QTD_ESTOQUE", novaQuantidade);
+                    cmd.Parameters.AddWithValue("@QTD_AVISO", qtdAviso);
                     cmd.Parameters.AddWithValue("@ID", ProdutoSelecionado.Value.Id);
                     cmd.ExecuteNonQuery();
 
@@ -131,24 +177,21 @@ namespace telebip_erp.Forms.SubForms
                 }
                 else
                 {
+                    // Antes de inserir, checar duplicado similar (comparação com igualdade simples)
                     string sqlCheck = @"
                         SELECT COUNT(*) FROM PRODUTO
                         WHERE UPPER(NOME) = @NOME AND UPPER(MARCA) = @MARCA
-                        AND PRECO = @PRECO AND QTD_ESTOQUE = @QTD_ESTOQUE
-                        AND QTD_AVISO = @QTD_AVISO AND UPPER(COALESCE(OBSERVACAO, '')) = UPPER(COALESCE(@OBSERVACAO, ''));
+                          AND PRECO = @PRECO AND UPPER(COALESCE(OBSERVACAO, '')) = UPPER(COALESCE(@OBSERVACAO, ''))
                     ";
                     using var cmdCheck = new SQLiteCommand(sqlCheck, conn);
                     cmdCheck.Parameters.AddWithValue("@NOME", nome);
                     cmdCheck.Parameters.AddWithValue("@MARCA", marca);
                     cmdCheck.Parameters.AddWithValue("@PRECO", preco);
-                    cmdCheck.Parameters.AddWithValue("@QTD_ESTOQUE", qtdAdicional);
-                    cmdCheck.Parameters.AddWithValue("@QTD_AVISO", qtdAviso);
                     cmdCheck.Parameters.AddWithValue("@OBSERVACAO", observacao);
-
                     long existe = (long)cmdCheck.ExecuteScalar();
                     if (existe > 0)
                     {
-                        MessageBox.Show("Esse produto já está cadastrado!", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Esse produto já está cadastrado (verifique nome/marca/preço/observação).", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
@@ -219,7 +262,7 @@ namespace telebip_erp.Forms.SubForms
         {
             TextBox tb = sender as TextBox;
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back) e.Handled = true;
-            if (tb.Text.Length >= 4 && e.KeyChar != (char)Keys.Back) e.Handled = true;
+            if (tb.Text.Length >= 6 && e.KeyChar != (char)Keys.Back) e.Handled = true; // deixa 6 dígitos no máximo
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)

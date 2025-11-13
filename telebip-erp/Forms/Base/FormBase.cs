@@ -57,6 +57,10 @@ namespace telebip_erp
             MenuTransitionEstoque.Interval = 12;
 
             RegistrarBotoesSelecionaveis();
+
+            CriarOuRecuperarFormInicial();
+            AbrirFormNoPanel(inicial!);
+            ButtonSelectionManager.SelecionarBotao(btnHome);
         }
 
         private void RegistrarBotoesSelecionaveis()
@@ -235,7 +239,7 @@ namespace telebip_erp
             else
             {
                 pnlSidebar.Width += 35;
-                if (pnlSidebar.Width >= 277)
+                if (pnlSidebar.Width >= 280)
                 {
                     sidebarExpand = true;
                     sidebarTransition.Stop();
