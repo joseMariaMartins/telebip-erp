@@ -28,16 +28,13 @@ namespace telebip_erp.Forms.SubSubForms
             picSearch = new PictureBox();
             tbPesquisaMini = new TextBox();
             pnlWrapperCondicao = new RoundedPanel();
-            panelCondTop = new Panel();
-            panelCondLeft = new Panel();
-            picCond = new PictureBox();
-            panelCondBottom = new Panel();
             cbCondicaoMini = new ComboBox();
             pnlWrapperCampo = new RoundedPanel();
-            panelCampoTop = new Panel();
-            picCampo = new PictureBox();
-            panelCampoLeft = new Panel();
-            panelCampoBottom = new Panel();
+            panel4 = new Panel();
+            pictureBox1 = new PictureBox();
+            panel3 = new Panel();
+            panel2 = new Panel();
+            panel1 = new Panel();
             cbPesquisaCampoMini = new ComboBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
@@ -48,9 +45,8 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperPesquisa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picSearch).BeginInit();
             pnlWrapperCondicao.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picCond).BeginInit();
             pnlWrapperCampo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picCampo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
@@ -261,10 +257,6 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperCondicao.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCondicao.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperCondicao.BorderThickness = 1;
-            pnlWrapperCondicao.Controls.Add(panelCondTop);
-            pnlWrapperCondicao.Controls.Add(panelCondLeft);
-            pnlWrapperCondicao.Controls.Add(picCond);
-            pnlWrapperCondicao.Controls.Add(panelCondBottom);
             pnlWrapperCondicao.Controls.Add(cbCondicaoMini);
             pnlWrapperCondicao.CornerRadius = 8;
             pnlWrapperCondicao.FillColor = Color.FromArgb(40, 41, 52);
@@ -273,37 +265,6 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperCondicao.Padding = new Padding(8, 6, 30, 6);
             pnlWrapperCondicao.Size = new Size(160, 36);
             pnlWrapperCondicao.TabIndex = 18;
-            // 
-            // panelCondTop
-            // 
-            panelCondTop.Location = new Point(7, 6);
-            panelCondTop.Name = "panelCondTop";
-            panelCondTop.Size = new Size(150, 7);
-            panelCondTop.TabIndex = 0;
-            // 
-            // panelCondLeft
-            // 
-            panelCondLeft.Location = new Point(6, 3);
-            panelCondLeft.Name = "panelCondLeft";
-            panelCondLeft.Size = new Size(4, 30);
-            panelCondLeft.TabIndex = 1;
-            // 
-            // picCond
-            // 
-            picCond.BackColor = Color.Transparent;
-            picCond.Location = new Point(128, 13);
-            picCond.Name = "picCond";
-            picCond.Size = new Size(27, 10);
-            picCond.SizeMode = PictureBoxSizeMode.Zoom;
-            picCond.TabIndex = 15;
-            picCond.TabStop = false;
-            // 
-            // panelCondBottom
-            // 
-            panelCondBottom.Location = new Point(6, 23);
-            panelCondBottom.Name = "panelCondBottom";
-            panelCondBottom.Size = new Size(150, 7);
-            panelCondBottom.TabIndex = 16;
             // 
             // cbCondicaoMini
             // 
@@ -326,10 +287,11 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperCampo.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCampo.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperCampo.BorderThickness = 1;
-            pnlWrapperCampo.Controls.Add(panelCampoTop);
-            pnlWrapperCampo.Controls.Add(picCampo);
-            pnlWrapperCampo.Controls.Add(panelCampoLeft);
-            pnlWrapperCampo.Controls.Add(panelCampoBottom);
+            pnlWrapperCampo.Controls.Add(panel4);
+            pnlWrapperCampo.Controls.Add(pictureBox1);
+            pnlWrapperCampo.Controls.Add(panel3);
+            pnlWrapperCampo.Controls.Add(panel2);
+            pnlWrapperCampo.Controls.Add(panel1);
             pnlWrapperCampo.Controls.Add(cbPesquisaCampoMini);
             pnlWrapperCampo.CornerRadius = 8;
             pnlWrapperCampo.FillColor = Color.FromArgb(40, 41, 52);
@@ -339,36 +301,43 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperCampo.Size = new Size(160, 36);
             pnlWrapperCampo.TabIndex = 17;
             // 
-            // panelCampoTop
+            // panel4
             // 
-            panelCampoTop.Location = new Point(5, 6);
-            panelCampoTop.Name = "panelCampoTop";
-            panelCampoTop.Size = new Size(150, 7);
-            panelCampoTop.TabIndex = 0;
+            panel4.Location = new Point(146, 7);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(6, 18);
+            panel4.TabIndex = 22;
             // 
-            // picCampo
+            // pictureBox1
             // 
-            picCampo.BackColor = Color.Transparent;
-            picCampo.Location = new Point(133, 13);
-            picCampo.Name = "picCampo";
-            picCampo.Size = new Size(23, 10);
-            picCampo.SizeMode = PictureBoxSizeMode.Zoom;
-            picCampo.TabIndex = 16;
-            picCampo.TabStop = false;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(131, 11);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(15, 12);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 21;
+            pictureBox1.TabStop = false;
             // 
-            // panelCampoLeft
+            // panel3
             // 
-            panelCampoLeft.Location = new Point(6, 3);
-            panelCampoLeft.Name = "panelCampoLeft";
-            panelCampoLeft.Size = new Size(4, 30);
-            panelCampoLeft.TabIndex = 17;
+            panel3.Location = new Point(8, 4);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(6, 24);
+            panel3.TabIndex = 20;
             // 
-            // panelCampoBottom
+            // panel2
             // 
-            panelCampoBottom.Location = new Point(6, 23);
-            panelCampoBottom.Name = "panelCampoBottom";
-            panelCampoBottom.Size = new Size(150, 7);
-            panelCampoBottom.TabIndex = 18;
+            panel2.Location = new Point(8, 4);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(144, 8);
+            panel2.TabIndex = 19;
+            // 
+            // panel1
+            // 
+            panel1.Location = new Point(8, 23);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(144, 8);
+            panel1.TabIndex = 18;
             // 
             // cbPesquisaCampoMini
             // 
@@ -431,9 +400,8 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperPesquisa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
             pnlWrapperCondicao.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picCond).EndInit();
             pnlWrapperCampo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picCampo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -455,22 +423,18 @@ namespace telebip_erp.Forms.SubSubForms
 
         // Wrappers and child controls (padrão FormEstoque)
         private RoundedPanel pnlWrapperCampo;
-        private Panel panelCampoTop;
-        private PictureBox picCampo;
-        private Panel panelCampoLeft;
-        private Panel panelCampoBottom;
         private ComboBox cbPesquisaCampoMini;
 
         private RoundedPanel pnlWrapperCondicao;
-        private Panel panelCondTop;
-        private Panel panelCondLeft;
-        private PictureBox picCond;
-        private Panel panelCondBottom;
         private ComboBox cbCondicaoMini;
 
         private RoundedPanel pnlWrapperPesquisa;
         private PictureBox picSearch;
         public TextBox tbPesquisaMini;
-
+        private Panel panel4;
+        private PictureBox pictureBox1;
+        private Panel panel3;
+        private Panel panel2;
+        private Panel panel1;
     }
 }

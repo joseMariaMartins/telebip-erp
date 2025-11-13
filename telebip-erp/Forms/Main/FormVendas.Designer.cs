@@ -38,13 +38,13 @@
             panel2 = new Panel();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
+            cbCondicao = new ComboBox();
             pnlWrapperCampo = new telebip_erp.Controls.RoundedPanel();
             pictureBox2 = new PictureBox();
             panel8 = new Panel();
             panel6 = new Panel();
             panel5 = new Panel();
             panel4 = new Panel();
-            cbCondicao = new ComboBox();
             cbPesquisaCampo = new ComboBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
@@ -346,6 +346,21 @@
             panel1.Size = new Size(159, 7);
             panel1.TabIndex = 17;
             // 
+            // cbCondicao
+            // 
+            cbCondicao.BackColor = Color.FromArgb(40, 41, 52);
+            cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCondicao.FlatStyle = FlatStyle.Flat;
+            cbCondicao.Font = new Font("Segoe UI", 9F);
+            cbCondicao.ForeColor = Color.White;
+            cbCondicao.FormattingEnabled = true;
+            cbCondicao.Items.AddRange(new object[] { "Identico a", "Inicia com", "Contendo", "Diferente de" });
+            cbCondicao.Location = new Point(8, 6);
+            cbCondicao.Margin = new Padding(3, 0, 10, 0);
+            cbCondicao.Name = "cbCondicao";
+            cbCondicao.Size = new Size(154, 23);
+            cbCondicao.TabIndex = 11;
+            // 
             // pnlWrapperCampo
             // 
             pnlWrapperCampo.BackColor = Color.FromArgb(40, 41, 52);
@@ -402,21 +417,6 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(4, 30);
             panel4.TabIndex = 22;
-            // 
-            // cbCondicao
-            // 
-            cbCondicao.BackColor = Color.FromArgb(40, 41, 52);
-            cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbCondicao.FlatStyle = FlatStyle.Flat;
-            cbCondicao.Font = new Font("Segoe UI", 9F);
-            cbCondicao.ForeColor = Color.White;
-            cbCondicao.FormattingEnabled = true;
-            cbCondicao.Items.AddRange(new object[] { "Identico a", "Inicia com", "Contendo", "Diferente de" });
-            cbCondicao.Location = new Point(8, 6);
-            cbCondicao.Margin = new Padding(3, 0, 10, 0);
-            cbCondicao.Name = "cbCondicao";
-            cbCondicao.Size = new Size(154, 23);
-            cbCondicao.TabIndex = 11;
             // 
             // cbPesquisaCampo
             // 

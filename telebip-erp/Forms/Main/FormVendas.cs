@@ -194,7 +194,7 @@ namespace telebip_erp.Forms.Modules
             string campoExibicao = cbPesquisaCampo.SelectedItem.ToString()!;
             string campoBanco = campoMap.ContainsKey(campoExibicao) ? campoMap[campoExibicao] : campoExibicao;
             string condicao = cbCondicao.SelectedItem.ToString()!;
-            string valor = tbPesquisa.Text.Trim().ToUpper();
+            string valor = tbPesquisa.Text.Trim();
 
             if (string.IsNullOrEmpty(valor))
             {
@@ -207,13 +207,18 @@ namespace telebip_erp.Forms.Modules
 
             switch (condicao)
             {
+                case "Idêntico a":
+                    // Busca exata (case-sensitive)
+                    filtroSql = $"{campoBanco} = @valor";
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
+                    break;
                 case "Inicia com":
                     filtroSql = $"UPPER({campoBanco}) LIKE @valor";
-                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor + "%") };
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor.ToUpper() + "%") };
                     break;
                 case "Contendo":
                     filtroSql = $"UPPER({campoBanco}) LIKE @valor";
-                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", "%" + valor + "%") };
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", "%" + valor.ToUpper() + "%") };
                     break;
                 case "Diferente de":
                     filtroSql = $"UPPER({campoBanco}) NOT LIKE UPPER(@valor)";
@@ -226,6 +231,7 @@ namespace telebip_erp.Forms.Modules
 
             CarregarVendas(filtroSql, parametros, limitar20: false);
         }
+
 
         private void BtnLimpar_Click(object? sender, EventArgs e)
         {

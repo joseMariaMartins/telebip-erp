@@ -25,6 +25,7 @@ namespace telebip_erp.Forms.Modules
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRelatorios));
             pnlContainer = new Panel();
             pnlMain = new Panel();
             pnlTabela = new Panel();
@@ -48,22 +49,27 @@ namespace telebip_erp.Forms.Modules
             lblTitulo4 = new Label();
             pnlFiltros = new Panel();
             lblRelatorio = new Label();
-
-            // Wrappers e controles para cbTipoRelatorio
             pnlWrapperTipoRelatorio = new Panel();
             cbTipoRelatorio = new ComboBox();
             pnlCoverTipoRelatorio = new Panel();
             picTipoArrow = new PictureBox();
-
-            // Wrappers e controles para cbPeriodo
             pnlWrapperPeriodo = new Panel();
             cbPeriodo = new ComboBox();
             pnlCoverPeriodo = new Panel();
             picPeriodoArrow = new PictureBox();
-
             btnGerarRelatorio = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel4 = new Panel();
+            panel5 = new Panel();
+            panel6 = new Panel();
+            panel7 = new Panel();
+            panel8 = new Panel();
+            panel3 = new Panel();
+            pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
             pnlTabela.SuspendLayout();
@@ -81,6 +87,8 @@ namespace telebip_erp.Forms.Modules
             pnlWrapperPeriodo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picPeriodoArrow).BeginInit();
             pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // pnlContainer
@@ -177,6 +185,7 @@ namespace telebip_erp.Forms.Modules
             // 
             // btnExportarExcel
             // 
+            btnExportarExcel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnExportarExcel.CheckButton = false;
             btnExportarExcel.Checked = false;
             btnExportarExcel.CheckedBackground = Color.FromArgb(255, 106, 0);
@@ -195,8 +204,6 @@ namespace telebip_erp.Forms.Modules
             btnExportarExcel.ImageAutoCenter = true;
             btnExportarExcel.ImageExpand = new Point(0, 0);
             btnExportarExcel.ImageOffset = new Point(0, 0);
-            // botão com Anchor (fixo à direita superior do painel de ações)
-            btnExportarExcel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnExportarExcel.Location = new Point(1086, 17);
             btnExportarExcel.Name = "btnExportarExcel";
             btnExportarExcel.NormalBackground = Color.FromArgb(40, 120, 80);
@@ -216,6 +223,7 @@ namespace telebip_erp.Forms.Modules
             // 
             // btnImprimir
             // 
+            btnImprimir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnImprimir.CheckButton = false;
             btnImprimir.Checked = false;
             btnImprimir.CheckedBackground = Color.FromArgb(255, 106, 0);
@@ -234,8 +242,6 @@ namespace telebip_erp.Forms.Modules
             btnImprimir.ImageAutoCenter = true;
             btnImprimir.ImageExpand = new Point(0, 0);
             btnImprimir.ImageOffset = new Point(0, 0);
-            // botão com Anchor (fixo à direita superior do painel de ações)
-            btnImprimir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnImprimir.Location = new Point(1224, 17);
             btnImprimir.Name = "btnImprimir";
             btnImprimir.NormalBackground = Color.FromArgb(40, 100, 180);
@@ -427,11 +433,8 @@ namespace telebip_erp.Forms.Modules
             // 
             pnlFiltros.BackColor = Color.FromArgb(32, 33, 39);
             pnlFiltros.Controls.Add(lblRelatorio);
-
-            // adiciona os wrappers antes dos comboBoxes para "maquiagem"
             pnlFiltros.Controls.Add(pnlWrapperTipoRelatorio);
             pnlFiltros.Controls.Add(pnlWrapperPeriodo);
-
             pnlFiltros.Controls.Add(btnGerarRelatorio);
             pnlFiltros.Dock = DockStyle.Top;
             pnlFiltros.Location = new Point(0, 0);
@@ -452,118 +455,106 @@ namespace telebip_erp.Forms.Modules
             lblRelatorio.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // pnlWrapperTipoRelatorio
-            // (panel atrás do ComboBox, com cantos arredondados e painel lateral cobrindo a seta nativa)
             // 
             pnlWrapperTipoRelatorio.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperTipoRelatorio.Controls.Add(pictureBox1);
+            pnlWrapperTipoRelatorio.Controls.Add(panel3);
+            pnlWrapperTipoRelatorio.Controls.Add(panel4);
+            pnlWrapperTipoRelatorio.Controls.Add(panel2);
+            pnlWrapperTipoRelatorio.Controls.Add(panel1);
+            pnlWrapperTipoRelatorio.Controls.Add(cbTipoRelatorio);
+            pnlWrapperTipoRelatorio.Controls.Add(pnlCoverTipoRelatorio);
+            pnlWrapperTipoRelatorio.Controls.Add(picTipoArrow);
             pnlWrapperTipoRelatorio.Location = new Point(92, 10);
             pnlWrapperTipoRelatorio.Name = "pnlWrapperTipoRelatorio";
             pnlWrapperTipoRelatorio.Padding = new Padding(8, 6, 8, 6);
             pnlWrapperTipoRelatorio.Size = new Size(320, 36);
             pnlWrapperTipoRelatorio.TabIndex = 1;
-            pnlWrapperTipoRelatorio.Controls.Add(cbTipoRelatorio);
-            pnlWrapperTipoRelatorio.Controls.Add(pnlCoverTipoRelatorio);
-            pnlWrapperTipoRelatorio.Controls.Add(picTipoArrow);
-
-            // cbTipoRelatorio (WinForms ComboBox - dentro do wrapper)
+            // 
+            // cbTipoRelatorio
+            // 
             cbTipoRelatorio.BackColor = Color.FromArgb(40, 41, 52);
             cbTipoRelatorio.DropDownStyle = ComboBoxStyle.DropDownList;
             cbTipoRelatorio.FlatStyle = FlatStyle.Flat;
             cbTipoRelatorio.Font = new Font("Segoe UI", 9F);
             cbTipoRelatorio.ForeColor = Color.White;
-            cbTipoRelatorio.Items.AddRange(new object[]
-            {
-                "Vendas do período",
-                "Produtos mais vendidos",
-                "Vendas por categoria",
-                "Lucro bruto por produto",
-                "Formas de pagamento",
-                "Vendas por funcionário",
-                "Produtos com baixo estoque",
-                "Movimentação de estoque",
-                "Tendência de vendas"
-            });
-            // posicionado dentro do wrapper deixando espaço à direita para o "cover" e a arrow
+            cbTipoRelatorio.Items.AddRange(new object[] { "Vendas do período", "Produtos mais vendidos", "Vendas por categoria", "Lucro bruto por produto", "Formas de pagamento", "Vendas por funcionário", "Produtos com baixo estoque", "Movimentação de estoque", "Tendência de vendas" });
             cbTipoRelatorio.Location = new Point(8, 6);
             cbTipoRelatorio.Margin = new Padding(4, 3, 4, 3);
             cbTipoRelatorio.Name = "cbTipoRelatorio";
-            cbTipoRelatorio.Size = new Size(280, 24); // tamanho fixo (não responsivo)
-            cbTipoRelatorio.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            cbTipoRelatorio.Size = new Size(304, 23);
             cbTipoRelatorio.TabIndex = 1;
-
-            // painel que "tampa" a parte nativa do combobox (cor do fundo)
-            pnlCoverTipoRelatorio.BackColor = pnlWrapperTipoRelatorio.BackColor;
+            // 
+            // pnlCoverTipoRelatorio
+            // 
+            pnlCoverTipoRelatorio.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pnlCoverTipoRelatorio.BackColor = Color.FromArgb(40, 41, 52);
             pnlCoverTipoRelatorio.Location = new Point(292, 6);
             pnlCoverTipoRelatorio.Name = "pnlCoverTipoRelatorio";
             pnlCoverTipoRelatorio.Size = new Size(20, 24);
             pnlCoverTipoRelatorio.TabIndex = 2;
-            pnlCoverTipoRelatorio.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
-            // picturebox com a seta (fica por cima do cover)
+            // 
+            // picTipoArrow
+            // 
+            picTipoArrow.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             picTipoArrow.BackColor = Color.Transparent;
-            picTipoArrow.Image = null; // se você tiver um recurso de seta, pode setar aqui
             picTipoArrow.Location = new Point(312, 9);
             picTipoArrow.Name = "picTipoArrow";
             picTipoArrow.Size = new Size(12, 18);
             picTipoArrow.SizeMode = PictureBoxSizeMode.Zoom;
             picTipoArrow.TabIndex = 3;
             picTipoArrow.TabStop = false;
-            picTipoArrow.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
             // 
             // pnlWrapperPeriodo
             // 
             pnlWrapperPeriodo.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPeriodo.Controls.Add(pictureBox2);
+            pnlWrapperPeriodo.Controls.Add(panel8);
+            pnlWrapperPeriodo.Controls.Add(panel7);
+            pnlWrapperPeriodo.Controls.Add(panel6);
+            pnlWrapperPeriodo.Controls.Add(panel5);
+            pnlWrapperPeriodo.Controls.Add(cbPeriodo);
+            pnlWrapperPeriodo.Controls.Add(pnlCoverPeriodo);
+            pnlWrapperPeriodo.Controls.Add(picPeriodoArrow);
             pnlWrapperPeriodo.Location = new Point(503, 10);
             pnlWrapperPeriodo.Name = "pnlWrapperPeriodo";
             pnlWrapperPeriodo.Padding = new Padding(8, 6, 8, 6);
             pnlWrapperPeriodo.Size = new Size(240, 36);
             pnlWrapperPeriodo.TabIndex = 3;
-            pnlWrapperPeriodo.Controls.Add(cbPeriodo);
-            pnlWrapperPeriodo.Controls.Add(pnlCoverPeriodo);
-            pnlWrapperPeriodo.Controls.Add(picPeriodoArrow);
-
-            // cbPeriodo (WinForms ComboBox - dentro do wrapper)
+            // 
+            // cbPeriodo
+            // 
             cbPeriodo.BackColor = Color.FromArgb(40, 41, 52);
             cbPeriodo.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPeriodo.FlatStyle = FlatStyle.Flat;
             cbPeriodo.Font = new Font("Segoe UI", 9F);
             cbPeriodo.ForeColor = Color.White;
-            cbPeriodo.Items.AddRange(new object[]
-            {
-                "Hoje",
-                "Ontem",
-                "Últimos 7 dias",
-                "Últimos 30 dias",
-                "Este mês",
-                "Mês passado",
-                "Ano atual"
-            });
+            cbPeriodo.Items.AddRange(new object[] { "Hoje", "Ontem", "Últimos 7 dias", "Últimos 30 dias", "Este mês", "Mês passado", "Ano atual" });
             cbPeriodo.Location = new Point(8, 6);
             cbPeriodo.Margin = new Padding(4, 3, 4, 3);
             cbPeriodo.Name = "cbPeriodo";
-            cbPeriodo.Size = new Size(200, 24); // tamanho fixo (não responsivo)
-            cbPeriodo.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            cbPeriodo.Size = new Size(224, 23);
             cbPeriodo.TabIndex = 3;
-
-            // painel que "tampa" a parte nativa do combobox (cor do fundo)
-            pnlCoverPeriodo.BackColor = pnlWrapperPeriodo.BackColor;
+            // 
+            // pnlCoverPeriodo
+            // 
+            pnlCoverPeriodo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pnlCoverPeriodo.BackColor = Color.FromArgb(40, 41, 52);
             pnlCoverPeriodo.Location = new Point(212, 6);
             pnlCoverPeriodo.Name = "pnlCoverPeriodo";
             pnlCoverPeriodo.Size = new Size(20, 24);
             pnlCoverPeriodo.TabIndex = 2;
-            pnlCoverPeriodo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
-            // picturebox com a seta (fica por cima do cover)
+            // 
+            // picPeriodoArrow
+            // 
+            picPeriodoArrow.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             picPeriodoArrow.BackColor = Color.Transparent;
-            picPeriodoArrow.Image = null; // se você tiver uma seta, setar aqui
             picPeriodoArrow.Location = new Point(232, 9);
             picPeriodoArrow.Name = "picPeriodoArrow";
             picPeriodoArrow.Size = new Size(12, 18);
             picPeriodoArrow.SizeMode = PictureBoxSizeMode.Zoom;
             picPeriodoArrow.TabIndex = 3;
             picPeriodoArrow.TabStop = false;
-            picPeriodoArrow.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
             // 
             // btnGerarRelatorio
             // 
@@ -585,8 +576,6 @@ namespace telebip_erp.Forms.Modules
             btnGerarRelatorio.ImageAutoCenter = true;
             btnGerarRelatorio.ImageExpand = new Point(0, 0);
             btnGerarRelatorio.ImageOffset = new Point(0, 0);
-            // botão com Anchor (fixo à esquerda superior do painel de filtros)
-            btnGerarRelatorio.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             btnGerarRelatorio.Location = new Point(760, 10);
             btnGerarRelatorio.Name = "btnGerarRelatorio";
             btnGerarRelatorio.NormalBackground = Color.FromArgb(40, 120, 80);
@@ -627,6 +616,82 @@ namespace telebip_erp.Forms.Modules
             lblTitulo.Text = "Relatórios e Análises";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // panel1
+            // 
+            panel1.Location = new Point(4, 23);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(308, 8);
+            panel1.TabIndex = 4;
+            // 
+            // panel2
+            // 
+            panel2.Location = new Point(7, 6);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(305, 10);
+            panel2.TabIndex = 5;
+            // 
+            // panel4
+            // 
+            panel4.Location = new Point(5, 9);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(6, 18);
+            panel4.TabIndex = 7;
+            // 
+            // panel5
+            // 
+            panel5.Location = new Point(6, 22);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(226, 10);
+            panel5.TabIndex = 4;
+            // 
+            // panel6
+            // 
+            panel6.Location = new Point(5, 6);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(227, 10);
+            panel6.TabIndex = 5;
+            // 
+            // panel7
+            // 
+            panel7.Location = new Point(6, 6);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(6, 23);
+            panel7.TabIndex = 6;
+            // 
+            // panel8
+            // 
+            panel8.Location = new Point(224, 7);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(8, 22);
+            panel8.TabIndex = 7;
+            // 
+            // panel3
+            // 
+            panel3.Location = new Point(305, 6);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(8, 23);
+            panel3.TabIndex = 8;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(291, 14);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(15, 10);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 9;
+            pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(209, 14);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(15, 10);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 8;
+            pictureBox2.TabStop = false;
+            // 
             // FormRelatorios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -636,7 +701,6 @@ namespace telebip_erp.Forms.Modules
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormRelatorios";
             Text = "FormRelatorios";
-
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);
             pnlTabela.ResumeLayout(false);
@@ -654,6 +718,8 @@ namespace telebip_erp.Forms.Modules
             pnlWrapperPeriodo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picPeriodoArrow).EndInit();
             pnlHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 
@@ -701,5 +767,15 @@ namespace telebip_erp.Forms.Modules
         private Panel pnlAcoes;
         private CuoreUI.Controls.cuiButton btnExportarExcel;
         private CuoreUI.Controls.cuiButton btnImprimir;
+        private Panel panel3;
+        private Panel panel4;
+        private Panel panel2;
+        private Panel panel1;
+        private Panel panel8;
+        private Panel panel7;
+        private Panel panel6;
+        private Panel panel5;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
     }
 }
