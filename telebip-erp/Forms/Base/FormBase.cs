@@ -250,6 +250,9 @@ namespace telebip_erp
 
         #region Eventos da Sidebar e Botões
         private void btnHam_Click(object sender, EventArgs e) => sidebarTransition.Start();
+        private void pnlHam_Click(object sender, EventArgs e) => sidebarTransition.Start();
+
+
 
         private void btnHome_Click(object sender, EventArgs e)
         {

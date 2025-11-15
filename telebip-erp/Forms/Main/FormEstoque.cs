@@ -54,23 +54,40 @@ namespace telebip_erp.Forms.Modules
             tbPesquisa.KeyPress += TbPesquisa_KeyPress;
             tbPesquisa.TextChanged += TbPesquisa_TextChanged;
 
-            // Eventos das Comboboxes
-            cbPesquisaCampo.DrawItem += Cb_DrawItem;
-            cbPesquisaCampo.FlatStyle = FlatStyle.Flat;
-            cbCondicao.DrawItem += Cb_DrawItem;
-            cbCondicao.FlatStyle = FlatStyle.Flat;
+            // Eventos das Comboboxes (NeoFlatComboBox deriva de ComboBox na maioria dos casos)
+            try
+            {
+                cbPesquisaCampo.DrawItem -= Cb_DrawItem;
+                cbPesquisaCampo.DrawItem += Cb_DrawItem;
+                cbPesquisaCampo.FlatStyle = FlatStyle.Flat;
+            }
+            catch { /* controle pode já gerenciar visual */ }
 
-            // Eventos de clique nos wrappers
+            try
+            {
+                cbCondicao.DrawItem -= Cb_DrawItem;
+                cbCondicao.DrawItem += Cb_DrawItem;
+                cbCondicao.FlatStyle = FlatStyle.Flat;
+            }
+            catch { /* controle pode já gerenciar visual */ }
+
+            // Eventos de clique nos wrappers e pictureboxes (handlers nomeados)
             ConfigurarEventosClique();
 
             // Evento de double click - com verificação para evitar duplicação
             dgvEstoque.CellDoubleClick -= DgvEstoque_CellDoubleClick;
             dgvEstoque.CellDoubleClick += DgvEstoque_CellDoubleClick;
+
+            // Ajuste de tamanho quando redimensionar
+            this.Resize -= DgvEstoque_Resize;
+            this.Resize += DgvEstoque_Resize;
+            dgvEstoque.Resize -= DgvEstoque_Resize;
+            dgvEstoque.Resize += DgvEstoque_Resize;
         }
 
         private void AplicarEstilosVisuais()
         {
-            // Estilo dos wrappers
+            // Estilo dos wrappers (os wrappers são RoundedPanel no Designer, mas tratamos como Panel)
             StyleComboWrapperPanel(pnlWrapperCampo, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
             StyleComboWrapperPanel(pnlWrapperCondicao, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
             StyleTextboxWrapperPanel(pnlWrapperPesquisa, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
@@ -94,35 +111,93 @@ namespace telebip_erp.Forms.Modules
         #endregion
 
         #region Eventos de Clique nos Controles
+        // Substitui lambdas por handlers nomeados para facilitar attach/detach e debugging
         private void ConfigurarEventosClique()
         {
-            // Combobox 1 - Campo
-            pnlWrapperCampo.Click += (s, e) =>
+            // Combobox 1 - Campo (wrapper)
+            try
+            {
+                pnlWrapperCampo.Click -= PnlWrapperCampo_Click;
+                pnlWrapperCampo.Click += PnlWrapperCampo_Click;
+            }
+            catch { /* segurança */ }
+
+            // PictureArrow/Chevron do campo (renomeado no Designer para PictureImage2)
+            try
+            {
+                PictureImage2.Click -= PicArrowCampo_Click;
+                PictureImage2.Click += PicArrowCampo_Click;
+            }
+            catch { /* se o controle não existir em runtime */ }
+
+            // Combobox 2 - Condição (wrapper)
+            try
+            {
+                pnlWrapperCondicao.Click -= PnlWrapperCondicao_Click;
+                pnlWrapperCondicao.Click += PnlWrapperCondicao_Click;
+            }
+            catch { /* segurança */ }
+
+            // PictureArrow/Chevron da condição (pictureBox1)
+            try
+            {
+                pictureBox1.Click -= PicArrowCondicao_Click;
+                pictureBox1.Click += PicArrowCondicao_Click;
+            }
+            catch { /* segurança */ }
+
+            // Textbox - pesquisa (wrapper e ícone)
+            try
+            {
+                pnlWrapperPesquisa.Click -= PnlWrapperPesquisa_Click;
+                pnlWrapperPesquisa.Click += PnlWrapperPesquisa_Click;
+            }
+            catch { /* segurança */ }
+
+            try
+            {
+                picSearch.Click -= PicSearch_Click;
+                picSearch.Click += PicSearch_Click;
+            }
+            catch { /* segurança */ }
+        }
+
+        private void PnlWrapperCampo_Click(object sender, EventArgs e)
+        {
+            try
             {
                 cbPesquisaCampo.Focus();
                 cbPesquisaCampo.DroppedDown = true;
-            };
-            pictureBox2.Click += (s, e) =>
-            {
-                cbPesquisaCampo.Focus();
-                cbPesquisaCampo.DroppedDown = true;
-            };
+            }
+            catch { }
+        }
 
-            // Combobox 2 - Condição
-            pnlWrapperCondicao.Click += (s, e) =>
+        private void PnlWrapperCondicao_Click(object sender, EventArgs e)
+        {
+            try
             {
                 cbCondicao.Focus();
                 cbCondicao.DroppedDown = true;
-            };
-            pictureBox1.Click += (s, e) =>
-            {
-                cbCondicao.Focus();
-                cbCondicao.DroppedDown = true;
-            };
+            }
+            catch { }
+        }
 
-            // Textbox
-            pnlWrapperPesquisa.Click += (s, e) => tbPesquisa.Focus();
-            picSearch.Click += (s, e) => tbPesquisa.Focus();
+        private void PnlWrapperPesquisa_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                tbPesquisa.Focus();
+            }
+            catch { }
+        }
+
+        private void PicSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                tbPesquisa.Focus();
+            }
+            catch { }
         }
         #endregion
 
@@ -180,34 +255,50 @@ namespace telebip_erp.Forms.Modules
 
         private void StyleComboWrapperPanel(Panel wrapper, Color fill, Color border, int radius = 8)
         {
-            wrapper.BackColor = fill;
-            wrapper.Paint += (s, e) =>
+            try
             {
-                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
-                using (var path = GetRoundedRect(rect, radius))
-                using (var pen = new Pen(border, 1))
+                wrapper.BackColor = fill;
+                wrapper.Paint -= Wrapper_Paint;
+                wrapper.Paint += Wrapper_Paint;
+                void Wrapper_Paint(object s, PaintEventArgs e)
                 {
-                    e.Graphics.DrawPath(pen, path);
+                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
+                    using (var path = GetRoundedRect(rect, radius))
+                    using (var pen = new Pen(border, 1))
+                    {
+                        e.Graphics.DrawPath(pen, path);
+                    }
                 }
-            };
-            wrapper.Resize += (s, e) => wrapper.Invalidate();
+                wrapper.Resize -= Wrapper_Resize;
+                wrapper.Resize += Wrapper_Resize;
+                void Wrapper_Resize(object s, EventArgs e) => wrapper.Invalidate();
+            }
+            catch { /* segurança */ }
         }
 
         private void StyleTextboxWrapperPanel(Panel wrapper, Color fill, Color border, int radius = 8)
         {
-            wrapper.BackColor = fill;
-            wrapper.Paint += (s, e) =>
+            try
             {
-                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
-                using (var path = GetRoundedRect(rect, radius))
-                using (var pen = new Pen(border, 1))
+                wrapper.BackColor = fill;
+                wrapper.Paint -= Wrapper_Paint;
+                wrapper.Paint += Wrapper_Paint;
+                void Wrapper_Paint(object s, PaintEventArgs e)
                 {
-                    e.Graphics.DrawPath(pen, path);
+                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
+                    using (var path = GetRoundedRect(rect, radius))
+                    using (var pen = new Pen(border, 1))
+                    {
+                        e.Graphics.DrawPath(pen, path);
+                    }
                 }
-            };
-            wrapper.Resize += (s, e) => wrapper.Invalidate();
+                wrapper.Resize -= Wrapper_Resize;
+                wrapper.Resize += Wrapper_Resize;
+                void Wrapper_Resize(object s, EventArgs e) => wrapper.Invalidate();
+            }
+            catch { /* segurança */ }
         }
         #endregion
 
@@ -277,8 +368,6 @@ namespace telebip_erp.Forms.Modules
             dgvEstoque.ResumeLayout();
         }
 
-
-
         private void ConfigurarColunasDataGridView()
         {
             if (dgvEstoque.Columns.Count == 0) return;
@@ -313,6 +402,7 @@ namespace telebip_erp.Forms.Modules
             ConfigurarCabecalhosColunas();
 
             // Aplica o redimensionamento após carregar os dados
+            dgvEstoque.DataBindingComplete -= (s, e) => AjustarLarguraColunasFixas();
             dgvEstoque.DataBindingComplete += (s, e) => AjustarLarguraColunasFixas();
         }
 
@@ -383,6 +473,15 @@ namespace telebip_erp.Forms.Modules
             {
                 // Habilita a scrollbar horizontal e ajusta a última coluna
                 dgvEstoque.Columns[dgvEstoque.Columns.Count - 1].Width = 100; // Largura mínima
+            }
+            else
+            {
+                // Ajusta a última coluna para preencher o restante
+                int restante = dgvEstoque.ClientSize.Width - larguraTotalFixas - margem;
+                if (restante > 100)
+                    dgvEstoque.Columns[dgvEstoque.Columns.Count - 1].Width = restante;
+                else
+                    dgvEstoque.Columns[dgvEstoque.Columns.Count - 1].Width = 100;
             }
         }
 
@@ -565,7 +664,10 @@ namespace telebip_erp.Forms.Modules
         {
             string campoSelecionado = ObterValorSelecionado(cbPesquisaCampo);
             string condicao = ObterValorSelecionado(cbCondicao);
-            string valor = ObterTextoPesquisa().Trim().ToUpper();
+            string valor = ObterTextoPesquisa().Trim();
+
+            if (!string.IsNullOrEmpty(valor))
+                valor = valor.ToUpper();
 
             string campo = campoSelecionado switch
             {
@@ -646,9 +748,16 @@ namespace telebip_erp.Forms.Modules
             {
                 textoPesquisa = "";
                 tbPesquisa.Text = "";
+                // Reaplica o placeholder (se você ainda usa o placeholder artificial)
                 TbPesquisa_LostFocus(tbPesquisa, EventArgs.Empty);
 
-                tbPesquisa.Focus();
+                // Limpa histórico de undo e seleção
+                try { tbPesquisa.ClearUndo(); } catch { }
+                tbPesquisa.SelectionStart = 0;
+                tbPesquisa.SelectionLength = 0;
+
+                // Remove o foco do tbPesquisa para evitar caret visível.
+                this.ActiveControl = null;
 
                 SelecionarPrimeiroItem(cbPesquisaCampo);
                 SelecionarPrimeiroItem(cbCondicao);
@@ -668,6 +777,21 @@ namespace telebip_erp.Forms.Modules
         #region Eventos da Interface
         private void FormEstoque_Shown(object sender, EventArgs e)
         {
+            // Garante que as comboboxes iniciem com o primeiro item (se existirem)
+            try
+            {
+                if (cbPesquisaCampo != null && cbPesquisaCampo.Items != null && cbPesquisaCampo.Items.Count > 0)
+                    cbPesquisaCampo.SelectedIndex = 0;
+            }
+            catch { /* segurança */ }
+
+            try
+            {
+                if (cbCondicao != null && cbCondicao.Items != null && cbCondicao.Items.Count > 0)
+                    cbCondicao.SelectedIndex = 0;
+            }
+            catch { /* segurança */ }
+
             dgvEstoque.ClearSelection();
             dgvEstoque.CurrentCell = null;
             AjustarTamanhoDataGridView();
@@ -677,7 +801,7 @@ namespace telebip_erp.Forms.Modules
         {
             if (dgvEstoque.Parent is Panel panelPai)
             {
-                // 🔹 AGORA COM DOCK FILL
+                // AGORA COM DOCK FILL
                 dgvEstoque.Dock = DockStyle.Fill;
 
                 // Remove margens/padding se necessário

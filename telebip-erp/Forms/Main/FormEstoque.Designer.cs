@@ -24,19 +24,11 @@
             btnLimpar = new CuoreUI.Controls.cuiButton();
             btnPesquisar = new CuoreUI.Controls.cuiButton();
             pnlWrapperCampo = new telebip_erp.Controls.RoundedPanel();
-            panel8 = new Panel();
-            pictureBox2 = new PictureBox();
-            panel6 = new Panel();
-            panel5 = new Panel();
-            panel4 = new Panel();
-            cbPesquisaCampo = new ComboBox();
+            PictureImage2 = new PictureBox();
+            cbPesquisaCampo = new telebip_erp.Controls.NeoFlatComboBox();
             pnlWrapperCondicao = new telebip_erp.Controls.RoundedPanel();
-            panel7 = new Panel();
-            panel2 = new Panel();
             pictureBox1 = new PictureBox();
-            panel3 = new Panel();
-            panel1 = new Panel();
-            cbCondicao = new ComboBox();
+            cbCondicao = new telebip_erp.Controls.NeoFlatComboBox();
             pnlWrapperPesquisa = new telebip_erp.Controls.RoundedPanel();
             picSearch = new PictureBox();
             tbPesquisa = new TextBox();
@@ -48,7 +40,7 @@
             pnlBottom.SuspendLayout();
             pnlFiltros.SuspendLayout();
             pnlWrapperCampo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PictureImage2).BeginInit();
             pnlWrapperCondicao.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlWrapperPesquisa.SuspendLayout();
@@ -251,11 +243,7 @@
             pnlWrapperCampo.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCampo.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperCampo.BorderThickness = 1;
-            pnlWrapperCampo.Controls.Add(panel8);
-            pnlWrapperCampo.Controls.Add(pictureBox2);
-            pnlWrapperCampo.Controls.Add(panel6);
-            pnlWrapperCampo.Controls.Add(panel5);
-            pnlWrapperCampo.Controls.Add(panel4);
+            pnlWrapperCampo.Controls.Add(PictureImage2);
             pnlWrapperCampo.Controls.Add(cbPesquisaCampo);
             pnlWrapperCampo.CornerRadius = 8;
             pnlWrapperCampo.FillColor = Color.FromArgb(40, 41, 52);
@@ -265,70 +253,36 @@
             pnlWrapperCampo.Size = new Size(169, 36);
             pnlWrapperCampo.TabIndex = 50;
             // 
-            // panel8
+            // PictureImage2
             // 
-            panel8.Location = new Point(159, 3);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(6, 30);
-            panel8.TabIndex = 17;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(145, 13);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(15, 10);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 16;
-            pictureBox2.TabStop = false;
-            // 
-            // panel6
-            // 
-            panel6.Location = new Point(5, 6);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(160, 7);
-            panel6.TabIndex = 15;
-            // 
-            // panel5
-            // 
-            panel5.Location = new Point(6, 3);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(4, 30);
-            panel5.TabIndex = 14;
-            // 
-            // panel4
-            // 
-            panel4.Location = new Point(6, 23);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(159, 7);
-            panel4.TabIndex = 13;
+            PictureImage2.Image = (Image)resources.GetObject("PictureImage2.Image");
+            PictureImage2.Location = new Point(148, 13);
+            PictureImage2.Name = "PictureImage2";
+            PictureImage2.Size = new Size(10, 10);
+            PictureImage2.SizeMode = PictureBoxSizeMode.Zoom;
+            PictureImage2.TabIndex = 17;
+            PictureImage2.TabStop = false;
             // 
             // cbPesquisaCampo
             // 
             cbPesquisaCampo.BackColor = Color.FromArgb(40, 41, 52);
-            cbPesquisaCampo.DrawMode = DrawMode.OwnerDrawFixed;
             cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbPesquisaCampo.FlatStyle = FlatStyle.Flat;
-            cbPesquisaCampo.Font = new Font("Segoe UI", 9F);
+            cbPesquisaCampo.Font = new Font("Segoe UI", 10F);
             cbPesquisaCampo.ForeColor = Color.White;
             cbPesquisaCampo.FormattingEnabled = true;
+            cbPesquisaCampo.ItemHeight = 17;
             cbPesquisaCampo.Items.AddRange(new object[] { "ID", "Nome", "Marca", "Preço", "Qtd do estoque", "Qtd de aviso", "Observação" });
-            cbPesquisaCampo.Location = new Point(8, 6);
-            cbPesquisaCampo.Margin = new Padding(3, 0, 10, 0);
+            cbPesquisaCampo.Location = new Point(6, 6);
             cbPesquisaCampo.Name = "cbPesquisaCampo";
-            cbPesquisaCampo.Size = new Size(156, 24);
-            cbPesquisaCampo.TabIndex = 12;
+            cbPesquisaCampo.Size = new Size(157, 25);
+            cbPesquisaCampo.TabIndex = 0;
             // 
             // pnlWrapperCondicao
             // 
             pnlWrapperCondicao.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCondicao.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperCondicao.BorderThickness = 1;
-            pnlWrapperCondicao.Controls.Add(panel7);
-            pnlWrapperCondicao.Controls.Add(panel2);
             pnlWrapperCondicao.Controls.Add(pictureBox1);
-            pnlWrapperCondicao.Controls.Add(panel3);
-            pnlWrapperCondicao.Controls.Add(panel1);
             pnlWrapperCondicao.Controls.Add(cbCondicao);
             pnlWrapperCondicao.CornerRadius = 8;
             pnlWrapperCondicao.FillColor = Color.FromArgb(40, 41, 52);
@@ -338,58 +292,29 @@
             pnlWrapperCondicao.Size = new Size(169, 36);
             pnlWrapperCondicao.TabIndex = 51;
             // 
-            // panel7
-            // 
-            panel7.Location = new Point(158, 3);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(6, 27);
-            panel7.TabIndex = 16;
-            // 
-            // panel2
-            // 
-            panel2.Location = new Point(7, 6);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(157, 7);
-            panel2.TabIndex = 13;
-            // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(143, 13);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(15, 10);
+            pictureBox1.Size = new Size(10, 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 15;
             pictureBox1.TabStop = false;
             // 
-            // panel3
-            // 
-            panel3.Location = new Point(6, 3);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(4, 30);
-            panel3.TabIndex = 14;
-            // 
-            // panel1
-            // 
-            panel1.Location = new Point(6, 23);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(159, 7);
-            panel1.TabIndex = 12;
-            // 
             // cbCondicao
             // 
             cbCondicao.BackColor = Color.FromArgb(40, 41, 52);
-            cbCondicao.DrawMode = DrawMode.OwnerDrawFixed;
             cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbCondicao.FlatStyle = FlatStyle.Flat;
             cbCondicao.Font = new Font("Segoe UI", 9F);
             cbCondicao.ForeColor = Color.White;
             cbCondicao.FormattingEnabled = true;
+            cbCondicao.ItemHeight = 15;
             cbCondicao.Items.AddRange(new object[] { "Inicia com", "Contendo", "Diferente de", "Identico a" });
             cbCondicao.Location = new Point(8, 6);
             cbCondicao.Margin = new Padding(3, 0, 10, 0);
             cbCondicao.Name = "cbCondicao";
-            cbCondicao.Size = new Size(156, 24);
+            cbCondicao.Size = new Size(156, 23);
             cbCondicao.TabIndex = 11;
             // 
             // pnlWrapperPesquisa
@@ -471,7 +396,7 @@
             pnlBottom.ResumeLayout(false);
             pnlFiltros.ResumeLayout(false);
             pnlWrapperCampo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PictureImage2).EndInit();
             pnlWrapperCondicao.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlWrapperPesquisa.ResumeLayout(false);
@@ -497,23 +422,22 @@
 
         // novos wrappers e controles para "maquiagem"
         private telebip_erp.Controls.RoundedPanel pnlWrapperCampo;
-        private System.Windows.Forms.ComboBox cbPesquisaCampo;
+        // substituído: ComboBox antigo removido — agora é NeoFlatComboBox
+        private telebip_erp.Controls.NeoFlatComboBox cbPesquisaCampo;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperCondicao;
-        private System.Windows.Forms.ComboBox cbCondicao;
+        // cbCondicao convertido para NeoFlatComboBox
+        private telebip_erp.Controls.NeoFlatComboBox cbCondicao;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperPesquisa;
         private System.Windows.Forms.PictureBox picSearch;
         private System.Windows.Forms.TextBox tbPesquisa;
-        private Panel panel3;
-        private Panel panel2;
-        private Panel panel1;
         private Panel panel5;
         private Panel panel4;
         private Panel panel6;
         private PictureBox pictureBox2;
         private PictureBox pictureBox1;
         private Panel panel8;
-        private Panel panel7;
+        private PictureBox PictureImage2;
     }
 }

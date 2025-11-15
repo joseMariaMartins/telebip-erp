@@ -2,33 +2,31 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-public class PlaceholderTextBox : TextBox
+namespace telebip_erp.Controls
 {
-    [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, string lParam);
-
-    private const int EM_SETCUEBANNER = 0x1501;
-
-    private string _placeholder;
-    public string Placeholder
+    public class PlaceholderTextBox : TextBox
     {
-        get => _placeholder;
-        set
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, string lParam);
+
+        private const int EM_SETCUEBANNER = 0x1501;
+
+        private string _placeholder;
+        public string Placeholder
         {
-            _placeholder = value;
-            if (IsHandleCreated)
-                UpdatePlaceholder();
+            get => _placeholder;
+            set
+            {
+                _placeholder = value;
+                if (IsHandleCreated)
+                    SendMessage(this.Handle, EM_SETCUEBANNER, IntPtr.Zero, _placeholder);
+            }
         }
-    }
 
-    protected override void OnHandleCreated(EventArgs e)
-    {
-        base.OnHandleCreated(e);
-        UpdatePlaceholder();
-    }
-
-    private void UpdatePlaceholder()
-    {
-        SendMessage(this.Handle, EM_SETCUEBANNER, 0, _placeholder);
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            SendMessage(this.Handle, EM_SETCUEBANNER, IntPtr.Zero, _placeholder);
+        }
     }
 }

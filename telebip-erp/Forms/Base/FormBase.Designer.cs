@@ -62,6 +62,7 @@
             MenuTransitionEstoque = new System.Windows.Forms.Timer(components);
             pnlContainer = new Panel();
             panel1 = new Panel();
+            pnlHam = new Panel();
             ((System.ComponentModel.ISupportInitialize)btnHam).BeginInit();
             pnlSidebar.SuspendLayout();
             pnlHome.SuspendLayout();
@@ -79,13 +80,14 @@
             panel9.SuspendLayout();
             pnlConfiguracoes.SuspendLayout();
             panel8.SuspendLayout();
+            pnlHam.SuspendLayout();
             SuspendLayout();
             // 
             // btnHam
             // 
             btnHam.BackColor = Color.Transparent;
             btnHam.Image = (Image)resources.GetObject("btnHam.Image");
-            btnHam.Location = new Point(16, 5);
+            btnHam.Location = new Point(11, 2);
             btnHam.Name = "btnHam";
             btnHam.Size = new Size(15, 15);
             btnHam.SizeMode = PictureBoxSizeMode.Zoom;
@@ -459,15 +461,25 @@
             panel1.Size = new Size(3, 644);
             panel1.TabIndex = 5;
             // 
+            // pnlHam
+            // 
+            pnlHam.BackColor = Color.Transparent;
+            pnlHam.Controls.Add(btnHam);
+            pnlHam.Location = new Point(6, 4);
+            pnlHam.Name = "pnlHam";
+            pnlHam.Size = new Size(47, 20);
+            pnlHam.TabIndex = 7;
+            pnlHam.Click += btnHam_Click;
+            // 
             // FormBase
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(1198, 671);
+            Controls.Add(pnlHam);
             Controls.Add(panel1);
             Controls.Add(pnlContainer);
             Controls.Add(pnlSidebar);
-            Controls.Add(btnHam);
             Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             FormStyle = FormStyles.ActionBar_None;
             IsMdiContainer = true;
@@ -493,6 +505,7 @@
             panel9.ResumeLayout(false);
             pnlConfiguracoes.ResumeLayout(false);
             panel8.ResumeLayout(false);
+            pnlHam.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -531,5 +544,6 @@
         private System.Windows.Forms.Timer MenuTransitionEstoque;
         private Panel pnlContainer;
         private Panel panel1;
+        private Panel pnlHam;
     }
 }
