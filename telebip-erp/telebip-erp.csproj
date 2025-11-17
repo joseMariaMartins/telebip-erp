@@ -14,8 +14,6 @@
     <PackageReference Include="CuoreUI.Winforms" Version="2025.10.18.1" />
     <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.7" />
     <PackageReference Include="MaterialSkin.2" Version="2.3.1" />
-    <PackageReference Include="MetroSet_UI" Version="2.0.0" />
-    <PackageReference Include="ReaLTaiizor" Version="3.8.1.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.9" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
   </ItemGroup>

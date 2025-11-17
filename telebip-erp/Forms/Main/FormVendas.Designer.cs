@@ -33,19 +33,11 @@
             picSearch = new PictureBox();
             tbPesquisa = new TextBox();
             pnlWrapperCondicao = new telebip_erp.Controls.RoundedPanel();
-            panel3 = new Panel();
-            panel7 = new Panel();
-            panel2 = new Panel();
             pictureBox1 = new PictureBox();
-            panel1 = new Panel();
-            cbCondicao = new ComboBox();
+            cbCondicao = new telebip_erp.Controls.NeoFlatComboBox();
             pnlWrapperCampo = new telebip_erp.Controls.RoundedPanel();
             pictureBox2 = new PictureBox();
-            panel8 = new Panel();
-            panel6 = new Panel();
-            panel5 = new Panel();
-            panel4 = new Panel();
-            cbPesquisaCampo = new ComboBox();
+            cbPesquisaCampo = new telebip_erp.Controls.NeoFlatComboBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             pnlContainer.SuspendLayout();
@@ -80,10 +72,10 @@
             pnlDgv.BackColor = Color.FromArgb(28, 29, 40);
             pnlDgv.Controls.Add(dgvVendas);
             pnlDgv.Dock = DockStyle.Fill;
-            pnlDgv.Location = new Point(0, 128);
+            pnlDgv.Location = new Point(0, 126);
             pnlDgv.Name = "pnlDgv";
             pnlDgv.Padding = new Padding(15);
-            pnlDgv.Size = new Size(1597, 532);
+            pnlDgv.Size = new Size(1597, 534);
             pnlDgv.TabIndex = 4;
             // 
             // dgvVendas
@@ -91,34 +83,31 @@
             dgvVendas.AllowUserToAddRows = false;
             dgvVendas.AllowUserToDeleteRows = false;
             dgvVendas.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(32, 33, 39);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(50, 90, 130);
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dgvVendas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvVendas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvVendas.BackgroundColor = Color.FromArgb(32, 33, 39);
             dgvVendas.BorderStyle = BorderStyle.None;
             dgvVendas.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvVendas.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvVendas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.Padding = new Padding(8);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvVendas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvVendas.ColumnHeadersHeight = 40;
             dgvVendas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(32, 33, 39);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(50, 90, 130);
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvVendas.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(8, 0, 8, 0);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvVendas.DefaultCellStyle = dataGridViewCellStyle2;
             dgvVendas.Dock = DockStyle.Fill;
             dgvVendas.EnableHeadersVisualStyles = false;
             dgvVendas.GridColor = Color.FromArgb(50, 52, 67);
@@ -129,10 +118,15 @@
             dgvVendas.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvVendas.RowHeadersVisible = false;
             dgvVendas.RowHeadersWidth = 62;
-            dgvVendas.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dgvVendas.RowTemplate.Height = 35;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dgvVendas.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dgvVendas.RowTemplate.Height = 36;
             dgvVendas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvVendas.Size = new Size(1567, 502);
+            dgvVendas.Size = new Size(1567, 504);
             dgvVendas.TabIndex = 0;
             dgvVendas.CellDoubleClick += dgvVendas_CellDoubleClick;
             // 
@@ -171,7 +165,7 @@
             pnlFiltros.Location = new Point(0, 71);
             pnlFiltros.Name = "pnlFiltros";
             pnlFiltros.Padding = new Padding(10, 10, 10, 15);
-            pnlFiltros.Size = new Size(1597, 57);
+            pnlFiltros.Size = new Size(1597, 55);
             pnlFiltros.TabIndex = 7;
             // 
             // btnLimpar
@@ -259,11 +253,11 @@
             pnlWrapperPesquisa.Controls.Add(tbPesquisa);
             pnlWrapperPesquisa.CornerRadius = 8;
             pnlWrapperPesquisa.FillColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperPesquisa.Location = new Point(378, 10);
+            pnlWrapperPesquisa.Location = new Point(377, 10);
             pnlWrapperPesquisa.Name = "pnlWrapperPesquisa";
             pnlWrapperPesquisa.Padding = new Padding(8, 6, 8, 6);
             pnlWrapperPesquisa.Size = new Size(235, 36);
-            pnlWrapperPesquisa.TabIndex = 7;
+            pnlWrapperPesquisa.TabIndex = 52;
             // 
             // picSearch
             // 
@@ -274,7 +268,7 @@
             picSearch.Name = "picSearch";
             picSearch.Size = new Size(15, 24);
             picSearch.SizeMode = PictureBoxSizeMode.Zoom;
-            picSearch.TabIndex = 8;
+            picSearch.TabIndex = 1;
             picSearch.TabStop = false;
             // 
             // tbPesquisa
@@ -294,71 +288,39 @@
             pnlWrapperCondicao.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCondicao.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperCondicao.BorderThickness = 1;
-            pnlWrapperCondicao.Controls.Add(panel3);
-            pnlWrapperCondicao.Controls.Add(panel7);
-            pnlWrapperCondicao.Controls.Add(panel2);
             pnlWrapperCondicao.Controls.Add(pictureBox1);
-            pnlWrapperCondicao.Controls.Add(panel1);
             pnlWrapperCondicao.Controls.Add(cbCondicao);
             pnlWrapperCondicao.CornerRadius = 8;
             pnlWrapperCondicao.FillColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCondicao.Location = new Point(195, 10);
             pnlWrapperCondicao.Name = "pnlWrapperCondicao";
-            pnlWrapperCondicao.Padding = new Padding(8, 6, 8, 6);
-            pnlWrapperCondicao.Size = new Size(170, 36);
-            pnlWrapperCondicao.TabIndex = 11;
-            // 
-            // panel3
-            // 
-            panel3.Location = new Point(6, 2);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(4, 30);
-            panel3.TabIndex = 21;
-            // 
-            // panel7
-            // 
-            panel7.Location = new Point(158, 5);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(6, 27);
-            panel7.TabIndex = 20;
-            // 
-            // panel2
-            // 
-            panel2.Location = new Point(7, 6);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(157, 7);
-            panel2.TabIndex = 18;
+            pnlWrapperCondicao.Padding = new Padding(8, 6, 30, 6);
+            pnlWrapperCondicao.Size = new Size(169, 36);
+            pnlWrapperCondicao.TabIndex = 51;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(143, 13);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(15, 10);
+            pictureBox1.Size = new Size(10, 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 19;
+            pictureBox1.TabIndex = 15;
             pictureBox1.TabStop = false;
-            // 
-            // panel1
-            // 
-            panel1.Location = new Point(6, 23);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(159, 7);
-            panel1.TabIndex = 17;
             // 
             // cbCondicao
             // 
             cbCondicao.BackColor = Color.FromArgb(40, 41, 52);
             cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbCondicao.FlatStyle = FlatStyle.Flat;
             cbCondicao.Font = new Font("Segoe UI", 9F);
             cbCondicao.ForeColor = Color.White;
             cbCondicao.FormattingEnabled = true;
-            cbCondicao.Items.AddRange(new object[] { "Identico a", "Inicia com", "Contendo", "Diferente de" });
+            cbCondicao.ItemHeight = 15;
+            cbCondicao.Items.AddRange(new object[] { "Inicia com", "Contendo", "Diferente de", "Identico a" });
             cbCondicao.Location = new Point(8, 6);
             cbCondicao.Margin = new Padding(3, 0, 10, 0);
             cbCondicao.Name = "cbCondicao";
-            cbCondicao.Size = new Size(154, 23);
+            cbCondicao.Size = new Size(156, 23);
             cbCondicao.TabIndex = 11;
             // 
             // pnlWrapperCampo
@@ -367,71 +329,38 @@
             pnlWrapperCampo.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperCampo.BorderThickness = 1;
             pnlWrapperCampo.Controls.Add(pictureBox2);
-            pnlWrapperCampo.Controls.Add(panel8);
-            pnlWrapperCampo.Controls.Add(panel6);
-            pnlWrapperCampo.Controls.Add(panel5);
-            pnlWrapperCampo.Controls.Add(panel4);
             pnlWrapperCampo.Controls.Add(cbPesquisaCampo);
             pnlWrapperCampo.CornerRadius = 8;
             pnlWrapperCampo.FillColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCampo.Location = new Point(13, 10);
             pnlWrapperCampo.Name = "pnlWrapperCampo";
-            pnlWrapperCampo.Padding = new Padding(8, 6, 8, 6);
-            pnlWrapperCampo.Size = new Size(170, 36);
-            pnlWrapperCampo.TabIndex = 12;
+            pnlWrapperCampo.Padding = new Padding(8, 6, 30, 6);
+            pnlWrapperCampo.Size = new Size(169, 36);
+            pnlWrapperCampo.TabIndex = 50;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(144, 13);
+            pictureBox2.Location = new Point(148, 13);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(15, 10);
+            pictureBox2.Size = new Size(10, 10);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 22;
+            pictureBox2.TabIndex = 17;
             pictureBox2.TabStop = false;
-            // 
-            // panel8
-            // 
-            panel8.Location = new Point(159, 3);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(6, 27);
-            panel8.TabIndex = 21;
-            // 
-            // panel6
-            // 
-            panel6.Location = new Point(8, 23);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(157, 7);
-            panel6.TabIndex = 24;
-            // 
-            // panel5
-            // 
-            panel5.Location = new Point(5, 6);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(157, 7);
-            panel5.TabIndex = 23;
-            // 
-            // panel4
-            // 
-            panel4.Location = new Point(8, 3);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(4, 30);
-            panel4.TabIndex = 22;
             // 
             // cbPesquisaCampo
             // 
             cbPesquisaCampo.BackColor = Color.FromArgb(40, 41, 52);
             cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbPesquisaCampo.FlatStyle = FlatStyle.Flat;
-            cbPesquisaCampo.Font = new Font("Segoe UI", 9F);
+            cbPesquisaCampo.Font = new Font("Segoe UI", 10F);
             cbPesquisaCampo.ForeColor = Color.White;
             cbPesquisaCampo.FormattingEnabled = true;
+            cbPesquisaCampo.ItemHeight = 17;
             cbPesquisaCampo.Items.AddRange(new object[] { "ID", "Funcionário", "Data", "Valor total", "Desconto" });
-            cbPesquisaCampo.Location = new Point(8, 6);
-            cbPesquisaCampo.Margin = new Padding(3, 0, 10, 0);
+            cbPesquisaCampo.Location = new Point(6, 6);
             cbPesquisaCampo.Name = "cbPesquisaCampo";
-            cbPesquisaCampo.Size = new Size(154, 23);
-            cbPesquisaCampo.TabIndex = 12;
+            cbPesquisaCampo.Size = new Size(157, 25);
+            cbPesquisaCampo.TabIndex = 0;
             // 
             // pnlHeader
             // 
@@ -476,9 +405,7 @@
             pnlWrapperPesquisa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
             pnlWrapperCondicao.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlWrapperCampo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -493,29 +420,16 @@
         private Panel pnlFiltros;
         private CuoreUI.Controls.cuiButton btnLimpar;
         private CuoreUI.Controls.cuiButton btnPesquisar;
-
-        // wrappers convertidos para RoundedPanel + controles WinForms
         private telebip_erp.Controls.RoundedPanel pnlWrapperCampo;
-        private ComboBox cbPesquisaCampo;
-
+        private telebip_erp.Controls.NeoFlatComboBox cbPesquisaCampo;
         private telebip_erp.Controls.RoundedPanel pnlWrapperCondicao;
-        private ComboBox cbCondicao;
-
+        private telebip_erp.Controls.NeoFlatComboBox cbCondicao;
         private telebip_erp.Controls.RoundedPanel pnlWrapperPesquisa;
+        private PictureBox picSearch;
         private TextBox tbPesquisa;
-
         private Panel pnlHeader;
         private Label lblTitulo;
-        private PictureBox picSearch;
-        private Panel panel7;
-        private Panel panel2;
         private PictureBox pictureBox1;
-        private Panel panel1;
-        private Panel panel3;
         private PictureBox pictureBox2;
-        private Panel panel8;
-        private Panel panel6;
-        private Panel panel5;
-        private Panel panel4;
     }
 }
