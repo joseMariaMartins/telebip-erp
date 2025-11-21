@@ -15,34 +15,36 @@ namespace telebip_erp.Forms.SubForms
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddEstoque));
             pnlContainer = new Panel();
             pnlMain = new Panel();
             pnlWrapperFuncionarios = new telebip_erp.Controls.RoundedPanel();
             cbFuncionarios = new telebip_erp.Controls.NeoFlatComboBox();
             lblFuncionario = new Label();
             pnlWrapperNome = new telebip_erp.Controls.RoundedPanel();
-            tbNome = new TextBox();
+            tbNome = new telebip_erp.Controls.PlaceholderTextBox();
             lblNome = new Label();
             pnlWrapperMarca = new telebip_erp.Controls.RoundedPanel();
-            tbMarca = new TextBox();
+            tbMarca = new telebip_erp.Controls.PlaceholderTextBox();
             lblMarca = new Label();
             pnlWrapperPreco = new telebip_erp.Controls.RoundedPanel();
-            tbPreco = new TextBox();
+            tbPreco = new telebip_erp.Controls.PlaceholderTextBox();
             lblPreco = new Label();
             pnlWrapperQEstoque = new telebip_erp.Controls.RoundedPanel();
-            tbQEstoque = new TextBox();
+            tbQEstoque = new telebip_erp.Controls.PlaceholderTextBox();
             lblQEstoque = new Label();
             pnlWrapperQAviso = new telebip_erp.Controls.RoundedPanel();
-            tbQAviso = new TextBox();
+            tbQAviso = new telebip_erp.Controls.PlaceholderTextBox();
             lblQAviso = new Label();
             pnlWrapperObservacao = new telebip_erp.Controls.RoundedPanel();
-            tbObservacao = new TextBox();
+            tbObservacao = new telebip_erp.Controls.PlaceholderTextBox();
             lblObservacao = new Label();
             lbQuantidadeAtual = new Label();
             btnCancelar = new CuoreUI.Controls.cuiButton();
             btnAdicionar = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
+            pictureBox1 = new PictureBox();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
             pnlWrapperFuncionarios.SuspendLayout();
@@ -53,6 +55,7 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperQAviso.SuspendLayout();
             pnlWrapperObservacao.SuspendLayout();
             pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pnlContainer
@@ -98,6 +101,7 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperFuncionarios.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperFuncionarios.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperFuncionarios.BorderThickness = 1;
+            pnlWrapperFuncionarios.Controls.Add(pictureBox1);
             pnlWrapperFuncionarios.Controls.Add(cbFuncionarios);
             pnlWrapperFuncionarios.CornerRadius = 8;
             pnlWrapperFuncionarios.FillColor = Color.FromArgb(40, 41, 52);
@@ -119,7 +123,7 @@ namespace telebip_erp.Forms.SubForms
             cbFuncionarios.FormattingEnabled = true;
             cbFuncionarios.ItemEntryHeight = 30;
             cbFuncionarios.ItemHeight = 13;
-            cbFuncionarios.Location = new Point(8, 9);
+            cbFuncionarios.Location = new Point(8, 8);
             cbFuncionarios.Margin = new Padding(0);
             cbFuncionarios.Name = "cbFuncionarios";
             cbFuncionarios.Placeholder = "Selecione...";
@@ -160,6 +164,8 @@ namespace telebip_erp.Forms.SubForms
             tbNome.Location = new Point(8, 10);
             tbNome.Margin = new Padding(3, 0, 10, 0);
             tbNome.Name = "tbNome";
+            tbNome.Placeholder = "Ex: Capinha";
+            tbNome.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbNome.Size = new Size(284, 16);
             tbNome.TabIndex = 1;
             // 
@@ -193,9 +199,11 @@ namespace telebip_erp.Forms.SubForms
             tbMarca.BorderStyle = BorderStyle.None;
             tbMarca.Font = new Font("Segoe UI", 9F);
             tbMarca.ForeColor = Color.White;
-            tbMarca.Location = new Point(8, 10);
+            tbMarca.Location = new Point(7, 10);
             tbMarca.Margin = new Padding(3, 0, 10, 0);
             tbMarca.Name = "tbMarca";
+            tbMarca.Placeholder = "Ex: Sony";
+            tbMarca.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbMarca.Size = new Size(228, 16);
             tbMarca.TabIndex = 2;
             // 
@@ -232,6 +240,8 @@ namespace telebip_erp.Forms.SubForms
             tbPreco.Location = new Point(8, 10);
             tbPreco.Margin = new Padding(3, 0, 10, 0);
             tbPreco.Name = "tbPreco";
+            tbPreco.Placeholder = "0,00";
+            tbPreco.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbPreco.Size = new Size(84, 16);
             tbPreco.TabIndex = 3;
             // 
@@ -268,6 +278,8 @@ namespace telebip_erp.Forms.SubForms
             tbQEstoque.Location = new Point(8, 10);
             tbQEstoque.Margin = new Padding(3, 0, 10, 0);
             tbQEstoque.Name = "tbQEstoque";
+            tbQEstoque.Placeholder = "0";
+            tbQEstoque.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbQEstoque.Size = new Size(84, 16);
             tbQEstoque.TabIndex = 4;
             // 
@@ -304,6 +316,8 @@ namespace telebip_erp.Forms.SubForms
             tbQAviso.Location = new Point(8, 10);
             tbQAviso.Margin = new Padding(3, 0, 10, 0);
             tbQAviso.Name = "tbQAviso";
+            tbQAviso.Placeholder = "0";
+            tbQAviso.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbQAviso.Size = new Size(84, 16);
             tbQAviso.TabIndex = 5;
             // 
@@ -337,11 +351,13 @@ namespace telebip_erp.Forms.SubForms
             tbObservacao.BorderStyle = BorderStyle.None;
             tbObservacao.Font = new Font("Segoe UI", 9F);
             tbObservacao.ForeColor = Color.White;
-            tbObservacao.Location = new Point(8, 10);
+            tbObservacao.Location = new Point(8, 12);
             tbObservacao.Margin = new Padding(3, 0, 10, 0);
             tbObservacao.Multiline = true;
             tbObservacao.Name = "tbObservacao";
-            tbObservacao.Size = new Size(572, 24);
+            tbObservacao.Placeholder = "Ex: Em Estoque";
+            tbObservacao.PlaceholderColor = Color.FromArgb(160, 160, 160);
+            tbObservacao.Size = new Size(572, 16);
             tbObservacao.TabIndex = 6;
             // 
             // lblObservacao
@@ -465,6 +481,16 @@ namespace telebip_erp.Forms.SubForms
             lblTitulo.Text = "Adicionar ao Estoque";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(565, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(10, 10);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 162;
+            pictureBox1.TabStop = false;
+            // 
             // FormAddEstoque
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -495,6 +521,7 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperObservacao.ResumeLayout(false);
             pnlWrapperObservacao.PerformLayout();
             pnlHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -520,22 +547,22 @@ namespace telebip_erp.Forms.SubForms
         public Controls.NeoFlatComboBox cbFuncionarios;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperNome;
-        public TextBox tbNome;
+        public telebip_erp.Controls.PlaceholderTextBox tbNome;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperMarca;
-        public TextBox tbMarca;
+        public telebip_erp.Controls.PlaceholderTextBox tbMarca;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperPreco;
-        public TextBox tbPreco;
+        public telebip_erp.Controls.PlaceholderTextBox tbPreco;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperQEstoque;
-        public TextBox tbQEstoque;
+        public telebip_erp.Controls.PlaceholderTextBox tbQEstoque;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperQAviso;
-        public TextBox tbQAviso;
+        public telebip_erp.Controls.PlaceholderTextBox tbQAviso;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperObservacao;
-        public TextBox tbObservacao;
+        public telebip_erp.Controls.PlaceholderTextBox tbObservacao;
 
         private Label lblFuncionario;
         private Label lblNome;
@@ -551,5 +578,6 @@ namespace telebip_erp.Forms.SubForms
 
         private Panel pnlHeader;
         private Label lblTitulo;
+        private PictureBox pictureBox1;
     }
 }

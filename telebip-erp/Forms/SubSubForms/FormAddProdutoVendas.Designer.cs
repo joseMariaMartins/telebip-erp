@@ -26,18 +26,15 @@ namespace telebip_erp.Forms.SubSubForms
             btnPesquisarMini = new cuiButton();
             pnlWrapperPesquisa = new RoundedPanel();
             picSearch = new PictureBox();
-            tbPesquisaMini = new TextBox();
+            tbPesquisaMini = new PlaceholderTextBox();
             pnlWrapperCondicao = new RoundedPanel();
-            cbCondicaoMini = new ComboBox();
+            cbCondicaoMini = new NeoFlatComboBox();
             pnlWrapperCampo = new RoundedPanel();
-            panel4 = new Panel();
             pictureBox1 = new PictureBox();
-            panel3 = new Panel();
-            panel2 = new Panel();
-            panel1 = new Panel();
-            cbPesquisaCampoMini = new ComboBox();
+            cbPesquisaCampoMini = new NeoFlatComboBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
+            pictureBox2 = new PictureBox();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProdutosMini).BeginInit();
@@ -48,6 +45,7 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperCampo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // pnlContainer
@@ -194,7 +192,7 @@ namespace telebip_erp.Forms.SubSubForms
             btnPesquisarMini.ImageAutoCenter = true;
             btnPesquisarMini.ImageExpand = new Point(0, 0);
             btnPesquisarMini.ImageOffset = new Point(0, 0);
-            btnPesquisarMini.Location = new Point(617, 12);
+            btnPesquisarMini.Location = new Point(614, 12);
             btnPesquisarMini.Margin = new Padding(3, 0, 10, 0);
             btnPesquisarMini.Name = "btnPesquisarMini";
             btnPesquisarMini.NormalBackground = Color.FromArgb(40, 120, 80);
@@ -248,7 +246,8 @@ namespace telebip_erp.Forms.SubSubForms
             tbPesquisaMini.Location = new Point(8, 10);
             tbPesquisaMini.Margin = new Padding(3, 0, 10, 0);
             tbPesquisaMini.Name = "tbPesquisaMini";
-            tbPesquisaMini.PlaceholderText = "Digite para pesquisar...";
+            tbPesquisaMini.Placeholder = "Digite para pesquisar...";
+            tbPesquisaMini.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbPesquisaMini.Size = new Size(196, 16);
             tbPesquisaMini.TabIndex = 19;
             // 
@@ -257,6 +256,7 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperCondicao.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCondicao.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperCondicao.BorderThickness = 1;
+            pnlWrapperCondicao.Controls.Add(pictureBox2);
             pnlWrapperCondicao.Controls.Add(cbCondicaoMini);
             pnlWrapperCondicao.CornerRadius = 8;
             pnlWrapperCondicao.FillColor = Color.FromArgb(40, 41, 52);
@@ -268,18 +268,23 @@ namespace telebip_erp.Forms.SubSubForms
             // 
             // cbCondicaoMini
             // 
+            cbCondicaoMini.AutoSelectFirst = false;
             cbCondicaoMini.BackColor = Color.FromArgb(40, 41, 52);
             cbCondicaoMini.DrawMode = DrawMode.OwnerDrawFixed;
             cbCondicaoMini.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCondicaoMini.FlatStyle = FlatStyle.Flat;
-            cbCondicaoMini.Font = new Font("Segoe UI", 9F);
+            cbCondicaoMini.Font = new Font("Segoe UI", 8F);
             cbCondicaoMini.ForeColor = Color.White;
             cbCondicaoMini.FormattingEnabled = true;
+            cbCondicaoMini.ItemEntryHeight = 30;
+            cbCondicaoMini.ItemHeight = 13;
             cbCondicaoMini.Items.AddRange(new object[] { "Identico a", "Inicia com", "Contendo", "Diferente de" });
-            cbCondicaoMini.Location = new Point(8, 6);
+            cbCondicaoMini.Location = new Point(8, 9);
             cbCondicaoMini.Margin = new Padding(3, 0, 10, 0);
             cbCondicaoMini.Name = "cbCondicaoMini";
-            cbCondicaoMini.Size = new Size(144, 24);
+            cbCondicaoMini.Placeholder = "Selecione...";
+            cbCondicaoMini.ShowPlaceholder = true;
+            cbCondicaoMini.Size = new Size(144, 19);
             cbCondicaoMini.TabIndex = 18;
             // 
             // pnlWrapperCampo
@@ -287,11 +292,7 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperCampo.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCampo.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperCampo.BorderThickness = 1;
-            pnlWrapperCampo.Controls.Add(panel4);
             pnlWrapperCampo.Controls.Add(pictureBox1);
-            pnlWrapperCampo.Controls.Add(panel3);
-            pnlWrapperCampo.Controls.Add(panel2);
-            pnlWrapperCampo.Controls.Add(panel1);
             pnlWrapperCampo.Controls.Add(cbPesquisaCampoMini);
             pnlWrapperCampo.CornerRadius = 8;
             pnlWrapperCampo.FillColor = Color.FromArgb(40, 41, 52);
@@ -301,58 +302,35 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperCampo.Size = new Size(160, 36);
             pnlWrapperCampo.TabIndex = 17;
             // 
-            // panel4
-            // 
-            panel4.Location = new Point(146, 7);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(6, 18);
-            panel4.TabIndex = 22;
-            // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(131, 11);
+            pictureBox1.Location = new Point(138, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(15, 12);
+            pictureBox1.Size = new Size(10, 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 21;
             pictureBox1.TabStop = false;
             // 
-            // panel3
-            // 
-            panel3.Location = new Point(8, 4);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(6, 24);
-            panel3.TabIndex = 20;
-            // 
-            // panel2
-            // 
-            panel2.Location = new Point(8, 4);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(144, 8);
-            panel2.TabIndex = 19;
-            // 
-            // panel1
-            // 
-            panel1.Location = new Point(8, 23);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(144, 8);
-            panel1.TabIndex = 18;
-            // 
             // cbPesquisaCampoMini
             // 
+            cbPesquisaCampoMini.AutoSelectFirst = false;
             cbPesquisaCampoMini.BackColor = Color.FromArgb(40, 41, 52);
             cbPesquisaCampoMini.DrawMode = DrawMode.OwnerDrawFixed;
             cbPesquisaCampoMini.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPesquisaCampoMini.FlatStyle = FlatStyle.Flat;
-            cbPesquisaCampoMini.Font = new Font("Segoe UI", 9F);
+            cbPesquisaCampoMini.Font = new Font("Segoe UI", 8F);
             cbPesquisaCampoMini.ForeColor = Color.White;
             cbPesquisaCampoMini.FormattingEnabled = true;
+            cbPesquisaCampoMini.ItemEntryHeight = 30;
+            cbPesquisaCampoMini.ItemHeight = 13;
             cbPesquisaCampoMini.Items.AddRange(new object[] { "ID", "Nome", "Marca", "Preço", "Qtd do estoque", "Qtd de aviso", "Observação" });
-            cbPesquisaCampoMini.Location = new Point(8, 6);
+            cbPesquisaCampoMini.Location = new Point(8, 8);
             cbPesquisaCampoMini.Margin = new Padding(3, 0, 10, 0);
             cbPesquisaCampoMini.Name = "cbPesquisaCampoMini";
-            cbPesquisaCampoMini.Size = new Size(144, 24);
+            cbPesquisaCampoMini.Placeholder = "Selecione...";
+            cbPesquisaCampoMini.ShowPlaceholder = true;
+            cbPesquisaCampoMini.Size = new Size(144, 19);
             cbPesquisaCampoMini.TabIndex = 17;
             // 
             // pnlHeader
@@ -377,6 +355,16 @@ namespace telebip_erp.Forms.SubSubForms
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Selecionar Produto";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(139, 12);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(10, 10);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 22;
+            pictureBox2.TabStop = false;
             // 
             // FormAddProdutoVendas
             // 
@@ -403,6 +391,7 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperCampo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 
@@ -423,18 +412,15 @@ namespace telebip_erp.Forms.SubSubForms
 
         // Wrappers and child controls (padrão FormEstoque)
         private RoundedPanel pnlWrapperCampo;
-        private ComboBox cbPesquisaCampoMini;
+        private telebip_erp.Controls.NeoFlatComboBox cbPesquisaCampoMini;
 
         private RoundedPanel pnlWrapperCondicao;
-        private ComboBox cbCondicaoMini;
+        private telebip_erp.Controls.NeoFlatComboBox cbCondicaoMini;
 
         private RoundedPanel pnlWrapperPesquisa;
         private PictureBox picSearch;
-        public TextBox tbPesquisaMini;
-        private Panel panel4;
+        public PlaceholderTextBox tbPesquisaMini;
         private PictureBox pictureBox1;
-        private Panel panel3;
-        private Panel panel2;
-        private Panel panel1;
+        private PictureBox pictureBox2;
     }
 }

@@ -16,11 +16,11 @@ namespace telebip_erp.Forms.SubForms
             pnlContainer = new Panel();
             pnlMain = new Panel();
             roundedPanel4 = new telebip_erp.Controls.RoundedPanel();
-            tbPrecoProduto = new TextBox();
+            tbPrecoProduto = new telebip_erp.Controls.PlaceholderTextBox();
             roundedPanel3 = new telebip_erp.Controls.RoundedPanel();
-            tbDesconto = new TextBox();
+            tbDesconto = new telebip_erp.Controls.PlaceholderTextBox();
             roundedPanel2 = new telebip_erp.Controls.RoundedPanel();
-            tbQProduto = new TextBox();
+            tbQProduto = new telebip_erp.Controls.PlaceholderTextBox();
             label2 = new Label();
             label1 = new Label();
             lbValorSuper = new Label();
@@ -40,27 +40,18 @@ namespace telebip_erp.Forms.SubForms
             lblDataHora = new Label();
             pnlWrapperEstado = new telebip_erp.Controls.RoundedPanel();
             pictureBox2 = new PictureBox();
-            panel6 = new Panel();
-            panel5 = new Panel();
-            panel4 = new Panel();
-            cbEstado = new ComboBox();
+            cbEstado = new telebip_erp.Controls.NeoFlatComboBox();
             lblEstadoPagamento = new Label();
             pnlWrapperForma = new telebip_erp.Controls.RoundedPanel();
             pictureBox3 = new PictureBox();
-            panel9 = new Panel();
-            panel8 = new Panel();
-            panel7 = new Panel();
-            cbForma = new ComboBox();
+            cbForma = new telebip_erp.Controls.NeoFlatComboBox();
             lblFormaPagamento = new Label();
             pnlWrapperFuncionarios = new telebip_erp.Controls.RoundedPanel();
             pictureBox1 = new PictureBox();
-            panel3 = new Panel();
-            panel2 = new Panel();
-            panel1 = new Panel();
-            cbFuncionariosVenda = new ComboBox();
+            cbFuncionariosVenda = new telebip_erp.Controls.NeoFlatComboBox();
             lblFuncionario = new Label();
             roundedPanel1 = new telebip_erp.Controls.RoundedPanel();
-            tbNomeProduto = new TextBox();
+            tbNomeProduto = new telebip_erp.Controls.PlaceholderTextBox();
             btnMaisInformacao = new PictureBox();
             lblProduto = new Label();
             lblPreco = new Label();
@@ -161,6 +152,8 @@ namespace telebip_erp.Forms.SubForms
             tbPrecoProduto.Location = new Point(7, 11);
             tbPrecoProduto.MaxLength = 11;
             tbPrecoProduto.Name = "tbPrecoProduto";
+            tbPrecoProduto.Placeholder = "0,00";
+            tbPrecoProduto.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbPrecoProduto.Size = new Size(125, 16);
             tbPrecoProduto.TabIndex = 22;
             // 
@@ -187,6 +180,8 @@ namespace telebip_erp.Forms.SubForms
             tbDesconto.Location = new Point(7, 11);
             tbDesconto.MaxLength = 11;
             tbDesconto.Name = "tbDesconto";
+            tbDesconto.Placeholder = "0,00";
+            tbDesconto.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbDesconto.Size = new Size(130, 16);
             tbDesconto.TabIndex = 28;
             // 
@@ -213,6 +208,8 @@ namespace telebip_erp.Forms.SubForms
             tbQProduto.Location = new Point(11, 10);
             tbQProduto.MaxLength = 5;
             tbQProduto.Name = "tbQProduto";
+            tbQProduto.Placeholder = "0";
+            tbQProduto.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbQProduto.Size = new Size(160, 16);
             tbQProduto.TabIndex = 23;
             // 
@@ -455,9 +452,6 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperEstado.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperEstado.BorderThickness = 1;
             pnlWrapperEstado.Controls.Add(pictureBox2);
-            pnlWrapperEstado.Controls.Add(panel6);
-            pnlWrapperEstado.Controls.Add(panel5);
-            pnlWrapperEstado.Controls.Add(panel4);
             pnlWrapperEstado.Controls.Add(cbEstado);
             pnlWrapperEstado.CornerRadius = 8;
             pnlWrapperEstado.FillColor = Color.FromArgb(40, 41, 52);
@@ -469,44 +463,33 @@ namespace telebip_erp.Forms.SubForms
             // 
             // pictureBox2
             // 
-            pictureBox2.Location = new Point(94, 9);
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(103, 12);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(20, 15);
+            pictureBox2.Size = new Size(10, 10);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 225;
             pictureBox2.TabStop = false;
             // 
-            // panel6
-            // 
-            panel6.Location = new Point(8, 6);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(4, 23);
-            panel6.TabIndex = 224;
-            // 
-            // panel5
-            // 
-            panel5.Location = new Point(8, 24);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(106, 6);
-            panel5.TabIndex = 223;
-            // 
-            // panel4
-            // 
-            panel4.Location = new Point(8, 3);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(106, 6);
-            panel4.TabIndex = 222;
-            // 
             // cbEstado
             // 
+            cbEstado.AutoSelectFirst = false;
             cbEstado.BackColor = Color.FromArgb(40, 41, 52);
+            cbEstado.DrawMode = DrawMode.OwnerDrawFixed;
             cbEstado.DropDownStyle = ComboBoxStyle.DropDownList;
             cbEstado.FlatStyle = FlatStyle.Flat;
-            cbEstado.Font = new Font("Segoe UI", 9F);
+            cbEstado.Font = new Font("Segoe UI", 8F);
             cbEstado.ForeColor = Color.White;
+            cbEstado.FormattingEnabled = true;
+            cbEstado.ItemEntryHeight = 30;
+            cbEstado.ItemHeight = 13;
             cbEstado.Items.AddRange(new object[] { "PAGO ", "PENDENTE" });
-            cbEstado.Location = new Point(8, 6);
+            cbEstado.Location = new Point(8, 8);
+            cbEstado.Margin = new Padding(0);
             cbEstado.Name = "cbEstado";
-            cbEstado.Size = new Size(106, 23);
+            cbEstado.Placeholder = "Selecione...";
+            cbEstado.ShowPlaceholder = true;
+            cbEstado.Size = new Size(106, 19);
             cbEstado.TabIndex = 221;
             // 
             // lblEstadoPagamento
@@ -525,9 +508,6 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperForma.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperForma.BorderThickness = 1;
             pnlWrapperForma.Controls.Add(pictureBox3);
-            pnlWrapperForma.Controls.Add(panel9);
-            pnlWrapperForma.Controls.Add(panel8);
-            pnlWrapperForma.Controls.Add(panel7);
             pnlWrapperForma.Controls.Add(cbForma);
             pnlWrapperForma.CornerRadius = 8;
             pnlWrapperForma.FillColor = Color.FromArgb(40, 41, 52);
@@ -539,44 +519,33 @@ namespace telebip_erp.Forms.SubForms
             // 
             // pictureBox3
             // 
-            pictureBox3.Location = new Point(98, 9);
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(105, 12);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(20, 15);
+            pictureBox3.Size = new Size(10, 10);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 215;
             pictureBox3.TabStop = false;
             // 
-            // panel9
-            // 
-            panel9.Location = new Point(8, 7);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(4, 19);
-            panel9.TabIndex = 214;
-            // 
-            // panel8
-            // 
-            panel8.Location = new Point(8, 24);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(110, 5);
-            panel8.TabIndex = 213;
-            // 
-            // panel7
-            // 
-            panel7.Location = new Point(8, 5);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(110, 6);
-            panel7.TabIndex = 212;
-            // 
             // cbForma
             // 
+            cbForma.AutoSelectFirst = false;
             cbForma.BackColor = Color.FromArgb(40, 41, 52);
+            cbForma.DrawMode = DrawMode.OwnerDrawFixed;
             cbForma.DropDownStyle = ComboBoxStyle.DropDownList;
             cbForma.FlatStyle = FlatStyle.Flat;
-            cbForma.Font = new Font("Segoe UI", 9F);
+            cbForma.Font = new Font("Segoe UI", 8F);
             cbForma.ForeColor = Color.White;
+            cbForma.FormattingEnabled = true;
+            cbForma.ItemEntryHeight = 30;
+            cbForma.ItemHeight = 13;
             cbForma.Items.AddRange(new object[] { "DINHEIRO", "CREDITO", "DEBITO", "PIX QR", "PIX", "AUSENTE" });
-            cbForma.Location = new Point(8, 6);
+            cbForma.Location = new Point(8, 8);
+            cbForma.Margin = new Padding(0);
             cbForma.Name = "cbForma";
-            cbForma.Size = new Size(110, 23);
+            cbForma.Placeholder = "Selecione...";
+            cbForma.ShowPlaceholder = true;
+            cbForma.Size = new Size(110, 19);
             cbForma.TabIndex = 211;
             // 
             // lblFormaPagamento
@@ -595,9 +564,6 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperFuncionarios.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperFuncionarios.BorderThickness = 1;
             pnlWrapperFuncionarios.Controls.Add(pictureBox1);
-            pnlWrapperFuncionarios.Controls.Add(panel3);
-            pnlWrapperFuncionarios.Controls.Add(panel2);
-            pnlWrapperFuncionarios.Controls.Add(panel1);
             pnlWrapperFuncionarios.Controls.Add(cbFuncionariosVenda);
             pnlWrapperFuncionarios.CornerRadius = 8;
             pnlWrapperFuncionarios.FillColor = Color.FromArgb(40, 41, 52);
@@ -609,43 +575,32 @@ namespace telebip_erp.Forms.SubForms
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(822, 9);
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(828, 11);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(22, 18);
+            pictureBox1.Size = new Size(10, 10);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 206;
             pictureBox1.TabStop = false;
             // 
-            // panel3
-            // 
-            panel3.Location = new Point(6, 5);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(5, 24);
-            panel3.TabIndex = 205;
-            // 
-            // panel2
-            // 
-            panel2.Location = new Point(6, 24);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(838, 6);
-            panel2.TabIndex = 204;
-            // 
-            // panel1
-            // 
-            panel1.Location = new Point(7, 5);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(837, 7);
-            panel1.TabIndex = 203;
-            // 
             // cbFuncionariosVenda
             // 
+            cbFuncionariosVenda.AutoSelectFirst = false;
             cbFuncionariosVenda.BackColor = Color.FromArgb(40, 41, 52);
+            cbFuncionariosVenda.DrawMode = DrawMode.OwnerDrawFixed;
             cbFuncionariosVenda.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFuncionariosVenda.FlatStyle = FlatStyle.Flat;
-            cbFuncionariosVenda.Font = new Font("Segoe UI", 9F);
+            cbFuncionariosVenda.Font = new Font("Segoe UI", 8F);
             cbFuncionariosVenda.ForeColor = Color.White;
+            cbFuncionariosVenda.FormattingEnabled = true;
+            cbFuncionariosVenda.ItemEntryHeight = 30;
+            cbFuncionariosVenda.ItemHeight = 13;
             cbFuncionariosVenda.Location = new Point(8, 6);
+            cbFuncionariosVenda.Margin = new Padding(0);
             cbFuncionariosVenda.Name = "cbFuncionariosVenda";
-            cbFuncionariosVenda.Size = new Size(836, 23);
+            cbFuncionariosVenda.Placeholder = "Selecione...";
+            cbFuncionariosVenda.ShowPlaceholder = true;
+            cbFuncionariosVenda.Size = new Size(836, 19);
             cbFuncionariosVenda.TabIndex = 202;
             // 
             // lblFuncionario
@@ -679,9 +634,11 @@ namespace telebip_erp.Forms.SubForms
             tbNomeProduto.BorderStyle = BorderStyle.None;
             tbNomeProduto.Font = new Font("Segoe UI", 9F);
             tbNomeProduto.ForeColor = Color.White;
-            tbNomeProduto.Location = new Point(8, 9);
+            tbNomeProduto.Location = new Point(8, 10);
             tbNomeProduto.MaxLength = 100;
             tbNomeProduto.Name = "tbNomeProduto";
+            tbNomeProduto.Placeholder = "Ex: Capinha";
+            tbNomeProduto.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbNomeProduto.Size = new Size(426, 16);
             tbNomeProduto.TabIndex = 21;
             // 
@@ -827,25 +784,25 @@ namespace telebip_erp.Forms.SubForms
 
         // Wrappers (rounded panels) for ComboBoxes and Date/MaskedBox
         private telebip_erp.Controls.RoundedPanel pnlWrapperFuncionarios;
-        public ComboBox cbFuncionariosVenda;
+        public telebip_erp.Controls.NeoFlatComboBox cbFuncionariosVenda;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperForma;
-        public ComboBox cbForma;
+        public telebip_erp.Controls.NeoFlatComboBox cbForma;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperEstado;
-        public ComboBox cbEstado;
+        public telebip_erp.Controls.NeoFlatComboBox cbEstado;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperData;
         public MaskedTextBox mkDataHora;
 
         // Product name rounded input
         private telebip_erp.Controls.RoundedPanel roundedPanel1;
-        public TextBox tbNomeProduto;
+        public telebip_erp.Controls.PlaceholderTextBox tbNomeProduto;
 
-        // Plain TextBoxes (borderless)
-        public TextBox tbPrecoProduto;
-        public TextBox tbQProduto;
-        public TextBox tbDesconto;
+        // Placeholder TextBoxes (borderless)
+        public telebip_erp.Controls.PlaceholderTextBox tbPrecoProduto;
+        public telebip_erp.Controls.PlaceholderTextBox tbQProduto;
+        public telebip_erp.Controls.PlaceholderTextBox tbDesconto;
 
         // Labels and misc
         private Label lblProduto;
@@ -859,17 +816,8 @@ namespace telebip_erp.Forms.SubForms
         private Controls.RoundedPanel roundedPanel2;
         private Controls.RoundedPanel roundedPanel4;
         private Controls.RoundedPanel roundedPanel3;
-        private Panel panel6;
-        private Panel panel5;
-        private Panel panel4;
         private PictureBox pictureBox1;
-        private Panel panel3;
-        private Panel panel2;
-        private Panel panel1;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
-        private Panel panel9;
-        private Panel panel8;
-        private Panel panel7;
     }
 }

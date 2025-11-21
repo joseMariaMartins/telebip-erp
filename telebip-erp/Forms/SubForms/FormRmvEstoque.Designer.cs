@@ -12,21 +12,19 @@ namespace telebip_erp.Forms.SubForms
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRmvEstoque));
             pnlContainer = new Panel();
             pnlMain = new Panel();
             pnlWrapperFuncionarios = new telebip_erp.Controls.RoundedPanel();
-            panelF_top = new Panel();
-            panelF_left = new Panel();
-            panelF_bottom = new Panel();
             picArrowFuncionarios = new PictureBox();
-            cbFuncionarios = new ComboBox();
+            cbFuncionarios = new telebip_erp.Controls.NeoFlatComboBox();
             lblFuncionario = new Label();
             lbQuantidadeAtual = new Label();
             cbExcluirProduto = new CheckBox();
             btnCancelar = new CuoreUI.Controls.cuiButton();
             btnConfirmar = new CuoreUI.Controls.cuiButton();
             pnlBgQuantidade = new telebip_erp.Controls.RoundedPanel();
-            tbQuantidadeRemover = new TextBox();
+            tbQuantidadeRemover = new telebip_erp.Controls.PlaceholderTextBox();
             lblQuantidade = new Label();
             lbNomeProduto = new Label();
             pnlHeader = new Panel();
@@ -74,9 +72,6 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperFuncionarios.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperFuncionarios.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperFuncionarios.BorderThickness = 1;
-            pnlWrapperFuncionarios.Controls.Add(panelF_top);
-            pnlWrapperFuncionarios.Controls.Add(panelF_left);
-            pnlWrapperFuncionarios.Controls.Add(panelF_bottom);
             pnlWrapperFuncionarios.Controls.Add(picArrowFuncionarios);
             pnlWrapperFuncionarios.Controls.Add(cbFuncionarios);
             pnlWrapperFuncionarios.CornerRadius = 8;
@@ -87,48 +82,35 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperFuncionarios.Size = new Size(391, 36);
             pnlWrapperFuncionarios.TabIndex = 9;
             // 
-            // panelF_top
-            // 
-            panelF_top.Location = new Point(5, 6);
-            panelF_top.Name = "panelF_top";
-            panelF_top.Size = new Size(377, 7);
-            panelF_top.TabIndex = 100;
-            // 
-            // panelF_left
-            // 
-            panelF_left.Location = new Point(6, 3);
-            panelF_left.Name = "panelF_left";
-            panelF_left.Size = new Size(4, 30);
-            panelF_left.TabIndex = 101;
-            // 
-            // panelF_bottom
-            // 
-            panelF_bottom.Location = new Point(6, 23);
-            panelF_bottom.Name = "panelF_bottom";
-            panelF_bottom.Size = new Size(376, 7);
-            panelF_bottom.TabIndex = 102;
-            // 
             // picArrowFuncionarios
             // 
             picArrowFuncionarios.BackColor = Color.Transparent;
-            picArrowFuncionarios.Location = new Point(364, 13);
+            picArrowFuncionarios.Image = (Image)resources.GetObject("picArrowFuncionarios.Image");
+            picArrowFuncionarios.Location = new Point(371, 13);
             picArrowFuncionarios.Name = "picArrowFuncionarios";
-            picArrowFuncionarios.Size = new Size(18, 10);
+            picArrowFuncionarios.Size = new Size(10, 10);
             picArrowFuncionarios.SizeMode = PictureBoxSizeMode.Zoom;
             picArrowFuncionarios.TabIndex = 103;
             picArrowFuncionarios.TabStop = false;
             // 
             // cbFuncionarios
             // 
+            cbFuncionarios.AutoSelectFirst = false;
             cbFuncionarios.BackColor = Color.FromArgb(40, 41, 52);
+            cbFuncionarios.DrawMode = DrawMode.OwnerDrawFixed;
             cbFuncionarios.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFuncionarios.FlatStyle = FlatStyle.Flat;
-            cbFuncionarios.Font = new Font("Segoe UI", 9F);
+            cbFuncionarios.Font = new Font("Segoe UI", 8F);
             cbFuncionarios.ForeColor = Color.White;
             cbFuncionarios.FormattingEnabled = true;
-            cbFuncionarios.Location = new Point(8, 6);
+            cbFuncionarios.ItemEntryHeight = 30;
+            cbFuncionarios.ItemHeight = 13;
+            cbFuncionarios.Location = new Point(8, 8);
+            cbFuncionarios.Margin = new Padding(0);
             cbFuncionarios.Name = "cbFuncionarios";
-            cbFuncionarios.Size = new Size(374, 23);
+            cbFuncionarios.Placeholder = "Selecione...";
+            cbFuncionarios.ShowPlaceholder = true;
+            cbFuncionarios.Size = new Size(374, 19);
             cbFuncionarios.TabIndex = 104;
             // 
             // lblFuncionario
@@ -160,7 +142,7 @@ namespace telebip_erp.Forms.SubForms
             cbExcluirProduto.ForeColor = Color.White;
             cbExcluirProduto.Location = new Point(33, 230);
             cbExcluirProduto.Name = "cbExcluirProduto";
-            cbExcluirProduto.Size = new Size(172, 19);
+            cbExcluirProduto.Size = new Size(171, 19);
             cbExcluirProduto.TabIndex = 5;
             cbExcluirProduto.Text = "Excluir produto do sistema?";
             cbExcluirProduto.UseVisualStyleBackColor = false;
@@ -265,12 +247,14 @@ namespace telebip_erp.Forms.SubForms
             tbQuantidadeRemover.Margin = new Padding(3, 0, 10, 0);
             tbQuantidadeRemover.MaxLength = 5;
             tbQuantidadeRemover.Name = "tbQuantidadeRemover";
+            tbQuantidadeRemover.Placeholder = "0";
+            tbQuantidadeRemover.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbQuantidadeRemover.Size = new Size(124, 16);
             tbQuantidadeRemover.TabIndex = 2;
-        // 
-        // lblQuantidade
-        // 
-        lblQuantidade.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            // 
+            // lblQuantidade
+            // 
+            lblQuantidade.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblQuantidade.ForeColor = Color.White;
             lblQuantidade.Location = new Point(33, 85);
             lblQuantidade.Name = "lblQuantidade";
@@ -345,15 +329,12 @@ namespace telebip_erp.Forms.SubForms
 
         // wrapper (rounded) apenas para ComboBox
         private telebip_erp.Controls.RoundedPanel pnlWrapperFuncionarios;
-        private Panel panelF_top;
-        private Panel panelF_left;
-        private Panel panelF_bottom;
         private PictureBox picArrowFuncionarios;
-        public ComboBox cbFuncionarios;
+        public telebip_erp.Controls.NeoFlatComboBox cbFuncionarios;
 
         // background (rounded) para TextBox
         private telebip_erp.Controls.RoundedPanel pnlBgQuantidade;
-        public TextBox tbQuantidadeRemover;
+        public telebip_erp.Controls.PlaceholderTextBox tbQuantidadeRemover;
 
         // CheckBox WinForms (leve)
         public CheckBox cbExcluirProduto;
