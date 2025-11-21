@@ -18,6 +18,10 @@ namespace telebip_erp.Forms.SubForms
             InitializeComponent();
             ThemeManager.ApplyDarkTheme();
 
+            cbFuncionarios.SelectedIndex = -1;
+            cbFuncionarios.Text = "";
+
+
             this.TopLevel = true;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;

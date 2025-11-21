@@ -18,6 +18,8 @@ namespace telebip_erp.Forms.Modules
         {
             InitializeComponent();
             ConfigurarFormulario();
+            cbPesquisaCampo.SelectedIndex = -1;
+            cbPesquisaCampo.Text = "";
         }
 
         #region Configuração Inicial do Formulário

@@ -6,6 +6,9 @@ namespace telebip_erp.Forms.SubForms
 {
     partial class FormAddEstoque
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         #region Windows Form Designer generated code
@@ -15,11 +18,7 @@ namespace telebip_erp.Forms.SubForms
             pnlContainer = new Panel();
             pnlMain = new Panel();
             pnlWrapperFuncionarios = new telebip_erp.Controls.RoundedPanel();
-            panelF1 = new Panel();
-            panelF2 = new Panel();
-            panelF3 = new Panel();
-            picArrowFuncionarios = new PictureBox();
-            cbFuncionarios = new ComboBox();
+            cbFuncionarios = new telebip_erp.Controls.NeoFlatComboBox();
             lblFuncionario = new Label();
             pnlWrapperNome = new telebip_erp.Controls.RoundedPanel();
             tbNome = new TextBox();
@@ -47,7 +46,6 @@ namespace telebip_erp.Forms.SubForms
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
             pnlWrapperFuncionarios.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picArrowFuncionarios).BeginInit();
             pnlWrapperNome.SuspendLayout();
             pnlWrapperMarca.SuspendLayout();
             pnlWrapperPreco.SuspendLayout();
@@ -100,10 +98,6 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperFuncionarios.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperFuncionarios.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperFuncionarios.BorderThickness = 1;
-            pnlWrapperFuncionarios.Controls.Add(panelF1);
-            pnlWrapperFuncionarios.Controls.Add(panelF2);
-            pnlWrapperFuncionarios.Controls.Add(panelF3);
-            pnlWrapperFuncionarios.Controls.Add(picArrowFuncionarios);
             pnlWrapperFuncionarios.Controls.Add(cbFuncionarios);
             pnlWrapperFuncionarios.CornerRadius = 8;
             pnlWrapperFuncionarios.FillColor = Color.FromArgb(40, 41, 52);
@@ -113,50 +107,25 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperFuncionarios.Size = new Size(588, 36);
             pnlWrapperFuncionarios.TabIndex = 100;
             // 
-            // panelF1
-            // 
-            panelF1.Location = new Point(5, 3);
-            panelF1.Name = "panelF1";
-            panelF1.Size = new Size(581, 10);
-            panelF1.TabIndex = 0;
-            // 
-            // panelF2
-            // 
-            panelF2.Location = new Point(6, 3);
-            panelF2.Name = "panelF2";
-            panelF2.Size = new Size(4, 30);
-            panelF2.TabIndex = 1;
-            // 
-            // panelF3
-            // 
-            panelF3.Location = new Point(6, 23);
-            panelF3.Name = "panelF3";
-            panelF3.Size = new Size(578, 7);
-            panelF3.TabIndex = 2;
-            // 
-            // picArrowFuncionarios
-            // 
-            picArrowFuncionarios.BackColor = Color.Transparent;
-            picArrowFuncionarios.Location = new Point(566, 9);
-            picArrowFuncionarios.Name = "picArrowFuncionarios";
-            picArrowFuncionarios.Size = new Size(18, 18);
-            picArrowFuncionarios.SizeMode = PictureBoxSizeMode.Zoom;
-            picArrowFuncionarios.TabIndex = 1;
-            picArrowFuncionarios.TabStop = false;
-            // 
             // cbFuncionarios
             // 
+            cbFuncionarios.AutoSelectFirst = false;
             cbFuncionarios.BackColor = Color.FromArgb(40, 41, 52);
+            cbFuncionarios.DrawMode = DrawMode.OwnerDrawFixed;
             cbFuncionarios.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFuncionarios.FlatStyle = FlatStyle.Flat;
-            cbFuncionarios.Font = new Font("Segoe UI", 9F);
+            cbFuncionarios.Font = new Font("Segoe UI", 8F);
             cbFuncionarios.ForeColor = Color.White;
             cbFuncionarios.FormattingEnabled = true;
-            cbFuncionarios.Location = new Point(8, 6);
-            cbFuncionarios.Margin = new Padding(3, 0, 10, 0);
+            cbFuncionarios.ItemEntryHeight = 30;
+            cbFuncionarios.ItemHeight = 13;
+            cbFuncionarios.Location = new Point(8, 9);
+            cbFuncionarios.Margin = new Padding(0);
             cbFuncionarios.Name = "cbFuncionarios";
-            cbFuncionarios.Size = new Size(576, 23);
-            cbFuncionarios.TabIndex = 101;
+            cbFuncionarios.Placeholder = "Selecione...";
+            cbFuncionarios.ShowPlaceholder = true;
+            cbFuncionarios.Size = new Size(573, 19);
+            cbFuncionarios.TabIndex = 161;
             // 
             // lblFuncionario
             // 
@@ -513,7 +482,6 @@ namespace telebip_erp.Forms.SubForms
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);
             pnlWrapperFuncionarios.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picArrowFuncionarios).EndInit();
             pnlWrapperNome.ResumeLayout(false);
             pnlWrapperNome.PerformLayout();
             pnlWrapperMarca.ResumeLayout(false);
@@ -532,15 +500,24 @@ namespace telebip_erp.Forms.SubForms
 
         #endregion
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         // Designer fields
         private Panel pnlContainer;
         private Panel pnlMain;
         private telebip_erp.Controls.RoundedPanel pnlWrapperFuncionarios;
-        private Panel panelF1;
-        private Panel panelF2;
-        private Panel panelF3;
-        private PictureBox picArrowFuncionarios;
-        public ComboBox cbFuncionarios;
+        public Controls.NeoFlatComboBox cbFuncionarios;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperNome;
         public TextBox tbNome;
