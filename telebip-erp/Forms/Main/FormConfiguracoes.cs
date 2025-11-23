@@ -1,44 +1,87 @@
-﻿using System.Diagnostics;
-using System.Text.RegularExpressions;
-using telebip_erp.Forms.SubForms;
-using System;
-using System.IO;
-using System.Windows.Forms;
+﻿using System;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using MaterialSkin.Controls;
 using telebip_erp.Forms.SubForms;
 using telebip_erp.Forms.Main;
-using telebip_erp.Forms.Modules;
-using MaterialSkin;
-using MaterialSkin.Controls;
 
 namespace telebip_erp.Forms.Modules
 {
-    public partial class FormConfiguracoes : MaterialForm
+    public partial class FormConfiguracoes : Form
     {
         private readonly string caminhoBanco = Path.Combine(Application.StartupPath, "Database", "TeleBipDB.db");
 
         private string ultimaPastaBackup = "";
         private string emailAtual = "";
 
+        // Cue banner (placeholder compatível Win32)
+        private const int EM_SETCUEBANNER = 0x1501;
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, string lParam);
+
         public FormConfiguracoes()
         {
             InitializeComponent();
 
+            // carregar settings iniciais (se existir)
             ultimaPastaBackup = ConfigHelper.GetSetting("UltimaPastaBackup") ?? "";
             emailAtual = ConfigHelper.GetSetting("EmailRecuperacao") ?? "";
 
             tbEmail.Text = emailAtual;
 
-            // Eventos
-            btnBackup.Click += BtnBackup_Click;
-            btnRestaurarBackup.Click += BtnRestaurarBackup_Click;
-            lbSuporte.Click += LbSuporte_Click;
-            tbEmail.KeyDown += TbEmail_KeyDown;
-            btnConfirmar.Click += BtnConfirmar_Click;
+            // Eventos: backup / restore
+            if (btnBackup != null) btnBackup.Click += BtnBackup_Click;
+            if (btnRestaurarBackup != null) btnRestaurarBackup.Click += BtnRestaurarBackup_Click;
 
-            btnGerente.Click += BtnGerente_Click;
-            btnFuncionario.Click += BtnFuncionario_Click;
+            // Suporte: label e link
+            if (lbSuporte != null) lbSuporte.Click += LbSuporte_Click;
+            if (lnkSuporte != null) lnkSuporte.LinkClicked += LnkSuporte_LinkClicked;
+
+            // Apenas o botão "Alterar e-mail de envio" fará a confirmação/salvamento
+            if (btnAlterarEmail != null) btnAlterarEmail.Click += BtnAlterarEmail_Click;
+
+            // Não amarramos btnConfirmar (você pediu pra remover a ideia do salvar)
+            // Alteração de senha
+            if (btnGerente != null) btnGerente.Click += BtnGerente_Click;
+            if (btnFuncionario != null) btnFuncionario.Click += BtnFuncionario_Click;
+
+            // Enter no campo de e-mail confirma também
+            if (tbEmail != null) tbEmail.KeyDown += TbEmail_KeyDown;
+
+            // Ao carregar, aplicar placeholder compatível
+            Load += FormConfiguracoes_Load;
+        }
+
+        private void FormConfiguracoes_Load(object sender, EventArgs e)
+        {
+            // aplica cue banner (placeholder) de fallback para .NET Framework/Win32
+            try
+            {
+                if (tbEmail != null)
+                    SetCueBanner(tbEmail, "seu-email@empresa.com");
+            }
+            catch
+            {
+                // ignore se não funcionar no runtime atual
+            }
+        }
+
+        private void SetCueBanner(TextBox tb, string cueText)
+        {
+            try
+            {
+                if (tb == null) return;
+                // wParam = 1 -> mostrar mesmo quando o controle tem foco (ajuste se preferir 0)
+                SendMessage(tb.Handle, EM_SETCUEBANNER, (IntPtr)1, cueText);
+            }
+            catch
+            {
+                // ambiente não suportado: silêncio
+            }
         }
 
         // ==========================
@@ -49,13 +92,15 @@ namespace telebip_erp.Forms.Modules
             if (string.IsNullOrWhiteSpace(email))
                 return false;
 
-            // Regex mais completa, aceita subdomínios e TLDs modernos
+            // Regex que aceita subdomínios e TLDs modernos
             string padrao = @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
             return Regex.IsMatch(email, padrao);
         }
 
         private void ConfirmarEmail()
         {
+            if (tbEmail == null) return;
+
             string novoEmail = tbEmail.Text.Trim();
 
             if (!EmailValido(novoEmail))
@@ -102,10 +147,18 @@ namespace telebip_erp.Forms.Modules
             }
             else
             {
+                // reverte texto visual para o atual salvo
                 tbEmail.Text = emailAtual;
             }
         }
 
+        // Handler ligado ao btnAlterarEmail no construtor
+        private void BtnAlterarEmail_Click(object sender, EventArgs e)
+        {
+            ConfirmarEmail();
+        }
+
+        // Permite confirmar com Enter no campo
         private void TbEmail_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -115,6 +168,7 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
+        // Se por algum motivo houver um btnConfirmar em outro branch, mantemos a compatibilidade (não ligado)
         private void BtnConfirmar_Click(object sender, EventArgs e)
         {
             ConfirmarEmail();
@@ -221,6 +275,16 @@ namespace telebip_erp.Forms.Modules
         // SUPORTE (ABRIR GMAIL)
         // ==========================
         private void LbSuporte_Click(object sender, EventArgs e)
+        {
+            OpenGmailSupportWindow();
+        }
+
+        private void LnkSuporte_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenGmailSupportWindow();
+        }
+
+        private void OpenGmailSupportWindow()
         {
             try
             {

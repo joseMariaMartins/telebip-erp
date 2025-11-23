@@ -1,4 +1,5 @@
-﻿using System;
+﻿// FormConfiguracoes.Designer.cs (corrigido para compatibilidade)
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -26,8 +27,11 @@ namespace telebip_erp.Forms.Modules
         private TextBox tbEmail;
         private Label lblEmailHelp;
         private Label lblExemplos;
+        private telebip_erp.Controls.RoundedPanel roundedPanel1;
+        private cuiButton btnAlterarEmail;
 
         private GroupBox grpSenha;
+        private TableLayoutPanel tableLayoutPanel1;
         private cuiButton btnGerente;
         private cuiButton btnFuncionario;
 
@@ -36,10 +40,9 @@ namespace telebip_erp.Forms.Modules
         private Label lblBackupTitle;
         private Label lbUltimoBackup;
         private Label lbPastaBackup;
+        private TableLayoutPanel tableLayoutPanel2;
         private cuiButton btnBackup;
         private cuiButton btnRestaurarBackup;
-
-        private cuiButton btnConfirmar;
 
         private Label lbSuporte;
         private LinkLabel lnkSuporte;
@@ -57,8 +60,12 @@ namespace telebip_erp.Forms.Modules
             tblMain = new TableLayoutPanel();
             pnlLeft = new Panel();
             grpEmail = new GroupBox();
-            lblEmail = new Label();
+            btnAlterarEmail = new cuiButton();
+            roundedPanel1 = new telebip_erp.Controls.RoundedPanel();
             tbEmail = new TextBox();
+            lblEmail = new Label();
+            lbSuporte = new Label();
+            lnkSuporte = new LinkLabel();
             lblEmailHelp = new Label();
             lblExemplos = new Label();
             grpSenha = new GroupBox();
@@ -73,15 +80,13 @@ namespace telebip_erp.Forms.Modules
             lblBackupTitle = new Label();
             lbUltimoBackup = new Label();
             lbPastaBackup = new Label();
-            lbSuporte = new Label();
-            lnkSuporte = new LinkLabel();
-            btnConfirmar = new cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             pnlRoot.SuspendLayout();
             tblMain.SuspendLayout();
             pnlLeft.SuspendLayout();
             grpEmail.SuspendLayout();
+            roundedPanel1.SuspendLayout();
             grpSenha.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             pnlRight.SuspendLayout();
@@ -133,20 +138,84 @@ namespace telebip_erp.Forms.Modules
             // grpEmail
             // 
             grpEmail.BackColor = Color.FromArgb(28, 29, 40);
+            grpEmail.Controls.Add(btnAlterarEmail);
+            grpEmail.Controls.Add(roundedPanel1);
             grpEmail.Controls.Add(lblEmail);
             grpEmail.Controls.Add(lbSuporte);
-            grpEmail.Controls.Add(tbEmail);
             grpEmail.Controls.Add(lnkSuporte);
             grpEmail.Controls.Add(lblEmailHelp);
             grpEmail.Controls.Add(lblExemplos);
             grpEmail.Dock = DockStyle.Top;
             grpEmail.ForeColor = Color.White;
-            grpEmail.Location = new Point(8, 128);
+            grpEmail.Location = new Point(8, 118);
             grpEmail.Name = "grpEmail";
-            grpEmail.Size = new Size(839, 198);
+            grpEmail.Size = new Size(839, 280);
             grpEmail.TabIndex = 0;
             grpEmail.TabStop = false;
             grpEmail.Text = "Configuração de E-mail";
+            // 
+            // btnAlterarEmail
+            // 
+            btnAlterarEmail.CheckButton = false;
+            btnAlterarEmail.Checked = false;
+            btnAlterarEmail.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnAlterarEmail.CheckedForeColor = Color.White;
+            btnAlterarEmail.CheckedImageTint = Color.White;
+            btnAlterarEmail.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnAlterarEmail.Content = "Alterar e-mail de envio";
+            btnAlterarEmail.DialogResult = DialogResult.None;
+            btnAlterarEmail.Font = new Font("Segoe UI", 9F);
+            btnAlterarEmail.ForeColor = Color.White;
+            btnAlterarEmail.HoverBackground = Color.White;
+            btnAlterarEmail.HoverForeColor = Color.Black;
+            btnAlterarEmail.HoverImageTint = Color.White;
+            btnAlterarEmail.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnAlterarEmail.Image = null;
+            btnAlterarEmail.ImageAutoCenter = true;
+            btnAlterarEmail.ImageExpand = new Point(0, 0);
+            btnAlterarEmail.ImageOffset = new Point(0, 0);
+            btnAlterarEmail.Location = new Point(12, 120);
+            btnAlterarEmail.Margin = new Padding(8, 6, 6, 6);
+            btnAlterarEmail.Name = "btnAlterarEmail";
+            btnAlterarEmail.NormalBackground = Color.FromArgb(40, 120, 80);
+            btnAlterarEmail.NormalForeColor = Color.White;
+            btnAlterarEmail.NormalImageTint = Color.White;
+            btnAlterarEmail.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnAlterarEmail.OutlineThickness = 1F;
+            btnAlterarEmail.PressedBackground = Color.WhiteSmoke;
+            btnAlterarEmail.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnAlterarEmail.PressedImageTint = Color.White;
+            btnAlterarEmail.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnAlterarEmail.Rounding = new Padding(6);
+            btnAlterarEmail.Size = new Size(181, 40);
+            btnAlterarEmail.TabIndex = 5;
+            btnAlterarEmail.TextAlignment = StringAlignment.Center;
+            btnAlterarEmail.TextOffset = new Point(0, 0);
+            // 
+            // roundedPanel1
+            // 
+            roundedPanel1.BackColor = Color.FromArgb(40, 41, 52);
+            roundedPanel1.BorderColor = Color.FromArgb(60, 62, 80);
+            roundedPanel1.BorderThickness = 1;
+            roundedPanel1.Controls.Add(tbEmail);
+            roundedPanel1.CornerRadius = 8;
+            roundedPanel1.FillColor = Color.FromArgb(40, 41, 52);
+            roundedPanel1.Location = new Point(12, 48);
+            roundedPanel1.Name = "roundedPanel1";
+            roundedPanel1.Padding = new Padding(10, 6, 10, 6);
+            roundedPanel1.Size = new Size(540, 40);
+            roundedPanel1.TabIndex = 4;
+            // 
+            // tbEmail
+            // 
+            tbEmail.BackColor = Color.FromArgb(40, 41, 52);
+            tbEmail.BorderStyle = BorderStyle.None;
+            tbEmail.ForeColor = Color.White;
+            tbEmail.Location = new Point(10, 12);
+            tbEmail.Margin = new Padding(0);
+            tbEmail.Name = "tbEmail";
+            tbEmail.Size = new Size(520, 16);
+            tbEmail.TabIndex = 1;
             // 
             // lblEmail
             // 
@@ -154,39 +223,48 @@ namespace telebip_erp.Forms.Modules
             lblEmail.ForeColor = Color.WhiteSmoke;
             lblEmail.Location = new Point(12, 22);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(100, 23);
+            lblEmail.Size = new Size(240, 23);
             lblEmail.TabIndex = 0;
             lblEmail.Text = "E-mail de envio (SMTP)";
             // 
-            // tbEmail
+            // lbSuporte
             // 
-            tbEmail.BackColor = Color.FromArgb(40, 41, 52);
-            tbEmail.BorderStyle = BorderStyle.FixedSingle;
-            tbEmail.ForeColor = Color.White;
-            tbEmail.Location = new Point(12, 45);
-            tbEmail.Name = "tbEmail";
-            tbEmail.Size = new Size(400, 23);
-            tbEmail.TabIndex = 1;
+            lbSuporte.ForeColor = Color.Gainsboro;
+            lbSuporte.Location = new Point(12, 250);
+            lbSuporte.Name = "lbSuporte";
+            lbSuporte.Size = new Size(60, 23);
+            lbSuporte.TabIndex = 8;
+            lbSuporte.Text = "Suporte:";
+            // 
+            // lnkSuporte
+            // 
+            lnkSuporte.LinkColor = Color.LightSkyBlue;
+            lnkSuporte.Location = new Point(70, 250);
+            lnkSuporte.Name = "lnkSuporte";
+            lnkSuporte.Size = new Size(220, 23);
+            lnkSuporte.TabIndex = 9;
+            lnkSuporte.TabStop = true;
+            lnkSuporte.Text = "suporte@telebip.com";
             // 
             // lblEmailHelp
             // 
             lblEmailHelp.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
             lblEmailHelp.ForeColor = Color.LightGray;
-            lblEmailHelp.Location = new Point(12, 75);
+            lblEmailHelp.Location = new Point(12, 96);
             lblEmailHelp.Name = "lblEmailHelp";
-            lblEmailHelp.Size = new Size(400, 18);
-            lblEmailHelp.TabIndex = 2;
-            lblEmailHelp.Text = "E-mail usado para notificações e recuperação.";
+            lblEmailHelp.Size = new Size(560, 18);
+            lblEmailHelp.TabIndex = 6;
+            lblEmailHelp.Text = "E-mail usado para notificações e recuperação. Use um e-mail dedicado para envio.";
             // 
             // lblExemplos
             // 
             lblExemplos.Font = new Font("Segoe UI", 9F);
             lblExemplos.ForeColor = Color.Gainsboro;
-            lblExemplos.Location = new Point(12, 110);
+            lblExemplos.Location = new Point(12, 180);
             lblExemplos.Name = "lblExemplos";
-            lblExemplos.Size = new Size(400, 60);
-            lblExemplos.TabIndex = 3;
-            lblExemplos.Text = "Exemplos:\n• Gmail: usuario@gmail.com\n• Outlook: usuario@empresa.com\nDica: prefira um e-mail dedicado.";
+            lblExemplos.Size = new Size(560, 60);
+            lblExemplos.TabIndex = 7;
+            lblExemplos.Text = "Exemplos:\n• Gmail: usuario@gmail.com\n• Outlook/Empresa: usuario@empresa.com\nDica: dependendo do provedor, habilite 'app password' ou SMTP.";
             // 
             // grpSenha
             // 
@@ -196,7 +274,7 @@ namespace telebip_erp.Forms.Modules
             grpSenha.ForeColor = Color.White;
             grpSenha.Location = new Point(8, 8);
             grpSenha.Name = "grpSenha";
-            grpSenha.Size = new Size(839, 120);
+            grpSenha.Size = new Size(839, 110);
             grpSenha.TabIndex = 1;
             grpSenha.TabStop = false;
             grpSenha.Text = "Alteração de Senha";
@@ -211,10 +289,10 @@ namespace telebip_erp.Forms.Modules
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(3, 19);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.Padding = new Padding(6, 20, 6, 20);
+            tableLayoutPanel1.Padding = new Padding(6, 18, 6, 18);
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(833, 98);
+            tableLayoutPanel1.Size = new Size(833, 88);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // btnGerente
@@ -228,7 +306,7 @@ namespace telebip_erp.Forms.Modules
             btnGerente.Content = "Alterar senha (Gerente)";
             btnGerente.DialogResult = DialogResult.None;
             btnGerente.Dock = DockStyle.Fill;
-            btnGerente.Font = new Font("Microsoft Sans Serif", 9.75F);
+            btnGerente.Font = new Font("Segoe UI", 9F);
             btnGerente.ForeColor = Color.White;
             btnGerente.HoverBackground = Color.White;
             btnGerente.HoverForeColor = Color.Black;
@@ -238,8 +316,8 @@ namespace telebip_erp.Forms.Modules
             btnGerente.ImageAutoCenter = true;
             btnGerente.ImageExpand = new Point(0, 0);
             btnGerente.ImageOffset = new Point(0, 0);
-            btnGerente.Location = new Point(12, 26);
-            btnGerente.Margin = new Padding(6);
+            btnGerente.Location = new Point(9, 21);
+            btnGerente.Margin = new Padding(3, 3, 8, 3);
             btnGerente.Name = "btnGerente";
             btnGerente.NormalBackground = Color.FromArgb(40, 41, 52);
             btnGerente.NormalForeColor = Color.White;
@@ -251,8 +329,8 @@ namespace telebip_erp.Forms.Modules
             btnGerente.PressedImageTint = Color.White;
             btnGerente.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnGerente.Rounding = new Padding(6);
-            btnGerente.Size = new Size(398, 46);
-            btnGerente.TabIndex = 0;
+            btnGerente.Size = new Size(399, 46);
+            btnGerente.TabIndex = 10;
             btnGerente.TextAlignment = StringAlignment.Center;
             btnGerente.TextOffset = new Point(0, 0);
             // 
@@ -267,7 +345,7 @@ namespace telebip_erp.Forms.Modules
             btnFuncionario.Content = "Alterar senha (Funcionário)";
             btnFuncionario.DialogResult = DialogResult.None;
             btnFuncionario.Dock = DockStyle.Fill;
-            btnFuncionario.Font = new Font("Microsoft Sans Serif", 9.75F);
+            btnFuncionario.Font = new Font("Segoe UI", 9F);
             btnFuncionario.ForeColor = Color.White;
             btnFuncionario.HoverBackground = Color.White;
             btnFuncionario.HoverForeColor = Color.Black;
@@ -277,22 +355,21 @@ namespace telebip_erp.Forms.Modules
             btnFuncionario.ImageAutoCenter = true;
             btnFuncionario.ImageExpand = new Point(0, 0);
             btnFuncionario.ImageOffset = new Point(0, 0);
-            btnFuncionario.Location = new Point(422, 26);
-            btnFuncionario.Margin = new Padding(6);
+            btnFuncionario.Location = new Point(424, 21);
+            btnFuncionario.Margin = new Padding(8, 3, 3, 3);
             btnFuncionario.Name = "btnFuncionario";
             btnFuncionario.NormalBackground = Color.FromArgb(40, 41, 52);
             btnFuncionario.NormalForeColor = Color.White;
             btnFuncionario.NormalImageTint = Color.White;
             btnFuncionario.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnFuncionario.OutlineThickness = 1F;
-            btnFuncionario.Padding = new Padding(40);
             btnFuncionario.PressedBackground = Color.WhiteSmoke;
             btnFuncionario.PressedForeColor = Color.FromArgb(32, 32, 32);
             btnFuncionario.PressedImageTint = Color.White;
             btnFuncionario.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnFuncionario.Rounding = new Padding(6);
-            btnFuncionario.Size = new Size(399, 46);
-            btnFuncionario.TabIndex = 1;
+            btnFuncionario.Size = new Size(400, 46);
+            btnFuncionario.TabIndex = 11;
             btnFuncionario.TextAlignment = StringAlignment.Center;
             btnFuncionario.TextOffset = new Point(0, 0);
             // 
@@ -300,7 +377,6 @@ namespace telebip_erp.Forms.Modules
             // 
             pnlRight.BackColor = Color.FromArgb(28, 29, 40);
             pnlRight.Controls.Add(grpBackup);
-            pnlRight.Controls.Add(btnConfirmar);
             pnlRight.Dock = DockStyle.Fill;
             pnlRight.Location = new Point(872, 11);
             pnlRight.Name = "pnlRight";
@@ -319,7 +395,7 @@ namespace telebip_erp.Forms.Modules
             grpBackup.ForeColor = Color.White;
             grpBackup.Location = new Point(8, 8);
             grpBackup.Name = "grpBackup";
-            grpBackup.Size = new Size(442, 165);
+            grpBackup.Size = new Size(442, 170);
             grpBackup.TabIndex = 0;
             grpBackup.TabStop = false;
             grpBackup.Text = "Backup & Restauração";
@@ -332,7 +408,7 @@ namespace telebip_erp.Forms.Modules
             tableLayoutPanel2.Controls.Add(btnBackup, 0, 0);
             tableLayoutPanel2.Controls.Add(btnRestaurarBackup, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Bottom;
-            tableLayoutPanel2.Location = new Point(3, 96);
+            tableLayoutPanel2.Location = new Point(3, 101);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.Padding = new Padding(0, 8, 0, 3);
             tableLayoutPanel2.RowCount = 1;
@@ -351,7 +427,7 @@ namespace telebip_erp.Forms.Modules
             btnBackup.Content = "Fazer Backup";
             btnBackup.DialogResult = DialogResult.None;
             btnBackup.Dock = DockStyle.Fill;
-            btnBackup.Font = new Font("Microsoft Sans Serif", 9.75F);
+            btnBackup.Font = new Font("Segoe UI", 9F);
             btnBackup.ForeColor = Color.White;
             btnBackup.HoverBackground = Color.White;
             btnBackup.HoverForeColor = Color.Black;
@@ -361,8 +437,7 @@ namespace telebip_erp.Forms.Modules
             btnBackup.ImageAutoCenter = true;
             btnBackup.ImageExpand = new Point(0, 0);
             btnBackup.ImageOffset = new Point(0, 0);
-            btnBackup.Location = new Point(6, 14);
-            btnBackup.Margin = new Padding(6);
+            btnBackup.Location = new Point(3, 11);
             btnBackup.Name = "btnBackup";
             btnBackup.NormalBackground = Color.FromArgb(40, 120, 80);
             btnBackup.NormalForeColor = Color.White;
@@ -374,8 +449,8 @@ namespace telebip_erp.Forms.Modules
             btnBackup.PressedImageTint = Color.White;
             btnBackup.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnBackup.Rounding = new Padding(6);
-            btnBackup.Size = new Size(206, 43);
-            btnBackup.TabIndex = 0;
+            btnBackup.Size = new Size(212, 49);
+            btnBackup.TabIndex = 12;
             btnBackup.TextAlignment = StringAlignment.Center;
             btnBackup.TextOffset = new Point(0, 0);
             // 
@@ -390,7 +465,7 @@ namespace telebip_erp.Forms.Modules
             btnRestaurarBackup.Content = "Restaurar Backup";
             btnRestaurarBackup.DialogResult = DialogResult.None;
             btnRestaurarBackup.Dock = DockStyle.Fill;
-            btnRestaurarBackup.Font = new Font("Microsoft Sans Serif", 9.75F);
+            btnRestaurarBackup.Font = new Font("Segoe UI", 9F);
             btnRestaurarBackup.ForeColor = Color.White;
             btnRestaurarBackup.HoverBackground = Color.White;
             btnRestaurarBackup.HoverForeColor = Color.Black;
@@ -400,8 +475,7 @@ namespace telebip_erp.Forms.Modules
             btnRestaurarBackup.ImageAutoCenter = true;
             btnRestaurarBackup.ImageExpand = new Point(0, 0);
             btnRestaurarBackup.ImageOffset = new Point(0, 0);
-            btnRestaurarBackup.Location = new Point(224, 14);
-            btnRestaurarBackup.Margin = new Padding(6);
+            btnRestaurarBackup.Location = new Point(221, 11);
             btnRestaurarBackup.Name = "btnRestaurarBackup";
             btnRestaurarBackup.NormalBackground = Color.FromArgb(200, 80, 50);
             btnRestaurarBackup.NormalForeColor = Color.White;
@@ -413,8 +487,8 @@ namespace telebip_erp.Forms.Modules
             btnRestaurarBackup.PressedImageTint = Color.White;
             btnRestaurarBackup.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnRestaurarBackup.Rounding = new Padding(6);
-            btnRestaurarBackup.Size = new Size(206, 43);
-            btnRestaurarBackup.TabIndex = 1;
+            btnRestaurarBackup.Size = new Size(212, 49);
+            btnRestaurarBackup.TabIndex = 13;
             btnRestaurarBackup.TextAlignment = StringAlignment.Center;
             btnRestaurarBackup.TextOffset = new Point(0, 0);
             // 
@@ -424,7 +498,7 @@ namespace telebip_erp.Forms.Modules
             lblBackupTitle.ForeColor = Color.White;
             lblBackupTitle.Location = new Point(12, 22);
             lblBackupTitle.Name = "lblBackupTitle";
-            lblBackupTitle.Size = new Size(100, 23);
+            lblBackupTitle.Size = new Size(300, 23);
             lblBackupTitle.TabIndex = 0;
             lblBackupTitle.Text = "Backup & Restauração";
             // 
@@ -433,75 +507,18 @@ namespace telebip_erp.Forms.Modules
             lbUltimoBackup.ForeColor = Color.Gainsboro;
             lbUltimoBackup.Location = new Point(12, 50);
             lbUltimoBackup.Name = "lbUltimoBackup";
-            lbUltimoBackup.Size = new Size(100, 23);
+            lbUltimoBackup.Size = new Size(420, 23);
             lbUltimoBackup.TabIndex = 1;
             lbUltimoBackup.Text = "Último backup: —";
             // 
             // lbPastaBackup
             // 
             lbPastaBackup.ForeColor = Color.Gainsboro;
-            lbPastaBackup.Location = new Point(12, 70);
+            lbPastaBackup.Location = new Point(12, 74);
             lbPastaBackup.Name = "lbPastaBackup";
-            lbPastaBackup.Size = new Size(100, 23);
+            lbPastaBackup.Size = new Size(420, 23);
             lbPastaBackup.TabIndex = 2;
             lbPastaBackup.Text = "Pasta padrão: —";
-            // 
-            // lbSuporte
-            // 
-            lbSuporte.ForeColor = Color.Gainsboro;
-            lbSuporte.Location = new Point(12, 172);
-            lbSuporte.Name = "lbSuporte";
-            lbSuporte.Size = new Size(53, 23);
-            lbSuporte.TabIndex = 1;
-            lbSuporte.Text = "Suporte:";
-            // 
-            // lnkSuporte
-            // 
-            lnkSuporte.LinkColor = Color.LightSkyBlue;
-            lnkSuporte.Location = new Point(62, 172);
-            lnkSuporte.Name = "lnkSuporte";
-            lnkSuporte.Size = new Size(125, 23);
-            lnkSuporte.TabIndex = 2;
-            lnkSuporte.TabStop = true;
-            lnkSuporte.Text = "suporte@telebip.com";
-            // 
-            // btnConfirmar
-            // 
-            btnConfirmar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnConfirmar.CheckButton = false;
-            btnConfirmar.Checked = false;
-            btnConfirmar.CheckedBackground = Color.FromArgb(255, 106, 0);
-            btnConfirmar.CheckedForeColor = Color.White;
-            btnConfirmar.CheckedImageTint = Color.White;
-            btnConfirmar.CheckedOutline = Color.FromArgb(255, 106, 0);
-            btnConfirmar.Content = "Salvar";
-            btnConfirmar.DialogResult = DialogResult.None;
-            btnConfirmar.Font = new Font("Microsoft Sans Serif", 9.75F);
-            btnConfirmar.ForeColor = Color.White;
-            btnConfirmar.HoverBackground = Color.White;
-            btnConfirmar.HoverForeColor = Color.Black;
-            btnConfirmar.HoverImageTint = Color.White;
-            btnConfirmar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
-            btnConfirmar.Image = null;
-            btnConfirmar.ImageAutoCenter = true;
-            btnConfirmar.ImageExpand = new Point(0, 0);
-            btnConfirmar.ImageOffset = new Point(0, 0);
-            btnConfirmar.Location = new Point(368, 999);
-            btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.NormalBackground = Color.FromArgb(40, 120, 80);
-            btnConfirmar.NormalForeColor = Color.White;
-            btnConfirmar.NormalImageTint = Color.White;
-            btnConfirmar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
-            btnConfirmar.OutlineThickness = 1F;
-            btnConfirmar.PressedBackground = Color.WhiteSmoke;
-            btnConfirmar.PressedForeColor = Color.FromArgb(32, 32, 32);
-            btnConfirmar.PressedImageTint = Color.White;
-            btnConfirmar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
-            btnConfirmar.Rounding = new Padding(6);
-            btnConfirmar.Size = new Size(160, 44);
-            btnConfirmar.TabIndex = 3;
-            btnConfirmar.TextAlignment = StringAlignment.Center;
-            btnConfirmar.TextOffset = new Point(0, 0);
             // 
             // pnlHeader
             // 
@@ -533,7 +550,7 @@ namespace telebip_erp.Forms.Modules
             Controls.Add(pnlRoot);
             Font = new Font("Segoe UI", 9F);
             ForeColor = Color.White;
-            FormStyle = FormStyles.StatusAndActionBar_None;
+            FormBorderStyle = FormBorderStyle.None;
             MinimumSize = new Size(900, 700);
             Name = "FormConfiguracoes";
             Padding = new Padding(3, 0, 3, 3);
@@ -542,7 +559,8 @@ namespace telebip_erp.Forms.Modules
             tblMain.ResumeLayout(false);
             pnlLeft.ResumeLayout(false);
             grpEmail.ResumeLayout(false);
-            grpEmail.PerformLayout();
+            roundedPanel1.ResumeLayout(false);
+            roundedPanel1.PerformLayout();
             grpSenha.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             pnlRight.ResumeLayout(false);
@@ -553,8 +571,5 @@ namespace telebip_erp.Forms.Modules
         }
 
         #endregion
-
-        private TableLayoutPanel tableLayoutPanel1;
-        private TableLayoutPanel tableLayoutPanel2;
     }
 }

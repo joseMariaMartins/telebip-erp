@@ -14,192 +14,335 @@ namespace telebip_erp.Forms.Modules
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFuncionarios));
             pnlContainer = new Panel();
-            pnlContent = new Panel();
-            pnlDetailsWrapper = new Panel();
-            pbUserProfile = new PictureBox();
-            pnlDetailsFields = new Panel();
-            lblTelefone = new Label();
-            lblEmail = new Label();
-            lblCargo = new Label();
-            lblNome = new Label();
-            flowButtons = new FlowLayoutPanel();
-            btnNovo = new CuoreUI.Controls.cuiButton();
-            btnEditar = new CuoreUI.Controls.cuiButton();
-            btnExcluir = new CuoreUI.Controls.cuiButton();
-            pnlMain = new Panel();
             pnlDgv = new Panel();
             dgvFuncionarios = new DataGridView();
+            pnlRight = new Panel();
+            pnlDetailsCard = new Panel();
+            tblCard = new TableLayoutPanel();
+            pnlCardHeader = new Panel();
+            lblCardCargo = new Label();
+            lblCardNome = new Label();
+            picCardAvatar = new PictureBox();
+            pnlCardDivider = new Panel();
+            tblInfo = new TableLayoutPanel();
+            lblCardNomeCompleto = new Label();
+            lblCardTelefone = new Label();
+            lblCardEmail = new Label();
+            flowCardButtons = new FlowLayoutPanel();
+            btnAdicionar = new CuoreUI.Controls.cuiButton();
+            btnEditar = new CuoreUI.Controls.cuiButton();
+            btnRemover = new CuoreUI.Controls.cuiButton();
+            pnlBottom = new Panel();
+            lbTotal = new Label();
+            flowFiltros = new FlowLayoutPanel();
+            pnlWrapperCargo = new telebip_erp.Controls.RoundedPanel();
+            PictureImage2 = new PictureBox();
+            cbFiltroCargo = new telebip_erp.Controls.NeoFlatComboBox();
+            pnlWrapperPesquisa = new telebip_erp.Controls.RoundedPanel();
+            picSearch = new PictureBox();
+            tbSearch = new TextBox();
+            btnPesquisar = new CuoreUI.Controls.cuiButton();
+            btnLimpar = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             pnlContainer.SuspendLayout();
-            pnlContent.SuspendLayout();
-            pnlDetailsWrapper.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pbUserProfile).BeginInit();
-            pnlDetailsFields.SuspendLayout();
-            flowButtons.SuspendLayout();
-            pnlMain.SuspendLayout();
             pnlDgv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvFuncionarios).BeginInit();
+            pnlRight.SuspendLayout();
+            pnlDetailsCard.SuspendLayout();
+            tblCard.SuspendLayout();
+            pnlCardHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picCardAvatar).BeginInit();
+            tblInfo.SuspendLayout();
+            flowCardButtons.SuspendLayout();
+            pnlBottom.SuspendLayout();
+            flowFiltros.SuspendLayout();
+            pnlWrapperCargo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PictureImage2).BeginInit();
+            pnlWrapperPesquisa.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picSearch).BeginInit();
             pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
             // pnlContainer
             // 
             pnlContainer.BackColor = Color.FromArgb(28, 29, 40);
-            pnlContainer.Controls.Add(pnlContent);
+            pnlContainer.Controls.Add(pnlDgv);
+            pnlContainer.Controls.Add(pnlBottom);
+            pnlContainer.Controls.Add(flowFiltros);
             pnlContainer.Controls.Add(pnlHeader);
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(0, 0);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Padding = new Padding(10);
             pnlContainer.Size = new Size(1467, 800);
             pnlContainer.TabIndex = 0;
             // 
-            // pnlContent
+            // pnlDgv
             // 
-            pnlContent.BackColor = Color.FromArgb(28, 29, 40);
-            pnlContent.Controls.Add(pnlDetailsWrapper);
-            pnlContent.Controls.Add(pnlMain);
-            pnlContent.Dock = DockStyle.Fill;
-            pnlContent.Location = new Point(10, 70);
-            pnlContent.Name = "pnlContent";
-            pnlContent.Padding = new Padding(12);
-            pnlContent.Size = new Size(1447, 720);
-            pnlContent.TabIndex = 0;
+            pnlDgv.BackColor = Color.FromArgb(28, 29, 40);
+            pnlDgv.Controls.Add(dgvFuncionarios);
+            pnlDgv.Controls.Add(pnlRight);
+            pnlDgv.Dock = DockStyle.Fill;
+            pnlDgv.Location = new Point(0, 130);
+            pnlDgv.Name = "pnlDgv";
+            pnlDgv.Padding = new Padding(15);
+            pnlDgv.Size = new Size(1467, 605);
+            pnlDgv.TabIndex = 4;
             // 
-            // pnlDetailsWrapper
+            // dgvFuncionarios
             // 
-            pnlDetailsWrapper.BackColor = Color.FromArgb(40, 41, 52);
-            pnlDetailsWrapper.Controls.Add(pbUserProfile);
-            pnlDetailsWrapper.Controls.Add(pnlDetailsFields);
-            pnlDetailsWrapper.Controls.Add(flowButtons);
-            pnlDetailsWrapper.Dock = DockStyle.Right;
-            pnlDetailsWrapper.Location = new Point(1135, 12);
-            pnlDetailsWrapper.MinimumSize = new Size(260, 0);
-            pnlDetailsWrapper.Name = "pnlDetailsWrapper";
-            pnlDetailsWrapper.Padding = new Padding(12);
-            pnlDetailsWrapper.Size = new Size(300, 696);
-            pnlDetailsWrapper.TabIndex = 0;
+            dgvFuncionarios.AllowUserToAddRows = false;
+            dgvFuncionarios.AllowUserToDeleteRows = false;
+            dgvFuncionarios.AllowUserToResizeRows = false;
+            dgvFuncionarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvFuncionarios.BackgroundColor = Color.FromArgb(32, 33, 39);
+            dgvFuncionarios.BorderStyle = BorderStyle.None;
+            dgvFuncionarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvFuncionarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.Padding = new Padding(8);
+            dgvFuncionarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvFuncionarios.ColumnHeadersHeight = 40;
+            dgvFuncionarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvFuncionarios.Dock = DockStyle.Fill;
+            dgvFuncionarios.EnableHeadersVisualStyles = false;
+            dgvFuncionarios.GridColor = Color.FromArgb(50, 52, 67);
+            dgvFuncionarios.Location = new Point(15, 15);
+            dgvFuncionarios.MultiSelect = false;
+            dgvFuncionarios.Name = "dgvFuncionarios";
+            dgvFuncionarios.ReadOnly = true;
+            dgvFuncionarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvFuncionarios.RowHeadersVisible = false;
+            dgvFuncionarios.RowTemplate.Height = 36;
+            dgvFuncionarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvFuncionarios.Size = new Size(1106, 575);
+            dgvFuncionarios.TabIndex = 0;
             // 
-            // pbUserProfile
+            // pnlRight
             // 
-            pbUserProfile.BackColor = Color.FromArgb(50, 52, 67);
-            pbUserProfile.Dock = DockStyle.Top;
-            pbUserProfile.Location = new Point(12, 12);
-            pbUserProfile.Margin = new Padding(0);
-            pbUserProfile.Name = "pbUserProfile";
-            pbUserProfile.Size = new Size(276, 260);
-            pbUserProfile.SizeMode = PictureBoxSizeMode.Zoom;
-            pbUserProfile.TabIndex = 0;
-            pbUserProfile.TabStop = false;
+            pnlRight.BackColor = Color.FromArgb(40, 41, 52);
+            pnlRight.Controls.Add(pnlDetailsCard);
+            pnlRight.Dock = DockStyle.Right;
+            pnlRight.Location = new Point(1121, 15);
+            pnlRight.Name = "pnlRight";
+            pnlRight.Padding = new Padding(12);
+            pnlRight.Size = new Size(331, 575);
+            pnlRight.TabIndex = 1;
             // 
-            // pnlDetailsFields
+            // pnlDetailsCard
             // 
-            pnlDetailsFields.Controls.Add(lblTelefone);
-            pnlDetailsFields.Controls.Add(lblEmail);
-            pnlDetailsFields.Controls.Add(lblCargo);
-            pnlDetailsFields.Controls.Add(lblNome);
-            pnlDetailsFields.Dock = DockStyle.Fill;
-            pnlDetailsFields.Location = new Point(12, 12);
-            pnlDetailsFields.Name = "pnlDetailsFields";
-            pnlDetailsFields.Padding = new Padding(8);
-            pnlDetailsFields.Size = new Size(276, 616);
-            pnlDetailsFields.TabIndex = 1;
+            pnlDetailsCard.BackColor = Color.FromArgb(40, 41, 52);
+            pnlDetailsCard.Controls.Add(tblCard);
+            pnlDetailsCard.Dock = DockStyle.Fill;
+            pnlDetailsCard.Location = new Point(12, 12);
+            pnlDetailsCard.Name = "pnlDetailsCard";
+            pnlDetailsCard.Padding = new Padding(8);
+            pnlDetailsCard.Size = new Size(307, 551);
+            pnlDetailsCard.TabIndex = 0;
             // 
-            // lblTelefone
+            // tblCard
             // 
-            lblTelefone.Dock = DockStyle.Top;
-            lblTelefone.Font = new Font("Segoe UI", 9F);
-            lblTelefone.ForeColor = Color.White;
-            lblTelefone.Location = new Point(8, 84);
-            lblTelefone.Name = "lblTelefone";
-            lblTelefone.Size = new Size(260, 20);
-            lblTelefone.TabIndex = 0;
-            lblTelefone.Text = "Telefone: Não Registrado";
+            tblCard.ColumnCount = 2;
+            tblCard.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblCard.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 84F));
+            tblCard.Controls.Add(pnlCardHeader, 0, 0);
+            tblCard.Controls.Add(picCardAvatar, 1, 0);
+            tblCard.Controls.Add(pnlCardDivider, 0, 1);
+            tblCard.Controls.Add(tblInfo, 0, 2);
+            tblCard.Controls.Add(flowCardButtons, 0, 3);
+            tblCard.Dock = DockStyle.Fill;
+            tblCard.Location = new Point(8, 8);
+            tblCard.Margin = new Padding(0);
+            tblCard.Name = "tblCard";
+            tblCard.RowCount = 4;
+            tblCard.RowStyles.Add(new RowStyle());
+            tblCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
+            tblCard.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tblCard.RowStyles.Add(new RowStyle());
+            tblCard.Size = new Size(291, 535);
+            tblCard.TabIndex = 0;
             // 
-            // lblEmail
+            // pnlCardHeader
             // 
-            lblEmail.Dock = DockStyle.Top;
-            lblEmail.Font = new Font("Segoe UI", 9F);
-            lblEmail.ForeColor = Color.White;
-            lblEmail.Location = new Point(8, 64);
-            lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(260, 20);
-            lblEmail.TabIndex = 1;
-            lblEmail.Text = "E-mail: exemplo@etc";
+            pnlCardHeader.AutoSize = true;
+            pnlCardHeader.Controls.Add(lblCardCargo);
+            pnlCardHeader.Controls.Add(lblCardNome);
+            pnlCardHeader.Dock = DockStyle.Fill;
+            pnlCardHeader.Location = new Point(0, 0);
+            pnlCardHeader.Margin = new Padding(0);
+            pnlCardHeader.Name = "pnlCardHeader";
+            pnlCardHeader.Padding = new Padding(0, 0, 8, 4);
+            pnlCardHeader.Size = new Size(207, 72);
+            pnlCardHeader.TabIndex = 0;
             // 
-            // lblCargo
+            // lblCardCargo
             // 
-            lblCargo.Dock = DockStyle.Top;
-            lblCargo.Font = new Font("Segoe UI", 10F);
-            lblCargo.ForeColor = Color.White;
-            lblCargo.Location = new Point(8, 40);
-            lblCargo.Name = "lblCargo";
-            lblCargo.Size = new Size(260, 24);
-            lblCargo.TabIndex = 2;
-            lblCargo.Text = "Cargo: Não Registrado";
+            lblCardCargo.AutoEllipsis = true;
+            lblCardCargo.AutoSize = true;
+            lblCardCargo.Dock = DockStyle.Top;
+            lblCardCargo.Font = new Font("Segoe UI", 8F);
+            lblCardCargo.ForeColor = Color.FromArgb(200, 200, 200);
+            lblCardCargo.Location = new Point(0, 15);
+            lblCardCargo.Margin = new Padding(0);
+            lblCardCargo.Name = "lblCardCargo";
+            lblCardCargo.Size = new Size(48, 13);
+            lblCardCargo.TabIndex = 1;
+            lblCardCargo.Text = "Cargo: -";
             // 
-            // lblNome
+            // lblCardNome
             // 
-            lblNome.Dock = DockStyle.Top;
-            lblNome.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            lblNome.ForeColor = Color.White;
-            lblNome.Location = new Point(8, 8);
-            lblNome.Name = "lblNome";
-            lblNome.Size = new Size(260, 32);
-            lblNome.TabIndex = 3;
-            lblNome.Text = "Nome: Não Registrado";
+            lblCardNome.AutoEllipsis = true;
+            lblCardNome.AutoSize = true;
+            lblCardNome.Dock = DockStyle.Top;
+            lblCardNome.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            lblCardNome.ForeColor = Color.White;
+            lblCardNome.Location = new Point(0, 0);
+            lblCardNome.Margin = new Padding(0, 0, 0, 4);
+            lblCardNome.Name = "lblCardNome";
+            lblCardNome.Size = new Size(188, 15);
+            lblCardNome.TabIndex = 0;
+            lblCardNome.Text = "Nome: (selecione um funcionário)";
             // 
-            // flowButtons
+            // picCardAvatar
             // 
-            flowButtons.Controls.Add(btnNovo);
-            flowButtons.Controls.Add(btnEditar);
-            flowButtons.Controls.Add(btnExcluir);
-            flowButtons.Dock = DockStyle.Bottom;
-            flowButtons.Location = new Point(12, 628);
-            flowButtons.Name = "flowButtons";
-            flowButtons.Padding = new Padding(8);
-            flowButtons.Size = new Size(276, 56);
-            flowButtons.TabIndex = 2;
-            flowButtons.WrapContents = false;
+            picCardAvatar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            picCardAvatar.BackColor = Color.Transparent;
+            picCardAvatar.Location = new Point(215, 0);
+            picCardAvatar.Margin = new Padding(8, 0, 0, 0);
+            picCardAvatar.Name = "picCardAvatar";
+            picCardAvatar.Size = new Size(76, 72);
+            picCardAvatar.SizeMode = PictureBoxSizeMode.Zoom;
+            picCardAvatar.TabIndex = 10;
+            picCardAvatar.TabStop = false;
             // 
-            // btnNovo
+            // pnlCardDivider
             // 
-            btnNovo.CheckButton = false;
-            btnNovo.Checked = false;
-            btnNovo.CheckedBackground = Color.FromArgb(255, 106, 0);
-            btnNovo.CheckedForeColor = Color.White;
-            btnNovo.CheckedImageTint = Color.White;
-            btnNovo.CheckedOutline = Color.FromArgb(255, 106, 0);
-            btnNovo.Content = "Novo";
-            btnNovo.DialogResult = DialogResult.None;
-            btnNovo.Font = new Font("Microsoft Sans Serif", 9.75F);
-            btnNovo.ForeColor = Color.Black;
-            btnNovo.HoverBackground = Color.White;
-            btnNovo.HoverForeColor = Color.Black;
-            btnNovo.HoverImageTint = Color.White;
-            btnNovo.HoverOutline = Color.FromArgb(32, 128, 128, 128);
-            btnNovo.Image = null;
-            btnNovo.ImageAutoCenter = true;
-            btnNovo.ImageExpand = new Point(0, 0);
-            btnNovo.ImageOffset = new Point(0, 0);
-            btnNovo.Location = new Point(11, 11);
-            btnNovo.Name = "btnNovo";
-            btnNovo.NormalBackground = Color.White;
-            btnNovo.NormalForeColor = Color.Black;
-            btnNovo.NormalImageTint = Color.White;
-            btnNovo.NormalOutline = Color.FromArgb(64, 128, 128, 128);
-            btnNovo.OutlineThickness = 1F;
-            btnNovo.PressedBackground = Color.WhiteSmoke;
-            btnNovo.PressedForeColor = Color.FromArgb(32, 32, 32);
-            btnNovo.PressedImageTint = Color.White;
-            btnNovo.PressedOutline = Color.FromArgb(64, 128, 128, 128);
-            btnNovo.Rounding = new Padding(8);
-            btnNovo.Size = new Size(88, 36);
-            btnNovo.TabIndex = 0;
-            btnNovo.TextAlignment = StringAlignment.Center;
-            btnNovo.TextOffset = new Point(0, 0);
+            pnlCardDivider.BackColor = Color.FromArgb(60, 62, 80);
+            tblCard.SetColumnSpan(pnlCardDivider, 2);
+            pnlCardDivider.Dock = DockStyle.Fill;
+            pnlCardDivider.Location = new Point(0, 78);
+            pnlCardDivider.Margin = new Padding(0, 6, 0, 6);
+            pnlCardDivider.Name = "pnlCardDivider";
+            pnlCardDivider.Size = new Size(291, 1);
+            pnlCardDivider.TabIndex = 11;
+            // 
+            // tblInfo
+            // 
+            tblInfo.ColumnCount = 1;
+            tblInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblInfo.Controls.Add(lblCardNomeCompleto, 0, 0);
+            tblInfo.Controls.Add(lblCardTelefone, 0, 1);
+            tblInfo.Controls.Add(lblCardEmail, 0, 2);
+            tblInfo.Dock = DockStyle.Fill;
+            tblInfo.Location = new Point(0, 80);
+            tblInfo.Margin = new Padding(0);
+            tblInfo.Name = "tblInfo";
+            tblInfo.RowCount = 3;
+            tblInfo.RowStyles.Add(new RowStyle());
+            tblInfo.RowStyles.Add(new RowStyle());
+            tblInfo.RowStyles.Add(new RowStyle());
+            tblInfo.Size = new Size(207, 407);
+            tblInfo.TabIndex = 12;
+            // 
+            // lblCardNomeCompleto
+            // 
+            lblCardNomeCompleto.AutoEllipsis = true;
+            lblCardNomeCompleto.AutoSize = true;
+            lblCardNomeCompleto.Font = new Font("Segoe UI", 9F);
+            lblCardNomeCompleto.ForeColor = Color.White;
+            lblCardNomeCompleto.Location = new Point(0, 0);
+            lblCardNomeCompleto.Margin = new Padding(0, 0, 0, 6);
+            lblCardNomeCompleto.Name = "lblCardNomeCompleto";
+            lblCardNomeCompleto.Size = new Size(105, 15);
+            lblCardNomeCompleto.TabIndex = 2;
+            lblCardNomeCompleto.Text = "Nome completo: -";
+            // 
+            // lblCardTelefone
+            // 
+            lblCardTelefone.AutoEllipsis = true;
+            lblCardTelefone.AutoSize = true;
+            lblCardTelefone.Font = new Font("Segoe UI", 9F);
+            lblCardTelefone.ForeColor = Color.White;
+            lblCardTelefone.Location = new Point(0, 21);
+            lblCardTelefone.Margin = new Padding(0, 0, 0, 6);
+            lblCardTelefone.Name = "lblCardTelefone";
+            lblCardTelefone.Size = new Size(63, 15);
+            lblCardTelefone.TabIndex = 3;
+            lblCardTelefone.Text = "Telefone: -";
+            // 
+            // lblCardEmail
+            // 
+            lblCardEmail.AutoEllipsis = true;
+            lblCardEmail.AutoSize = true;
+            lblCardEmail.Font = new Font("Segoe UI", 9F);
+            lblCardEmail.ForeColor = Color.White;
+            lblCardEmail.Location = new Point(0, 42);
+            lblCardEmail.Margin = new Padding(0, 0, 0, 6);
+            lblCardEmail.Name = "lblCardEmail";
+            lblCardEmail.Size = new Size(52, 15);
+            lblCardEmail.TabIndex = 4;
+            lblCardEmail.Text = "E-mail: -";
+            // 
+            // flowCardButtons
+            // 
+            flowCardButtons.AutoSize = true;
+            flowCardButtons.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tblCard.SetColumnSpan(flowCardButtons, 2);
+            flowCardButtons.Controls.Add(btnAdicionar);
+            flowCardButtons.Controls.Add(btnEditar);
+            flowCardButtons.Controls.Add(btnRemover);
+            flowCardButtons.Dock = DockStyle.Fill;
+            flowCardButtons.FlowDirection = FlowDirection.RightToLeft;
+            flowCardButtons.Location = new Point(0, 487);
+            flowCardButtons.Margin = new Padding(0);
+            flowCardButtons.Name = "flowCardButtons";
+            flowCardButtons.Padding = new Padding(0, 8, 0, 0);
+            flowCardButtons.Size = new Size(291, 48);
+            flowCardButtons.TabIndex = 13;
+            flowCardButtons.WrapContents = false;
+            // 
+            // btnAdicionar
+            // 
+            btnAdicionar.CheckButton = false;
+            btnAdicionar.Checked = false;
+            btnAdicionar.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnAdicionar.CheckedForeColor = Color.White;
+            btnAdicionar.CheckedImageTint = Color.White;
+            btnAdicionar.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnAdicionar.Content = "Adicionar";
+            btnAdicionar.DialogResult = DialogResult.None;
+            btnAdicionar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnAdicionar.ForeColor = Color.White;
+            btnAdicionar.HoverBackground = Color.White;
+            btnAdicionar.HoverForeColor = Color.Black;
+            btnAdicionar.HoverImageTint = Color.White;
+            btnAdicionar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnAdicionar.Image = null;
+            btnAdicionar.ImageAutoCenter = true;
+            btnAdicionar.ImageExpand = new Point(0, 0);
+            btnAdicionar.ImageOffset = new Point(0, 0);
+            btnAdicionar.Location = new Point(196, 10);
+            btnAdicionar.Margin = new Padding(3, 2, 6, 2);
+            btnAdicionar.Name = "btnAdicionar";
+            btnAdicionar.NormalBackground = Color.FromArgb(40, 120, 80);
+            btnAdicionar.NormalForeColor = Color.White;
+            btnAdicionar.NormalImageTint = Color.White;
+            btnAdicionar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnAdicionar.OutlineThickness = 1F;
+            btnAdicionar.PressedBackground = Color.WhiteSmoke;
+            btnAdicionar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnAdicionar.PressedImageTint = Color.White;
+            btnAdicionar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnAdicionar.Rounding = new Padding(8);
+            btnAdicionar.Size = new Size(89, 36);
+            btnAdicionar.TabIndex = 15;
+            btnAdicionar.TextAlignment = StringAlignment.Center;
+            btnAdicionar.TextOffset = new Point(0, 0);
             // 
             // btnEditar
             // 
@@ -211,8 +354,8 @@ namespace telebip_erp.Forms.Modules
             btnEditar.CheckedOutline = Color.FromArgb(255, 106, 0);
             btnEditar.Content = "Editar";
             btnEditar.DialogResult = DialogResult.None;
-            btnEditar.Font = new Font("Microsoft Sans Serif", 9.75F);
-            btnEditar.ForeColor = Color.Black;
+            btnEditar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnEditar.ForeColor = Color.White;
             btnEditar.HoverBackground = Color.White;
             btnEditar.HoverForeColor = Color.Black;
             btnEditar.HoverImageTint = Color.White;
@@ -221,10 +364,11 @@ namespace telebip_erp.Forms.Modules
             btnEditar.ImageAutoCenter = true;
             btnEditar.ImageExpand = new Point(0, 0);
             btnEditar.ImageOffset = new Point(0, 0);
-            btnEditar.Location = new Point(105, 11);
+            btnEditar.Location = new Point(100, 10);
+            btnEditar.Margin = new Padding(3, 2, 4, 2);
             btnEditar.Name = "btnEditar";
-            btnEditar.NormalBackground = Color.White;
-            btnEditar.NormalForeColor = Color.Black;
+            btnEditar.NormalBackground = Color.FromArgb(60, 60, 90);
+            btnEditar.NormalForeColor = Color.White;
             btnEditar.NormalImageTint = Color.White;
             btnEditar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnEditar.OutlineThickness = 1F;
@@ -233,139 +377,307 @@ namespace telebip_erp.Forms.Modules
             btnEditar.PressedImageTint = Color.White;
             btnEditar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnEditar.Rounding = new Padding(8);
-            btnEditar.Size = new Size(88, 36);
-            btnEditar.TabIndex = 1;
+            btnEditar.Size = new Size(89, 36);
+            btnEditar.TabIndex = 16;
             btnEditar.TextAlignment = StringAlignment.Center;
             btnEditar.TextOffset = new Point(0, 0);
             // 
-            // btnExcluir
+            // btnRemover
             // 
-            btnExcluir.CheckButton = false;
-            btnExcluir.Checked = false;
-            btnExcluir.CheckedBackground = Color.FromArgb(255, 106, 0);
-            btnExcluir.CheckedForeColor = Color.White;
-            btnExcluir.CheckedImageTint = Color.White;
-            btnExcluir.CheckedOutline = Color.FromArgb(255, 106, 0);
-            btnExcluir.Content = "Excluir";
-            btnExcluir.DialogResult = DialogResult.None;
-            btnExcluir.Font = new Font("Microsoft Sans Serif", 9.75F);
-            btnExcluir.ForeColor = Color.Black;
-            btnExcluir.HoverBackground = Color.White;
-            btnExcluir.HoverForeColor = Color.Black;
-            btnExcluir.HoverImageTint = Color.White;
-            btnExcluir.HoverOutline = Color.FromArgb(32, 128, 128, 128);
-            btnExcluir.Image = null;
-            btnExcluir.ImageAutoCenter = true;
-            btnExcluir.ImageExpand = new Point(0, 0);
-            btnExcluir.ImageOffset = new Point(0, 0);
-            btnExcluir.Location = new Point(199, 11);
-            btnExcluir.Name = "btnExcluir";
-            btnExcluir.NormalBackground = Color.White;
-            btnExcluir.NormalForeColor = Color.Black;
-            btnExcluir.NormalImageTint = Color.White;
-            btnExcluir.NormalOutline = Color.FromArgb(64, 128, 128, 128);
-            btnExcluir.OutlineThickness = 1F;
-            btnExcluir.PressedBackground = Color.WhiteSmoke;
-            btnExcluir.PressedForeColor = Color.FromArgb(32, 32, 32);
-            btnExcluir.PressedImageTint = Color.White;
-            btnExcluir.PressedOutline = Color.FromArgb(64, 128, 128, 128);
-            btnExcluir.Rounding = new Padding(8);
-            btnExcluir.Size = new Size(88, 36);
-            btnExcluir.TabIndex = 2;
-            btnExcluir.TextAlignment = StringAlignment.Center;
-            btnExcluir.TextOffset = new Point(0, 0);
+            btnRemover.CheckButton = false;
+            btnRemover.Checked = false;
+            btnRemover.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnRemover.CheckedForeColor = Color.White;
+            btnRemover.CheckedImageTint = Color.White;
+            btnRemover.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnRemover.Content = "Remover";
+            btnRemover.DialogResult = DialogResult.None;
+            btnRemover.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnRemover.ForeColor = Color.White;
+            btnRemover.HoverBackground = Color.White;
+            btnRemover.HoverForeColor = Color.Black;
+            btnRemover.HoverImageTint = Color.White;
+            btnRemover.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnRemover.Image = null;
+            btnRemover.ImageAutoCenter = true;
+            btnRemover.ImageExpand = new Point(0, 0);
+            btnRemover.ImageOffset = new Point(0, 0);
+            btnRemover.Location = new Point(6, 10);
+            btnRemover.Margin = new Padding(4, 2, 2, 2);
+            btnRemover.Name = "btnRemover";
+            btnRemover.NormalBackground = Color.FromArgb(120, 40, 40);
+            btnRemover.NormalForeColor = Color.White;
+            btnRemover.NormalImageTint = Color.White;
+            btnRemover.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnRemover.OutlineThickness = 1F;
+            btnRemover.PressedBackground = Color.WhiteSmoke;
+            btnRemover.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnRemover.PressedImageTint = Color.White;
+            btnRemover.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnRemover.Rounding = new Padding(8);
+            btnRemover.Size = new Size(89, 36);
+            btnRemover.TabIndex = 17;
+            btnRemover.TextAlignment = StringAlignment.Center;
+            btnRemover.TextOffset = new Point(0, 0);
             // 
-            // pnlMain
+            // pnlBottom
             // 
-            pnlMain.BackColor = Color.FromArgb(28, 29, 40);
-            pnlMain.Controls.Add(pnlDgv);
-            pnlMain.Dock = DockStyle.Fill;
-            pnlMain.Location = new Point(12, 12);
-            pnlMain.Name = "pnlMain";
-            pnlMain.Padding = new Padding(8);
-            pnlMain.Size = new Size(1423, 696);
-            pnlMain.TabIndex = 1;
+            pnlBottom.BackColor = Color.FromArgb(32, 33, 39);
+            pnlBottom.Controls.Add(lbTotal);
+            pnlBottom.Dock = DockStyle.Bottom;
+            pnlBottom.Location = new Point(0, 735);
+            pnlBottom.Name = "pnlBottom";
+            pnlBottom.Padding = new Padding(15);
+            pnlBottom.Size = new Size(1467, 65);
+            pnlBottom.TabIndex = 5;
             // 
-            // pnlDgv
+            // lbTotal
             // 
-            pnlDgv.Controls.Add(dgvFuncionarios);
-            pnlDgv.Dock = DockStyle.Fill;
-            pnlDgv.Location = new Point(8, 8);
-            pnlDgv.Name = "pnlDgv";
-            pnlDgv.Padding = new Padding(8);
-            pnlDgv.Size = new Size(1407, 680);
-            pnlDgv.TabIndex = 0;
+            lbTotal.Dock = DockStyle.Right;
+            lbTotal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lbTotal.ForeColor = Color.White;
+            lbTotal.Location = new Point(1262, 15);
+            lbTotal.Name = "lbTotal";
+            lbTotal.Size = new Size(190, 35);
+            lbTotal.TabIndex = 0;
+            lbTotal.Text = "Total: 0 funcionários";
+            lbTotal.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // dgvFuncionarios
+            // flowFiltros
             // 
-            dgvFuncionarios.AllowUserToAddRows = false;
-            dgvFuncionarios.AllowUserToDeleteRows = false;
-            dgvFuncionarios.AllowUserToResizeRows = false;
-            dgvFuncionarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvFuncionarios.BackgroundColor = Color.FromArgb(32, 33, 39);
-            dgvFuncionarios.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.Padding = new Padding(8);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(100, 88, 255);
-            dgvFuncionarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dgvFuncionarios.ColumnHeadersHeight = 40;
-            dgvFuncionarios.Dock = DockStyle.Fill;
-            dgvFuncionarios.GridColor = Color.FromArgb(50, 52, 67);
-            dgvFuncionarios.Location = new Point(8, 8);
-            dgvFuncionarios.MultiSelect = false;
-            dgvFuncionarios.Name = "dgvFuncionarios";
-            dgvFuncionarios.ReadOnly = true;
-            dgvFuncionarios.RowHeadersVisible = false;
-            dgvFuncionarios.RowTemplate.Height = 35;
-            dgvFuncionarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvFuncionarios.Size = new Size(1391, 664);
-            dgvFuncionarios.TabIndex = 0;
+            flowFiltros.BackColor = Color.FromArgb(32, 33, 39);
+            flowFiltros.Controls.Add(pnlWrapperCargo);
+            flowFiltros.Controls.Add(pnlWrapperPesquisa);
+            flowFiltros.Controls.Add(btnPesquisar);
+            flowFiltros.Controls.Add(btnLimpar);
+            flowFiltros.Dock = DockStyle.Top;
+            flowFiltros.Location = new Point(0, 71);
+            flowFiltros.Name = "flowFiltros";
+            flowFiltros.Padding = new Padding(10, 10, 10, 15);
+            flowFiltros.Size = new Size(1467, 59);
+            flowFiltros.TabIndex = 7;
+            flowFiltros.WrapContents = false;
+            // 
+            // pnlWrapperCargo
+            // 
+            pnlWrapperCargo.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCargo.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperCargo.BorderThickness = 1;
+            pnlWrapperCargo.Controls.Add(PictureImage2);
+            pnlWrapperCargo.Controls.Add(cbFiltroCargo);
+            pnlWrapperCargo.CornerRadius = 8;
+            pnlWrapperCargo.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCargo.Location = new Point(12, 12);
+            pnlWrapperCargo.Margin = new Padding(2);
+            pnlWrapperCargo.Name = "pnlWrapperCargo";
+            pnlWrapperCargo.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperCargo.Size = new Size(220, 36);
+            pnlWrapperCargo.TabIndex = 50;
+            // 
+            // PictureImage2
+            // 
+            PictureImage2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PictureImage2.Image = (Image)resources.GetObject("PictureImage2.Image");
+            PictureImage2.Location = new Point(196, 13);
+            PictureImage2.Name = "PictureImage2";
+            PictureImage2.Size = new Size(10, 10);
+            PictureImage2.SizeMode = PictureBoxSizeMode.Zoom;
+            PictureImage2.TabIndex = 17;
+            PictureImage2.TabStop = false;
+            // 
+            // cbFiltroCargo
+            // 
+            cbFiltroCargo.AutoSelectFirst = false;
+            cbFiltroCargo.BackColor = Color.FromArgb(40, 41, 52);
+            cbFiltroCargo.DrawMode = DrawMode.OwnerDrawFixed;
+            cbFiltroCargo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbFiltroCargo.FlatStyle = FlatStyle.Flat;
+            cbFiltroCargo.Font = new Font("Segoe UI", 10F);
+            cbFiltroCargo.ForeColor = Color.White;
+            cbFiltroCargo.FormattingEnabled = true;
+            cbFiltroCargo.ItemEntryHeight = 24;
+            cbFiltroCargo.ItemHeight = 17;
+            cbFiltroCargo.Items.AddRange(new object[] { "Todos cargos" });
+            cbFiltroCargo.Location = new Point(8, 6);
+            cbFiltroCargo.Margin = new Padding(0);
+            cbFiltroCargo.Name = "cbFiltroCargo";
+            cbFiltroCargo.Placeholder = "Selecione...";
+            cbFiltroCargo.ShowPlaceholder = true;
+            cbFiltroCargo.Size = new Size(204, 23);
+            cbFiltroCargo.TabIndex = 0;
+            // 
+            // pnlWrapperPesquisa
+            // 
+            pnlWrapperPesquisa.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPesquisa.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperPesquisa.BorderThickness = 1;
+            pnlWrapperPesquisa.Controls.Add(picSearch);
+            pnlWrapperPesquisa.Controls.Add(tbSearch);
+            pnlWrapperPesquisa.CornerRadius = 8;
+            pnlWrapperPesquisa.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPesquisa.Location = new Point(242, 12);
+            pnlWrapperPesquisa.Margin = new Padding(8, 2, 2, 2);
+            pnlWrapperPesquisa.Name = "pnlWrapperPesquisa";
+            pnlWrapperPesquisa.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperPesquisa.Size = new Size(360, 36);
+            pnlWrapperPesquisa.TabIndex = 52;
+            // 
+            // picSearch
+            // 
+            picSearch.BackColor = Color.Transparent;
+            picSearch.Dock = DockStyle.Right;
+            picSearch.Image = (Image)resources.GetObject("picSearch.Image");
+            picSearch.Location = new Point(337, 6);
+            picSearch.Name = "picSearch";
+            picSearch.Size = new Size(15, 24);
+            picSearch.SizeMode = PictureBoxSizeMode.Zoom;
+            picSearch.TabIndex = 1;
+            picSearch.TabStop = false;
+            // 
+            // tbSearch
+            // 
+            tbSearch.BackColor = Color.FromArgb(40, 41, 52);
+            tbSearch.BorderStyle = BorderStyle.None;
+            tbSearch.Font = new Font("Segoe UI", 9F);
+            tbSearch.ForeColor = Color.White;
+            tbSearch.Location = new Point(11, 11);
+            tbSearch.Margin = new Padding(3, 0, 10, 0);
+            tbSearch.Name = "tbSearch";
+            tbSearch.PlaceholderText = "Nome, e-mail ou telefone";
+            tbSearch.Size = new Size(330, 16);
+            tbSearch.TabIndex = 7;
+            // 
+            // btnPesquisar
+            // 
+            btnPesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnPesquisar.CheckButton = false;
+            btnPesquisar.Checked = false;
+            btnPesquisar.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnPesquisar.CheckedForeColor = Color.White;
+            btnPesquisar.CheckedImageTint = Color.White;
+            btnPesquisar.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnPesquisar.Content = "Pesquisar";
+            btnPesquisar.DialogResult = DialogResult.None;
+            btnPesquisar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnPesquisar.ForeColor = Color.White;
+            btnPesquisar.HoverBackground = Color.White;
+            btnPesquisar.HoverForeColor = Color.Black;
+            btnPesquisar.HoverImageTint = Color.White;
+            btnPesquisar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnPesquisar.Image = null;
+            btnPesquisar.ImageAutoCenter = true;
+            btnPesquisar.ImageExpand = new Point(0, 0);
+            btnPesquisar.ImageOffset = new Point(0, 0);
+            btnPesquisar.Location = new Point(612, 12);
+            btnPesquisar.Margin = new Padding(8, 2, 4, 2);
+            btnPesquisar.Name = "btnPesquisar";
+            btnPesquisar.NormalBackground = Color.FromArgb(40, 120, 80);
+            btnPesquisar.NormalForeColor = Color.White;
+            btnPesquisar.NormalImageTint = Color.White;
+            btnPesquisar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnPesquisar.OutlineThickness = 1F;
+            btnPesquisar.PressedBackground = Color.WhiteSmoke;
+            btnPesquisar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnPesquisar.PressedImageTint = Color.White;
+            btnPesquisar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnPesquisar.Rounding = new Padding(8);
+            btnPesquisar.Size = new Size(120, 36);
+            btnPesquisar.TabIndex = 9;
+            btnPesquisar.TextAlignment = StringAlignment.Center;
+            btnPesquisar.TextOffset = new Point(0, 0);
+            // 
+            // btnLimpar
+            // 
+            btnLimpar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnLimpar.CheckButton = false;
+            btnLimpar.Checked = false;
+            btnLimpar.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnLimpar.CheckedForeColor = Color.White;
+            btnLimpar.CheckedImageTint = Color.White;
+            btnLimpar.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnLimpar.Content = "Limpar";
+            btnLimpar.DialogResult = DialogResult.None;
+            btnLimpar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnLimpar.ForeColor = Color.White;
+            btnLimpar.HoverBackground = Color.White;
+            btnLimpar.HoverForeColor = Color.Black;
+            btnLimpar.HoverImageTint = Color.White;
+            btnLimpar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnLimpar.Image = null;
+            btnLimpar.ImageAutoCenter = true;
+            btnLimpar.ImageExpand = new Point(0, 0);
+            btnLimpar.ImageOffset = new Point(0, 0);
+            btnLimpar.Location = new Point(740, 12);
+            btnLimpar.Margin = new Padding(4, 2, 2, 2);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.NormalBackground = Color.FromArgb(120, 40, 40);
+            btnLimpar.NormalForeColor = Color.White;
+            btnLimpar.NormalImageTint = Color.White;
+            btnLimpar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnLimpar.OutlineThickness = 1F;
+            btnLimpar.PressedBackground = Color.WhiteSmoke;
+            btnLimpar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnLimpar.PressedImageTint = Color.White;
+            btnLimpar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnLimpar.Rounding = new Padding(8);
+            btnLimpar.Size = new Size(120, 36);
+            btnLimpar.TabIndex = 14;
+            btnLimpar.TextAlignment = StringAlignment.Center;
+            btnLimpar.TextOffset = new Point(0, 0);
             // 
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.FromArgb(32, 33, 39);
             pnlHeader.Controls.Add(lblTitulo);
             pnlHeader.Dock = DockStyle.Top;
-            pnlHeader.Location = new Point(10, 10);
+            pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Padding = new Padding(12);
-            pnlHeader.Size = new Size(1447, 60);
-            pnlHeader.TabIndex = 1;
+            pnlHeader.Padding = new Padding(15);
+            pnlHeader.Size = new Size(1467, 71);
+            pnlHeader.TabIndex = 6;
             // 
             // lblTitulo
             // 
             lblTitulo.Dock = DockStyle.Fill;
-            lblTitulo.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblTitulo.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lblTitulo.ForeColor = Color.White;
-            lblTitulo.Location = new Point(12, 12);
+            lblTitulo.Location = new Point(15, 15);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(1423, 36);
+            lblTitulo.Size = new Size(1437, 41);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Gerenciamento de Funcionários";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FormFuncionarios
             // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(28, 29, 40);
             ClientSize = new Size(1467, 800);
             Controls.Add(pnlContainer);
             FormBorderStyle = FormBorderStyle.None;
-            MaximumSize = new Size(1920, 1080);
-            MinimumSize = new Size(950, 800);
             Name = "FormFuncionarios";
             Text = "FormFuncionarios";
             pnlContainer.ResumeLayout(false);
-            pnlContent.ResumeLayout(false);
-            pnlDetailsWrapper.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pbUserProfile).EndInit();
-            pnlDetailsFields.ResumeLayout(false);
-            flowButtons.ResumeLayout(false);
-            pnlMain.ResumeLayout(false);
             pnlDgv.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvFuncionarios).EndInit();
+            pnlRight.ResumeLayout(false);
+            pnlDetailsCard.ResumeLayout(false);
+            tblCard.ResumeLayout(false);
+            tblCard.PerformLayout();
+            pnlCardHeader.ResumeLayout(false);
+            pnlCardHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picCardAvatar).EndInit();
+            tblInfo.ResumeLayout(false);
+            tblInfo.PerformLayout();
+            flowCardButtons.ResumeLayout(false);
+            pnlBottom.ResumeLayout(false);
+            flowFiltros.ResumeLayout(false);
+            pnlWrapperCargo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)PictureImage2).EndInit();
+            pnlWrapperPesquisa.ResumeLayout(false);
+            pnlWrapperPesquisa.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
             pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -374,26 +686,47 @@ namespace telebip_erp.Forms.Modules
 
         // Exposed controls
         private Panel pnlContainer;
-        private Panel pnlHeader;
-        private Panel pnlContent;
-
-        private Panel pnlMain;
         private Panel pnlDgv;
         public DataGridView dgvFuncionarios;
+        private Panel pnlRight;
 
-        private Panel pnlDetailsWrapper;
-        private PictureBox pbUserProfile;
-        private Panel pnlDetailsFields;
-        private FlowLayoutPanel flowButtons;
-        private CuoreUI.Controls.cuiButton btnNovo;
+        // reworked card controls
+        private Panel pnlDetailsCard;
+        private TableLayoutPanel tblCard;
+        private Panel pnlCardHeader;
+        private Label lblCardNome;
+        private Label lblCardCargo;
+        private PictureBox picCardAvatar;
+        private Panel pnlCardDivider;
+        private TableLayoutPanel tblInfo;
+        private Label lblCardNomeCompleto;
+        private Label lblCardTelefone;
+        private Label lblCardEmail;
+        private FlowLayoutPanel flowCardButtons;
+
+        private Panel pnlBottom;
+        private Label lbTotal;
+
+        // Use FlowLayoutPanel para filtros (responsivo)
+        private FlowLayoutPanel flowFiltros;
+        private CuoreUI.Controls.cuiButton btnLimpar;
+        private CuoreUI.Controls.cuiButton btnPesquisar;
+
+        // novos botoes (kept names so events stay)
+        private CuoreUI.Controls.cuiButton btnAdicionar;
         private CuoreUI.Controls.cuiButton btnEditar;
-        private CuoreUI.Controls.cuiButton btnExcluir;
+        private CuoreUI.Controls.cuiButton btnRemover;
 
+        // wrappers + controls
+        private telebip_erp.Controls.RoundedPanel pnlWrapperCargo;
+        private PictureBox PictureImage2;
+        private telebip_erp.Controls.NeoFlatComboBox cbFiltroCargo;
+
+        private telebip_erp.Controls.RoundedPanel pnlWrapperPesquisa;
+        private PictureBox picSearch;
+        private TextBox tbSearch;
+
+        private Panel pnlHeader;
         private Label lblTitulo;
-
-        private Label lblNome;
-        private Label lblCargo;
-        private Label lblEmail;
-        private Label lblTelefone;
     }
 }
