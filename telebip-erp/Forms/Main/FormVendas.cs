@@ -320,9 +320,10 @@ namespace telebip_erp.Forms.Modules
 
             // CORES IDÊNTICAS À TELA DE ESTOQUE
             Color background = Color.FromArgb(32, 33, 39);
-            Color headerBack = Color.FromArgb(40, 41, 52); // Cabeçalho preto igual ao estoque
+            Color backgroundAlt = Color.FromArgb(38, 39, 46); // Tom levemente diferente para alternar linhas
+            Color headerBack = Color.FromArgb(40, 41, 52);
             Color gridColor = Color.FromArgb(50, 52, 67);
-            Color selectionBack = Color.FromArgb(50, 90, 130); // Azul de seleção igual ao estoque
+            Color selectionBack = Color.FromArgb(50, 90, 130);
             Color fore = Color.White;
 
             // Configurações gerais
@@ -331,15 +332,15 @@ namespace telebip_erp.Forms.Modules
             dgvVendas.GridColor = gridColor;
             dgvVendas.EnableHeadersVisualStyles = false;
 
-            // Cabeçalho - IDÊNTICO AO ESTOQUE
+            // Cabeçalho
             var headerStyle = new DataGridViewCellStyle()
             {
-                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                Alignment = DataGridViewContentAlignment.MiddleCenter, // centraliza cabeçalho
                 BackColor = headerBack,
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold),
                 ForeColor = fore,
                 SelectionBackColor = headerBack,
-                SelectionForeColor = SystemColors.HighlightText,
+                SelectionForeColor = fore,
                 WrapMode = DataGridViewTriState.True
             };
             dgvVendas.ColumnHeadersDefaultCellStyle = headerStyle;
@@ -347,10 +348,10 @@ namespace telebip_erp.Forms.Modules
             dgvVendas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvVendas.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
 
-            // Linhas - IDÊNTICO AO ESTOQUE
+            // Linhas
             var cellStyle = new DataGridViewCellStyle()
             {
-                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                Alignment = DataGridViewContentAlignment.MiddleCenter, // centraliza texto
                 BackColor = background,
                 Font = new Font("Segoe UI", 9F),
                 ForeColor = fore,
@@ -360,9 +361,19 @@ namespace telebip_erp.Forms.Modules
             };
             dgvVendas.DefaultCellStyle = cellStyle;
             dgvVendas.RowsDefaultCellStyle = cellStyle;
-            dgvVendas.AlternatingRowsDefaultCellStyle = cellStyle;
             dgvVendas.RowTemplate.Height = 35;
-            dgvVendas.RowTemplate.DefaultCellStyle = cellStyle;
+
+            // Alterna cores das linhas para facilitar visualização
+            dgvVendas.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle()
+            {
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                BackColor = backgroundAlt,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = fore,
+                SelectionBackColor = selectionBack,
+                SelectionForeColor = fore,
+                WrapMode = DataGridViewTriState.False
+            };
 
             dgvVendas.AllowUserToAddRows = false;
             dgvVendas.AllowUserToDeleteRows = false;
@@ -378,6 +389,7 @@ namespace telebip_erp.Forms.Modules
 
             dgvVendas.ResumeLayout();
         }
+
 
         private void ConfigurarColunasDataGridView()
         {

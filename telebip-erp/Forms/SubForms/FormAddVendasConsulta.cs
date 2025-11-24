@@ -127,6 +127,92 @@ namespace telebip_erp.Forms.SubForms
 
         #endregion
 
+        private void AplicarTemaEscuroDataGridViewProdutos()
+        {
+            if (dgvProdutoTemporarios == null) return;
+
+            dgvProdutoTemporarios.SuspendLayout();
+
+            // Cores
+            Color background = Color.FromArgb(32, 33, 39);
+            Color backgroundAlt = Color.FromArgb(38, 39, 46);
+            Color headerBack = Color.FromArgb(40, 41, 52);
+            Color gridColor = Color.FromArgb(50, 52, 67);
+            Color selectionBack = Color.FromArgb(50, 90, 130);
+            Color fore = Color.White;
+
+            // Configurações gerais
+            dgvProdutoTemporarios.BackgroundColor = background;
+            dgvProdutoTemporarios.BorderStyle = BorderStyle.None;
+            dgvProdutoTemporarios.GridColor = gridColor;
+            dgvProdutoTemporarios.EnableHeadersVisualStyles = false;
+
+            // Cabeçalho
+            var headerStyle = new DataGridViewCellStyle()
+            {
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                BackColor = headerBack,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = fore,
+                SelectionBackColor = headerBack,
+                SelectionForeColor = fore,
+                WrapMode = DataGridViewTriState.True
+            };
+            dgvProdutoTemporarios.ColumnHeadersDefaultCellStyle = headerStyle;
+            dgvProdutoTemporarios.ColumnHeadersHeight = 40;
+            dgvProdutoTemporarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvProdutoTemporarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+
+            // Linhas
+            var cellStyle = new DataGridViewCellStyle()
+            {
+                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                BackColor = background,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = fore,
+                SelectionBackColor = selectionBack,
+                SelectionForeColor = fore,
+                WrapMode = DataGridViewTriState.False
+            };
+
+            var altCellStyle = new DataGridViewCellStyle(cellStyle)
+            {
+                BackColor = backgroundAlt
+            };
+
+            dgvProdutoTemporarios.DefaultCellStyle = cellStyle;
+            dgvProdutoTemporarios.RowsDefaultCellStyle = cellStyle;
+            dgvProdutoTemporarios.AlternatingRowsDefaultCellStyle = altCellStyle;
+            dgvProdutoTemporarios.RowTemplate.Height = 35;
+
+            // Alinha colunas (ID, preço e quantidade centralizados; nome à esquerda)
+            foreach (DataGridViewColumn coluna in dgvProdutoTemporarios.Columns)
+            {
+                if (coluna.Name == "ID_PRODUTO" || coluna.Name == "PRECO_UNITARIO" || coluna.Name == "QUANTIDADE" || coluna.Name == "SUBTOTAL")
+                    coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                else
+                    coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            dgvProdutoTemporarios.AllowUserToAddRows = false;
+            dgvProdutoTemporarios.AllowUserToDeleteRows = false;
+            dgvProdutoTemporarios.AllowUserToResizeRows = false;
+            dgvProdutoTemporarios.MultiSelect = false;
+            dgvProdutoTemporarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProdutoTemporarios.ReadOnly = true;
+            dgvProdutoTemporarios.RowHeadersVisible = false;
+            dgvProdutoTemporarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvProdutoTemporarios.ClearSelection();
+            dgvProdutoTemporarios.CurrentCell = null;
+            dgvProdutoTemporarios.Refresh();
+
+            dgvProdutoTemporarios.ResumeLayout();
+        }
+
+
         #region Bordas arredondadas (inspirado em FormViewProduto)
 
         private GraphicsPath GetRoundedRect(Rectangle r, int radius)

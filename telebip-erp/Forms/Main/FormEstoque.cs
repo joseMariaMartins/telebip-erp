@@ -309,10 +309,12 @@ namespace telebip_erp.Forms.Modules
         {
             dgvEstoque.SuspendLayout();
 
-            Color background = Color.FromArgb(32, 33, 39);
-            Color headerBack = Color.FromArgb(40, 41, 52);
-            Color gridColor = Color.FromArgb(50, 52, 67);
-            Color selectionBack = Color.FromArgb(50, 90, 130);
+            // Cores
+            Color background = Color.FromArgb(32, 33, 39);       // fundo principal
+            Color backgroundAlt = Color.FromArgb(38, 39, 46);    // fundo alternado das linhas
+            Color headerBack = Color.FromArgb(40, 41, 52);       // cabeçalho
+            Color gridColor = Color.FromArgb(50, 52, 67);        // linhas da grade
+            Color selectionBack = Color.FromArgb(50, 90, 130);   // seleção azul escuro
             Color fore = Color.White;
 
             // Configurações gerais
@@ -324,12 +326,12 @@ namespace telebip_erp.Forms.Modules
             // Cabeçalho
             var headerStyle = new DataGridViewCellStyle()
             {
-                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                Alignment = DataGridViewContentAlignment.MiddleCenter, // cabeçalho centralizado
                 BackColor = headerBack,
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold),
                 ForeColor = fore,
                 SelectionBackColor = headerBack,
-                SelectionForeColor = SystemColors.HighlightText,
+                SelectionForeColor = fore,
                 WrapMode = DataGridViewTriState.True
             };
             dgvEstoque.ColumnHeadersDefaultCellStyle = headerStyle;
@@ -337,7 +339,7 @@ namespace telebip_erp.Forms.Modules
             dgvEstoque.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvEstoque.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
 
-            // Linhas
+            // Linhas (texto à esquerda)
             var cellStyle = new DataGridViewCellStyle()
             {
                 Alignment = DataGridViewContentAlignment.MiddleLeft,
@@ -348,11 +350,23 @@ namespace telebip_erp.Forms.Modules
                 SelectionForeColor = fore,
                 WrapMode = DataGridViewTriState.False
             };
+
+            var altCellStyle = new DataGridViewCellStyle(cellStyle)
+            {
+                BackColor = backgroundAlt
+            };
+
             dgvEstoque.DefaultCellStyle = cellStyle;
             dgvEstoque.RowsDefaultCellStyle = cellStyle;
-            dgvEstoque.AlternatingRowsDefaultCellStyle = cellStyle;
+            dgvEstoque.AlternatingRowsDefaultCellStyle = altCellStyle;
             dgvEstoque.RowTemplate.Height = 35;
-            dgvEstoque.RowTemplate.DefaultCellStyle = cellStyle;
+
+            // Garante alinhamento das colunas à esquerda
+            foreach (DataGridViewColumn coluna in dgvEstoque.Columns)
+            {
+                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
 
             dgvEstoque.AllowUserToAddRows = false;
             dgvEstoque.AllowUserToDeleteRows = false;
@@ -369,6 +383,7 @@ namespace telebip_erp.Forms.Modules
 
             dgvEstoque.ResumeLayout();
         }
+
 
         private void ConfigurarColunasDataGridView()
         {
