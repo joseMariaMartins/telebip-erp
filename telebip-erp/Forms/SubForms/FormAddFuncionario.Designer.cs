@@ -316,7 +316,6 @@ namespace telebip_erp.Forms.SubForms
             BackColor = Color.FromArgb(28, 29, 40);
             ClientSize = new Size(544, 392);
             Controls.Add(pnlContainer);
-            FormStyle = FormStyles.ActionBar_None;
             Name = "FormAddFuncionario";
             Padding = new Padding(3, 24, 3, 3);
             StartPosition = FormStartPosition.CenterParent;

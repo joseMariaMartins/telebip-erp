@@ -1,4 +1,4 @@
-﻿// FormRelatorios.Designer.cs (sem criação de Regions no designer)
+﻿// FormRelatorios.Designer.cs (atualizado)
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -25,6 +25,7 @@ namespace telebip_erp.Forms.Modules
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRelatorios));
             pnlContainer = new Panel();
             pnlMain = new Panel();
@@ -49,27 +50,15 @@ namespace telebip_erp.Forms.Modules
             lblTitulo4 = new Label();
             pnlFiltros = new Panel();
             lblRelatorio = new Label();
-            pnlWrapperTipoRelatorio = new Panel();
-            cbTipoRelatorio = new ComboBox();
-            pnlCoverTipoRelatorio = new Panel();
+            pnlWrapperTipoRelatorio = new telebip_erp.Controls.RoundedPanel();
             picTipoArrow = new PictureBox();
-            pnlWrapperPeriodo = new Panel();
-            cbPeriodo = new ComboBox();
-            pnlCoverPeriodo = new Panel();
+            cbTipoRelatorio = new telebip_erp.Controls.NeoFlatComboBox();
+            pnlWrapperPeriodo = new telebip_erp.Controls.RoundedPanel();
             picPeriodoArrow = new PictureBox();
+            cbPeriodo = new telebip_erp.Controls.NeoFlatComboBox();
             btnGerarRelatorio = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
-            panel1 = new Panel();
-            panel2 = new Panel();
-            panel4 = new Panel();
-            panel5 = new Panel();
-            panel6 = new Panel();
-            panel7 = new Panel();
-            panel8 = new Panel();
-            panel3 = new Panel();
-            pictureBox1 = new PictureBox();
-            pictureBox2 = new PictureBox();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
             pnlTabela.SuspendLayout();
@@ -87,8 +76,6 @@ namespace telebip_erp.Forms.Modules
             pnlWrapperPeriodo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picPeriodoArrow).BeginInit();
             pnlHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // pnlContainer
@@ -136,11 +123,11 @@ namespace telebip_erp.Forms.Modules
             dgvRelatorios.BorderStyle = BorderStyle.None;
             dgvRelatorios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvRelatorios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(100, 88, 255);
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.Padding = new Padding(5);
+            dataGridViewCellStyle1.Padding = new Padding(8);
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(100, 88, 255);
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
@@ -165,8 +152,14 @@ namespace telebip_erp.Forms.Modules
             dgvRelatorios.ReadOnly = true;
             dgvRelatorios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvRelatorios.RowHeadersVisible = false;
-            dgvRelatorios.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dgvRelatorios.RowTemplate.Height = 35;
+            dgvRelatorios.RowHeadersWidth = 62;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dgvRelatorios.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dgvRelatorios.RowTemplate.Height = 36;
             dgvRelatorios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRelatorios.Size = new Size(1332, 327);
             dgvRelatorios.TabIndex = 0;
@@ -457,104 +450,94 @@ namespace telebip_erp.Forms.Modules
             // pnlWrapperTipoRelatorio
             // 
             pnlWrapperTipoRelatorio.BackColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperTipoRelatorio.Controls.Add(pictureBox1);
-            pnlWrapperTipoRelatorio.Controls.Add(panel3);
-            pnlWrapperTipoRelatorio.Controls.Add(panel4);
-            pnlWrapperTipoRelatorio.Controls.Add(panel2);
-            pnlWrapperTipoRelatorio.Controls.Add(panel1);
-            pnlWrapperTipoRelatorio.Controls.Add(cbTipoRelatorio);
-            pnlWrapperTipoRelatorio.Controls.Add(pnlCoverTipoRelatorio);
+            pnlWrapperTipoRelatorio.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperTipoRelatorio.BorderThickness = 1;
             pnlWrapperTipoRelatorio.Controls.Add(picTipoArrow);
+            pnlWrapperTipoRelatorio.Controls.Add(cbTipoRelatorio);
+            pnlWrapperTipoRelatorio.CornerRadius = 8;
+            pnlWrapperTipoRelatorio.FillColor = Color.FromArgb(40, 41, 52);
             pnlWrapperTipoRelatorio.Location = new Point(92, 10);
             pnlWrapperTipoRelatorio.Name = "pnlWrapperTipoRelatorio";
-            pnlWrapperTipoRelatorio.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperTipoRelatorio.Padding = new Padding(8, 6, 30, 6);
             pnlWrapperTipoRelatorio.Size = new Size(320, 36);
             pnlWrapperTipoRelatorio.TabIndex = 1;
             // 
-            // cbTipoRelatorio
-            // 
-            cbTipoRelatorio.BackColor = Color.FromArgb(40, 41, 52);
-            cbTipoRelatorio.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbTipoRelatorio.FlatStyle = FlatStyle.Flat;
-            cbTipoRelatorio.Font = new Font("Segoe UI", 9F);
-            cbTipoRelatorio.ForeColor = Color.White;
-            cbTipoRelatorio.Items.AddRange(new object[] { "Vendas do período", "Produtos mais vendidos", "Vendas por categoria", "Lucro bruto por produto", "Formas de pagamento", "Vendas por funcionário", "Produtos com baixo estoque", "Movimentação de estoque", "Tendência de vendas" });
-            cbTipoRelatorio.Location = new Point(8, 6);
-            cbTipoRelatorio.Margin = new Padding(4, 3, 4, 3);
-            cbTipoRelatorio.Name = "cbTipoRelatorio";
-            cbTipoRelatorio.Size = new Size(304, 23);
-            cbTipoRelatorio.TabIndex = 1;
-            // 
-            // pnlCoverTipoRelatorio
-            // 
-            pnlCoverTipoRelatorio.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pnlCoverTipoRelatorio.BackColor = Color.FromArgb(40, 41, 52);
-            pnlCoverTipoRelatorio.Location = new Point(292, 6);
-            pnlCoverTipoRelatorio.Name = "pnlCoverTipoRelatorio";
-            pnlCoverTipoRelatorio.Size = new Size(20, 24);
-            pnlCoverTipoRelatorio.TabIndex = 2;
-            // 
             // picTipoArrow
             // 
-            picTipoArrow.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            picTipoArrow.BackColor = Color.Transparent;
-            picTipoArrow.Location = new Point(312, 9);
+            picTipoArrow.Image = (Image)resources.GetObject("picTipoArrow.Image");
+            picTipoArrow.Location = new Point(288, 13);
             picTipoArrow.Name = "picTipoArrow";
-            picTipoArrow.Size = new Size(12, 18);
+            picTipoArrow.Size = new Size(10, 10);
             picTipoArrow.SizeMode = PictureBoxSizeMode.Zoom;
-            picTipoArrow.TabIndex = 3;
+            picTipoArrow.TabIndex = 17;
             picTipoArrow.TabStop = false;
+            // 
+            // cbTipoRelatorio
+            // 
+            cbTipoRelatorio.AutoSelectFirst = false;
+            cbTipoRelatorio.BackColor = Color.FromArgb(40, 41, 52);
+            cbTipoRelatorio.DrawMode = DrawMode.OwnerDrawFixed;
+            cbTipoRelatorio.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbTipoRelatorio.FlatStyle = FlatStyle.Flat;
+            cbTipoRelatorio.Font = new Font("Segoe UI", 10F);
+            cbTipoRelatorio.ForeColor = Color.White;
+            cbTipoRelatorio.FormattingEnabled = true;
+            cbTipoRelatorio.ItemEntryHeight = 24;
+            cbTipoRelatorio.ItemHeight = 17;
+            cbTipoRelatorio.Items.AddRange(new object[] { "Vendas do período", "Produtos mais vendidos", "Vendas por funcionário", "Produtos com baixo estoque", "Formas de pagamento", "Vendas por categoria", "Movimentação de estoque", "Lucro bruto por produto", "Tendência de vendas" });
+            cbTipoRelatorio.Location = new Point(6, 6);
+            cbTipoRelatorio.Margin = new Padding(0);
+            cbTipoRelatorio.Name = "cbTipoRelatorio";
+            cbTipoRelatorio.Placeholder = "Selecione...";
+            cbTipoRelatorio.ShowPlaceholder = true;
+            cbTipoRelatorio.Size = new Size(308, 23);
+            cbTipoRelatorio.TabIndex = 0;
             // 
             // pnlWrapperPeriodo
             // 
             pnlWrapperPeriodo.BackColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperPeriodo.Controls.Add(pictureBox2);
-            pnlWrapperPeriodo.Controls.Add(panel8);
-            pnlWrapperPeriodo.Controls.Add(panel7);
-            pnlWrapperPeriodo.Controls.Add(panel6);
-            pnlWrapperPeriodo.Controls.Add(panel5);
-            pnlWrapperPeriodo.Controls.Add(cbPeriodo);
-            pnlWrapperPeriodo.Controls.Add(pnlCoverPeriodo);
+            pnlWrapperPeriodo.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperPeriodo.BorderThickness = 1;
             pnlWrapperPeriodo.Controls.Add(picPeriodoArrow);
-            pnlWrapperPeriodo.Location = new Point(503, 10);
+            pnlWrapperPeriodo.Controls.Add(cbPeriodo);
+            pnlWrapperPeriodo.CornerRadius = 8;
+            pnlWrapperPeriodo.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPeriodo.Location = new Point(425, 10);
             pnlWrapperPeriodo.Name = "pnlWrapperPeriodo";
-            pnlWrapperPeriodo.Padding = new Padding(8, 6, 8, 6);
+            pnlWrapperPeriodo.Padding = new Padding(8, 6, 30, 6);
             pnlWrapperPeriodo.Size = new Size(240, 36);
             pnlWrapperPeriodo.TabIndex = 3;
             // 
-            // cbPeriodo
-            // 
-            cbPeriodo.BackColor = Color.FromArgb(40, 41, 52);
-            cbPeriodo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbPeriodo.FlatStyle = FlatStyle.Flat;
-            cbPeriodo.Font = new Font("Segoe UI", 9F);
-            cbPeriodo.ForeColor = Color.White;
-            cbPeriodo.Items.AddRange(new object[] { "Hoje", "Ontem", "Últimos 7 dias", "Últimos 30 dias", "Este mês", "Mês passado", "Ano atual" });
-            cbPeriodo.Location = new Point(8, 6);
-            cbPeriodo.Margin = new Padding(4, 3, 4, 3);
-            cbPeriodo.Name = "cbPeriodo";
-            cbPeriodo.Size = new Size(224, 23);
-            cbPeriodo.TabIndex = 3;
-            // 
-            // pnlCoverPeriodo
-            // 
-            pnlCoverPeriodo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pnlCoverPeriodo.BackColor = Color.FromArgb(40, 41, 52);
-            pnlCoverPeriodo.Location = new Point(212, 6);
-            pnlCoverPeriodo.Name = "pnlCoverPeriodo";
-            pnlCoverPeriodo.Size = new Size(20, 24);
-            pnlCoverPeriodo.TabIndex = 2;
-            // 
             // picPeriodoArrow
             // 
-            picPeriodoArrow.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            picPeriodoArrow.BackColor = Color.Transparent;
-            picPeriodoArrow.Location = new Point(232, 9);
+            picPeriodoArrow.Image = (Image)resources.GetObject("picPeriodoArrow.Image");
+            picPeriodoArrow.Location = new Point(208, 13);
             picPeriodoArrow.Name = "picPeriodoArrow";
-            picPeriodoArrow.Size = new Size(12, 18);
+            picPeriodoArrow.Size = new Size(10, 10);
             picPeriodoArrow.SizeMode = PictureBoxSizeMode.Zoom;
-            picPeriodoArrow.TabIndex = 3;
+            picPeriodoArrow.TabIndex = 15;
             picPeriodoArrow.TabStop = false;
+            // 
+            // cbPeriodo
+            // 
+            cbPeriodo.AutoSelectFirst = false;
+            cbPeriodo.BackColor = Color.FromArgb(40, 41, 52);
+            cbPeriodo.DrawMode = DrawMode.OwnerDrawFixed;
+            cbPeriodo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbPeriodo.FlatStyle = FlatStyle.Flat;
+            cbPeriodo.Font = new Font("Segoe UI", 10F);
+            cbPeriodo.ForeColor = Color.White;
+            cbPeriodo.FormattingEnabled = true;
+            cbPeriodo.ItemEntryHeight = 24;
+            cbPeriodo.ItemHeight = 17;
+            cbPeriodo.Items.AddRange(new object[] { "Hoje", "Ontem", "Últimos 7 dias", "Últimos 30 dias", "Este mês", "Mês passado", "Ano atual" });
+            cbPeriodo.Location = new Point(8, 6);
+            cbPeriodo.Margin = new Padding(3, 0, 10, 0);
+            cbPeriodo.Name = "cbPeriodo";
+            cbPeriodo.Placeholder = "Selecione...";
+            cbPeriodo.ShowPlaceholder = true;
+            cbPeriodo.Size = new Size(224, 23);
+            cbPeriodo.TabIndex = 11;
             // 
             // btnGerarRelatorio
             // 
@@ -576,7 +559,7 @@ namespace telebip_erp.Forms.Modules
             btnGerarRelatorio.ImageAutoCenter = true;
             btnGerarRelatorio.ImageExpand = new Point(0, 0);
             btnGerarRelatorio.ImageOffset = new Point(0, 0);
-            btnGerarRelatorio.Location = new Point(760, 10);
+            btnGerarRelatorio.Location = new Point(682, 10);
             btnGerarRelatorio.Name = "btnGerarRelatorio";
             btnGerarRelatorio.NormalBackground = Color.FromArgb(40, 120, 80);
             btnGerarRelatorio.NormalForeColor = Color.White;
@@ -616,82 +599,6 @@ namespace telebip_erp.Forms.Modules
             lblTitulo.Text = "Relatórios e Análises";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // panel1
-            // 
-            panel1.Location = new Point(4, 23);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(308, 8);
-            panel1.TabIndex = 4;
-            // 
-            // panel2
-            // 
-            panel2.Location = new Point(7, 6);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(305, 10);
-            panel2.TabIndex = 5;
-            // 
-            // panel4
-            // 
-            panel4.Location = new Point(5, 9);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(6, 18);
-            panel4.TabIndex = 7;
-            // 
-            // panel5
-            // 
-            panel5.Location = new Point(6, 22);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(226, 10);
-            panel5.TabIndex = 4;
-            // 
-            // panel6
-            // 
-            panel6.Location = new Point(5, 6);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(227, 10);
-            panel6.TabIndex = 5;
-            // 
-            // panel7
-            // 
-            panel7.Location = new Point(6, 6);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(6, 23);
-            panel7.TabIndex = 6;
-            // 
-            // panel8
-            // 
-            panel8.Location = new Point(224, 7);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(8, 22);
-            panel8.TabIndex = 7;
-            // 
-            // panel3
-            // 
-            panel3.Location = new Point(305, 6);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(8, 23);
-            panel3.TabIndex = 8;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(291, 14);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(15, 10);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 9;
-            pictureBox1.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(209, 14);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(15, 10);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 8;
-            pictureBox2.TabStop = false;
-            // 
             // FormRelatorios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -718,8 +625,6 @@ namespace telebip_erp.Forms.Modules
             pnlWrapperPeriodo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picPeriodoArrow).EndInit();
             pnlHeader.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 
@@ -733,15 +638,13 @@ namespace telebip_erp.Forms.Modules
         private Panel pnlFiltros;
         private Label lblRelatorio;
 
-        // wrappers e comboboxes convertidos
-        private Panel pnlWrapperTipoRelatorio;
-        private ComboBox cbTipoRelatorio;
-        private Panel pnlCoverTipoRelatorio;
+        // ComboBoxes convertidas para NeoFlatComboBox
+        private telebip_erp.Controls.RoundedPanel pnlWrapperTipoRelatorio;
+        private telebip_erp.Controls.NeoFlatComboBox cbTipoRelatorio;
         private PictureBox picTipoArrow;
 
-        private Panel pnlWrapperPeriodo;
-        private ComboBox cbPeriodo;
-        private Panel pnlCoverPeriodo;
+        private telebip_erp.Controls.RoundedPanel pnlWrapperPeriodo;
+        private telebip_erp.Controls.NeoFlatComboBox cbPeriodo;
         private PictureBox picPeriodoArrow;
 
         private CuoreUI.Controls.cuiButton btnGerarRelatorio;
@@ -767,15 +670,5 @@ namespace telebip_erp.Forms.Modules
         private Panel pnlAcoes;
         private CuoreUI.Controls.cuiButton btnExportarExcel;
         private CuoreUI.Controls.cuiButton btnImprimir;
-        private Panel panel3;
-        private Panel panel4;
-        private Panel panel2;
-        private Panel panel1;
-        private Panel panel8;
-        private Panel panel7;
-        private Panel panel6;
-        private Panel panel5;
-        private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
     }
 }
