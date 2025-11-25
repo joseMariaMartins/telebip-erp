@@ -24,28 +24,28 @@
             btnLimpar = new CuoreUI.Controls.cuiButton();
             btnPesquisar = new CuoreUI.Controls.cuiButton();
             pnlWrapperCampo = new telebip_erp.Controls.RoundedPanel();
-            PictureImage2 = new PictureBox();
             cbPesquisaCampo = new telebip_erp.Controls.NeoFlatComboBox();
             pnlWrapperCondicao = new telebip_erp.Controls.RoundedPanel();
-            pictureBox1 = new PictureBox();
             cbCondicao = new telebip_erp.Controls.NeoFlatComboBox();
             pnlWrapperPesquisa = new telebip_erp.Controls.RoundedPanel();
             picSearch = new PictureBox();
             tbPesquisa = new TextBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
+            PictureImage2 = new PictureBox();
+            pictureBox1 = new PictureBox();
             pnlContainer.SuspendLayout();
             pnlDgv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEstoque).BeginInit();
             pnlBottom.SuspendLayout();
             pnlFiltros.SuspendLayout();
             pnlWrapperCampo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PictureImage2).BeginInit();
             pnlWrapperCondicao.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlWrapperPesquisa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picSearch).BeginInit();
             pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PictureImage2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pnlContainer
@@ -253,28 +253,25 @@
             pnlWrapperCampo.Size = new Size(169, 36);
             pnlWrapperCampo.TabIndex = 50;
             // 
-            // PictureImage2
-            // 
-            PictureImage2.Image = (Image)resources.GetObject("PictureImage2.Image");
-            PictureImage2.Location = new Point(148, 13);
-            PictureImage2.Name = "PictureImage2";
-            PictureImage2.Size = new Size(10, 10);
-            PictureImage2.SizeMode = PictureBoxSizeMode.Zoom;
-            PictureImage2.TabIndex = 17;
-            PictureImage2.TabStop = false;
-            // 
             // cbPesquisaCampo
             // 
+            cbPesquisaCampo.AutoSelectFirst = false;
             cbPesquisaCampo.BackColor = Color.FromArgb(40, 41, 52);
+            cbPesquisaCampo.DrawMode = DrawMode.OwnerDrawFixed;
             cbPesquisaCampo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbPesquisaCampo.FlatStyle = FlatStyle.Flat;
             cbPesquisaCampo.Font = new Font("Segoe UI", 10F);
             cbPesquisaCampo.ForeColor = Color.White;
             cbPesquisaCampo.FormattingEnabled = true;
+            cbPesquisaCampo.ItemEntryHeight = 24;
             cbPesquisaCampo.ItemHeight = 17;
             cbPesquisaCampo.Items.AddRange(new object[] { "ID", "Nome", "Marca", "Preço", "Qtd do estoque", "Qtd de aviso", "Observação" });
             cbPesquisaCampo.Location = new Point(6, 6);
+            cbPesquisaCampo.Margin = new Padding(0);
             cbPesquisaCampo.Name = "cbPesquisaCampo";
-            cbPesquisaCampo.Size = new Size(157, 25);
+            cbPesquisaCampo.Placeholder = "Selecione...";
+            cbPesquisaCampo.ShowPlaceholder = true;
+            cbPesquisaCampo.Size = new Size(157, 23);
             cbPesquisaCampo.TabIndex = 0;
             // 
             // pnlWrapperCondicao
@@ -292,29 +289,25 @@
             pnlWrapperCondicao.Size = new Size(169, 36);
             pnlWrapperCondicao.TabIndex = 51;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(143, 13);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(10, 10);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 15;
-            pictureBox1.TabStop = false;
-            // 
             // cbCondicao
             // 
+            cbCondicao.AutoSelectFirst = false;
             cbCondicao.BackColor = Color.FromArgb(40, 41, 52);
+            cbCondicao.DrawMode = DrawMode.OwnerDrawFixed;
             cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCondicao.FlatStyle = FlatStyle.Flat;
             cbCondicao.Font = new Font("Segoe UI", 9F);
             cbCondicao.ForeColor = Color.White;
             cbCondicao.FormattingEnabled = true;
+            cbCondicao.ItemEntryHeight = 24;
             cbCondicao.ItemHeight = 15;
             cbCondicao.Items.AddRange(new object[] { "Inicia com", "Contendo", "Diferente de", "Identico a" });
-            cbCondicao.Location = new Point(8, 6);
+            cbCondicao.Location = new Point(8, 7);
             cbCondicao.Margin = new Padding(3, 0, 10, 0);
             cbCondicao.Name = "cbCondicao";
-            cbCondicao.Size = new Size(156, 23);
+            cbCondicao.Placeholder = "Selecione...";
+            cbCondicao.ShowPlaceholder = true;
+            cbCondicao.Size = new Size(156, 21);
             cbCondicao.TabIndex = 11;
             // 
             // pnlWrapperPesquisa
@@ -379,6 +372,26 @@
             lblTitulo.Text = "Gerenciamento de Estoque";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // PictureImage2
+            // 
+            PictureImage2.Image = (Image)resources.GetObject("PictureImage2.Image");
+            PictureImage2.Location = new Point(142, 13);
+            PictureImage2.Name = "PictureImage2";
+            PictureImage2.Size = new Size(10, 10);
+            PictureImage2.SizeMode = PictureBoxSizeMode.Zoom;
+            PictureImage2.TabIndex = 17;
+            PictureImage2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(143, 13);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(10, 10);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 15;
+            pictureBox1.TabStop = false;
+            // 
             // FormEstoque
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -396,13 +409,13 @@
             pnlBottom.ResumeLayout(false);
             pnlFiltros.ResumeLayout(false);
             pnlWrapperCampo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)PictureImage2).EndInit();
             pnlWrapperCondicao.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlWrapperPesquisa.ResumeLayout(false);
             pnlWrapperPesquisa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
             pnlHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)PictureImage2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
 
         }
@@ -436,8 +449,8 @@
         private Panel panel4;
         private Panel panel6;
         private PictureBox pictureBox2;
-        private PictureBox pictureBox1;
         private Panel panel8;
         private PictureBox PictureImage2;
+        private PictureBox pictureBox1;
     }
 }

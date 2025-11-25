@@ -30,6 +30,7 @@ namespace telebip_erp.Controls
                 _itemHeight = Math.Max(16, value);
                 base.ItemHeight = _itemHeight;
                 InvalidateSafe();
+                _overlay?.Invalidate();
             }
         }
 
@@ -60,6 +61,7 @@ namespace telebip_erp.Controls
         // logging
         private readonly string _logPath = Path.Combine(Path.GetTempPath(), "NeoFlatComboBox_logs.txt");
         private readonly int _maxLogBytes = 180 * 1024;
+        private readonly object _logLock = new object();
 
         // recovery attempts
         private int _resetAttempts = 0;
@@ -73,17 +75,22 @@ namespace telebip_erp.Controls
         // Força um pequeno backoff antes de reabrir (ms)
         private const int _globalDropdownBackoffMs = 45;
 
+        // overlay para cobrir o desenho nativo do closed area e "tampar" bordas/brancos
+        private Panel _overlay;
+
         public NeoFlatComboBox()
         {
             BackColorSurface = this.BackColor == Color.Empty ? BackColorSurface : this.BackColor;
             this.BackColor = BackColorSurface;
 
-            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint |
-                     ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
+            // Não habilitar UserPaint para evitar AccessViolation com o ComboBox nativo.
+            SetStyle(ControlStyles.AllPaintingInWmPaint |
+                     ControlStyles.OptimizedDoubleBuffer |
+                     ControlStyles.ResizeRedraw, true);
             UpdateStyles();
 
             this.FlatStyle = FlatStyle.Flat;
-            this.DrawMode = DrawMode.OwnerDrawFixed;
+            this.DrawMode = DrawMode.OwnerDrawFixed; // owner draw para itens do dropdown
             this.DropDownStyle = ComboBoxStyle.DropDownList;
             base.ItemHeight = _itemHeight;
             this.Font = new Font("Segoe UI", 9f);
@@ -99,7 +106,122 @@ namespace telebip_erp.Controls
             {
                 if (this.BackColor != Color.Empty) BackColorSurface = this.BackColor;
                 InvalidateSafe();
+                _overlay?.Invalidate();
             };
+
+            // construir overlay que cobre a área do controle e desenha o visual escuro
+            CreateOverlay();
+        }
+
+        private void CreateOverlay()
+        {
+            if (_overlay != null) return;
+            _overlay = new Panel { Dock = DockStyle.Fill, BackColor = Color.Transparent, Enabled = true };
+            _overlay.Paint += Overlay_Paint;
+            _overlay.MouseDown += Overlay_MouseDown;
+            _overlay.MouseEnter += (s, e) => this.Cursor = Cursors.Hand;
+            _overlay.MouseLeave += (s, e) => this.Cursor = Cursors.Default;
+            this.Controls.Add(_overlay);
+            _overlay.BringToFront();
+        }
+
+        private void Overlay_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left) return;
+            // tenta abrir dropdown de forma segura
+            try
+            {
+                if (System.Threading.Interlocked.CompareExchange(ref _globalDropdownInUse, 1, 0) != 0)
+                {
+                    var t = new System.Windows.Forms.Timer { Interval = _globalDropdownBackoffMs };
+                    t.Tick += (ts, te) =>
+                    {
+                        try { t.Stop(); t.Dispose(); } catch { }
+                        if (!_isInRecovery && this.IsHandleCreated && !this.IsDisposed)
+                        {
+                            try { DroppedDown = true; } catch { }
+                            ActivateClickLock();
+                        }
+                    };
+                    t.Start();
+                    return;
+                }
+
+                if (_isInRecovery || _inWndProc) { System.Threading.Interlocked.Exchange(ref _globalDropdownInUse, 0); return; }
+
+                try { DroppedDown = true; } catch { }
+                ActivateClickLock();
+            }
+            finally
+            {
+                // DropDownClosed handler libera o global lock
+            }
+        }
+
+        private void Overlay_Paint(object sender, PaintEventArgs e)
+        {
+            try
+            {
+                var g = e.Graphics;
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+
+                var bounds = _overlay.ClientRectangle;
+
+                // desenhar fundo totalmente escuro cobrindo possíveis detalhes brancos
+                using (var b = new SolidBrush(BackColorSurface))
+                    g.FillRectangle(b, bounds);
+
+                // desenhar "borda" interna escura (substitui detalhes nativos)
+                int innerPad = 1; // espessura da borda simulada
+                using (var pen = new Pen(BackColorSurface))
+                {
+                    g.DrawRectangle(pen, innerPad, innerPad, bounds.Width - innerPad * 2 - 1, bounds.Height - innerPad * 2 - 1);
+                }
+
+                // texto a mostrar
+                string toShow = string.Empty;
+                Color textColor = ForeText;
+
+                if (SelectedIndex >= 0 && SelectedItem != null) toShow = GetItemText(SelectedItem);
+                else
+                {
+                    if (!string.IsNullOrEmpty(Text))
+                    {
+                        bool matches = false;
+                        for (int i = 0; i < Items.Count; i++)
+                            if (string.Equals(GetItemText(Items[i]), Text, StringComparison.OrdinalIgnoreCase)) { matches = true; break; }
+                        if (!matches) toShow = Text;
+                    }
+
+                    if (string.IsNullOrEmpty(toShow))
+                    {
+                        if (ShowPlaceholder) { toShow = Placeholder; textColor = PlaceholderColor; }
+                        else toShow = string.Empty;
+                    }
+                }
+
+                using (var sb = new SolidBrush(textColor))
+                {
+                    var textRect = new Rectangle(8, 0, bounds.Width - 32, bounds.Height);
+                    g.DrawString(toShow, this.Font, sb, textRect, _textFormat);
+                }
+
+                // desenhar seta/arrow preenchida escura com traço branco interno pequeno (opcional)
+                int arrowSize = 8;
+                int cx = bounds.Right - 18;
+                int cy = bounds.Height / 2;
+                Point[] triangle = new Point[] {
+                    new Point(cx - arrowSize/2, cy - arrowSize/3),
+                    new Point(cx + arrowSize/2, cy - arrowSize/3),
+                    new Point(cx, cy + arrowSize/3)
+                };
+                using (var sb = new SolidBrush(ForeText))
+                {
+                    g.FillPolygon(sb, triangle);
+                }
+            }
+            catch (Exception ex) { TryLogException(ex); }
         }
 
         #region Handlers attach/detach
@@ -111,7 +233,7 @@ namespace telebip_erp.Controls
             DropDown += DropDown_Handler;
             DropDownClosed += DropDownClosed_Handler;
             HandleCreated += HandleCreated_Handler;
-            MouseDown += MouseDown_Handler;
+            // MouseDown handled by overlay
         }
 
         private void SafeDetachHandlers()
@@ -123,7 +245,6 @@ namespace telebip_erp.Controls
                 DropDown -= DropDown_Handler;
                 DropDownClosed -= DropDownClosed_Handler;
                 HandleCreated -= HandleCreated_Handler;
-                MouseDown -= MouseDown_Handler;
             }
             catch { }
         }
@@ -135,18 +256,18 @@ namespace telebip_erp.Controls
             // desacoplar para evitar executar durante fluxo do WndProc de outra combobox
             try
             {
-                this.BeginInvoke((MethodInvoker)(() => SafeAction(() => InvalidateSafe())));
+                this.BeginInvoke((MethodInvoker)(() => SafeAction(() => { InvalidateSafe(); _overlay?.Invalidate(); })));
             }
-            catch { SafeAction(() => InvalidateSafe()); }
+            catch { SafeAction(() => { InvalidateSafe(); _overlay?.Invalidate(); }); }
         }
 
         private void TextChanged_Handler(object s, EventArgs e)
         {
             try
             {
-                this.BeginInvoke((MethodInvoker)(() => SafeAction(() => InvalidateSafe())));
+                this.BeginInvoke((MethodInvoker)(() => SafeAction(() => { InvalidateSafe(); _overlay?.Invalidate(); })));
             }
-            catch { SafeAction(() => InvalidateSafe()); }
+            catch { SafeAction(() => { InvalidateSafe(); _overlay?.Invalidate(); }); }
         }
 
         private void DropDown_Handler(object s, EventArgs e)
@@ -158,17 +279,21 @@ namespace telebip_erp.Controls
                 acquired = System.Threading.Interlocked.CompareExchange(ref _globalDropdownInUse, 1, 0) == 0;
                 if (!acquired)
                 {
-                    // outro dropdown está em transição — reagendar abertura leve
+                    // outro dropdown está em transição — reagendar abertura leve usando timer (não bloquear UI)
                     try
                     {
                         this.BeginInvoke((MethodInvoker)(() =>
                         {
-                            Thread.Sleep(_globalDropdownBackoffMs);
-                            // se ainda não in recovery, solicitar abrir de novo
-                            if (!_isInRecovery && !this.IsDisposed && this.IsHandleCreated)
+                            var t = new System.Windows.Forms.Timer { Interval = _globalDropdownBackoffMs };
+                            t.Tick += (ts, te) =>
                             {
-                                try { DroppedDown = true; } catch { }
-                            }
+                                try { t.Stop(); t.Dispose(); } catch { }
+                                if (!_isInRecovery && !this.IsDisposed && this.IsHandleCreated)
+                                {
+                                    try { DroppedDown = true; } catch { }
+                                }
+                            };
+                            t.Start();
                         }));
                     }
                     catch { }
@@ -189,6 +314,7 @@ namespace telebip_erp.Controls
                     {
                         _suspendInvalidation = false;
                         InvalidateSafe();
+                        _overlay?.Invalidate();
                     }));
                 }
                 catch { _suspendInvalidation = false; }
@@ -209,57 +335,15 @@ namespace telebip_erp.Controls
             // liberar slot global (caso estivermos sendo o dono)
             System.Threading.Interlocked.Exchange(ref _globalDropdownInUse, 0);
 
-            try { this.BeginInvoke((MethodInvoker)(() => InvalidateSafe())); }
-            catch { InvalidateSafe(); }
+            try { this.BeginInvoke((MethodInvoker)(() => { InvalidateSafe(); _overlay?.Invalidate(); })); }
+            catch { InvalidateSafe(); _overlay?.Invalidate(); }
         }
 
         private void HandleCreated_Handler(object s, EventArgs e)
         {
             _controlReady = true;
-            try { this.BeginInvoke((MethodInvoker)(() => SafeAction(() => InvalidateSafe()))); }
-            catch { SafeAction(() => InvalidateSafe()); }
-        }
-
-        private void MouseDown_Handler(object s, MouseEventArgs e)
-        {
-            if (e.Button != MouseButtons.Left) return;
-
-            // se global ocupado, reagendar abertura breve (não bloquear UI)
-            if (System.Threading.Interlocked.CompareExchange(ref _globalDropdownInUse, 1, 0) != 0)
-            {
-                try
-                {
-                    this.BeginInvoke((MethodInvoker)(() =>
-                    {
-                        Thread.Sleep(_globalDropdownBackoffMs);
-                        if (!_isInRecovery && this.IsHandleCreated && !this.IsDisposed)
-                        {
-                            try { DroppedDown = true; } catch { }
-                            ActivateClickLock();
-                        }
-                    }));
-                }
-                catch
-                {
-                    // fallback: tentar abrir imediatamente
-                    try { DroppedDown = true; } catch { }
-                    ActivateClickLock();
-                }
-                return;
-            }
-
-            // acquired the global slot
-            try
-            {
-                if (_isInRecovery || _inWndProc) { System.Threading.Interlocked.Exchange(ref _globalDropdownInUse, 0); return; }
-
-                try { DroppedDown = true; } catch { }
-                ActivateClickLock();
-            }
-            finally
-            {
-                // don't release here, DropDownClosed will release
-            }
+            try { this.BeginInvoke((MethodInvoker)(() => SafeAction(() => { InvalidateSafe(); _overlay?.Invalidate(); }))); }
+            catch { SafeAction(() => { InvalidateSafe(); _overlay?.Invalidate(); }); }
         }
         #endregion
 
@@ -347,6 +431,8 @@ namespace telebip_erp.Controls
 
                 if (m.Msg == WM_ERASEBKGND)
                 {
+                    // ignore explicit erase background to reduce flicker
+                    base.WndProc(ref m); // still forward to avoid surprising native control
                     return;
                 }
 
@@ -385,32 +471,32 @@ namespace telebip_erp.Controls
                 {
                     try
                     {
-                        Thread.Sleep(40); // short pause to let messages drain
-                        this.RecreateHandle();
+                        // short pause using Timer so we don't block
+                        var t = new System.Windows.Forms.Timer { Interval = 40 };
+                        t.Tick += (s, e) =>
+                        {
+                            try { t.Stop(); t.Dispose(); } catch { }
+                            try { this.RecreateHandle(); } catch { }
+                            try { this.Enabled = true; } catch { }
+                            TryRecoverFromError(new Exception(reason));
+                        };
+                        t.Start();
                     }
                     catch { }
-                    finally
-                    {
-                        try { this.Enabled = true; } catch { }
-                        TryRecoverFromError(new Exception(reason));
-                    }
                 }));
             }
             catch { try { this.Enabled = true; } catch { } }
         }
         #endregion
 
-        #region Paint / Draw (dark dropdown)
-        protected override void OnPaintBackground(PaintEventArgs pevent)
-        {
-            using (var b = new SolidBrush(BackColorSurface))
-                pevent.Graphics.FillRectangle(b, this.ClientRectangle);
-        }
-
+        #region Paint / Draw (dark dropdown via OwnerDraw)
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
             try
             {
+                // Somente desenhar os itens do dropdown (e não tentar redesenhar a área fechada aqui — overlay cuida disso)
+                if (e.Index < 0) return;
+
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
                 e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
@@ -418,8 +504,6 @@ namespace telebip_erp.Controls
 
                 using (var bg = new SolidBrush(BackColorSurface))
                     e.Graphics.FillRectangle(bg, bounds);
-
-                if (e.Index < 0) return;
 
                 bool selected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
                 if (selected)
@@ -434,52 +518,6 @@ namespace telebip_erp.Controls
                     var textRect = new Rectangle(bounds.X + 6, bounds.Y, bounds.Width - 12, bounds.Height);
                     e.Graphics.DrawString(text, this.Font, brush, textRect, _textFormat);
                 }
-            }
-            catch (Exception ex) { TryLogException(ex); TryRecoverFromError(ex); }
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            try
-            {
-                var g = e.Graphics;
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-
-                using (var b = new SolidBrush(BackColorSurface))
-                    g.FillRectangle(b, ClientRectangle);
-
-                string toShow = string.Empty;
-                Color textColor = ForeText;
-
-                if (SelectedIndex >= 0 && SelectedItem != null) toShow = GetItemText(SelectedItem);
-                else
-                {
-                    if (!string.IsNullOrEmpty(Text))
-                    {
-                        bool matches = false;
-                        for (int i = 0; i < Items.Count; i++)
-                            if (string.Equals(GetItemText(Items[i]), Text, StringComparison.OrdinalIgnoreCase)) { matches = true; break; }
-                        if (!matches) toShow = Text;
-                    }
-
-                    if (string.IsNullOrEmpty(toShow))
-                    {
-                        if (ShowPlaceholder) { toShow = Placeholder; textColor = PlaceholderColor; }
-                        else toShow = string.Empty;
-                    }
-                }
-
-                using (var sb = new SolidBrush(textColor))
-                {
-                    var textRect = new Rectangle(10, 0, Width - 20, Height);
-                    g.DrawString(toShow, Font, sb, textRect, _textFormat);
-                }
-
-                int arrowAreaWidth = 20;
-                var arrowRect = new Rectangle(Width - arrowAreaWidth, 0, arrowAreaWidth, Height);
-                using (var b = new SolidBrush(BackColorSurface))
-                    g.FillRectangle(b, arrowRect);
             }
             catch (Exception ex) { TryLogException(ex); TryRecoverFromError(ex); }
         }
@@ -511,6 +549,7 @@ namespace telebip_erp.Controls
                     _suppressUpdate = false;
                 }
                 InvalidateSafe();
+                _overlay?.Invalidate();
             });
         }
         #endregion
@@ -534,6 +573,7 @@ namespace telebip_erp.Controls
                         this.Text = string.Empty;
                         _suppressUpdate = false;
                         InvalidateSafe();
+                        _overlay?.Invalidate();
                         break;
                     }
                 }
@@ -546,16 +586,16 @@ namespace telebip_erp.Controls
             base.OnSelectedIndexChanged(e);
             if (_suppressUpdate) return;
             // desacoplar a atualização para reduzir chance de race com outro controle
-            try { this.BeginInvoke((MethodInvoker)(() => InvalidateSafe())); }
-            catch { InvalidateSafe(); }
+            try { this.BeginInvoke((MethodInvoker)(() => { InvalidateSafe(); _overlay?.Invalidate(); })); }
+            catch { InvalidateSafe(); _overlay?.Invalidate(); }
         }
 
         protected override void OnTextChanged(EventArgs e)
         {
             base.OnTextChanged(e);
             if (_suppressUpdate) return;
-            try { this.BeginInvoke((MethodInvoker)(() => InvalidateSafe())); }
-            catch { InvalidateSafe(); }
+            try { this.BeginInvoke((MethodInvoker)(() => { InvalidateSafe(); _overlay?.Invalidate(); })); }
+            catch { InvalidateSafe(); _overlay?.Invalidate(); }
         }
 
         public void StartEmpty()
@@ -567,6 +607,7 @@ namespace telebip_erp.Controls
                 Text = string.Empty;
                 _suppressUpdate = false;
                 InvalidateSafe();
+                _overlay?.Invalidate();
             }
             catch (Exception ex) { TryLogException(ex); TryRecoverFromError(ex); }
         }
@@ -597,6 +638,7 @@ namespace telebip_erp.Controls
                 System.Threading.Interlocked.Exchange(ref _globalDropdownInUse, 0);
                 SafeAttachHandlers();
                 InvalidateSafe();
+                _overlay?.Invalidate();
             }
             finally { _isInRecovery = false; }
         }
@@ -613,7 +655,7 @@ namespace telebip_erp.Controls
                 sb.AppendLine(ex.StackTrace ?? "");
                 sb.AppendLine("-----------------------------------");
 
-                lock (_logPath)
+                lock (_logLock)
                 {
                     try
                     {
@@ -643,6 +685,19 @@ namespace telebip_erp.Controls
             if (disposing)
             {
                 try { SafeDetachHandlers(); } catch { }
+                try { _textFormat?.Dispose(); } catch { }
+                try
+                {
+                    if (_overlay != null)
+                    {
+                        _overlay.Paint -= Overlay_Paint;
+                        _overlay.MouseDown -= Overlay_MouseDown;
+                        this.Controls.Remove(_overlay);
+                        _overlay.Dispose();
+                        _overlay = null;
+                    }
+                }
+                catch { }
             }
             base.Dispose(disposing);
         }

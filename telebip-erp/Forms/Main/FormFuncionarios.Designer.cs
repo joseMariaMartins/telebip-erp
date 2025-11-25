@@ -27,9 +27,7 @@ namespace telebip_erp.Forms.Modules
             picCardAvatar = new PictureBox();
             pnlCardDivider = new Panel();
             tblInfo = new TableLayoutPanel();
-            lblCardNomeCompleto = new Label();
-            lblCardTelefone = new Label();
-            lblCardEmail = new Label();
+            lblCardDataNascimento = new Label();
             flowCardButtons = new FlowLayoutPanel();
             btnAdicionar = new CuoreUI.Controls.cuiButton();
             btnEditar = new CuoreUI.Controls.cuiButton();
@@ -235,58 +233,28 @@ namespace telebip_erp.Forms.Modules
             // 
             tblInfo.ColumnCount = 1;
             tblInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tblInfo.Controls.Add(lblCardNomeCompleto, 0, 0);
-            tblInfo.Controls.Add(lblCardTelefone, 0, 1);
-            tblInfo.Controls.Add(lblCardEmail, 0, 2);
+            tblInfo.Controls.Add(lblCardDataNascimento, 0, 0);
             tblInfo.Dock = DockStyle.Fill;
             tblInfo.Location = new Point(0, 80);
             tblInfo.Margin = new Padding(0);
             tblInfo.Name = "tblInfo";
-            tblInfo.RowCount = 3;
-            tblInfo.RowStyles.Add(new RowStyle());
-            tblInfo.RowStyles.Add(new RowStyle());
+            tblInfo.RowCount = 1;
             tblInfo.RowStyles.Add(new RowStyle());
             tblInfo.Size = new Size(207, 407);
             tblInfo.TabIndex = 12;
             // 
-            // lblCardNomeCompleto
+            // lblCardDataNascimento
             // 
-            lblCardNomeCompleto.AutoEllipsis = true;
-            lblCardNomeCompleto.AutoSize = true;
-            lblCardNomeCompleto.Font = new Font("Segoe UI", 9F);
-            lblCardNomeCompleto.ForeColor = Color.White;
-            lblCardNomeCompleto.Location = new Point(0, 0);
-            lblCardNomeCompleto.Margin = new Padding(0, 0, 0, 6);
-            lblCardNomeCompleto.Name = "lblCardNomeCompleto";
-            lblCardNomeCompleto.Size = new Size(105, 15);
-            lblCardNomeCompleto.TabIndex = 2;
-            lblCardNomeCompleto.Text = "Nome completo: -";
-            // 
-            // lblCardTelefone
-            // 
-            lblCardTelefone.AutoEllipsis = true;
-            lblCardTelefone.AutoSize = true;
-            lblCardTelefone.Font = new Font("Segoe UI", 9F);
-            lblCardTelefone.ForeColor = Color.White;
-            lblCardTelefone.Location = new Point(0, 21);
-            lblCardTelefone.Margin = new Padding(0, 0, 0, 6);
-            lblCardTelefone.Name = "lblCardTelefone";
-            lblCardTelefone.Size = new Size(63, 15);
-            lblCardTelefone.TabIndex = 3;
-            lblCardTelefone.Text = "Telefone: -";
-            // 
-            // lblCardEmail
-            // 
-            lblCardEmail.AutoEllipsis = true;
-            lblCardEmail.AutoSize = true;
-            lblCardEmail.Font = new Font("Segoe UI", 9F);
-            lblCardEmail.ForeColor = Color.White;
-            lblCardEmail.Location = new Point(0, 42);
-            lblCardEmail.Margin = new Padding(0, 0, 0, 6);
-            lblCardEmail.Name = "lblCardEmail";
-            lblCardEmail.Size = new Size(52, 15);
-            lblCardEmail.TabIndex = 4;
-            lblCardEmail.Text = "E-mail: -";
+            lblCardDataNascimento.AutoEllipsis = true;
+            lblCardDataNascimento.AutoSize = true;
+            lblCardDataNascimento.Font = new Font("Segoe UI", 9F);
+            lblCardDataNascimento.ForeColor = Color.White;
+            lblCardDataNascimento.Location = new Point(0, 0);
+            lblCardDataNascimento.Margin = new Padding(0, 0, 0, 6);
+            lblCardDataNascimento.Name = "lblCardDataNascimento";
+            lblCardDataNascimento.Size = new Size(125, 15);
+            lblCardDataNascimento.TabIndex = 2;
+            lblCardDataNascimento.Text = "Data de Nascimento: -";
             // 
             // flowCardButtons
             // 
@@ -478,7 +446,7 @@ namespace telebip_erp.Forms.Modules
             // 
             PictureImage2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PictureImage2.Image = (Image)resources.GetObject("PictureImage2.Image");
-            PictureImage2.Location = new Point(196, 13);
+            PictureImage2.Location = new Point(190, 13);
             PictureImage2.Name = "PictureImage2";
             PictureImage2.Size = new Size(10, 10);
             PictureImage2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -699,9 +667,7 @@ namespace telebip_erp.Forms.Modules
         private PictureBox picCardAvatar;
         private Panel pnlCardDivider;
         private TableLayoutPanel tblInfo;
-        private Label lblCardNomeCompleto;
-        private Label lblCardTelefone;
-        private Label lblCardEmail;
+        private Label lblCardDataNascimento;
         private FlowLayoutPanel flowCardButtons;
 
         private Panel pnlBottom;

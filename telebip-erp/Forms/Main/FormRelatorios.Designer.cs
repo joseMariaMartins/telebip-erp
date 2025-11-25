@@ -465,7 +465,7 @@ namespace telebip_erp.Forms.Modules
             // picTipoArrow
             // 
             picTipoArrow.Image = (Image)resources.GetObject("picTipoArrow.Image");
-            picTipoArrow.Location = new Point(288, 13);
+            picTipoArrow.Location = new Point(290, 12);
             picTipoArrow.Name = "picTipoArrow";
             picTipoArrow.Size = new Size(10, 10);
             picTipoArrow.SizeMode = PictureBoxSizeMode.Zoom;
