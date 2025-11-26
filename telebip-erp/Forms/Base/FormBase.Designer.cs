@@ -130,7 +130,7 @@
             btnHome.Location = new Point(-4, -8);
             btnHome.Name = "btnHome";
             btnHome.Padding = new Padding(9, 0, 0, 0);
-            btnHome.Size = new Size(378, 63);
+            btnHome.Size = new Size(405, 63);
             btnHome.TabIndex = 3;
             btnHome.Text = "                    Home";
             btnHome.TextAlign = ContentAlignment.MiddleLeft;
@@ -435,7 +435,7 @@
             // 
             // sidebarTransition
             // 
-            sidebarTransition.Interval = 5;
+            sidebarTransition.Interval = 1;
             sidebarTransition.Tick += sidebarTransition_Tick;
             // 
             // MenuTransitionEstoque

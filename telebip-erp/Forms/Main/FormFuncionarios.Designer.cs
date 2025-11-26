@@ -35,16 +35,13 @@ namespace telebip_erp.Forms.Modules
             pnlBottom = new Panel();
             lbTotal = new Label();
             flowFiltros = new FlowLayoutPanel();
-            pnlWrapperCargo = new telebip_erp.Controls.RoundedPanel();
-            PictureImage2 = new PictureBox();
-            cbFiltroCargo = new telebip_erp.Controls.NeoFlatComboBox();
-            pnlWrapperPesquisa = new telebip_erp.Controls.RoundedPanel();
-            picSearch = new PictureBox();
-            tbSearch = new TextBox();
             btnPesquisar = new CuoreUI.Controls.cuiButton();
             btnLimpar = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
+            PictureImage2 = new PictureBox();
+            picSearch = new PictureBox();
+            tbSearch = new TextBox();
             pnlContainer.SuspendLayout();
             pnlDgv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvFuncionarios).BeginInit();
@@ -57,11 +54,9 @@ namespace telebip_erp.Forms.Modules
             flowCardButtons.SuspendLayout();
             pnlBottom.SuspendLayout();
             flowFiltros.SuspendLayout();
-            pnlWrapperCargo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PictureImage2).BeginInit();
-            pnlWrapperPesquisa.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picSearch).BeginInit();
             pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PictureImage2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picSearch).BeginInit();
             SuspendLayout();
             // 
             // pnlContainer
@@ -414,8 +409,6 @@ namespace telebip_erp.Forms.Modules
             // flowFiltros
             // 
             flowFiltros.BackColor = Color.FromArgb(32, 33, 39);
-            flowFiltros.Controls.Add(pnlWrapperCargo);
-            flowFiltros.Controls.Add(pnlWrapperPesquisa);
             flowFiltros.Controls.Add(btnPesquisar);
             flowFiltros.Controls.Add(btnLimpar);
             flowFiltros.Dock = DockStyle.Top;
@@ -425,95 +418,6 @@ namespace telebip_erp.Forms.Modules
             flowFiltros.Size = new Size(1467, 59);
             flowFiltros.TabIndex = 7;
             flowFiltros.WrapContents = false;
-            // 
-            // pnlWrapperCargo
-            // 
-            pnlWrapperCargo.BackColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperCargo.BorderColor = Color.FromArgb(60, 62, 80);
-            pnlWrapperCargo.BorderThickness = 1;
-            pnlWrapperCargo.Controls.Add(PictureImage2);
-            pnlWrapperCargo.Controls.Add(cbFiltroCargo);
-            pnlWrapperCargo.CornerRadius = 8;
-            pnlWrapperCargo.FillColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperCargo.Location = new Point(12, 12);
-            pnlWrapperCargo.Margin = new Padding(2);
-            pnlWrapperCargo.Name = "pnlWrapperCargo";
-            pnlWrapperCargo.Padding = new Padding(8, 6, 8, 6);
-            pnlWrapperCargo.Size = new Size(220, 36);
-            pnlWrapperCargo.TabIndex = 50;
-            // 
-            // PictureImage2
-            // 
-            PictureImage2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            PictureImage2.Image = (Image)resources.GetObject("PictureImage2.Image");
-            PictureImage2.Location = new Point(190, 13);
-            PictureImage2.Name = "PictureImage2";
-            PictureImage2.Size = new Size(10, 10);
-            PictureImage2.SizeMode = PictureBoxSizeMode.Zoom;
-            PictureImage2.TabIndex = 17;
-            PictureImage2.TabStop = false;
-            // 
-            // cbFiltroCargo
-            // 
-            cbFiltroCargo.AutoSelectFirst = false;
-            cbFiltroCargo.BackColor = Color.FromArgb(40, 41, 52);
-            cbFiltroCargo.DrawMode = DrawMode.OwnerDrawFixed;
-            cbFiltroCargo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbFiltroCargo.FlatStyle = FlatStyle.Flat;
-            cbFiltroCargo.Font = new Font("Segoe UI", 10F);
-            cbFiltroCargo.ForeColor = Color.White;
-            cbFiltroCargo.FormattingEnabled = true;
-            cbFiltroCargo.ItemEntryHeight = 24;
-            cbFiltroCargo.ItemHeight = 17;
-            cbFiltroCargo.Items.AddRange(new object[] { "Todos cargos" });
-            cbFiltroCargo.Location = new Point(8, 6);
-            cbFiltroCargo.Margin = new Padding(0);
-            cbFiltroCargo.Name = "cbFiltroCargo";
-            cbFiltroCargo.Placeholder = "Selecione...";
-            cbFiltroCargo.ShowPlaceholder = true;
-            cbFiltroCargo.Size = new Size(204, 23);
-            cbFiltroCargo.TabIndex = 0;
-            // 
-            // pnlWrapperPesquisa
-            // 
-            pnlWrapperPesquisa.BackColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperPesquisa.BorderColor = Color.FromArgb(60, 62, 80);
-            pnlWrapperPesquisa.BorderThickness = 1;
-            pnlWrapperPesquisa.Controls.Add(picSearch);
-            pnlWrapperPesquisa.Controls.Add(tbSearch);
-            pnlWrapperPesquisa.CornerRadius = 8;
-            pnlWrapperPesquisa.FillColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperPesquisa.Location = new Point(242, 12);
-            pnlWrapperPesquisa.Margin = new Padding(8, 2, 2, 2);
-            pnlWrapperPesquisa.Name = "pnlWrapperPesquisa";
-            pnlWrapperPesquisa.Padding = new Padding(8, 6, 8, 6);
-            pnlWrapperPesquisa.Size = new Size(360, 36);
-            pnlWrapperPesquisa.TabIndex = 52;
-            // 
-            // picSearch
-            // 
-            picSearch.BackColor = Color.Transparent;
-            picSearch.Dock = DockStyle.Right;
-            picSearch.Image = (Image)resources.GetObject("picSearch.Image");
-            picSearch.Location = new Point(337, 6);
-            picSearch.Name = "picSearch";
-            picSearch.Size = new Size(15, 24);
-            picSearch.SizeMode = PictureBoxSizeMode.Zoom;
-            picSearch.TabIndex = 1;
-            picSearch.TabStop = false;
-            // 
-            // tbSearch
-            // 
-            tbSearch.BackColor = Color.FromArgb(40, 41, 52);
-            tbSearch.BorderStyle = BorderStyle.None;
-            tbSearch.Font = new Font("Segoe UI", 9F);
-            tbSearch.ForeColor = Color.White;
-            tbSearch.Location = new Point(11, 11);
-            tbSearch.Margin = new Padding(3, 0, 10, 0);
-            tbSearch.Name = "tbSearch";
-            tbSearch.PlaceholderText = "Nome, e-mail ou telefone";
-            tbSearch.Size = new Size(330, 16);
-            tbSearch.TabIndex = 7;
             // 
             // btnPesquisar
             // 
@@ -536,7 +440,7 @@ namespace telebip_erp.Forms.Modules
             btnPesquisar.ImageAutoCenter = true;
             btnPesquisar.ImageExpand = new Point(0, 0);
             btnPesquisar.ImageOffset = new Point(0, 0);
-            btnPesquisar.Location = new Point(612, 12);
+            btnPesquisar.Location = new Point(18, 12);
             btnPesquisar.Margin = new Padding(8, 2, 4, 2);
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.NormalBackground = Color.FromArgb(40, 120, 80);
@@ -575,7 +479,7 @@ namespace telebip_erp.Forms.Modules
             btnLimpar.ImageAutoCenter = true;
             btnLimpar.ImageExpand = new Point(0, 0);
             btnLimpar.ImageOffset = new Point(0, 0);
-            btnLimpar.Location = new Point(740, 12);
+            btnLimpar.Location = new Point(146, 12);
             btnLimpar.Margin = new Padding(4, 2, 2, 2);
             btnLimpar.Name = "btnLimpar";
             btnLimpar.NormalBackground = Color.FromArgb(120, 40, 40);
@@ -616,6 +520,42 @@ namespace telebip_erp.Forms.Modules
             lblTitulo.Text = "Gerenciamento de Funcionários";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // PictureImage2
+            // 
+            PictureImage2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PictureImage2.Image = (Image)resources.GetObject("PictureImage2.Image");
+            PictureImage2.Location = new Point(190, 13);
+            PictureImage2.Name = "PictureImage2";
+            PictureImage2.Size = new Size(10, 10);
+            PictureImage2.SizeMode = PictureBoxSizeMode.Zoom;
+            PictureImage2.TabIndex = 17;
+            PictureImage2.TabStop = false;
+            // 
+            // picSearch
+            // 
+            picSearch.BackColor = Color.Transparent;
+            picSearch.Dock = DockStyle.Right;
+            picSearch.Image = (Image)resources.GetObject("picSearch.Image");
+            picSearch.Location = new Point(337, 6);
+            picSearch.Name = "picSearch";
+            picSearch.Size = new Size(15, 24);
+            picSearch.SizeMode = PictureBoxSizeMode.Zoom;
+            picSearch.TabIndex = 1;
+            picSearch.TabStop = false;
+            // 
+            // tbSearch
+            // 
+            tbSearch.BackColor = Color.FromArgb(40, 41, 52);
+            tbSearch.BorderStyle = BorderStyle.None;
+            tbSearch.Font = new Font("Segoe UI", 9F);
+            tbSearch.ForeColor = Color.White;
+            tbSearch.Location = new Point(11, 11);
+            tbSearch.Margin = new Padding(3, 0, 10, 0);
+            tbSearch.Name = "tbSearch";
+            tbSearch.PlaceholderText = "Nome, e-mail ou telefone";
+            tbSearch.Size = new Size(330, 16);
+            tbSearch.TabIndex = 7;
+            // 
             // FormFuncionarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -641,12 +581,9 @@ namespace telebip_erp.Forms.Modules
             flowCardButtons.ResumeLayout(false);
             pnlBottom.ResumeLayout(false);
             flowFiltros.ResumeLayout(false);
-            pnlWrapperCargo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)PictureImage2).EndInit();
-            pnlWrapperPesquisa.ResumeLayout(false);
-            pnlWrapperPesquisa.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
             pnlHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)PictureImage2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
             ResumeLayout(false);
         }
 

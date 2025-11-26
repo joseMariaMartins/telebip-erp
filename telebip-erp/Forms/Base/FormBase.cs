@@ -228,7 +228,7 @@ namespace telebip_erp
         {
             if (sidebarExpand)
             {
-                pnlSidebar.Width -= 35;
+                pnlSidebar.Width -= 280;
                 if (pnlSidebar.Width <= 43)
                 {
                     sidebarExpand = false;
@@ -238,7 +238,7 @@ namespace telebip_erp
             }
             else
             {
-                pnlSidebar.Width += 35;
+                pnlSidebar.Width += 280;
                 if (pnlSidebar.Width >= 280)
                 {
                     sidebarExpand = true;
