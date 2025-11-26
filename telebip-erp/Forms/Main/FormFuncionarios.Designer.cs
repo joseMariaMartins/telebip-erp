@@ -344,6 +344,7 @@ namespace telebip_erp.Forms.Modules
             btnEditar.TabIndex = 16;
             btnEditar.TextAlignment = StringAlignment.Center;
             btnEditar.TextOffset = new Point(0, 0);
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnRemover
             // 

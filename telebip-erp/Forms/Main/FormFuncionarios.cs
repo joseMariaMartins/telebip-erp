@@ -4,6 +4,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
 using telebip_erp.Forms.SubForms;
+using telebip_erp.Forms.SubSubForms;
 
 namespace telebip_erp.Forms.Modules
 {
@@ -22,13 +23,13 @@ namespace telebip_erp.Forms.Modules
         private void ConfigurarEventos()
         {
             btnAdicionar.Click += BtnAdicionar_Click;
-            btnEditar.Click += BtnEditar_Click;
             btnRemover.Click += BtnRemover_Click;
             btnPesquisar.Click += BtnPesquisar_Click;
             btnLimpar.Click += BtnLimpar_Click;
 
+
+
             dgvFuncionarios.SelectionChanged += DgvFuncionarios_SelectionChanged;
-            dgvFuncionarios.CellDoubleClick += DgvFuncionarios_CellDoubleClick;
             tbSearch.KeyDown += TbSearch_KeyDown;
         }
 
@@ -212,14 +213,6 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
-        private void DgvFuncionarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                BtnEditar_Click(sender, e);
-            }
-        }
-
         private void TbSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -266,43 +259,12 @@ namespace telebip_erp.Forms.Modules
         {
             using (var formAddFuncionario = new FormAddFuncionario())
             {
-                formAddFuncionario.ModoEdicao = false;
-                formAddFuncionario.FuncionarioSalvoCallback = () =>
+
                 {
                     // ✅ CORREÇÃO: Chamar método para recarregar dados
-                    CarregarFuncionarios();
-                };
-
-                var resultado = formAddFuncionario.ShowDialog();
-
-                // ✅ CORREÇÃO: Recarregar também quando fechar com OK (backup)
-                if (resultado == DialogResult.OK)
-                {
                     CarregarFuncionarios();
                 }
-            }
-        }
-
-        private void BtnEditar_Click(object sender, EventArgs e)
-        {
-            if (!funcionarioSelecionadoId.HasValue)
-            {
-                MessageBox.Show("Selecione um funcionário para editar.", "Aviso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using (var formAddFuncionario = new FormAddFuncionario())
-            {
-                formAddFuncionario.ModoEdicao = true;
-                formAddFuncionario.FuncionarioId = funcionarioSelecionadoId.Value;
-                formAddFuncionario.FuncionarioSalvoCallback = () =>
-                {
-                    // ✅ CORREÇÃO: Chamar método para recarregar dados
-                    CarregarFuncionarios();
-                };
-
-                formAddFuncionario.CarregarDadosFuncionario();
+                ;
 
                 var resultado = formAddFuncionario.ShowDialog();
 
@@ -377,48 +339,12 @@ namespace telebip_erp.Forms.Modules
 
         #endregion
 
-        #region Método de Debug (Temporário)
-
-        private void TestarInsercaoFuncionario()
+        private void btnEditar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                using (var conn = new SQLiteConnection("Data Source=database.db;Version=3;"))
-                {
-                    conn.Open();
+            using var formEditarFuncionario = new FormEditarFuncionario();
+            formEditarFuncionario.Owner = this;
+            formEditarFuncionario.ShowDialog();
 
-                    // Inserir um funcionário de teste
-                    string sql = @"INSERT INTO FUNCIONARIO (NOME, CARGO, DATA_NASCIMENTO) 
-                                  VALUES (@nome, @cargo, @data)";
-
-                    using (var cmd = new SQLiteCommand(sql, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@nome", "FUNCIONARIO TESTE " + DateTime.Now.ToString("HHmmss"));
-                        cmd.Parameters.AddWithValue("@cargo", "CARGO TESTE");
-                        cmd.Parameters.AddWithValue("@data", "01-01-1990");
-
-                        int result = cmd.ExecuteNonQuery();
-                        MessageBox.Show($"Inserção direta no banco: {result} linha(s) afetada(s)");
-                    }
-
-                    // Verificar quantos funcionários existem
-                    string sqlCount = "SELECT COUNT(*) FROM FUNCIONARIO";
-                    using (var cmdCount = new SQLiteCommand(sqlCount, conn))
-                    {
-                        var total = cmdCount.ExecuteScalar();
-                        MessageBox.Show($"Total de funcionários no banco: {total}");
-                    }
-
-                    // Recarregar a tabela
-                    CarregarFuncionarios();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro no teste: {ex.Message}");
-            }
         }
-
-        #endregion
     }
 }
