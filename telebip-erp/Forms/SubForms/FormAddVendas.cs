@@ -38,28 +38,12 @@ namespace telebip_erp.Forms.SubForms
 
         private void InicializarComponentes()
         {
-            // Vincula handlers de UI
-            ConfigurarBotoesImagemRadio();
-            ConfigurarMonetarios();
-            CriarTabelaTemporaria();
-
-            // obtém hora confiável uma vez ao iniciar (NTP com fallback)
-            try
-            {
-                _trustedNow = GetTrustedNow(out _trustedNowIsNtp);
-            }
-            catch
-            {
-                _trustedNow = DateTime.Now;
-                _trustedNowIsNtp = false;
-            }
-
-            // Handlers de controles visuais/inputs
-            picAdicaoProduto.Click += BtnAdicaoProduto_Click;
-            picTirarProduto.Click += BtnTirarProduto_Click;
+            // Vincula handlers dos novos botões
+            btnAdicionarItem.Click += BtnAdicaoProduto_Click;
+            btnRemoverItem.Click += BtnTirarProduto_Click;
             btnMaisInformacao.Click += BtnMaisInformacao_Click;
 
-            // Botões principais (agora garantidos no Init)
+            // Botões principais
             btnAdicionarVendas.Click += btnAdicionarVendas_Click_1;
             btnCancelarVendas.Click += btnCancelarVendas_Click_1;
 
@@ -67,12 +51,21 @@ namespace telebip_erp.Forms.SubForms
             PopularCombosPagamento();
             ConfigurarVinculoCombos();
 
-            // Load do form (garante que o método seja executado ao abrir)
+            // Handlers de teclado para busca rápida
+            tbNomeProduto.KeyDown += tbNomeProduto_KeyDown;
+
+            // Configurar DataGridView
+            ConfigurarDataGridViewProdutos();
+
+            // Load do form
             this.Load += FormAddVendas_Load_1;
         }
 
         private void FormAddVendas_Load_1(object sender, EventArgs e)
         {
+            // LIMPA a tabela temporária ANTES de carregar tudo
+            LimparTabelaTemporaria();
+
             CarregarFuncionarios();
             InicializarCampos();
             AtualizarGridProdutos();
@@ -83,6 +76,212 @@ namespace telebip_erp.Forms.SubForms
             tbPrecoProduto.Text = "R$ 0,00";
             tbDesconto.Text = "R$ 0,00";
             mkDataHora.Text = DateTime.Now.ToString("dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
+
+            // Limpa campos de produto
+            tbNomeProduto.Clear();
+            tbQProduto.Text = "";
+            lbQuantidadeAtual.Text = "Quantidade atual: 0";
+            lbIdProduto.Text = "0";
+            lbMarcaProduto.Text = "";
+        }
+
+        #endregion
+
+        #region Configuração DataGridView
+
+        private void ConfigurarDataGridViewProdutos()
+        {
+            AplicarTemaEscuroDataGridView();
+            ConfigurarColunasDataGridView();
+
+            // Evento de resize para ajustar larguras
+            dgvProdutoTemporarios.Resize += DgvProdutoTemporarios_Resize;
+            dgvProdutoTemporarios.DataBindingComplete += (s, e) => AjustarLarguraColunasFixas();
+        }
+
+        private void AplicarTemaEscuroDataGridView()
+        {
+            dgvProdutoTemporarios.SuspendLayout();
+
+            // Cores
+            Color background = Color.FromArgb(32, 33, 39);       // fundo principal
+            Color backgroundAlt = Color.FromArgb(38, 39, 46);    // fundo alternado das linhas
+            Color headerBack = Color.FromArgb(40, 41, 52);       // cabeçalho
+            Color gridColor = Color.FromArgb(50, 52, 67);        // linhas da grade
+            Color selectionBack = Color.FromArgb(50, 90, 130);   // seleção azul escuro
+            Color fore = Color.White;
+
+            // Configurações gerais
+            dgvProdutoTemporarios.BackgroundColor = background;
+            dgvProdutoTemporarios.BorderStyle = BorderStyle.None;
+            dgvProdutoTemporarios.GridColor = gridColor;
+            dgvProdutoTemporarios.EnableHeadersVisualStyles = false;
+
+            // Cabeçalho
+            var headerStyle = new DataGridViewCellStyle()
+            {
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                BackColor = headerBack,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = fore,
+                SelectionBackColor = headerBack,
+                SelectionForeColor = fore,
+                WrapMode = DataGridViewTriState.True
+            };
+            dgvProdutoTemporarios.ColumnHeadersDefaultCellStyle = headerStyle;
+            dgvProdutoTemporarios.ColumnHeadersHeight = 40;
+            dgvProdutoTemporarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvProdutoTemporarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+
+            // Linhas (texto à esquerda)
+            var cellStyle = new DataGridViewCellStyle()
+            {
+                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                BackColor = background,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = fore,
+                SelectionBackColor = selectionBack,
+                SelectionForeColor = fore,
+                WrapMode = DataGridViewTriState.False
+            };
+
+            var altCellStyle = new DataGridViewCellStyle(cellStyle)
+            {
+                BackColor = backgroundAlt
+            };
+
+            dgvProdutoTemporarios.DefaultCellStyle = cellStyle;
+            dgvProdutoTemporarios.RowsDefaultCellStyle = cellStyle;
+            dgvProdutoTemporarios.AlternatingRowsDefaultCellStyle = altCellStyle;
+            dgvProdutoTemporarios.RowTemplate.Height = 35;
+
+            // Garante alinhamento das colunas à esquerda
+            foreach (DataGridViewColumn coluna in dgvProdutoTemporarios.Columns)
+            {
+                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            dgvProdutoTemporarios.AllowUserToAddRows = false;
+            dgvProdutoTemporarios.AllowUserToDeleteRows = false;
+            dgvProdutoTemporarios.AllowUserToResizeRows = false;
+            dgvProdutoTemporarios.MultiSelect = false;
+            dgvProdutoTemporarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProdutoTemporarios.ReadOnly = true;
+            dgvProdutoTemporarios.RowHeadersVisible = false;
+            dgvProdutoTemporarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvProdutoTemporarios.ClearSelection();
+            dgvProdutoTemporarios.CurrentCell = null;
+
+            dgvProdutoTemporarios.ResumeLayout();
+        }
+
+        private void ConfigurarColunasDataGridView()
+        {
+            if (dgvProdutoTemporarios.Columns.Count == 0) return;
+
+            // Remove o auto-size das colunas
+            dgvProdutoTemporarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // Configura todas as colunas como fixas, exceto a última
+            for (int i = 0; i < dgvProdutoTemporarios.Columns.Count; i++)
+            {
+                var coluna = dgvProdutoTemporarios.Columns[i];
+
+                // Define propriedades comuns
+                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                // Se for a última coluna, configura como fill
+                if (i == dgvProdutoTemporarios.Columns.Count - 1)
+                {
+                    coluna.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    coluna.MinimumWidth = 100; // Largura mínima para a última coluna
+                }
+                else
+                {
+                    // Colunas fixas
+                    coluna.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    coluna.Resizable = DataGridViewTriState.False;
+                }
+            }
+
+            // Configura cabeçalhos específicos
+            ConfigurarCabecalhosColunas();
+        }
+
+        private void ConfigurarCabecalhosColunas()
+        {
+            // Configura os textos dos cabeçalhos
+            if (dgvProdutoTemporarios.Columns.Contains("ID_PRODUTO"))
+            {
+                dgvProdutoTemporarios.Columns["ID_PRODUTO"].HeaderText = "ID";
+                dgvProdutoTemporarios.Columns["ID_PRODUTO"].Width = 60;
+            }
+
+            if (dgvProdutoTemporarios.Columns.Contains("NOME"))
+            {
+                dgvProdutoTemporarios.Columns["NOME"].HeaderText = "Produto";
+                dgvProdutoTemporarios.Columns["NOME"].MinimumWidth = 150;
+            }
+
+            if (dgvProdutoTemporarios.Columns.Contains("PRECO_UNITARIO"))
+            {
+                dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].HeaderText = "Preço Unitário";
+                dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].DefaultCellStyle.Format = "C2";
+                dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].Width = 120;
+            }
+
+            if (dgvProdutoTemporarios.Columns.Contains("QUANTIDADE"))
+            {
+                dgvProdutoTemporarios.Columns["QUANTIDADE"].HeaderText = "Quantidade";
+                dgvProdutoTemporarios.Columns["QUANTIDADE"].Width = 90;
+            }
+
+            if (dgvProdutoTemporarios.Columns.Contains("SUBTOTAL"))
+            {
+                dgvProdutoTemporarios.Columns["SUBTOTAL"].HeaderText = "Subtotal";
+                dgvProdutoTemporarios.Columns["SUBTOTAL"].DefaultCellStyle.Format = "C2";
+                dgvProdutoTemporarios.Columns["SUBTOTAL"].Width = 100;
+            }
+        }
+
+        private void AjustarLarguraColunasFixas()
+        {
+            if (dgvProdutoTemporarios.Columns.Count == 0) return;
+
+            int larguraTotalFixas = 0;
+
+            // Calcula a largura total das colunas fixas
+            for (int i = 0; i < dgvProdutoTemporarios.Columns.Count - 1; i++)
+            {
+                larguraTotalFixas += dgvProdutoTemporarios.Columns[i].Width;
+            }
+
+            // Adiciona margem para as bordas e scrollbar
+            int margem = SystemInformation.VerticalScrollBarWidth + 2;
+
+            // Se a soma das colunas fixas for maior que a área disponível
+            if (larguraTotalFixas + margem > dgvProdutoTemporarios.ClientSize.Width)
+            {
+                // Habilita a scrollbar horizontal e ajusta a última coluna
+                dgvProdutoTemporarios.Columns[dgvProdutoTemporarios.Columns.Count - 1].Width = 100; // Largura mínima
+            }
+            else
+            {
+                // Ajusta a última coluna para preencher o restante
+                int restante = dgvProdutoTemporarios.ClientSize.Width - larguraTotalFixas - margem;
+                if (restante > 100)
+                    dgvProdutoTemporarios.Columns[dgvProdutoTemporarios.Columns.Count - 1].Width = restante;
+                else
+                    dgvProdutoTemporarios.Columns[dgvProdutoTemporarios.Columns.Count - 1].Width = 100;
+            }
+        }
+
+        private void DgvProdutoTemporarios_Resize(object sender, EventArgs e)
+        {
+            AjustarLarguraColunasFixas();
         }
 
         #endregion
@@ -409,6 +608,8 @@ namespace telebip_erp.Forms.SubForms
                 AtualizarGridProdutos();
                 AtualizarLbValorSuper();
                 LimparCamposProduto();
+
+                MessageBox.Show("Produto adicionado à lista com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -446,6 +647,8 @@ namespace telebip_erp.Forms.SubForms
 
                 AtualizarGridProdutos();
                 AtualizarLbValorSuper();
+
+                MessageBox.Show("Produto removido da lista com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -459,6 +662,8 @@ namespace telebip_erp.Forms.SubForms
             tbPrecoProduto.Text = "R$ 0,00";
             tbQProduto.Text = "";
             lbQuantidadeAtual.Text = "Quantidade atual: 0";
+            lbIdProduto.Text = "0";
+            lbMarcaProduto.Text = "";
         }
 
         #endregion
@@ -548,16 +753,31 @@ namespace telebip_erp.Forms.SubForms
 
                 using var cmd = new SQLiteCommand(sql, conn);
                 cmd.ExecuteNonQuery();
-
-                if (!ModoConsulta)
-                {
-                    using var cmdLimpar = new SQLiteCommand("DELETE FROM PRODUTOS_TEMPORARIOS;", conn);
-                    cmdLimpar.ExecuteNonQuery();
-                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao criar/limpar tabela de produtos temporários: " + ex.Message);
+                MessageBox.Show("Erro ao criar tabela de produtos temporários: " + ex.Message);
+            }
+        }
+
+        private void LimparTabelaTemporaria()
+        {
+            try
+            {
+                using var conn = DatabaseHelper.GetConnection();
+                conn.Open();
+
+                // Primeiro cria a tabela se não existir
+                CriarTabelaTemporaria();
+
+                // DEPOIS limpa os dados
+                string sqlLimpar = "DELETE FROM PRODUTOS_TEMPORARIOS;";
+                using var cmdLimpar = new SQLiteCommand(sqlLimpar, conn);
+                cmdLimpar.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao limpar tabela temporária: " + ex.Message);
             }
         }
 
@@ -569,50 +789,10 @@ namespace telebip_erp.Forms.SubForms
                 var dt = DatabaseHelper.ExecuteQuery(sql);
                 dgvProdutoTemporarios.DataSource = dt;
 
-                dgvProdutoTemporarios.AllowUserToAddRows = false;
-                dgvProdutoTemporarios.AllowUserToResizeColumns = false;
-                dgvProdutoTemporarios.RowHeadersVisible = false;
+                // Aplica as configurações após carregar os dados
+                ConfigurarDataGridViewProdutos();
 
-                if (dgvProdutoTemporarios.Columns.Contains("ID_TEMP"))
-                    dgvProdutoTemporarios.Columns["ID_TEMP"].Visible = false;
-                if (dgvProdutoTemporarios.Columns.Contains("ID_PRODUTO"))
-                    dgvProdutoTemporarios.Columns["ID_PRODUTO"].HeaderText = "ID";
-                if (dgvProdutoTemporarios.Columns.Contains("NOME"))
-                    dgvProdutoTemporarios.Columns["NOME"].HeaderText = "Produto";
-                if (dgvProdutoTemporarios.Columns.Contains("PRECO_UNITARIO"))
-                    dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].HeaderText = "Preço Unitário";
-                if (dgvProdutoTemporarios.Columns.Contains("QUANTIDADE"))
-                    dgvProdutoTemporarios.Columns["QUANTIDADE"].HeaderText = "Qtd";
-                if (dgvProdutoTemporarios.Columns.Contains("SUBTOTAL"))
-                    dgvProdutoTemporarios.Columns["SUBTOTAL"].HeaderText = "Total";
-
-                for (int i = 0; i < dgvProdutoTemporarios.Columns.Count; i++)
-                {
-                    var col = dgvProdutoTemporarios.Columns[i];
-                    if (i == dgvProdutoTemporarios.Columns.Count - 1)
-                    {
-                        col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    }
-                    else
-                    {
-                        col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                        if (col.Name == "ID_PRODUTO") col.Width = 70;
-                        else if (col.Name == "PRECO_UNITARIO") col.Width = 150;
-                        else if (col.Name == "QUANTIDADE") col.Width = 70;
-                        else col.Width = 120;
-                    }
-
-                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                    col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                }
-
-                if (dgvProdutoTemporarios.Columns.Contains("PRECO_UNITARIO"))
-                    dgvProdutoTemporarios.Columns["PRECO_UNITARIO"].DefaultCellStyle.Format = "C2";
-                if (dgvProdutoTemporarios.Columns.Contains("SUBTOTAL"))
-                    dgvProdutoTemporarios.Columns["SUBTOTAL"].DefaultCellStyle.Format = "C2";
-
-                dgvProdutoTemporarios.ClearSelection();
-                dgvProdutoTemporarios.CurrentCell = null;
+                AtualizarLbValorSuper();
             }
             catch (Exception ex)
             {
@@ -640,11 +820,6 @@ namespace telebip_erp.Forms.SubForms
 
         #region Botões / imagens
 
-        private void ConfigurarBotoesImagemRadio()
-        {
-            // placeholder: designer fornece os controles
-        }
-
         private void BtnMaisInformacao_Click(object sender, EventArgs e)
         {
             using var formAddProduto = new FormAddProdutoVendas();
@@ -658,7 +833,6 @@ namespace telebip_erp.Forms.SubForms
                 this.Close();
         }
 
-        // Handler atualizado para CHECAR A DATA ANTES de prosseguir.
         private void btnAdicionarVendas_Click_1(object sender, EventArgs e)
         {
             if (!HasProdutosTemporarios())
@@ -667,12 +841,8 @@ namespace telebip_erp.Forms.SubForms
                 return;
             }
 
-            // A diferença: aqui pedimos confirmação de DATA antes de prosseguir.
-            // EnsureDataHoraValidBeforeCommit() retorna true somente se a data estiver OK.
             if (!EnsureDataHoraValidBeforeCommit())
             {
-                // Data inválida -> já foi resetada para a hora atual do PC e usuário foi avisado.
-                // NÃO prosseguir com o envio: o usuário deve ajustar ou confirmar.
                 return;
             }
 
@@ -681,12 +851,6 @@ namespace telebip_erp.Forms.SubForms
             ProcessarVenda();
         }
 
-        /// <summary>
-        /// Garante que a data/hora informada esteja no intervalo permitido antes de permitir o commit.
-        /// Se a data estiver fora do permitido (futura ou anterior a 7 dias), reseta o campo para DateTime.Now,
-        /// mostra um aviso e retorna false (não deve prosseguir com a venda).
-        /// Retorna true apenas quando a data está válida.
-        /// </summary>
         private bool EnsureDataHoraValidBeforeCommit()
         {
             try
@@ -699,7 +863,6 @@ namespace telebip_erp.Forms.SubForms
                 string texto = mkDataHora?.Text ?? "";
                 if (string.IsNullOrWhiteSpace(texto))
                 {
-                    // vazio -> seta para hora atual do PC e pede ao usuário confirmar
                     mkDataHora.Text = DateTime.Now.ToString("dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
                     MessageBox.Show("A data/hora estava vazia. O campo foi ajustado para a hora atual do PC. Verifique e confirme antes de finalizar a venda.", "Ajuste de Data/Hora", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     mkDataHora.Focus();
@@ -717,14 +880,12 @@ namespace telebip_erp.Forms.SubForms
 
                 if (!DateTime.TryParseExact(texto.Trim(), formatos, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtCampo))
                 {
-                    // formato inválido -> corrige para agora, alerta e pede confirmação
                     mkDataHora.Text = DateTime.Now.ToString("dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
                     MessageBox.Show("Formato de data/hora inválido. O campo foi ajustado para a hora atual do PC. Corrija se necessário e tente novamente.", "Formato inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     mkDataHora.Focus();
                     return false;
                 }
 
-                // normaliza para hora local
                 if (dtCampo.Kind == DateTimeKind.Utc)
                     dtCampo = dtCampo.ToLocalTime();
                 else if (dtCampo.Kind == DateTimeKind.Unspecified)
@@ -735,7 +896,6 @@ namespace telebip_erp.Forms.SubForms
 
                 if (dtCampo < minimo || dtCampo > maximo)
                 {
-                    // fora do intervalo -> reset para agora, avisa, foca no campo e NÃO prossegue
                     DateTime agoraPc = DateTime.Now;
                     mkDataHora.Text = agoraPc.ToString("dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
 
@@ -750,12 +910,10 @@ namespace telebip_erp.Forms.SubForms
                     return false;
                 }
 
-                // se chegou aqui, dtCampo está dentro do intervalo e podemos prosseguir
                 return true;
             }
             catch
             {
-                // Em caso de erro inesperado, corrige para agora e pede confirmação manual
                 try
                 {
                     mkDataHora.Text = DateTime.Now.ToString("dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);

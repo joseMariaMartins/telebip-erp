@@ -58,7 +58,6 @@
             panel8 = new Panel();
             btnConfiguracoes = new Button();
             menuTransitionVendas = new System.Windows.Forms.Timer(components);
-            sidebarTransition = new System.Windows.Forms.Timer(components);
             MenuTransitionEstoque = new System.Windows.Forms.Timer(components);
             pnlContainer = new Panel();
             panel1 = new Panel();
@@ -431,17 +430,10 @@
             // menuTransitionVendas
             // 
             menuTransitionVendas.Interval = 10;
-            menuTransitionVendas.Tick += menuTransitionVendas_Tick;
-            // 
-            // sidebarTransition
-            // 
-            sidebarTransition.Interval = 1;
-            sidebarTransition.Tick += sidebarTransition_Tick;
             // 
             // MenuTransitionEstoque
             // 
             MenuTransitionEstoque.Interval = 10;
-            MenuTransitionEstoque.Tick += MenuTransitionEstoque_Tick;
             // 
             // pnlContainer
             // 
@@ -519,7 +511,6 @@
         private Button btnHome;
         private Panel pnlVendas;
         private System.Windows.Forms.Timer menuTransitionVendas;
-        private System.Windows.Forms.Timer sidebarTransition;
         private Panel pnlEstoque;
         private Button btnEstoque;
         private Button rmvEstoque;

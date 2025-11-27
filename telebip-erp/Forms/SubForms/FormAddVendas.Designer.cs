@@ -15,23 +15,21 @@ namespace telebip_erp.Forms.SubForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddVendas));
             pnlContainer = new Panel();
             pnlMain = new Panel();
+            label1 = new Label();
+            btnAdicionarItem = new CuoreUI.Controls.cuiButton();
             roundedPanel4 = new telebip_erp.Controls.RoundedPanel();
             tbPrecoProduto = new telebip_erp.Controls.PlaceholderTextBox();
+            btnRemoverItem = new CuoreUI.Controls.cuiButton();
             roundedPanel3 = new telebip_erp.Controls.RoundedPanel();
             tbDesconto = new telebip_erp.Controls.PlaceholderTextBox();
             roundedPanel2 = new telebip_erp.Controls.RoundedPanel();
             tbQProduto = new telebip_erp.Controls.PlaceholderTextBox();
-            label2 = new Label();
-            label1 = new Label();
             lbValorSuper = new Label();
             lblValorTotal = new Label();
             btnAdicionarVendas = new CuoreUI.Controls.cuiButton();
             btnCancelarVendas = new CuoreUI.Controls.cuiButton();
             pnlProdutos = new Panel();
             dgvProdutoTemporarios = new DataGridView();
-            pnlBotoesProduto = new Panel();
-            picTirarProduto = new PictureBox();
-            picAdicaoProduto = new PictureBox();
             lbMarcaProduto = new Label();
             lbIdProduto = new Label();
             lbQuantidadeAtual = new Label();
@@ -66,9 +64,6 @@ namespace telebip_erp.Forms.SubForms
             roundedPanel2.SuspendLayout();
             pnlProdutos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProdutoTemporarios).BeginInit();
-            pnlBotoesProduto.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picTirarProduto).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picAdicaoProduto).BeginInit();
             pnlWrapperData.SuspendLayout();
             pnlWrapperEstado.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -89,23 +84,23 @@ namespace telebip_erp.Forms.SubForms
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(3, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(922, 663);
+            pnlContainer.Size = new Size(922, 743);
             pnlContainer.TabIndex = 0;
             // 
             // pnlMain
             // 
             pnlMain.BackColor = Color.FromArgb(28, 29, 40);
+            pnlMain.Controls.Add(label1);
+            pnlMain.Controls.Add(btnAdicionarItem);
             pnlMain.Controls.Add(roundedPanel4);
+            pnlMain.Controls.Add(btnRemoverItem);
             pnlMain.Controls.Add(roundedPanel3);
             pnlMain.Controls.Add(roundedPanel2);
-            pnlMain.Controls.Add(label2);
-            pnlMain.Controls.Add(label1);
             pnlMain.Controls.Add(lbValorSuper);
             pnlMain.Controls.Add(lblValorTotal);
             pnlMain.Controls.Add(btnAdicionarVendas);
             pnlMain.Controls.Add(btnCancelarVendas);
             pnlMain.Controls.Add(pnlProdutos);
-            pnlMain.Controls.Add(pnlBotoesProduto);
             pnlMain.Controls.Add(lbMarcaProduto);
             pnlMain.Controls.Add(lbIdProduto);
             pnlMain.Controls.Add(lbQuantidadeAtual);
@@ -126,8 +121,55 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
             pnlMain.Padding = new Padding(30);
-            pnlMain.Size = new Size(922, 603);
+            pnlMain.Size = new Size(922, 683);
             pnlMain.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(33, 366);
+            label1.Name = "label1";
+            label1.Size = new Size(219, 20);
+            label1.TabIndex = 226;
+            label1.Text = "Produtos *";
+            // 
+            // btnAdicionarItem
+            // 
+            btnAdicionarItem.CheckButton = false;
+            btnAdicionarItem.Checked = false;
+            btnAdicionarItem.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnAdicionarItem.CheckedForeColor = Color.White;
+            btnAdicionarItem.CheckedImageTint = Color.White;
+            btnAdicionarItem.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnAdicionarItem.Content = "+ Adicionar";
+            btnAdicionarItem.DialogResult = DialogResult.None;
+            btnAdicionarItem.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnAdicionarItem.ForeColor = Color.White;
+            btnAdicionarItem.HoverBackground = Color.White;
+            btnAdicionarItem.HoverForeColor = Color.Black;
+            btnAdicionarItem.HoverImageTint = Color.White;
+            btnAdicionarItem.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnAdicionarItem.Image = null;
+            btnAdicionarItem.ImageAutoCenter = true;
+            btnAdicionarItem.ImageExpand = new Point(0, 0);
+            btnAdicionarItem.ImageOffset = new Point(0, 0);
+            btnAdicionarItem.Location = new Point(143, 389);
+            btnAdicionarItem.Name = "btnAdicionarItem";
+            btnAdicionarItem.NormalBackground = Color.FromArgb(40, 167, 69);
+            btnAdicionarItem.NormalForeColor = Color.White;
+            btnAdicionarItem.NormalImageTint = Color.White;
+            btnAdicionarItem.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnAdicionarItem.OutlineThickness = 1F;
+            btnAdicionarItem.PressedBackground = Color.WhiteSmoke;
+            btnAdicionarItem.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnAdicionarItem.PressedImageTint = Color.White;
+            btnAdicionarItem.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnAdicionarItem.Rounding = new Padding(6);
+            btnAdicionarItem.Size = new Size(109, 36);
+            btnAdicionarItem.TabIndex = 1;
+            btnAdicionarItem.TextAlignment = StringAlignment.Center;
+            btnAdicionarItem.TextOffset = new Point(0, 0);
             // 
             // roundedPanel4
             // 
@@ -156,6 +198,43 @@ namespace telebip_erp.Forms.SubForms
             tbPrecoProduto.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbPrecoProduto.Size = new Size(125, 16);
             tbPrecoProduto.TabIndex = 22;
+            // 
+            // btnRemoverItem
+            // 
+            btnRemoverItem.CheckButton = false;
+            btnRemoverItem.Checked = false;
+            btnRemoverItem.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnRemoverItem.CheckedForeColor = Color.White;
+            btnRemoverItem.CheckedImageTint = Color.White;
+            btnRemoverItem.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnRemoverItem.Content = "─ Remover";
+            btnRemoverItem.DialogResult = DialogResult.None;
+            btnRemoverItem.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnRemoverItem.ForeColor = Color.White;
+            btnRemoverItem.HoverBackground = Color.White;
+            btnRemoverItem.HoverForeColor = Color.Black;
+            btnRemoverItem.HoverImageTint = Color.White;
+            btnRemoverItem.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnRemoverItem.Image = null;
+            btnRemoverItem.ImageAutoCenter = true;
+            btnRemoverItem.ImageExpand = new Point(0, 0);
+            btnRemoverItem.ImageOffset = new Point(0, 0);
+            btnRemoverItem.Location = new Point(33, 389);
+            btnRemoverItem.Name = "btnRemoverItem";
+            btnRemoverItem.NormalBackground = Color.FromArgb(220, 53, 69);
+            btnRemoverItem.NormalForeColor = Color.White;
+            btnRemoverItem.NormalImageTint = Color.White;
+            btnRemoverItem.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnRemoverItem.OutlineThickness = 1F;
+            btnRemoverItem.PressedBackground = Color.WhiteSmoke;
+            btnRemoverItem.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnRemoverItem.PressedImageTint = Color.White;
+            btnRemoverItem.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnRemoverItem.Rounding = new Padding(6);
+            btnRemoverItem.Size = new Size(104, 36);
+            btnRemoverItem.TabIndex = 0;
+            btnRemoverItem.TextAlignment = StringAlignment.Center;
+            btnRemoverItem.TextOffset = new Point(0, 0);
             // 
             // roundedPanel3
             // 
@@ -213,31 +292,11 @@ namespace telebip_erp.Forms.SubForms
             tbQProduto.Size = new Size(160, 16);
             tbQProduto.TabIndex = 23;
             // 
-            // label2
-            // 
-            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(743, 273);
-            label2.Name = "label2";
-            label2.Size = new Size(15, 20);
-            label2.TabIndex = 55;
-            label2.Text = "+";
-            // 
-            // label1
-            // 
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(688, 273);
-            label1.Name = "label1";
-            label1.Size = new Size(15, 20);
-            label1.TabIndex = 54;
-            label1.Text = "-";
-            // 
             // lbValorSuper
             // 
             lbValorSuper.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lbValorSuper.ForeColor = Color.LightGreen;
-            lbValorSuper.Location = new Point(119, 533);
+            lbValorSuper.Location = new Point(114, 618);
             lbValorSuper.Name = "lbValorSuper";
             lbValorSuper.Size = new Size(150, 40);
             lbValorSuper.TabIndex = 48;
@@ -248,7 +307,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             lblValorTotal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblValorTotal.ForeColor = Color.White;
-            lblValorTotal.Location = new Point(33, 533);
+            lblValorTotal.Location = new Point(33, 618);
             lblValorTotal.Name = "lblValorTotal";
             lblValorTotal.Size = new Size(87, 40);
             lblValorTotal.TabIndex = 49;
@@ -264,9 +323,9 @@ namespace telebip_erp.Forms.SubForms
             btnAdicionarVendas.CheckedForeColor = Color.White;
             btnAdicionarVendas.CheckedImageTint = Color.White;
             btnAdicionarVendas.CheckedOutline = Color.FromArgb(255, 106, 0);
-            btnAdicionarVendas.Content = "Adicionar";
+            btnAdicionarVendas.Content = "Finalizar Venda";
             btnAdicionarVendas.DialogResult = DialogResult.None;
-            btnAdicionarVendas.Font = new Font("Microsoft Sans Serif", 9.75F);
+            btnAdicionarVendas.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold);
             btnAdicionarVendas.ForeColor = Color.White;
             btnAdicionarVendas.HoverBackground = Color.White;
             btnAdicionarVendas.HoverForeColor = Color.Black;
@@ -276,7 +335,7 @@ namespace telebip_erp.Forms.SubForms
             btnAdicionarVendas.ImageAutoCenter = true;
             btnAdicionarVendas.ImageExpand = new Point(0, 0);
             btnAdicionarVendas.ImageOffset = new Point(0, 0);
-            btnAdicionarVendas.Location = new Point(752, 538);
+            btnAdicionarVendas.Location = new Point(767, 618);
             btnAdicionarVendas.Name = "btnAdicionarVendas";
             btnAdicionarVendas.NormalBackground = Color.FromArgb(40, 120, 80);
             btnAdicionarVendas.NormalForeColor = Color.White;
@@ -314,7 +373,7 @@ namespace telebip_erp.Forms.SubForms
             btnCancelarVendas.ImageAutoCenter = true;
             btnCancelarVendas.ImageExpand = new Point(0, 0);
             btnCancelarVendas.ImageOffset = new Point(0, 0);
-            btnCancelarVendas.Location = new Point(622, 538);
+            btnCancelarVendas.Location = new Point(641, 618);
             btnCancelarVendas.Name = "btnCancelarVendas";
             btnCancelarVendas.NormalBackground = Color.FromArgb(120, 40, 40);
             btnCancelarVendas.NormalForeColor = Color.White;
@@ -335,7 +394,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             pnlProdutos.BackColor = Color.FromArgb(32, 33, 39);
             pnlProdutos.Controls.Add(dgvProdutoTemporarios);
-            pnlProdutos.Location = new Point(33, 368);
+            pnlProdutos.Location = new Point(33, 442);
             pnlProdutos.Name = "pnlProdutos";
             pnlProdutos.Padding = new Padding(10);
             pnlProdutos.Size = new Size(854, 150);
@@ -352,37 +411,6 @@ namespace telebip_erp.Forms.SubForms
             dgvProdutoTemporarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProdutoTemporarios.Size = new Size(834, 130);
             dgvProdutoTemporarios.TabIndex = 0;
-            // 
-            // pnlBotoesProduto
-            // 
-            pnlBotoesProduto.Controls.Add(picTirarProduto);
-            pnlBotoesProduto.Controls.Add(picAdicaoProduto);
-            pnlBotoesProduto.Location = new Point(668, 296);
-            pnlBotoesProduto.Name = "pnlBotoesProduto";
-            pnlBotoesProduto.Size = new Size(114, 36);
-            pnlBotoesProduto.TabIndex = 56;
-            // 
-            // picTirarProduto
-            // 
-            picTirarProduto.BackColor = Color.Transparent;
-            picTirarProduto.Image = (Image)resources.GetObject("picTirarProduto.Image");
-            picTirarProduto.Location = new Point(5, 5);
-            picTirarProduto.Name = "picTirarProduto";
-            picTirarProduto.Size = new Size(48, 28);
-            picTirarProduto.SizeMode = PictureBoxSizeMode.Zoom;
-            picTirarProduto.TabIndex = 0;
-            picTirarProduto.TabStop = false;
-            // 
-            // picAdicaoProduto
-            // 
-            picAdicaoProduto.BackColor = Color.Transparent;
-            picAdicaoProduto.Image = (Image)resources.GetObject("picAdicaoProduto.Image");
-            picAdicaoProduto.Location = new Point(59, 5);
-            picAdicaoProduto.Name = "picAdicaoProduto";
-            picAdicaoProduto.Size = new Size(48, 28);
-            picAdicaoProduto.SizeMode = PictureBoxSizeMode.Zoom;
-            picAdicaoProduto.TabIndex = 1;
-            picAdicaoProduto.TabStop = false;
             // 
             // lbMarcaProduto
             // 
@@ -441,10 +469,13 @@ namespace telebip_erp.Forms.SubForms
             // 
             // lblDataHora
             // 
-            lblDataHora.Location = new Point(0, 0);
+            lblDataHora.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblDataHora.ForeColor = Color.White;
+            lblDataHora.Location = new Point(33, 208);
             lblDataHora.Name = "lblDataHora";
-            lblDataHora.Size = new Size(100, 23);
+            lblDataHora.Size = new Size(125, 20);
             lblDataHora.TabIndex = 60;
+            lblDataHora.Text = "Data e Hora *";
             // 
             // pnlWrapperEstado
             // 
@@ -464,7 +495,7 @@ namespace telebip_erp.Forms.SubForms
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(103, 12);
+            pictureBox2.Location = new Point(98, 12);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(10, 10);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -489,7 +520,7 @@ namespace telebip_erp.Forms.SubForms
             cbEstado.Name = "cbEstado";
             cbEstado.Placeholder = "Selecione...";
             cbEstado.ShowPlaceholder = true;
-            cbEstado.Size = new Size(106, 19);
+            cbEstado.Size = new Size(112, 19);
             cbEstado.TabIndex = 221;
             // 
             // lblEstadoPagamento
@@ -520,7 +551,7 @@ namespace telebip_erp.Forms.SubForms
             // pictureBox3
             // 
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(105, 12);
+            pictureBox3.Location = new Point(100, 12);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(10, 10);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
@@ -545,7 +576,7 @@ namespace telebip_erp.Forms.SubForms
             cbForma.Name = "cbForma";
             cbForma.Placeholder = "Selecione...";
             cbForma.ShowPlaceholder = true;
-            cbForma.Size = new Size(110, 19);
+            cbForma.Size = new Size(113, 19);
             cbForma.TabIndex = 211;
             // 
             // lblFormaPagamento
@@ -576,7 +607,7 @@ namespace telebip_erp.Forms.SubForms
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(828, 11);
+            pictureBox1.Location = new Point(821, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(10, 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -595,7 +626,7 @@ namespace telebip_erp.Forms.SubForms
             cbFuncionariosVenda.FormattingEnabled = true;
             cbFuncionariosVenda.ItemEntryHeight = 30;
             cbFuncionariosVenda.ItemHeight = 13;
-            cbFuncionariosVenda.Location = new Point(8, 6);
+            cbFuncionariosVenda.Location = new Point(8, 8);
             cbFuncionariosVenda.Margin = new Padding(0);
             cbFuncionariosVenda.Name = "cbFuncionariosVenda";
             cbFuncionariosVenda.Placeholder = "Selecione...";
@@ -721,7 +752,7 @@ namespace telebip_erp.Forms.SubForms
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(28, 29, 40);
-            ClientSize = new Size(928, 690);
+            ClientSize = new Size(928, 770);
             Controls.Add(pnlContainer);
             FormStyle = FormStyles.ActionBar_None;
             Name = "FormAddVendas";
@@ -738,9 +769,6 @@ namespace telebip_erp.Forms.SubForms
             roundedPanel2.PerformLayout();
             pnlProdutos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvProdutoTemporarios).EndInit();
-            pnlBotoesProduto.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picTirarProduto).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picAdicaoProduto).EndInit();
             pnlWrapperData.ResumeLayout(false);
             pnlWrapperData.PerformLayout();
             pnlWrapperEstado.ResumeLayout(false);
@@ -762,9 +790,6 @@ namespace telebip_erp.Forms.SubForms
         private Panel pnlMain;
         private Panel pnlHeader;
         private Label lblTitulo;
-
-        private Label label2;
-        private Label label1;
         private PictureBox btnMaisInformacao;
         private Label lbValorSuper;
         private Label lblValorTotal;
@@ -774,9 +799,8 @@ namespace telebip_erp.Forms.SubForms
 
         private Panel pnlProdutos;
         private DataGridView dgvProdutoTemporarios;
-        private Panel pnlBotoesProduto;
-        private PictureBox picTirarProduto;
-        private PictureBox picAdicaoProduto;
+        private CuoreUI.Controls.cuiButton btnRemoverItem;
+        private CuoreUI.Controls.cuiButton btnAdicionarItem;
 
         private Label lbMarcaProduto;
         private Label lbIdProduto;
@@ -819,5 +843,6 @@ namespace telebip_erp.Forms.SubForms
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
+        private Label label1;
     }
 }

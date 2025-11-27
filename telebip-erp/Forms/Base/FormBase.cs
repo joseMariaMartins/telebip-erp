@@ -9,6 +9,8 @@ using telebip_erp.Forms.Modules;
 using telebip_erp.Forms.SubForms;
 using System.IO;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace telebip_erp
 {
@@ -29,9 +31,6 @@ namespace telebip_erp
         private bool menuExpandEstoque = false;
         private bool sidebarExpand = false;
 
-        private Action? callbackAposFecharDropdown = null;
-        private bool aguardandoFechamentoDropdown = false;
-
         private readonly string caminhoBanco = Path.Combine(
             Application.StartupPath, "Database", "TeleBipDB.db"
         );
@@ -45,22 +44,29 @@ namespace telebip_erp
             InitializeComponent();
             ThemeManager.ApplyDarkTheme();
 
+            // Ativar DoubleBuffered nos painéis
+            SetDoubleBuffered(pnlContainer);
+            SetDoubleBuffered(pnlSidebar);
+            SetDoubleBuffered(pnlVendas);
+            SetDoubleBuffered(pnlEstoque);
+
             this.Width = 1250;
             this.Height = 650;
             pnlSidebar.Width = 43;
             pnlVendas.Height = 50;
             pnlEstoque.Height = 50;
 
-            // Timers
-            sidebarTransition.Interval = 5;
-            menuTransitionVendas.Interval = 12;
-            MenuTransitionEstoque.Interval = 12;
-
             RegistrarBotoesSelecionaveis();
 
             CriarOuRecuperarFormInicial();
             AbrirFormNoPanel(inicial!);
             ButtonSelectionManager.SelecionarBotao(btnHome);
+        }
+
+        private void SetDoubleBuffered(Control ctrl)
+        {
+            typeof(Control).GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic)
+                ?.SetValue(ctrl, true, null);
         }
 
         private void RegistrarBotoesSelecionaveis()
@@ -75,37 +81,52 @@ namespace telebip_erp
         #endregion
 
         #region Gerenciamento de Dropdowns
-        private void FecharDropdownComCallback(Action callback)
+        private async Task FecharTodosDropdowns()
         {
-            callbackAposFecharDropdown = callback;
-            aguardandoFechamentoDropdown = true;
-
             if (menuExpandVendas)
-                menuTransitionVendas.Start();
-            else if (menuExpandEstoque)
-                MenuTransitionEstoque.Start();
-            else
-                ExecutarCallback();
+            {
+                FecharDropdownVendas();
+                await Task.Delay(100);
+            }
+            if (menuExpandEstoque)
+            {
+                FecharDropdownEstoque();
+                await Task.Delay(100);
+            }
         }
 
-        private void FecharTodosDropdowns()
+        private void AbrirDropdownVendas()
         {
-            if (menuExpandVendas) menuTransitionVendas.Start();
-            if (menuExpandEstoque) MenuTransitionEstoque.Start();
+            pnlVendas.Height = 150;
+            menuExpandVendas = true;
         }
 
-        private void ExecutarCallback()
+        private void FecharDropdownVendas()
         {
-            callbackAposFecharDropdown?.Invoke();
-            callbackAposFecharDropdown = null;
-            aguardandoFechamentoDropdown = false;
+            pnlVendas.Height = 50;
+            menuExpandVendas = false;
+        }
+
+        private void AbrirDropdownEstoque()
+        {
+            pnlEstoque.Height = 150;
+            menuExpandEstoque = true;
+        }
+
+        private void FecharDropdownEstoque()
+        {
+            pnlEstoque.Height = 50;
+            menuExpandEstoque = false;
         }
         #endregion
 
         #region Sistema de Forms (DENTRO DO PANEL)
-        private void AbrirFormNoPanel(Form form)
+        private async void AbrirFormNoPanel(Form form, bool fecharDropdowns = true)
         {
-            FecharTodosDropdowns();
+            if (fecharDropdowns)
+            {
+                await FecharTodosDropdowns();
+            }
 
             pnlContainer.Controls.Clear();
             form.TopLevel = false;
@@ -113,8 +134,6 @@ namespace telebip_erp
             form.Dock = DockStyle.Fill;
             pnlContainer.Controls.Add(form);
             form.Show();
-
-            // ❌ Não forçamos tamanho nem SuspendLayout/ResumeLayout
         }
 
         private void CriarOuRecuperarFormInicial()
@@ -175,156 +194,134 @@ namespace telebip_erp
         }
         #endregion
 
-        #region Animações Sidebar e Dropdowns
-        private void menuTransitionVendas_Tick(object sender, EventArgs e)
-        {
-            if (!menuExpandVendas)
-            {
-                pnlVendas.Height += 8;
-                if (pnlVendas.Height >= 150)
-                {
-                    menuTransitionVendas.Stop();
-                    menuExpandVendas = true;
-                    if (aguardandoFechamentoDropdown) ExecutarCallback();
-                }
-            }
-            else
-            {
-                pnlVendas.Height -= 8;
-                if (pnlVendas.Height <= 50)
-                {
-                    menuTransitionVendas.Stop();
-                    menuExpandVendas = false;
-                    if (aguardandoFechamentoDropdown) ExecutarCallback();
-                }
-            }
-        }
-
-        private void MenuTransitionEstoque_Tick(object sender, EventArgs e)
-        {
-            if (!menuExpandEstoque)
-            {
-                pnlEstoque.Height += 8;
-                if (pnlEstoque.Height >= 150)
-                {
-                    MenuTransitionEstoque.Stop();
-                    menuExpandEstoque = true;
-                    if (aguardandoFechamentoDropdown) ExecutarCallback();
-                }
-            }
-            else
-            {
-                pnlEstoque.Height -= 8;
-                if (pnlEstoque.Height <= 50)
-                {
-                    MenuTransitionEstoque.Stop();
-                    menuExpandEstoque = false;
-                    if (aguardandoFechamentoDropdown) ExecutarCallback();
-                }
-            }
-        }
-
-        private void sidebarTransition_Tick(object sender, EventArgs e)
+        #region Sidebar e Dropdowns (COMPORTAMENTOS DINÂMICOS)
+        private async Task ToggleSidebarAsync()
         {
             if (sidebarExpand)
             {
-                pnlSidebar.Width -= 280;
-                if (pnlSidebar.Width <= 43)
-                {
-                    sidebarExpand = false;
-                    sidebarTransition.Stop();
-                    FecharTodosDropdowns();
-                }
+                // Fecha dropdowns primeiro com coldawn
+                await FecharTodosDropdowns();
+
+                // Sidebar seca
+                pnlSidebar.Width = 43;
+                sidebarExpand = false;
             }
             else
             {
-                pnlSidebar.Width += 280;
-                if (pnlSidebar.Width >= 280)
-                {
-                    sidebarExpand = true;
-                    sidebarTransition.Stop();
-                }
+                // Sidebar seca
+                pnlSidebar.Width = 280;
+                sidebarExpand = true;
+
+                // Pequeno delay para estabilizar
+                await Task.Delay(80);
             }
         }
         #endregion
 
         #region Eventos da Sidebar e Botões
-        private void btnHam_Click(object sender, EventArgs e) => sidebarTransition.Start();
-        private void pnlHam_Click(object sender, EventArgs e) => sidebarTransition.Start();
+        private async void btnHam_Click(object sender, EventArgs e) => await ToggleSidebarAsync();
+        private async void pnlHam_Click(object sender, EventArgs e) => await ToggleSidebarAsync();
 
-
-
-        private void btnHome_Click(object sender, EventArgs e)
+        private async void btnHome_Click(object sender, EventArgs e)
         {
-            FecharTodosDropdowns();
+            await FecharTodosDropdowns();
             CriarOuRecuperarFormInicial();
-            AbrirFormNoPanel(inicial!);
+            AbrirFormNoPanel(inicial!, false);
+            ButtonSelectionManager.SelecionarBotao(btnHome);
         }
 
-        private void btnVendas_Click(object sender, EventArgs e)
+        private async void btnVendas_Click(object sender, EventArgs e)
         {
-            if (!sidebarExpand) sidebarTransition.Start();
+            if (!sidebarExpand) await ToggleSidebarAsync();
 
             if (menuExpandEstoque)
             {
-                FecharDropdownComCallback(() =>
-                {
-                    menuTransitionVendas.Start();
-                    AbrirFormVendas();
-                });
+                // Fecha Estoque com coldawn e depois abre Vendas
+                FecharDropdownEstoque();
+                await Task.Delay(100);
+                AbrirDropdownVendas();
+                AbrirFormVendasSemFecharDropdown();
+                ButtonSelectionManager.SelecionarBotao(btnVendas);
+            }
+            else if (menuExpandVendas)
+            {
+                // Se já está aberto, apenas fecha
+                FecharDropdownVendas();
             }
             else
             {
-                menuTransitionVendas.Start();
-                AbrirFormVendas();
+                // Se nenhum está aberto, abre normalmente
+                AbrirDropdownVendas();
+                AbrirFormVendasSemFecharDropdown();
+                ButtonSelectionManager.SelecionarBotao(btnVendas);
             }
         }
 
-        private void btnEstoque_Click(object sender, EventArgs e)
+        private async void btnEstoque_Click(object sender, EventArgs e)
         {
-            if (!sidebarExpand) sidebarTransition.Start();
+            if (!sidebarExpand) await ToggleSidebarAsync();
 
             if (menuExpandVendas)
             {
-                FecharDropdownComCallback(() =>
-                {
-                    MenuTransitionEstoque.Start();
-                    AbrirFormEstoque();
-                });
+                // Fecha Vendas com coldawn e depois abre Estoque
+                FecharDropdownVendas();
+                await Task.Delay(100);
+                AbrirDropdownEstoque();
+                AbrirFormEstoqueSemFecharDropdown();
+                ButtonSelectionManager.SelecionarBotao(btnEstoque);
+            }
+            else if (menuExpandEstoque)
+            {
+                // Se já está aberto, apenas fecha
+                FecharDropdownEstoque();
             }
             else
             {
-                MenuTransitionEstoque.Start();
-                AbrirFormEstoque();
+                // Se nenhum está aberto, abre normalmente
+                AbrirDropdownEstoque();
+                AbrirFormEstoqueSemFecharDropdown();
+                ButtonSelectionManager.SelecionarBotao(btnEstoque);
             }
         }
 
-        private void btnRelatorios_Click(object sender, EventArgs e)
+        private async void btnRelatorios_Click(object sender, EventArgs e)
         {
-            FecharTodosDropdowns();
+            await FecharTodosDropdowns();
             CriarOuRecuperarFormRelatorios();
-            AbrirFormNoPanel(relatorios!);
+            AbrirFormNoPanel(relatorios!, false);
+            ButtonSelectionManager.SelecionarBotao(btnRelatorios);
         }
 
-        private void btnFuncionarios_Click(object sender, EventArgs e)
+        private async void btnFuncionarios_Click(object sender, EventArgs e)
         {
-            FecharTodosDropdowns();
+            await FecharTodosDropdowns();
             CriarOuRecuperarFormFuncionarios();
-            AbrirFormNoPanel(funcionarios!);
+            AbrirFormNoPanel(funcionarios!, false);
+            ButtonSelectionManager.SelecionarBotao(btnFuncionarios);
         }
 
-        private void btnConfiguracoes_Click(object sender, EventArgs e)
+        private async void btnConfiguracoes_Click(object sender, EventArgs e)
         {
-            FecharTodosDropdowns();
+            await FecharTodosDropdowns();
             CriarOuRecuperarFormConfiguracoes();
-            AbrirFormNoPanel(configuracoes!);
+            AbrirFormNoPanel(configuracoes!, false);
+            ButtonSelectionManager.SelecionarBotao(btnConfiguracoes);
         }
 
         private void AbrirFormVendas()
         {
             CriarOuRecuperarFormVendas();
             if (!pnlContainer.Controls.Contains(vendas!))
-                AbrirFormNoPanel(vendas!);
+                AbrirFormNoPanel(vendas!, false);
+            else
+                vendas!.BringToFront();
+        }
+
+        private void AbrirFormVendasSemFecharDropdown()
+        {
+            CriarOuRecuperarFormVendas();
+            if (!pnlContainer.Controls.Contains(vendas!))
+                AbrirFormNoPanel(vendas!, false);
             else
                 vendas!.BringToFront();
         }
@@ -333,7 +330,16 @@ namespace telebip_erp
         {
             CriarOuRecuperarFormEstoque();
             if (!pnlContainer.Controls.Contains(estoque!))
-                AbrirFormNoPanel(estoque!);
+                AbrirFormNoPanel(estoque!, false);
+            else
+                estoque!.BringToFront();
+        }
+
+        private void AbrirFormEstoqueSemFecharDropdown()
+        {
+            CriarOuRecuperarFormEstoque();
+            if (!pnlContainer.Controls.Contains(estoque!))
+                AbrirFormNoPanel(estoque!, false);
             else
                 estoque!.BringToFront();
         }
