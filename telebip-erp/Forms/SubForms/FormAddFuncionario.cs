@@ -22,6 +22,14 @@ namespace telebip_erp.Forms.SubForms
             btnSalvar.Click += BtnSalvar_Click;
             btnCancelar.Click += BtnCancelar_Click;
             this.Load += FormAddFuncionario_Load;
+
+            // Evento para focar automaticamente no primeiro caractere da data
+            mtxtDataNasc.Enter += MtxtDataNasc_Enter;
+
+            // Eventos de tecla para melhor navegação
+            txtNome.KeyDown += Txt_KeyDown;
+            txtCargo.KeyDown += Txt_KeyDown;
+            mtxtDataNasc.KeyDown += Txt_KeyDown;
         }
 
         private void ConfigurarPlaceholders()
@@ -32,6 +40,23 @@ namespace telebip_erp.Forms.SubForms
 
         private void FormAddFuncionario_Load(object sender, EventArgs e)
         {
+            // Focar no primeiro campo ao abrir o formulário
+            txtNome.Focus();
+        }
+
+        private void MtxtDataNasc_Enter(object sender, EventArgs e)
+        {
+            // Focar no primeiro caractere da máscara quando o campo receber foco
+            mtxtDataNasc.Select(0, 0);
+        }
+
+        private void Txt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                SelectNextControl((Control)sender, true, true, true, true);
+            }
         }
 
         private void BtnSalvar_Click(object sender, EventArgs e)
@@ -42,51 +67,89 @@ namespace telebip_erp.Forms.SubForms
 
         private bool ValidarDados()
         {
+            // Validação do Nome
             if (string.IsNullOrWhiteSpace(txtNome.Text))
             {
-                MessageBox.Show("Digite o nome do funcionário", "Campo Obrigatório",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtNome.Focus();
+                MostrarErroCampo("Digite o nome do funcionário", txtNome);
                 return false;
             }
 
+            if (txtNome.Text.Trim().Length < 3)
+            {
+                MostrarErroCampo("O nome deve ter pelo menos 3 caracteres", txtNome);
+                return false;
+            }
+
+            // Validação do Cargo
             if (string.IsNullOrWhiteSpace(txtCargo.Text))
             {
-                MessageBox.Show("Digite o cargo do funcionário", "Campo Obrigatório",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCargo.Focus();
+                MostrarErroCampo("Digite o cargo do funcionário", txtCargo);
                 return false;
             }
 
+            if (txtCargo.Text.Trim().Length < 2)
+            {
+                MostrarErroCampo("O cargo deve ter pelo menos 2 caracteres", txtCargo);
+                return false;
+            }
+
+            // Validação da Data
             if (!mtxtDataNasc.MaskCompleted)
             {
-                MessageBox.Show("Preencha a data de nascimento no formato dd/mm/aaaa", "Data Inválida",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                mtxtDataNasc.Focus();
+                MostrarErroCampo("Preencha a data de nascimento no formato dd/mm/aaaa", mtxtDataNasc);
                 return false;
             }
 
             if (!DateTime.TryParseExact(mtxtDataNasc.Text, "dd/MM/yyyy",
-                CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
+                CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dataNasc))
             {
-                MessageBox.Show("Data de nascimento inválida. Use o formato dd/mm/aaaa", "Data Inválida",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                mtxtDataNasc.Focus();
+                MostrarErroCampo("Data de nascimento inválida. Use o formato dd/mm/aaaa", mtxtDataNasc);
+                return false;
+            }
+
+            // Validação se a data não é futura
+            if (dataNasc > DateTime.Today)
+            {
+                MostrarErroCampo("A data de nascimento não pode ser futura", mtxtDataNasc);
+                return false;
+            }
+
+            // Validação se a pessoa tem pelo menos 14 anos
+            if (dataNasc > DateTime.Today.AddYears(-14))
+            {
+                MostrarErroCampo("O funcionário deve ter pelo menos 14 anos", mtxtDataNasc);
                 return false;
             }
 
             return true;
         }
 
+        private void MostrarErroCampo(string mensagem, Control controle)
+        {
+            MessageBox.Show(mensagem, "Campo Obrigatório",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            controle.Focus();
+
+            // Selecionar todo o texto se for TextBox
+            if (controle is TextBox textBox)
+            {
+                textBox.SelectAll();
+            }
+            else if (controle is MaskedTextBox maskedTextBox)
+            {
+                maskedTextBox.Select(0, 0);
+            }
+        }
+
         private void SalvarFuncionario()
         {
             try
             {
-                // 1) Verifica se a tabela FUNCIONARIO existe no mesmo DB que DatabaseHelper usa
+                // 1) Verifica se a tabela FUNCIONARIO existe
                 string checkSql = "SELECT COUNT(1) FROM sqlite_master WHERE type='table' AND name=@name;";
-                var checkParams = new System.Data.SQLite.SQLiteParameter[]
+                var checkParams = new SQLiteParameter[]
                 {
-                    new System.Data.SQLite.SQLiteParameter("@name", "FUNCIONARIO")
+                    new SQLiteParameter("@name", "FUNCIONARIO")
                 };
 
                 var dtCheck = DatabaseHelper.ExecuteQuery(checkSql, checkParams);
@@ -94,11 +157,8 @@ namespace telebip_erp.Forms.SubForms
                     Convert.ToInt32(dtCheck.Rows[0][0]) == 0)
                 {
                     MessageBox.Show(
-                        "Tabela 'FUNCIONARIO' não encontrada no banco que o aplicativo está usando.\n\n" +
-                        "Observações:\n" +
-                        "- O aplicativo usa a connection string definida no App.config (verifique 'SQLiteConn').\n" +
-                        "- Confirme que você está abrindo o mesmo arquivo de banco que o restante do app.\n\n" +
-                        "Não vou criar a tabela automaticamente; execute as migrations/DDL no arquivo correto.",
+                        "Tabela 'FUNCIONARIO' não encontrada no banco de dados.\n\n" +
+                        "Verifique se o banco de dados está configurado corretamente.",
                         "Tabela ausente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -115,21 +175,21 @@ namespace telebip_erp.Forms.SubForms
                 }
                 string dataFormatada = dataNasc.ToString("dd-MM-yyyy");
 
-                // 3) Fazer INSERT usando DatabaseHelper (mesmo DB que o resto do app)
+                // 3) Fazer INSERT
                 string insertSql = @"INSERT INTO FUNCIONARIO (NOME, CARGO, DATA_NASCIMENTO)
                                      VALUES (@nome, @cargo, @data);";
-                var insertParams = new System.Data.SQLite.SQLiteParameter[]
+                var insertParams = new SQLiteParameter[]
                 {
-                    new System.Data.SQLite.SQLiteParameter("@nome", nomeFormatado),
-                    new System.Data.SQLite.SQLiteParameter("@cargo", cargoFormatado),
-                    new System.Data.SQLite.SQLiteParameter("@data", dataFormatada)
+                    new SQLiteParameter("@nome", nomeFormatado),
+                    new SQLiteParameter("@cargo", cargoFormatado),
+                    new SQLiteParameter("@data", dataFormatada)
                 };
 
                 int linhas = DatabaseHelper.ExecuteNonQuery(insertSql, insertParams);
 
                 if (linhas > 0)
                 {
-                    MessageBox.Show("Funcionário salvo com sucesso.", "Sucesso",
+                    MessageBox.Show("Funcionário salvo com sucesso!", "Sucesso",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
@@ -140,18 +200,16 @@ namespace telebip_erp.Forms.SubForms
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            catch (System.Data.SQLite.SQLiteException ex)
+            catch (SQLiteException ex)
             {
-                // Tratamentos comuns
                 if (ex.Message.IndexOf("no such table", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    MessageBox.Show("Erro SQLite: tabela não encontrada (no such table). " +
-                        "Verifique se o arquivo de banco que o app usa contém a tabela FUNCIONARIO.", "Erro SQLite",
+                    MessageBox.Show("Erro SQLite: tabela não encontrada.", "Erro SQLite",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (ex.Message.IndexOf("constraint", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    MessageBox.Show("Erro de validação do banco (constraint). Verifique os dados.", "Erro",
+                    MessageBox.Show("Erro de validação do banco. Verifique os dados.", "Erro",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else

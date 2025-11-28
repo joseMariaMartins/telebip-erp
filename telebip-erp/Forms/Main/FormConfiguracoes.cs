@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using MaterialSkin.Controls;
 using telebip_erp.Forms.SubForms;
 using telebip_erp.Forms.Main;
+using System.Collections.Generic;
+using System.Data.SQLite;
 
 namespace telebip_erp.Forms.Modules
 {
@@ -44,13 +46,15 @@ namespace telebip_erp.Forms.Modules
             // Apenas o botão "Alterar e-mail de envio" fará a confirmação/salvamento
             if (btnAlterarEmail != null) btnAlterarEmail.Click += BtnAlterarEmail_Click;
 
-            // Não amarramos btnConfirmar (você pediu pra remover a ideia do salvar)
             // Alteração de senha
             if (btnGerente != null) btnGerente.Click += BtnGerente_Click;
             if (btnFuncionario != null) btnFuncionario.Click += BtnFuncionario_Click;
 
             // Enter no campo de e-mail confirma também
             if (tbEmail != null) tbEmail.KeyDown += TbEmail_KeyDown;
+
+            // Botão de logout
+            if (btnLogout != null) btnLogout.Click += BtnLogout_Click;
 
             // Ao carregar, aplicar placeholder compatível
             Load += FormConfiguracoes_Load;
@@ -67,6 +71,33 @@ namespace telebip_erp.Forms.Modules
             catch
             {
                 // ignore se não funcionar no runtime atual
+            }
+
+            // Atualizar informações de backup
+            AtualizarInfoBackup();
+        }
+
+        private void AtualizarInfoBackup()
+        {
+            try
+            {
+                if (lbUltimoBackup != null)
+                {
+                    string ultimoBackup = ConfigHelper.GetSetting("UltimoBackupData") ?? "—";
+                    lbUltimoBackup.Text = $"Último backup: {ultimoBackup}";
+                }
+
+                if (lbPastaBackup != null)
+                {
+                    string pasta = ConfigHelper.GetSetting("UltimaPastaBackup") ?? "—";
+                    if (pasta.Length > 50)
+                        pasta = "..." + pasta.Substring(pasta.Length - 47);
+                    lbPastaBackup.Text = $"Pasta padrão: {pasta}";
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Erro ao atualizar info backup: {ex.Message}");
             }
         }
 
@@ -168,12 +199,6 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
-        // Se por algum motivo houver um btnConfirmar em outro branch, mantemos a compatibilidade (não ligado)
-        private void BtnConfirmar_Click(object sender, EventArgs e)
-        {
-            ConfirmarEmail();
-        }
-
         // ==========================
         // BACKUP
         // ==========================
@@ -202,7 +227,13 @@ namespace telebip_erp.Forms.Modules
 
                         File.Copy(caminhoBanco, caminhoDestino, true);
 
+                        // Salvar configurações
                         ConfigHelper.SetSetting("UltimaPastaBackup", ultimaPastaBackup);
+                        ConfigHelper.SetSetting("UltimoBackupData", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+
+                        // Atualizar display
+                        AtualizarInfoBackup();
+
                         MessageBox.Show($"Backup criado com sucesso em:\n{caminhoDestino}",
                             "Backup Concluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -254,8 +285,11 @@ namespace telebip_erp.Forms.Modules
 
                             File.Copy(caminhoBackup, caminhoBanco, true);
 
-                            MessageBox.Show("Backup restaurado com sucesso!",
+                            MessageBox.Show("Backup restaurado com sucesso! O sistema será reiniciado.",
                                 "Restauração Concluída", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Reiniciar aplicação após restore
+                            Application.Restart();
                         }
                     }
                 }
@@ -329,6 +363,122 @@ namespace telebip_erp.Forms.Modules
                 StartPosition = FormStartPosition.CenterParent
             };
             formSenhaFuncionario.ShowDialog();
+        }
+
+        // ==========================
+        // LOGOUT DO SISTEMA
+        // ==========================
+        private void BtnLogout_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult result = MessageBox.Show(
+                    "Tem certeza que deseja sair do sistema?\n\nVocê será redirecionado para a tela de login.",
+                    "Confirmar Saída",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    FazerLogout();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao fazer logout: {ex.Message}",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void FazerLogout()
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+
+                // 1. Limpar a sessão atual
+                LimparSessao();
+
+                // 2. Fechar todas as forms exceto esta
+                FecharTodasFormsExcetoEsta();
+
+                // 3. Criar e mostrar o formulário de login
+                var loginForm = new telebip_erp.Forms.Auth.FormLogin();
+                loginForm.Show();
+
+                // 4. Fechar esta form de configurações
+                this.Close();
+
+            }
+            catch (Exception ex)
+            {
+                // Fallback: reiniciar a aplicação se algo der errado
+                MessageBox.Show($"Reiniciando aplicação...\n{ex.Message}",
+                    "Logout", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Application.Restart();
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private void LimparSessao()
+        {
+            try
+            {
+                // Limpar os dados da sessão
+                Session.NivelAcesso = 0;
+
+                // Se você tiver outras propriedades na Session, limpe-as também
+                // Session.UsuarioLogado = null;
+                // Session.EmailUsuario = null;
+                // Session.NomeUsuario = null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Erro ao limpar sessão: {ex.Message}");
+            }
+        }
+
+        private void FecharTodasFormsExcetoEsta()
+        {
+            try
+            {
+                // Criar uma lista das forms para fechar (evita modificar a coleção durante iteração)
+                var formsParaFechar = new List<Form>();
+
+                foreach (Form form in Application.OpenForms)
+                {
+                    // Não fechar esta form nem forms de login
+                    if (form != this &&
+                        form.Name != "FormLogin" &&
+                        !form.Name.Contains("Login") &&
+                        !form.Name.Contains("Auth"))
+                    {
+                        formsParaFechar.Add(form);
+                    }
+                }
+
+                // Fechar as forms coletadas
+                foreach (Form form in formsParaFechar)
+                {
+                    try
+                    {
+                        form.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Erro ao fechar form {form.Name}: {ex.Message}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Erro ao fechar forms: {ex.Message}");
+            }
         }
     }
 }

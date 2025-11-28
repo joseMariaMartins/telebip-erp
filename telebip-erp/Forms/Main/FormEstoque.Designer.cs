@@ -24,28 +24,28 @@
             btnLimpar = new CuoreUI.Controls.cuiButton();
             btnPesquisar = new CuoreUI.Controls.cuiButton();
             pnlWrapperCampo = new telebip_erp.Controls.RoundedPanel();
+            PictureImage2 = new PictureBox();
             cbPesquisaCampo = new telebip_erp.Controls.NeoFlatComboBox();
             pnlWrapperCondicao = new telebip_erp.Controls.RoundedPanel();
+            pictureBox1 = new PictureBox();
             cbCondicao = new telebip_erp.Controls.NeoFlatComboBox();
             pnlWrapperPesquisa = new telebip_erp.Controls.RoundedPanel();
             picSearch = new PictureBox();
             tbPesquisa = new TextBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
-            PictureImage2 = new PictureBox();
-            pictureBox1 = new PictureBox();
             pnlContainer.SuspendLayout();
             pnlDgv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEstoque).BeginInit();
             pnlBottom.SuspendLayout();
             pnlFiltros.SuspendLayout();
             pnlWrapperCampo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PictureImage2).BeginInit();
             pnlWrapperCondicao.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlWrapperPesquisa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picSearch).BeginInit();
             pnlHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PictureImage2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pnlContainer
@@ -253,6 +253,16 @@
             pnlWrapperCampo.Size = new Size(169, 36);
             pnlWrapperCampo.TabIndex = 50;
             // 
+            // PictureImage2
+            // 
+            PictureImage2.Image = (Image)resources.GetObject("PictureImage2.Image");
+            PictureImage2.Location = new Point(142, 13);
+            PictureImage2.Name = "PictureImage2";
+            PictureImage2.Size = new Size(10, 10);
+            PictureImage2.SizeMode = PictureBoxSizeMode.Zoom;
+            PictureImage2.TabIndex = 17;
+            PictureImage2.TabStop = false;
+            // 
             // cbPesquisaCampo
             // 
             cbPesquisaCampo.AutoSelectFirst = false;
@@ -288,6 +298,16 @@
             pnlWrapperCondicao.Padding = new Padding(8, 6, 30, 6);
             pnlWrapperCondicao.Size = new Size(169, 36);
             pnlWrapperCondicao.TabIndex = 51;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(143, 13);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(10, 10);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 15;
+            pictureBox1.TabStop = false;
             // 
             // cbCondicao
             // 
@@ -372,26 +392,6 @@
             lblTitulo.Text = "Gerenciamento de Estoque";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // PictureImage2
-            // 
-            PictureImage2.Image = (Image)resources.GetObject("PictureImage2.Image");
-            PictureImage2.Location = new Point(142, 13);
-            PictureImage2.Name = "PictureImage2";
-            PictureImage2.Size = new Size(10, 10);
-            PictureImage2.SizeMode = PictureBoxSizeMode.Zoom;
-            PictureImage2.TabIndex = 17;
-            PictureImage2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(143, 13);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(10, 10);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 15;
-            pictureBox1.TabStop = false;
-            // 
             // FormEstoque
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -402,20 +402,19 @@
             Controls.Add(pnlContainer);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormEstoque";
-            Text = "FormEstoque";
             pnlContainer.ResumeLayout(false);
             pnlDgv.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvEstoque).EndInit();
             pnlBottom.ResumeLayout(false);
             pnlFiltros.ResumeLayout(false);
             pnlWrapperCampo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)PictureImage2).EndInit();
             pnlWrapperCondicao.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlWrapperPesquisa.ResumeLayout(false);
             pnlWrapperPesquisa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
             pnlHeader.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)PictureImage2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
 
         }

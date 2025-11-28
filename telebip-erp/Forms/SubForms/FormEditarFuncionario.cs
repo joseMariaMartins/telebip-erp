@@ -9,17 +9,12 @@ namespace telebip_erp.Forms.SubForms
     {
         private readonly int? funcionarioId;
 
-        // Construtor padrão (se precisar instanciar sem id)
-        public FormEditarFuncionario()
+        // Construtor para edição recebendo o ID do funcionário
+        public FormEditarFuncionario(int id)
         {
             InitializeComponent();
-            Inicializar();
-        }
-
-        // Construtor para edição recebendo o ID do funcionário
-        public FormEditarFuncionario(int id) : this()
-        {
             funcionarioId = id;
+            Inicializar();
         }
 
         private void Inicializar()
@@ -36,11 +31,11 @@ namespace telebip_erp.Forms.SubForms
             lblTitulo.Text = funcionarioId.HasValue ? "Editar Funcionário" : "Registrar Funcionário";
             this.Text = lblTitulo.Text;
 
-            // se for modo edição, carregue os dados
-            this.Load += FormEditarFuncionaro_Load;
+            // ✅ CORREÇÃO: Carregar os dados quando o formulário for carregado
+            this.Load += FormEditarFuncionario_Load;
         }
 
-        private void FormEditarFuncionaro_Load(object sender, EventArgs e)
+        private void FormEditarFuncionario_Load(object sender, EventArgs e)
         {
             if (funcionarioId.HasValue)
             {
@@ -74,21 +69,24 @@ namespace telebip_erp.Forms.SubForms
                 txtNome.Text = row["NOME"]?.ToString() ?? "";
                 txtCargo.Text = row["CARGO"]?.ToString() ?? "";
 
-                // DATA_NASCIMENTO no banco está em dd-MM-yyyy segundo seu padrão; tenta parse e mostrar dd/MM/yyyy na máscara
+                // ✅ CORREÇÃO: Processar a data corretamente
                 var dataText = row["DATA_NASCIMENTO"]?.ToString();
                 if (!string.IsNullOrEmpty(dataText))
                 {
+                    // Tenta parse no formato dd-MM-yyyy (formato do banco)
                     if (DateTime.TryParseExact(dataText, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtNasc))
                     {
                         mtxtDataNasc.Text = dtNasc.ToString("dd/MM/yyyy");
                     }
+                    // Se não conseguir, tenta parse genérico
                     else if (DateTime.TryParse(dataText, out DateTime dtParse))
                     {
                         mtxtDataNasc.Text = dtParse.ToString("dd/MM/yyyy");
                     }
                     else
                     {
-                        mtxtDataNasc.Text = dataText; // deixa o texto bruto se não conseguir parse
+                        // Se ainda não conseguir, mostra o texto original
+                        mtxtDataNasc.Text = dataText;
                     }
                 }
             }
@@ -100,6 +98,7 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
+        // ... resto do código permanece igual
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
             if (!ValidarDados()) return;
@@ -107,7 +106,7 @@ namespace telebip_erp.Forms.SubForms
             if (funcionarioId.HasValue)
                 AtualizarFuncionario(funcionarioId.Value);
             else
-                InserirFuncionario(); // caso queira usar mesmo form para inserir quando sem id
+                InserirFuncionario();
         }
 
         private bool ValidarDados()
@@ -205,7 +204,6 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
-        // Caso queira usar o mesmo formulário também para inserir (opcional)
         private void InserirFuncionario()
         {
             try

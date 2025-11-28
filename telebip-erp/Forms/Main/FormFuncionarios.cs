@@ -18,6 +18,7 @@ namespace telebip_erp.Forms.Modules
             CarregarFuncionarios();
             ConfigurarEventos();
             AtualizarCard(null);
+            ConfigurarFiltros();
         }
 
         private void ConfigurarEventos()
@@ -26,11 +27,21 @@ namespace telebip_erp.Forms.Modules
             btnRemover.Click += BtnRemover_Click;
             btnPesquisar.Click += BtnPesquisar_Click;
             btnLimpar.Click += BtnLimpar_Click;
-
-
+            btnEditar.Click += btnEditar_Click;
 
             dgvFuncionarios.SelectionChanged += DgvFuncionarios_SelectionChanged;
             tbSearch.KeyDown += TbSearch_KeyDown;
+
+            // Eventos dos filtros
+            cbCondicao.SelectedIndexChanged += Filtro_Changed;
+            neoFlatComboBox1.SelectedIndexChanged += Filtro_Changed;
+        }
+
+        private void ConfigurarFiltros()
+        {
+            // Configurar valores padrão
+            cbCondicao.SelectedIndex = 0; // "Id"
+            neoFlatComboBox1.SelectedIndex = 0; // "Inicia com"
         }
 
         #region Operações de Banco de Dados e Configuração da Tabela
@@ -52,11 +63,19 @@ namespace telebip_erp.Forms.Modules
 
                 if (!string.IsNullOrEmpty(filtro))
                 {
-                    sql += @" AND (UPPER(NOME) LIKE UPPER(@filtro) 
-                             OR UPPER(CARGO) LIKE UPPER(@filtro))";
-                    parametros = new SQLiteParameter[] {
-                        new SQLiteParameter("@filtro", $"%{filtro}%")
-                    };
+                    // Aplicar filtro avançado baseado nas seleções dos combobox
+                    string campo = cbCondicao.SelectedItem?.ToString() ?? "Nome";
+                    string operador = neoFlatComboBox1.SelectedItem?.ToString() ?? "Contendo";
+                    string valor = tbSearch.Text.Trim();
+
+                    if (!string.IsNullOrEmpty(valor))
+                    {
+                        var condicao = GerarCondicaoFiltro(campo, operador, valor, out parametros);
+                        if (!string.IsNullOrEmpty(condicao))
+                        {
+                            sql += " AND " + condicao;
+                        }
+                    }
                 }
 
                 // ✅ ORDENAR POR ID (mais recentes primeiro)
@@ -76,6 +95,50 @@ namespace telebip_erp.Forms.Modules
                 MessageBox.Show("Erro ao carregar funcionários: " + ex.Message,
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private string GerarCondicaoFiltro(string campo, string operador, string valor, out SQLiteParameter[] parametros)
+        {
+            parametros = null;
+
+            if (string.IsNullOrEmpty(valor)) return "";
+
+            // Mapear campo para coluna do banco
+            string colunaBanco = campo.ToUpper() switch
+            {
+                "ID" => "ID_FUNCIONARIO",
+                "NOME" => "NOME",
+                "CARGO" => "CARGO",
+                _ => "NOME"
+            };
+
+            // Mapear operador para condição SQL com parâmetros
+            string condicao = "";
+            switch (operador.ToUpper())
+            {
+                case "INICIA COM":
+                    condicao = $"{colunaBanco} LIKE @valor";
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", $"{valor}%") };
+                    break;
+                case "CONTENDO":
+                    condicao = $"{colunaBanco} LIKE @valor";
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", $"%{valor}%") };
+                    break;
+                case "DIFERENTE DE":
+                    condicao = $"{colunaBanco} != @valor";
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
+                    break;
+                case "IDENTICO A":
+                    condicao = $"{colunaBanco} = @valor";
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
+                    break;
+                default:
+                    condicao = $"{colunaBanco} LIKE @valor";
+                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", $"%{valor}%") };
+                    break;
+            }
+
+            return condicao;
         }
 
         private void ConfigurarDataGridView()
@@ -203,8 +266,12 @@ namespace telebip_erp.Forms.Modules
             if (dgvFuncionarios.SelectedRows.Count > 0)
             {
                 var linha = dgvFuncionarios.SelectedRows[0];
-                funcionarioSelecionadoId = Convert.ToInt32(linha.Cells["ID"].Value);
-                AtualizarCard(linha);
+                // ✅ VERIFICAÇÃO DE SEGURANÇA
+                if (linha.Cells["ID"]?.Value != null && linha.Cells["ID"].Value != DBNull.Value)
+                {
+                    funcionarioSelecionadoId = Convert.ToInt32(linha.Cells["ID"].Value);
+                    AtualizarCard(linha);
+                }
             }
             else
             {
@@ -219,6 +286,13 @@ namespace telebip_erp.Forms.Modules
             {
                 BtnPesquisar_Click(sender, e);
             }
+        }
+
+        private void Filtro_Changed(object sender, EventArgs e)
+        {
+            // Pesquisa automática quando os filtros mudam (opcional)
+            // Se quiser pesquisa automática, descomente a linha abaixo:
+            // BtnPesquisar_Click(sender, e);
         }
 
         #endregion
@@ -259,16 +333,8 @@ namespace telebip_erp.Forms.Modules
         {
             using (var formAddFuncionario = new FormAddFuncionario())
             {
-
-                {
-                    // ✅ CORREÇÃO: Chamar método para recarregar dados
-                    CarregarFuncionarios();
-                }
-                ;
-
                 var resultado = formAddFuncionario.ShowDialog();
 
-                // ✅ CORREÇÃO: Recarregar também quando fechar com OK (backup)
                 if (resultado == DialogResult.OK)
                 {
                     CarregarFuncionarios();
@@ -318,14 +384,69 @@ namespace telebip_erp.Forms.Modules
 
         private void BtnPesquisar_Click(object sender, EventArgs e)
         {
-            string termoPesquisa = tbSearch.Text.Trim();
-            CarregarFuncionarios(termoPesquisa);
+            try
+            {
+                string termoPesquisa = tbSearch.Text.Trim();
+
+                // Se estiver vazio, carrega todos os funcionários
+                if (string.IsNullOrEmpty(termoPesquisa))
+                {
+                    CarregarFuncionarios();
+                    return;
+                }
+
+                // Validação para filtro por ID
+                if (cbCondicao.SelectedItem?.ToString() == "Id")
+                {
+                    if (!int.TryParse(termoPesquisa, out _))
+                    {
+                        MessageBox.Show("Para filtrar por ID, digite um número válido.", "Aviso",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        tbSearch.Focus();
+                        tbSearch.SelectAll();
+                        return;
+                    }
+                }
+
+                // Aplica o filtro
+                CarregarFuncionarios(termoPesquisa);
+
+                // Feedback visual
+                if (dgvFuncionarios.Rows.Count == 0)
+                {
+                    MessageBox.Show("Nenhum funcionário encontrado com os critérios de pesquisa.",
+                        "Pesquisa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao pesquisar funcionários: " + ex.Message,
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnLimpar_Click(object sender, EventArgs e)
         {
-            tbSearch.Text = "";
-            CarregarFuncionarios();
+            try
+            {
+                // Limpa o campo de pesquisa
+                tbSearch.Text = "";
+
+                // Reseta os filtros para valores padrão
+                cbCondicao.SelectedIndex = 0;
+                neoFlatComboBox1.SelectedIndex = 0;
+
+                // Recarrega todos os funcionários
+                CarregarFuncionarios();
+
+                // Foca no campo de pesquisa para nova digitação
+                tbSearch.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao limpar filtros: " + ex.Message,
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         #endregion
@@ -341,10 +462,33 @@ namespace telebip_erp.Forms.Modules
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            using var formEditarFuncionario = new FormEditarFuncionario();
-            formEditarFuncionario.Owner = this;
-            formEditarFuncionario.ShowDialog();
+            if (!funcionarioSelecionadoId.HasValue)
+            {
+                MessageBox.Show("Selecione um funcionário para editar.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            try
+            {
+                // ✅ CORREÇÃO: Usar o construtor correto que recebe o ID
+                using (var formEditarFuncionario = new FormEditarFuncionario(funcionarioSelecionadoId.Value))
+                {
+                    var resultado = formEditarFuncionario.ShowDialog();
+
+                    if (resultado == DialogResult.OK)
+                    {
+                        CarregarFuncionarios();
+                        MessageBox.Show("Funcionário atualizado com sucesso!", "Sucesso",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao abrir formulário de edição: " + ex.Message,
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

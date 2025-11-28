@@ -35,13 +35,18 @@ namespace telebip_erp.Forms.Modules
             pnlBottom = new Panel();
             lbTotal = new Label();
             flowFiltros = new FlowLayoutPanel();
+            pnlWrapperCargo = new telebip_erp.Controls.RoundedPanel();
+            cbCondicao = new telebip_erp.Controls.NeoFlatComboBox();
+            roundedPanel1 = new telebip_erp.Controls.RoundedPanel();
+            neoFlatComboBox1 = new telebip_erp.Controls.NeoFlatComboBox();
+            pnlWrapperPesquisa = new telebip_erp.Controls.RoundedPanel();
+            picSearch = new PictureBox();
+            tbSearch = new TextBox();
             btnPesquisar = new CuoreUI.Controls.cuiButton();
             btnLimpar = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             PictureImage2 = new PictureBox();
-            picSearch = new PictureBox();
-            tbSearch = new TextBox();
             pnlContainer.SuspendLayout();
             pnlDgv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvFuncionarios).BeginInit();
@@ -54,9 +59,12 @@ namespace telebip_erp.Forms.Modules
             flowCardButtons.SuspendLayout();
             pnlBottom.SuspendLayout();
             flowFiltros.SuspendLayout();
+            pnlWrapperCargo.SuspendLayout();
+            roundedPanel1.SuspendLayout();
+            pnlWrapperPesquisa.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picSearch).BeginInit();
             pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureImage2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picSearch).BeginInit();
             SuspendLayout();
             // 
             // pnlContainer
@@ -410,6 +418,9 @@ namespace telebip_erp.Forms.Modules
             // flowFiltros
             // 
             flowFiltros.BackColor = Color.FromArgb(32, 33, 39);
+            flowFiltros.Controls.Add(pnlWrapperCargo);
+            flowFiltros.Controls.Add(roundedPanel1);
+            flowFiltros.Controls.Add(pnlWrapperPesquisa);
             flowFiltros.Controls.Add(btnPesquisar);
             flowFiltros.Controls.Add(btnLimpar);
             flowFiltros.Dock = DockStyle.Top;
@@ -420,9 +431,117 @@ namespace telebip_erp.Forms.Modules
             flowFiltros.TabIndex = 7;
             flowFiltros.WrapContents = false;
             // 
+            // pnlWrapperCargo
+            // 
+            pnlWrapperCargo.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCargo.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperCargo.BorderThickness = 1;
+            pnlWrapperCargo.Controls.Add(cbCondicao);
+            pnlWrapperCargo.CornerRadius = 8;
+            pnlWrapperCargo.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperCargo.Location = new Point(10, 12);
+            pnlWrapperCargo.Margin = new Padding(0, 2, 8, 2);
+            pnlWrapperCargo.Name = "pnlWrapperCargo";
+            pnlWrapperCargo.Size = new Size(200, 36);
+            pnlWrapperCargo.TabIndex = 19;
+            // 
+            // cbCondicao
+            // 
+            cbCondicao.AutoSelectFirst = false;
+            cbCondicao.BackColor = Color.FromArgb(40, 41, 52);
+            cbCondicao.DrawMode = DrawMode.OwnerDrawFixed;
+            cbCondicao.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCondicao.FlatStyle = FlatStyle.Flat;
+            cbCondicao.Font = new Font("Segoe UI", 9F);
+            cbCondicao.ForeColor = Color.White;
+            cbCondicao.FormattingEnabled = true;
+            cbCondicao.ItemEntryHeight = 24;
+            cbCondicao.ItemHeight = 15;
+            cbCondicao.Items.AddRange(new object[] { "Id", "Nome", "Cargo" });
+            cbCondicao.Location = new Point(3, 8);
+            cbCondicao.Margin = new Padding(3, 0, 10, 0);
+            cbCondicao.Name = "cbCondicao";
+            cbCondicao.Placeholder = "Selecione...";
+            cbCondicao.ShowPlaceholder = true;
+            cbCondicao.Size = new Size(195, 21);
+            cbCondicao.TabIndex = 12;
+            // 
+            // roundedPanel1
+            // 
+            roundedPanel1.BackColor = Color.FromArgb(40, 41, 52);
+            roundedPanel1.BorderColor = Color.FromArgb(60, 62, 80);
+            roundedPanel1.BorderThickness = 1;
+            roundedPanel1.Controls.Add(neoFlatComboBox1);
+            roundedPanel1.CornerRadius = 8;
+            roundedPanel1.FillColor = Color.FromArgb(40, 41, 52);
+            roundedPanel1.Location = new Point(218, 12);
+            roundedPanel1.Margin = new Padding(0, 2, 8, 2);
+            roundedPanel1.Name = "roundedPanel1";
+            roundedPanel1.Size = new Size(200, 36);
+            roundedPanel1.TabIndex = 20;
+            // 
+            // neoFlatComboBox1
+            // 
+            neoFlatComboBox1.AutoSelectFirst = false;
+            neoFlatComboBox1.BackColor = Color.FromArgb(40, 41, 52);
+            neoFlatComboBox1.DrawMode = DrawMode.OwnerDrawFixed;
+            neoFlatComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            neoFlatComboBox1.FlatStyle = FlatStyle.Flat;
+            neoFlatComboBox1.Font = new Font("Segoe UI", 9F);
+            neoFlatComboBox1.ForeColor = Color.White;
+            neoFlatComboBox1.FormattingEnabled = true;
+            neoFlatComboBox1.ItemEntryHeight = 24;
+            neoFlatComboBox1.ItemHeight = 15;
+            neoFlatComboBox1.Items.AddRange(new object[] { "Inicia com", "Contendo", "Diferente de", "Identico a" });
+            neoFlatComboBox1.Location = new Point(3, 8);
+            neoFlatComboBox1.Margin = new Padding(3, 0, 10, 0);
+            neoFlatComboBox1.Name = "neoFlatComboBox1";
+            neoFlatComboBox1.Placeholder = "Selecione...";
+            neoFlatComboBox1.ShowPlaceholder = true;
+            neoFlatComboBox1.Size = new Size(195, 21);
+            neoFlatComboBox1.TabIndex = 12;
+            // 
+            // pnlWrapperPesquisa
+            // 
+            pnlWrapperPesquisa.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPesquisa.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperPesquisa.BorderThickness = 1;
+            pnlWrapperPesquisa.Controls.Add(picSearch);
+            pnlWrapperPesquisa.Controls.Add(tbSearch);
+            pnlWrapperPesquisa.CornerRadius = 8;
+            pnlWrapperPesquisa.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperPesquisa.Location = new Point(429, 12);
+            pnlWrapperPesquisa.Margin = new Padding(3, 2, 8, 2);
+            pnlWrapperPesquisa.Name = "pnlWrapperPesquisa";
+            pnlWrapperPesquisa.Size = new Size(250, 36);
+            pnlWrapperPesquisa.TabIndex = 18;
+            // 
+            // picSearch
+            // 
+            picSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            picSearch.BackColor = Color.Transparent;
+            picSearch.Image = (Image)resources.GetObject("picSearch.Image");
+            picSearch.Location = new Point(225, 8);
+            picSearch.Name = "picSearch";
+            picSearch.Size = new Size(16, 16);
+            picSearch.SizeMode = PictureBoxSizeMode.Zoom;
+            picSearch.TabIndex = 1;
+            picSearch.TabStop = false;
+            // 
+            // tbSearch
+            // 
+            tbSearch.BackColor = Color.FromArgb(40, 41, 52);
+            tbSearch.BorderStyle = BorderStyle.None;
+            tbSearch.Font = new Font("Segoe UI", 9F);
+            tbSearch.ForeColor = Color.White;
+            tbSearch.Location = new Point(12, 10);
+            tbSearch.Name = "tbSearch";
+            tbSearch.PlaceholderText = "Nome, e-mail ou telefone";
+            tbSearch.Size = new Size(220, 16);
+            tbSearch.TabIndex = 7;
+            // 
             // btnPesquisar
             // 
-            btnPesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnPesquisar.CheckButton = false;
             btnPesquisar.Checked = false;
             btnPesquisar.CheckedBackground = Color.FromArgb(255, 106, 0);
@@ -441,8 +560,8 @@ namespace telebip_erp.Forms.Modules
             btnPesquisar.ImageAutoCenter = true;
             btnPesquisar.ImageExpand = new Point(0, 0);
             btnPesquisar.ImageOffset = new Point(0, 0);
-            btnPesquisar.Location = new Point(18, 12);
-            btnPesquisar.Margin = new Padding(8, 2, 4, 2);
+            btnPesquisar.Location = new Point(687, 12);
+            btnPesquisar.Margin = new Padding(0, 2, 4, 2);
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.NormalBackground = Color.FromArgb(40, 120, 80);
             btnPesquisar.NormalForeColor = Color.White;
@@ -461,7 +580,6 @@ namespace telebip_erp.Forms.Modules
             // 
             // btnLimpar
             // 
-            btnLimpar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnLimpar.CheckButton = false;
             btnLimpar.Checked = false;
             btnLimpar.CheckedBackground = Color.FromArgb(255, 106, 0);
@@ -480,8 +598,8 @@ namespace telebip_erp.Forms.Modules
             btnLimpar.ImageAutoCenter = true;
             btnLimpar.ImageExpand = new Point(0, 0);
             btnLimpar.ImageOffset = new Point(0, 0);
-            btnLimpar.Location = new Point(146, 12);
-            btnLimpar.Margin = new Padding(4, 2, 2, 2);
+            btnLimpar.Location = new Point(811, 12);
+            btnLimpar.Margin = new Padding(0, 2, 2, 2);
             btnLimpar.Name = "btnLimpar";
             btnLimpar.NormalBackground = Color.FromArgb(120, 40, 40);
             btnLimpar.NormalForeColor = Color.White;
@@ -532,31 +650,6 @@ namespace telebip_erp.Forms.Modules
             PictureImage2.TabIndex = 17;
             PictureImage2.TabStop = false;
             // 
-            // picSearch
-            // 
-            picSearch.BackColor = Color.Transparent;
-            picSearch.Dock = DockStyle.Right;
-            picSearch.Image = (Image)resources.GetObject("picSearch.Image");
-            picSearch.Location = new Point(337, 6);
-            picSearch.Name = "picSearch";
-            picSearch.Size = new Size(15, 24);
-            picSearch.SizeMode = PictureBoxSizeMode.Zoom;
-            picSearch.TabIndex = 1;
-            picSearch.TabStop = false;
-            // 
-            // tbSearch
-            // 
-            tbSearch.BackColor = Color.FromArgb(40, 41, 52);
-            tbSearch.BorderStyle = BorderStyle.None;
-            tbSearch.Font = new Font("Segoe UI", 9F);
-            tbSearch.ForeColor = Color.White;
-            tbSearch.Location = new Point(11, 11);
-            tbSearch.Margin = new Padding(3, 0, 10, 0);
-            tbSearch.Name = "tbSearch";
-            tbSearch.PlaceholderText = "Nome, e-mail ou telefone";
-            tbSearch.Size = new Size(330, 16);
-            tbSearch.TabIndex = 7;
-            // 
             // FormFuncionarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -582,9 +675,13 @@ namespace telebip_erp.Forms.Modules
             flowCardButtons.ResumeLayout(false);
             pnlBottom.ResumeLayout(false);
             flowFiltros.ResumeLayout(false);
+            pnlWrapperCargo.ResumeLayout(false);
+            roundedPanel1.ResumeLayout(false);
+            pnlWrapperPesquisa.ResumeLayout(false);
+            pnlWrapperPesquisa.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
             pnlHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PictureImage2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
             ResumeLayout(false);
         }
 
@@ -621,10 +718,9 @@ namespace telebip_erp.Forms.Modules
         private CuoreUI.Controls.cuiButton btnEditar;
         private CuoreUI.Controls.cuiButton btnRemover;
 
-        // wrappers + controls
+        // wrappers + controls - AGORA INICIALIZADOS CORRETAMENTE
         private telebip_erp.Controls.RoundedPanel pnlWrapperCargo;
         private PictureBox PictureImage2;
-        private telebip_erp.Controls.NeoFlatComboBox cbFiltroCargo;
 
         private telebip_erp.Controls.RoundedPanel pnlWrapperPesquisa;
         private PictureBox picSearch;
@@ -632,5 +728,8 @@ namespace telebip_erp.Forms.Modules
 
         private Panel pnlHeader;
         private Label lblTitulo;
+        private Controls.NeoFlatComboBox cbCondicao;
+        private Controls.RoundedPanel roundedPanel1;
+        private Controls.NeoFlatComboBox neoFlatComboBox1;
     }
 }

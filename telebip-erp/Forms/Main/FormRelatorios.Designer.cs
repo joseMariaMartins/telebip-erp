@@ -23,9 +23,9 @@ namespace telebip_erp.Forms.Modules
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRelatorios));
             pnlContainer = new Panel();
             pnlMain = new Panel();
@@ -59,6 +59,7 @@ namespace telebip_erp.Forms.Modules
             btnGerarRelatorio = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
+            btnLimpar = new CuoreUI.Controls.cuiButton();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
             pnlTabela.SuspendLayout();
@@ -123,26 +124,26 @@ namespace telebip_erp.Forms.Modules
             dgvRelatorios.BorderStyle = BorderStyle.None;
             dgvRelatorios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvRelatorios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.Padding = new Padding(8);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvRelatorios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.Padding = new Padding(8);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvRelatorios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvRelatorios.ColumnHeadersHeight = 40;
             dgvRelatorios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.Padding = new Padding(8, 0, 8, 0);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(80, 88, 255);
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvRelatorios.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.Padding = new Padding(8, 0, 8, 0);
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle5.SelectionForeColor = Color.White;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvRelatorios.DefaultCellStyle = dataGridViewCellStyle5;
             dgvRelatorios.Dock = DockStyle.Fill;
             dgvRelatorios.EnableHeadersVisualStyles = false;
             dgvRelatorios.GridColor = Color.FromArgb(50, 52, 67);
@@ -153,12 +154,12 @@ namespace telebip_erp.Forms.Modules
             dgvRelatorios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvRelatorios.RowHeadersVisible = false;
             dgvRelatorios.RowHeadersWidth = 62;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(80, 88, 255);
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
-            dgvRelatorios.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle6.SelectionForeColor = Color.White;
+            dgvRelatorios.RowsDefaultCellStyle = dataGridViewCellStyle6;
             dgvRelatorios.RowTemplate.Height = 36;
             dgvRelatorios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRelatorios.Size = new Size(1332, 327);
@@ -425,6 +426,7 @@ namespace telebip_erp.Forms.Modules
             // pnlFiltros
             // 
             pnlFiltros.BackColor = Color.FromArgb(32, 33, 39);
+            pnlFiltros.Controls.Add(btnLimpar);
             pnlFiltros.Controls.Add(lblRelatorio);
             pnlFiltros.Controls.Add(pnlWrapperTipoRelatorio);
             pnlFiltros.Controls.Add(pnlWrapperPeriodo);
@@ -599,6 +601,45 @@ namespace telebip_erp.Forms.Modules
             lblTitulo.Text = "Relatórios e Análises";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // btnLimpar
+            // 
+            btnLimpar.CheckButton = false;
+            btnLimpar.Checked = false;
+            btnLimpar.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnLimpar.CheckedForeColor = Color.White;
+            btnLimpar.CheckedImageTint = Color.White;
+            btnLimpar.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnLimpar.Content = "Limpar";
+            btnLimpar.DialogResult = DialogResult.None;
+            btnLimpar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnLimpar.ForeColor = Color.White;
+            btnLimpar.HoverBackground = Color.White;
+            btnLimpar.HoverForeColor = Color.Black;
+            btnLimpar.HoverImageTint = Color.White;
+            btnLimpar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnLimpar.Image = null;
+            btnLimpar.ImageAutoCenter = true;
+            btnLimpar.ImageExpand = new Point(0, 0);
+            btnLimpar.ImageOffset = new Point(0, 0);
+            btnLimpar.Location = new Point(808, 10);
+            btnLimpar.Margin = new Padding(3, 0, 10, 0);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.NormalBackground = Color.FromArgb(120, 40, 40);
+            btnLimpar.NormalForeColor = Color.White;
+            btnLimpar.NormalImageTint = Color.White;
+            btnLimpar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnLimpar.OutlineThickness = 1F;
+            btnLimpar.PressedBackground = Color.WhiteSmoke;
+            btnLimpar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnLimpar.PressedImageTint = Color.White;
+            btnLimpar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnLimpar.Rounding = new Padding(8);
+            btnLimpar.Size = new Size(120, 36);
+            btnLimpar.TabIndex = 15;
+            btnLimpar.TextAlignment = StringAlignment.Center;
+            btnLimpar.TextOffset = new Point(0, 0);
+            btnLimpar.Click += btnLimpar_Click;
+            // 
             // FormRelatorios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -670,5 +711,6 @@ namespace telebip_erp.Forms.Modules
         private Panel pnlAcoes;
         private CuoreUI.Controls.cuiButton btnExportarExcel;
         private CuoreUI.Controls.cuiButton btnImprimir;
+        private CuoreUI.Controls.cuiButton btnLimpar;
     }
 }

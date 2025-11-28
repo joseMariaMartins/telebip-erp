@@ -1,5 +1,4 @@
-﻿// FormRelatorios.cs (código completo)
-using ClosedXML.Excel;
+﻿using ClosedXML.Excel;
 using System;
 using System.Data;
 using System.Data.SQLite;
@@ -29,6 +28,7 @@ namespace telebip_erp.Forms.Modules
             btnGerarRelatorio.Click += BtnGerarRelatorio_Click;
             btnExportarExcel.Click += btnExportarExcel_Click;
             btnImprimir.Click += btnImprimir_Click;
+            btnLimpar.Click += btnLimpar_Click;
 
             // Aplica o tema escuro no DataGridView
             AplicarTemaEscuroDataGridView();
@@ -53,6 +53,9 @@ namespace telebip_erp.Forms.Modules
 
                             if (pnlWrapperPeriodo != null)
                                 TryApplyRoundedRegion(pnlWrapperPeriodo, 8);
+
+                            // Testa a estrutura do banco
+                            VerificarEstruturaTabelas();
                         }
                         catch { }
                     }));
@@ -92,7 +95,7 @@ namespace telebip_erp.Forms.Modules
             dgvRelatorios.GridColor = gridColor;
             dgvRelatorios.EnableHeadersVisualStyles = false;
 
-            // Cabeçalho
+            // Cabeçalho - CENTRALIZADO
             var headerStyle = new DataGridViewCellStyle()
             {
                 Alignment = DataGridViewContentAlignment.MiddleCenter,
@@ -108,10 +111,10 @@ namespace telebip_erp.Forms.Modules
             dgvRelatorios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvRelatorios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
 
-            // Linhas (texto à esquerda)
+            // Células - CENTRALIZADAS
             var cellStyle = new DataGridViewCellStyle()
             {
-                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                Alignment = DataGridViewContentAlignment.MiddleCenter,  // CENTRALIZADO
                 BackColor = background,
                 Font = new Font("Segoe UI", 9F),
                 ForeColor = fore,
@@ -130,10 +133,10 @@ namespace telebip_erp.Forms.Modules
             dgvRelatorios.AlternatingRowsDefaultCellStyle = altCellStyle;
             dgvRelatorios.RowTemplate.Height = 35;
 
-            // Alinha colunas à esquerda, cabeçalho centralizado
+            // Aplica alinhamento centralizado em todas as colunas
             foreach (DataGridViewColumn coluna in dgvRelatorios.Columns)
             {
-                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
@@ -153,38 +156,116 @@ namespace telebip_erp.Forms.Modules
             dgvRelatorios.ResumeLayout();
         }
 
-
         private void BtnGerarRelatorio_Click(object sender, EventArgs e)
         {
-            dgvRelatorios.DataSource = null;
-
-            if (cbTipoRelatorio == null || cbPeriodo == null)
+            try
             {
-                MessageBox.Show("Comboboxes não inicializados.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                Cursor = Cursors.WaitCursor;
+                dgvRelatorios.DataSource = null;
+
+                if (cbTipoRelatorio == null || cbPeriodo == null)
+                {
+                    MessageBox.Show("Comboboxes não inicializados.", "Erro",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string tipoRelatorio = ObterValorSelecionado(cbTipoRelatorio);
+                string periodo = ObterValorSelecionado(cbPeriodo);
+
+                if (string.IsNullOrEmpty(tipoRelatorio) || string.IsNullOrEmpty(periodo))
+                {
+                    MessageBox.Show("Selecione um tipo de relatório e um período.", "Atenção",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Testa conexão com o banco
+                if (!TestarConexaoBanco())
+                {
+                    MessageBox.Show("Não foi possível conectar ao banco de dados.", "Erro",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                DataTable dt = ObterRelatorioEspecifico(tipoRelatorio, periodo);
+
+                if (dt == null)
+                {
+                    MessageBox.Show("Erro ao carregar dados do relatório.", "Erro",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                dgvRelatorios.DataSource = dt;
+
+                // Aplica o tema escuro e alinhamento centralizado
+                AplicarTemaEscuroDataGridView();
+
+                // Ajusta formatação das colunas (mantém centralizado)
+                AjustarColunasRelatorio(tipoRelatorio);
+
+                // Força o alinhamento centralizado em todas as células
+                foreach (DataGridViewColumn col in dgvRelatorios.Columns)
+                {
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+
+                // Calcula métricas
+                CalcularMetricasRelatorio(dt, tipoRelatorio, periodo);
+
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("Não foram encontrados dados para o relatório selecionado.",
+                                  "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-
-            string tipoRelatorio = ObterValorSelecionado(cbTipoRelatorio);
-            string periodo = ObterValorSelecionado(cbPeriodo);
-
-            if (string.IsNullOrEmpty(tipoRelatorio) || string.IsNullOrEmpty(periodo))
+            catch (Exception ex)
             {
-                MessageBox.Show("Selecione um tipo de relatório e um período.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                MessageBox.Show($"Erro ao gerar relatório: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            DataTable dt = ObterRelatorioEspecifico(tipoRelatorio, periodo);
-            dgvRelatorios.DataSource = dt;
-
-            // Ajusta formatação das colunas
-            AjustarColunasRelatorio(tipoRelatorio);
-
-            // Calcula métricas
-            CalcularMetricasRelatorio(dt, tipoRelatorio, periodo);
-
-            if (dt.Rows.Count == 0)
+            finally
             {
-                MessageBox.Show("Não foram encontrados dados para o relatório selecionado.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+
+                // Limpa a tabela
+                dgvRelatorios.DataSource = null;
+                dgvRelatorios.Rows.Clear();
+                dgvRelatorios.Columns.Clear();
+
+                // Limpa as métricas
+                LimparMetricas();
+
+                // Reseta os comboboxes para valores padrão
+                if (cbTipoRelatorio != null && cbTipoRelatorio.Items.Count > 0)
+                    cbTipoRelatorio.SelectedIndex = 0;
+
+                if (cbPeriodo != null && cbPeriodo.Items.Count > 0)
+                    cbPeriodo.SelectedIndex = 0;
+
+                // Aplica o tema escuro novamente
+                AplicarTemaEscuroDataGridView();
+
+                MessageBox.Show("Relatório limpo com sucesso!", "Sucesso",
+                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao limpar relatório: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
             }
         }
 
@@ -217,194 +298,321 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
+        private string FormatDateForSQL(string dateDDMMYYYY)
+        {
+            // Converte "DD-MM-YYYY" para "YYYY-MM-DD"
+            if (string.IsNullOrEmpty(dateDDMMYYYY) || dateDDMMYYYY.Length < 10)
+                return string.Empty;
+
+            try
+            {
+                string day = dateDDMMYYYY.Substring(0, 2);
+                string month = dateDDMMYYYY.Substring(3, 2);
+                string year = dateDDMMYYYY.Substring(6, 4);
+                return $"{year}-{month}-{day}";
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        private string BuildDateWhereClause((DateTime start, DateTime end)? dateRange)
+        {
+            if (!dateRange.HasValue) return string.Empty;
+
+            string startDate = FormatDateForSQL(dateRange.Value.start.ToString("dd-MM-yyyy"));
+            string endDate = FormatDateForSQL(dateRange.Value.end.ToString("dd-MM-yyyy"));
+
+            if (string.IsNullOrEmpty(startDate) || string.IsNullOrEmpty(endDate))
+                return string.Empty;
+
+            return $"WHERE DATE(substr(DATA_HORA, 7, 4) || '-' || substr(DATA_HORA, 4, 2) || '-' || substr(DATA_HORA, 1, 2)) " +
+                   $"BETWEEN '{startDate}' AND '{endDate}'";
+        }
+
         private DataTable ObterRelatorioVendasPeriodo((DateTime start, DateTime end)? dateRange)
         {
-            string whereClause = dateRange.HasValue ?
-                $"WHERE DATE(substr(DATA_HORA, 7, 4) || '-' || substr(DATA_HORA, 4, 2) || '-' || substr(DATA_HORA, 1, 2)) BETWEEN '{dateRange.Value.start:yyyy-MM-dd}' AND '{dateRange.Value.end:yyyy-MM-dd}'" : "";
+            try
+            {
+                string whereClause = BuildDateWhereClause(dateRange);
 
-            string sql = $@"
-                SELECT 
-                    ID_VENDA as 'ID',
-                    NOME_FUNCIONARIO as 'Funcionário',
-                    DATA_HORA as 'Data/Hora',
-                    VALOR_TOTAL as 'Valor Total',
-                    DESCONTO as 'Desconto'
-                FROM VENDA
-                {whereClause}
-                ORDER BY ID_VENDA DESC";
+                string sql = $@"
+                    SELECT 
+                        ID_VENDA as 'ID',
+                        NOME_FUNCIONARIO as 'Funcionário',
+                        DATA_HORA as 'Data/Hora',
+                        VALOR_TOTAL as 'Valor Total',
+                        DESCONTO as 'Desconto'
+                    FROM VENDA
+                    {whereClause}
+                    ORDER BY ID_VENDA DESC";
 
-            return DatabaseHelper.ExecuteQuery(sql);
+                return DatabaseHelper.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório de vendas: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
         }
 
         private DataTable ObterRelatorioProdutosMaisVendidos((DateTime start, DateTime end)? dateRange)
         {
-            string whereClause = dateRange.HasValue ?
-                $"AND DATE(substr(v.DATA_HORA, 7, 4) || '-' || substr(v.DATA_HORA, 4, 2) || '-' || substr(v.DATA_HORA, 1, 2)) BETWEEN '{dateRange.Value.start:yyyy-MM-dd}' AND '{dateRange.Value.end:yyyy-MM-dd}'" : "";
+            try
+            {
+                string whereClause = "";
+                if (dateRange.HasValue)
+                {
+                    string dateFilter = BuildDateWhereClause(dateRange).Replace("WHERE", "");
+                    whereClause = $"AND {dateFilter}";
+                }
 
-            string sql = $@"
-                SELECT 
-                    p.NOME as 'Produto',
-                    p.MARCA as 'Marca',
-                    SUM(iv.QUANTIDADE) as 'Quantidade Vendida',
-                    SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) as 'Faturamento Total',
-                    ROUND(SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) / SUM(iv.QUANTIDADE), 2) as 'Preço Médio'
-                FROM ITEM_VENDA iv
-                JOIN VENDA v ON iv.ID_VENDA = v.ID_VENDA
-                JOIN PRODUTO p ON iv.ID_PRODUTO = p.ID_PRODUTO
-                WHERE 1=1 {whereClause}
-                GROUP BY p.ID_PRODUTO, p.NOME, p.MARCA
-                ORDER BY SUM(iv.QUANTIDADE) DESC";
+                string sql = $@"
+                    SELECT 
+                        p.NOME as 'Produto',
+                        p.MARCA as 'Marca',
+                        SUM(iv.QUANTIDADE) as 'Quantidade Vendida',
+                        SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) as 'Faturamento Total',
+                        ROUND(SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) / SUM(iv.QUANTIDADE), 2) as 'Preço Médio'
+                    FROM ITEM_VENDA iv
+                    JOIN VENDA v ON iv.ID_VENDA = v.ID_VENDA
+                    JOIN PRODUTO p ON iv.ID_PRODUTO = p.ID_PRODUTO
+                    WHERE 1=1 {whereClause}
+                    GROUP BY p.ID_PRODUTO, p.NOME, p.MARCA
+                    ORDER BY SUM(iv.QUANTIDADE) DESC";
 
-            return DatabaseHelper.ExecuteQuery(sql);
+                return DatabaseHelper.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório de produtos mais vendidos: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
         }
 
         private DataTable ObterRelatorioVendasPorCategoria((DateTime start, DateTime end)? dateRange)
         {
-            string whereClause = dateRange.HasValue ?
-                $"AND DATE(substr(v.DATA_HORA, 7, 4) || '-' || substr(v.DATA_HORA, 4, 2) || '-' || substr(v.DATA_HORA, 1, 2)) BETWEEN '{dateRange.Value.start:yyyy-MM-dd}' AND '{dateRange.Value.end:yyyy-MM-dd}'" : "";
+            try
+            {
+                string whereClause = "";
+                if (dateRange.HasValue)
+                {
+                    string dateFilter = BuildDateWhereClause(dateRange).Replace("WHERE", "");
+                    whereClause = $"AND {dateFilter}";
+                }
 
-            string sql = $@"
-                SELECT 
-                    p.MARCA as 'Marca',
-                    COUNT(DISTINCT v.ID_VENDA) as 'Total de Vendas',
-                    SUM(iv.QUANTIDADE) as 'Quantidade Vendida',
-                    SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) as 'Faturamento Total',
-                    ROUND(SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) * 100.0 / (SELECT SUM(VALOR_TOTAL) FROM VENDA v2 WHERE 1=1 {whereClause}), 2) as 'Participação %'
-                FROM ITEM_VENDA iv
-                JOIN VENDA v ON iv.ID_VENDA = v.ID_VENDA
-                JOIN PRODUTO p ON iv.ID_PRODUTO = p.ID_PRODUTO
-                WHERE 1=1 {whereClause}
-                GROUP BY p.MARCA
-                ORDER BY SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) DESC";
+                string sql = $@"
+                    SELECT 
+                        p.MARCA as 'Marca',
+                        COUNT(DISTINCT v.ID_VENDA) as 'Total de Vendas',
+                        SUM(iv.QUANTIDADE) as 'Quantidade Vendida',
+                        SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) as 'Faturamento Total',
+                        ROUND(SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) * 100.0 / 
+                             (SELECT SUM(VALOR_TOTAL) FROM VENDA v2 WHERE 1=1 {whereClause}), 2) as 'Participação %'
+                    FROM ITEM_VENDA iv
+                    JOIN VENDA v ON iv.ID_VENDA = v.ID_VENDA
+                    JOIN PRODUTO p ON iv.ID_PRODUTO = p.ID_PRODUTO
+                    WHERE 1=1 {whereClause}
+                    GROUP BY p.MARCA
+                    ORDER BY SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) DESC";
 
-            return DatabaseHelper.ExecuteQuery(sql);
+                return DatabaseHelper.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório de vendas por categoria: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
         }
 
         private DataTable ObterRelatorioLucroBruto((DateTime start, DateTime end)? dateRange)
         {
-            string whereClause = dateRange.HasValue ?
-                $"AND DATE(substr(v.DATA_HORA, 7, 4) || '-' || substr(v.DATA_HORA, 4, 2) || '-' || substr(v.DATA_HORA, 1, 2)) BETWEEN '{dateRange.Value.start:yyyy-MM-dd}' AND '{dateRange.Value.end:yyyy-MM-dd}'" : "";
+            try
+            {
+                string whereClause = "";
+                if (dateRange.HasValue)
+                {
+                    string dateFilter = BuildDateWhereClause(dateRange).Replace("WHERE", "");
+                    whereClause = $"AND {dateFilter}";
+                }
 
-            string sql = $@"
-                SELECT 
-                    p.NOME as 'Produto',
-                    p.MARCA as 'Marca',
-                    SUM(iv.QUANTIDADE) as 'Quantidade Vendida',
-                    SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) as 'Faturamento Bruto',
-                    ROUND(SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) / SUM(iv.QUANTIDADE), 2) as 'Lucro Unitário Médio'
-                FROM ITEM_VENDA iv
-                JOIN VENDA v ON iv.ID_VENDA = v.ID_VENDA
-                JOIN PRODUTO p ON iv.ID_PRODUTO = p.ID_PRODUTO
-                WHERE 1=1 {whereClause}
-                GROUP BY p.ID_PRODUTO, p.NOME, p.MARCA
-                ORDER BY SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) DESC";
+                string sql = $@"
+                    SELECT 
+                        p.NOME as 'Produto',
+                        p.MARCA as 'Marca',
+                        SUM(iv.QUANTIDADE) as 'Quantidade Vendida',
+                        SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) as 'Faturamento Bruto',
+                        ROUND(SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) / SUM(iv.QUANTIDADE), 2) as 'Lucro Unitário Médio'
+                    FROM ITEM_VENDA iv
+                    JOIN VENDA v ON iv.ID_VENDA = v.ID_VENDA
+                    JOIN PRODUTO p ON iv.ID_PRODUTO = p.ID_PRODUTO
+                    WHERE 1=1 {whereClause}
+                    GROUP BY p.ID_PRODUTO, p.NOME, p.MARCA
+                    ORDER BY SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE) DESC";
 
-            return DatabaseHelper.ExecuteQuery(sql);
+                return DatabaseHelper.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório de lucro bruto: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
         }
 
         private DataTable ObterRelatorioFormasPagamento((DateTime start, DateTime end)? dateRange)
         {
-            string whereClause = dateRange.HasValue ?
-                $"AND DATE(substr(v.DATA_HORA, 7, 4) || '-' || substr(v.DATA_HORA, 4, 2) || '-' || substr(v.DATA_HORA, 1, 2)) BETWEEN '{dateRange.Value.start:yyyy-MM-dd}' AND '{dateRange.Value.end:yyyy-MM-dd}'" : "";
+            try
+            {
+                string whereClause = "";
+                if (dateRange.HasValue)
+                {
+                    string dateFilter = BuildDateWhereClause(dateRange).Replace("WHERE", "");
+                    whereClause = $"AND {dateFilter}";
+                }
 
-            string sql = $@"
-                SELECT 
-                    p.FORMA as 'Forma de Pagamento',
-                    COUNT(*) as 'Quantidade',
-                    SUM(p.VALOR) as 'Valor Total',
-                    ROUND(SUM(p.VALOR) * 100.0 / (SELECT SUM(VALOR_TOTAL) FROM VENDA v2 WHERE 1=1 {whereClause}), 2) as 'Participação %',
-                    p.ESTADO as 'Status'
-                FROM PAGAMENTO p
-                JOIN VENDA v ON p.ID_VENDA = v.ID_VENDA
-                WHERE 1=1 {whereClause}
-                GROUP BY p.FORMA, p.ESTADO
-                ORDER BY SUM(p.VALOR) DESC";
+                string sql = $@"
+                    SELECT 
+                        p.FORMA as 'Forma de Pagamento',
+                        COUNT(*) as 'Quantidade',
+                        SUM(p.VALOR) as 'Valor Total',
+                        ROUND(SUM(p.VALOR) * 100.0 / (SELECT SUM(VALOR_TOTAL) FROM VENDA v2 WHERE 1=1 {whereClause}), 2) as 'Participação %',
+                        p.ESTADO as 'Status'
+                    FROM PAGAMENTO p
+                    JOIN VENDA v ON p.ID_VENDA = v.ID_VENDA
+                    WHERE 1=1 {whereClause}
+                    GROUP BY p.FORMA, p.ESTADO
+                    ORDER BY SUM(p.VALOR) DESC";
 
-            return DatabaseHelper.ExecuteQuery(sql);
+                return DatabaseHelper.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório de formas de pagamento: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
         }
 
         private DataTable ObterRelatorioVendasPorFuncionario((DateTime start, DateTime end)? dateRange)
         {
-            string whereClause = dateRange.HasValue ?
-                $"WHERE DATE(substr(DATA_HORA, 7, 4) || '-' || substr(DATA_HORA, 4, 2) || '-' || substr(DATA_HORA, 1, 2)) BETWEEN '{dateRange.Value.start:yyyy-MM-dd}' AND '{dateRange.Value.end:yyyy-MM-dd}'" : "";
+            try
+            {
+                string whereClause = BuildDateWhereClause(dateRange);
 
-            string sql = $@"
-                SELECT 
-                    NOME_FUNCIONARIO as 'Funcionário',
-                    COUNT(*) as 'Total de Vendas',
-                    SUM(VALOR_TOTAL) as 'Faturamento Total',
-                    ROUND(AVG(VALOR_TOTAL), 2) as 'Ticket Médio',
-                    MAX(VALOR_TOTAL) as 'Maior Venda'
-                FROM VENDA
-                {whereClause}
-                GROUP BY NOME_FUNCIONARIO
-                ORDER BY SUM(VALOR_TOTAL) DESC";
+                string sql = $@"
+                    SELECT 
+                        NOME_FUNCIONARIO as 'Funcionário',
+                        COUNT(*) as 'Total de Vendas',
+                        SUM(VALOR_TOTAL) as 'Faturamento Total',
+                        ROUND(AVG(VALOR_TOTAL), 2) as 'Ticket Médio',
+                        MAX(VALOR_TOTAL) as 'Maior Venda'
+                    FROM VENDA
+                    {whereClause}
+                    GROUP BY NOME_FUNCIONARIO
+                    ORDER BY SUM(VALOR_TOTAL) DESC";
 
-            return DatabaseHelper.ExecuteQuery(sql);
+                return DatabaseHelper.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório de vendas por funcionário: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
         }
 
         private DataTable ObterRelatorioProdutosBaixoEstoque()
         {
-            string sql = @"
-                SELECT 
-                    ID_PRODUTO as 'ID',
-                    NOME as 'Produto',
-                    MARCA as 'Marca',
-                    PRECO as 'Preço',
-                    QTD_ESTOQUE as 'Estoque Atual',
-                    QTD_AVISO as 'Estoque Mínimo',
-                    (QTD_AVISO - QTD_ESTOQUE) as 'Falta',
-                    CASE 
-                        WHEN QTD_ESTOQUE = 0 THEN 'ESGOTADO'
-                        WHEN QTD_ESTOQUE < QTD_AVISO THEN 'ALERTA'
-                        ELSE 'NORMAL'
-                    END as 'Status'
-                FROM PRODUTO
-                WHERE QTD_ESTOQUE <= QTD_AVISO
-                ORDER BY (QTD_AVISO - QTD_ESTOQUE) DESC, QTD_ESTOQUE ASC";
+            try
+            {
+                string sql = @"
+                    SELECT 
+                        ID_PRODUTO as 'ID',
+                        NOME as 'Produto',
+                        MARCA as 'Marca',
+                        PRECO as 'Preço',
+                        QTD_ESTOQUE as 'Estoque Atual',
+                        QTD_AVISO as 'Estoque Mínimo',
+                        (QTD_AVISO - QTD_ESTOQUE) as 'Falta',
+                        CASE 
+                            WHEN QTD_ESTOQUE = 0 THEN 'ESGOTADO'
+                            WHEN QTD_ESTOQUE < QTD_AVISO THEN 'ALERTA'
+                            ELSE 'NORMAL'
+                        END as 'Status'
+                    FROM PRODUTO
+                    WHERE QTD_ESTOQUE <= QTD_AVISO
+                    ORDER BY (QTD_AVISO - QTD_ESTOQUE) DESC, QTD_ESTOQUE ASC";
 
-            return DatabaseHelper.ExecuteQuery(sql);
+                return DatabaseHelper.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório de produtos com baixo estoque: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
         }
 
         private DataTable ObterRelatorioMovimentacaoEstoque((DateTime start, DateTime end)? dateRange)
         {
-            string whereClause = dateRange.HasValue ?
-                $"WHERE DATE(substr(DATA_HORA, 7, 4) || '-' || substr(DATA_HORA, 4, 2) || '-' || substr(DATA_HORA, 1, 2)) BETWEEN '{dateRange.Value.start:yyyy-MM-dd}' AND '{dateRange.Value.end:yyyy-MM-dd}'" : "";
+            try
+            {
+                string whereClause = BuildDateWhereClause(dateRange);
 
-            string sql = $@"
-                SELECT 
-                    p.NOME as 'Produto',
-                    p.MARCA as 'Marca',
-                    m.TIPO_MOVIMENTACAO as 'Tipo',
-                    m.QUANTIDADE as 'Quantidade',
-                    m.DATA_HORA as 'Data/Hora',
-                    m.NOME_FUNCIONARIO as 'Responsável'
-                FROM MOVIMENTACAO_ESTOQUE m
-                JOIN PRODUTO p ON m.ID_PRODUTO = p.ID_PRODUTO
-                {whereClause}
-                ORDER BY m.DATA_HORA DESC";
+                string sql = $@"
+                    SELECT 
+                        p.NOME as 'Produto',
+                        p.MARCA as 'Marca',
+                        m.TIPO_MOVIMENTACAO as 'Tipo',
+                        m.QUANTIDADE as 'Quantidade',
+                        m.DATA_HORA as 'Data/Hora',
+                        m.NOME_FUNCIONARIO as 'Responsável'
+                    FROM MOVIMENTACAO_ESTOQUE m
+                    JOIN PRODUTO p ON m.ID_PRODUTO = p.ID_PRODUTO
+                    {whereClause}
+                    ORDER BY m.DATA_HORA DESC";
 
-            return DatabaseHelper.ExecuteQuery(sql);
+                return DatabaseHelper.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório de movimentação de estoque: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
         }
 
         private DataTable ObterRelatorioTendenciaVendas((DateTime start, DateTime end)? dateRange)
         {
-            string whereClause = dateRange.HasValue ?
-                $"WHERE DATE(substr(DATA_HORA, 7, 4) || '-' || substr(DATA_HORA, 4, 2) || '-' || substr(DATA_HORA, 1, 2)) BETWEEN '{dateRange.Value.start:yyyy-MM-dd}' AND '{dateRange.Value.end:yyyy-MM-dd}'" : "";
+            try
+            {
+                string whereClause = BuildDateWhereClause(dateRange);
 
-            string sql = $@"
-                SELECT 
-                    substr(DATA_HORA, 1, 10) as 'Data',
-                    COUNT(*) as 'Quantidade de Vendas',
-                    SUM(VALOR_TOTAL) as 'Faturamento Diário',
-                    ROUND(AVG(VALOR_TOTAL), 2) as 'Ticket Médio',
-                    MAX(VALOR_TOTAL) as 'Maior Venda'
-                FROM VENDA
-                {whereClause}
-                GROUP BY substr(DATA_HORA, 1, 10)
-                ORDER BY substr(DATA_HORA, 1, 10) DESC";
+                string sql = $@"
+                    SELECT 
+                        substr(DATA_HORA, 1, 10) as 'Data',
+                        COUNT(*) as 'Quantidade de Vendas',
+                        SUM(VALOR_TOTAL) as 'Faturamento Diário',
+                        ROUND(AVG(VALOR_TOTAL), 2) as 'Ticket Médio',
+                        MAX(VALOR_TOTAL) as 'Maior Venda'
+                    FROM VENDA
+                    {whereClause}
+                    GROUP BY substr(DATA_HORA, 1, 10)
+                    ORDER BY substr(DATA_HORA, 1, 10) DESC";
 
-            return DatabaseHelper.ExecuteQuery(sql);
+                return DatabaseHelper.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório de tendência de vendas: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
         }
 
         private void AjustarColunasRelatorio(string tipoRelatorio)
@@ -435,23 +643,30 @@ namespace telebip_erp.Forms.Modules
                         break;
                 }
 
-                // Formata colunas numéricas
+                // Mantém alinhamento centralizado para todas as colunas
+                col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                // Formata colunas numéricas (mantém centralizado)
                 if (col.HeaderText.Contains("Valor") || col.HeaderText.Contains("Preço") || col.HeaderText.Contains("Faturamento") ||
                     col.HeaderText.Contains("Lucro") || col.HeaderText.Contains("Ticket"))
                 {
                     col.DefaultCellStyle.Format = "C2";
-                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    // Mantém centralizado mesmo sendo numérico
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
 
                 if (col.HeaderText.Contains("Quantidade") || col.HeaderText.Contains("ID"))
                 {
-                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    // Mantém centralizado
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
 
                 if (col.HeaderText.Contains("%"))
                 {
                     col.DefaultCellStyle.Format = "F2\\%";
-                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    // Mantém centralizado
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
             }
         }
@@ -504,23 +719,30 @@ namespace telebip_erp.Forms.Modules
             decimal faturamento = 0;
             int totalVendas = dt.Rows.Count;
 
-            // Tenta encontrar a coluna de valor total
-            string colunaValor = "Valor Total";
-            if (!dt.Columns.Contains(colunaValor))
-            {
-                // Tenta encontrar coluna alternativa
-                colunaValor = dt.Columns.Cast<DataColumn>()
-                    .FirstOrDefault(col => col.ColumnName.IndexOf("valor", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                          col.ColumnName.IndexOf("total", StringComparison.OrdinalIgnoreCase) >= 0)
-                    ?.ColumnName ?? colunaValor;
-            }
+            // Encontra a coluna de valor total de forma mais robusta
+            DataColumn valorColumn = dt.Columns.Cast<DataColumn>()
+                .FirstOrDefault(col => col.ColumnName.ToLower().Contains("valor") ||
+                                      col.ColumnName.ToLower().Contains("total"));
+
+            string colunaValor = valorColumn?.ColumnName ?? "Valor Total";
 
             foreach (DataRow row in dt.Rows)
             {
-                if (row[colunaValor] != DBNull.Value && row[colunaValor] != null)
+                try
                 {
-                    if (decimal.TryParse(row[colunaValor].ToString(), out decimal parsed))
-                        faturamento += parsed;
+                    if (row[colunaValor] != DBNull.Value && row[colunaValor] != null)
+                    {
+                        string valorStr = row[colunaValor].ToString();
+                        // Remove formatação de moeda se existir
+                        valorStr = valorStr.Replace("R$", "").Replace("$", "").Trim();
+
+                        if (decimal.TryParse(valorStr, out decimal parsed))
+                            faturamento += parsed;
+                    }
+                }
+                catch
+                {
+                    // Continua para a próxima linha em caso de erro
                 }
             }
 
@@ -554,22 +776,34 @@ namespace telebip_erp.Forms.Modules
 
             foreach (DataRow row in dt.Rows)
             {
-                // Faturamento
-                if (row["Faturamento Total"] != DBNull.Value)
-                    faturamentoTotal += Convert.ToDecimal(row["Faturamento Total"]);
-
-                // Quantidade
-                if (row["Quantidade Vendida"] != DBNull.Value)
+                try
                 {
-                    int qtd = Convert.ToInt32(row["Quantidade Vendida"]);
-                    quantidadeTotal += qtd;
-
-                    // Produto mais vendido
-                    if (qtd > maxVendido)
+                    // Faturamento
+                    if (row["Faturamento Total"] != DBNull.Value)
                     {
-                        maxVendido = qtd;
-                        produtoMaisVendido = row["Produto"].ToString();
+                        string valorStr = row["Faturamento Total"].ToString();
+                        valorStr = valorStr.Replace("R$", "").Replace("$", "").Trim();
+                        if (decimal.TryParse(valorStr, out decimal faturamento))
+                            faturamentoTotal += faturamento;
                     }
+
+                    // Quantidade
+                    if (row["Quantidade Vendida"] != DBNull.Value)
+                    {
+                        int qtd = Convert.ToInt32(row["Quantidade Vendida"]);
+                        quantidadeTotal += qtd;
+
+                        // Produto mais vendido
+                        if (qtd > maxVendido)
+                        {
+                            maxVendido = qtd;
+                            produtoMaisVendido = row["Produto"].ToString();
+                        }
+                    }
+                }
+                catch
+                {
+                    // Continua para a próxima linha
                 }
             }
 
@@ -602,22 +836,33 @@ namespace telebip_erp.Forms.Modules
 
             foreach (DataRow row in dt.Rows)
             {
-                if (row["Valor Total"] != DBNull.Value)
+                try
                 {
-                    decimal valor = Convert.ToDecimal(row["Valor Total"]);
-                    valorTotal += valor;
-
-                    // Forma mais usada
-                    if (valor > maxValor)
+                    if (row["Valor Total"] != DBNull.Value)
                     {
-                        maxValor = valor;
-                        formaMaisUsada = row["Forma de Pagamento"].ToString();
-                    }
-                }
+                        string valorStr = row["Valor Total"].ToString();
+                        valorStr = valorStr.Replace("R$", "").Replace("$", "").Trim();
+                        if (decimal.TryParse(valorStr, out decimal valor))
+                        {
+                            valorTotal += valor;
 
-                // Pagamentos pendentes
-                if (row["Status"].ToString() == "PENDENTE")
-                    pagamentosPendentes += Convert.ToInt32(row["Quantidade"]);
+                            // Forma mais usada
+                            if (valor > maxValor)
+                            {
+                                maxValor = valor;
+                                formaMaisUsada = row["Forma de Pagamento"].ToString();
+                            }
+                        }
+                    }
+
+                    // Pagamentos pendentes
+                    if (row["Status"]?.ToString() == "PENDENTE")
+                        pagamentosPendentes += Convert.ToInt32(row["Quantidade"]);
+                }
+                catch
+                {
+                    // Continua para a próxima linha
+                }
             }
 
             lblTitulo1.Text = "Valor Total";
@@ -648,21 +893,32 @@ namespace telebip_erp.Forms.Modules
 
             foreach (DataRow row in dt.Rows)
             {
-                if (row["Faturamento Total"] != DBNull.Value)
+                try
                 {
-                    decimal faturamento = Convert.ToDecimal(row["Faturamento Total"]);
-                    faturamentoTotal += faturamento;
-
-                    // Funcionário destaque
-                    if (faturamento > maxFaturamento)
+                    if (row["Faturamento Total"] != DBNull.Value)
                     {
-                        maxFaturamento = faturamento;
-                        funcionarioDestaque = row["Funcionário"].ToString();
-                    }
-                }
+                        string valorStr = row["Faturamento Total"].ToString();
+                        valorStr = valorStr.Replace("R$", "").Replace("$", "").Trim();
+                        if (decimal.TryParse(valorStr, out decimal faturamento))
+                        {
+                            faturamentoTotal += faturamento;
 
-                if (row["Total de Vendas"] != DBNull.Value)
-                    totalVendas += Convert.ToInt32(row["Total de Vendas"]);
+                            // Funcionário destaque
+                            if (faturamento > maxFaturamento)
+                            {
+                                maxFaturamento = faturamento;
+                                funcionarioDestaque = row["Funcionário"].ToString();
+                            }
+                        }
+                    }
+
+                    if (row["Total de Vendas"] != DBNull.Value)
+                        totalVendas += Convert.ToInt32(row["Total de Vendas"]);
+                }
+                catch
+                {
+                    // Continua para a próxima linha
+                }
             }
 
             lblTitulo1.Text = "Faturamento Total";
@@ -688,8 +944,20 @@ namespace telebip_erp.Forms.Modules
             }
 
             int produtosAlerta = dt.Rows.Count;
-            int produtosEsgotados = dt.AsEnumerable()
-                .Count(row => row["Status"].ToString() == "ESGOTADO");
+            int produtosEsgotados = 0;
+
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    if (row["Status"]?.ToString() == "ESGOTADO")
+                        produtosEsgotados++;
+                }
+                catch
+                {
+                    // Continua para a próxima linha
+                }
+            }
 
             lblTitulo1.Text = "Produtos em Alerta";
             lblValor1.Text = produtosAlerta.ToString();
@@ -733,13 +1001,20 @@ namespace telebip_erp.Forms.Modules
 
             foreach (DataRow row in dt.Rows)
             {
-                string tipo = row["Tipo"].ToString();
-                int quantidade = Convert.ToInt32(row["Quantidade"]);
+                try
+                {
+                    string tipo = row["Tipo"].ToString();
+                    int quantidade = Convert.ToInt32(row["Quantidade"]);
 
-                if (tipo == "ENTRADA")
-                    entradas += quantidade;
-                else if (tipo == "SAIDA")
-                    saidas += quantidade;
+                    if (tipo == "ENTRADA")
+                        entradas += quantidade;
+                    else if (tipo == "SAIDA")
+                        saidas += quantidade;
+                }
+                catch
+                {
+                    // Continua para a próxima linha
+                }
             }
 
             if (movimentacoes != null)
@@ -773,6 +1048,8 @@ namespace telebip_erp.Forms.Modules
 
             try
             {
+                Cursor = Cursors.WaitCursor;
+
                 string tipoRelatorio = ObterValorSelecionado(cbTipoRelatorio);
                 string periodo = ObterValorSelecionado(cbPeriodo);
                 string nomeArquivo = GerarNomeArquivo(tipoRelatorio, periodo);
@@ -801,6 +1078,7 @@ namespace telebip_erp.Forms.Modules
                                 ws.Cell(startRow, i + 1).Value = dgvRelatorios.Columns[i].HeaderText;
                                 ws.Cell(startRow, i + 1).Style.Font.Bold = true;
                                 ws.Cell(startRow, i + 1).Style.Fill.BackgroundColor = XLColor.LightGray;
+                                ws.Cell(startRow, i + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                             }
 
                             // Dados
@@ -812,6 +1090,7 @@ namespace telebip_erp.Forms.Modules
                                     {
                                         var cell = ws.Cell(i + startRow + 1, j + 1);
                                         cell.Value = dgvRelatorios.Rows[i].Cells[j].Value?.ToString() ?? "";
+                                        cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                                         // Formata células numéricas
                                         if (dgvRelatorios.Columns[j].HeaderText.Contains("Valor") ||
@@ -841,6 +1120,10 @@ namespace telebip_erp.Forms.Modules
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao exportar: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
             }
         }
 
@@ -963,6 +1246,49 @@ namespace telebip_erp.Forms.Modules
             return null;
         }
 
+        private bool TestarConexaoBanco()
+        {
+            try
+            {
+                using (var conn = DatabaseHelper.GetConnection())
+                {
+                    conn.Open();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void VerificarEstruturaTabelas()
+        {
+            try
+            {
+                // Verifica se as tabelas existem
+                string[] tabelas = { "VENDA", "ITEM_VENDA", "PRODUTO", "PAGAMENTO", "MOVIMENTACAO_ESTOQUE" };
+
+                foreach (string tabela in tabelas)
+                {
+                    string sql = $"SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='{tabela}'";
+                    var result = DatabaseHelper.ExecuteScalar(sql);
+                    int existe = Convert.ToInt32(result);
+
+                    if (existe == 0)
+                    {
+                        MessageBox.Show($"Tabela {tabela} não encontrada no banco!", "Erro",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao verificar estrutura: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void TryApplyRoundedRegion(Control c, int radius)
         {
             try
@@ -1004,10 +1330,20 @@ namespace telebip_erp.Forms.Modules
 
         private void LimparMetricas()
         {
-            lblTitulo1.Text = lblValor1.Text = "";
-            lblTitulo2.Text = lblValor2.Text = "";
-            lblTitulo3.Text = lblValor3.Text = "";
-            lblTitulo4.Text = lblValor4.Text = "";
+            lblTitulo1.Text = "Faturamento";
+            lblValor1.Text = "R$ 0,00";
+
+            lblTitulo2.Text = "Total de Vendas";
+            lblValor2.Text = "0";
+
+            lblTitulo3.Text = "Ticket Médio";
+            lblValor3.Text = "R$ 0,00";
+
+            lblTitulo4.Text = "Período";
+            lblValor4.Text = "-";
+
+            // Restaura cor padrão
+            lblValor3.ForeColor = Color.White;
             lblValor4.ForeColor = Color.White;
         }
     }

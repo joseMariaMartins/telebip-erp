@@ -30,6 +30,8 @@
         {
             pnlContainer = new Panel();
             pnlMain = new Panel();
+            cuiButton1 = new CuoreUI.Controls.cuiButton();
+            cuiButton2 = new CuoreUI.Controls.cuiButton();
             roundedNome = new telebip_erp.Controls.RoundedPanel();
             txtNome = new TextBox();
             roundedCargo = new telebip_erp.Controls.RoundedPanel();
@@ -40,8 +42,6 @@
             btnCancelar = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
-            cuiButton1 = new CuoreUI.Controls.cuiButton();
-            cuiButton2 = new CuoreUI.Controls.cuiButton();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
             roundedNome.SuspendLayout();
@@ -58,7 +58,7 @@
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(3, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(447, 313);
+            pnlContainer.Size = new Size(455, 313);
             pnlContainer.TabIndex = 1;
             // 
             // pnlMain
@@ -75,8 +75,84 @@
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
             pnlMain.Padding = new Padding(20);
-            pnlMain.Size = new Size(447, 253);
+            pnlMain.Size = new Size(455, 253);
             pnlMain.TabIndex = 1;
+            // 
+            // cuiButton1
+            // 
+            cuiButton1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            cuiButton1.CheckButton = false;
+            cuiButton1.Checked = false;
+            cuiButton1.CheckedBackground = Color.FromArgb(255, 106, 0);
+            cuiButton1.CheckedForeColor = Color.White;
+            cuiButton1.CheckedImageTint = Color.White;
+            cuiButton1.CheckedOutline = Color.FromArgb(255, 106, 0);
+            cuiButton1.Content = "Salvar";
+            cuiButton1.DialogResult = DialogResult.None;
+            cuiButton1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            cuiButton1.ForeColor = Color.White;
+            cuiButton1.HoverBackground = Color.White;
+            cuiButton1.HoverForeColor = Color.Black;
+            cuiButton1.HoverImageTint = Color.White;
+            cuiButton1.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            cuiButton1.Image = null;
+            cuiButton1.ImageAutoCenter = true;
+            cuiButton1.ImageExpand = new Point(0, 0);
+            cuiButton1.ImageOffset = new Point(0, 0);
+            cuiButton1.Location = new Point(328, 185);
+            cuiButton1.Name = "cuiButton1";
+            cuiButton1.NormalBackground = Color.FromArgb(40, 120, 80);
+            cuiButton1.NormalForeColor = Color.White;
+            cuiButton1.NormalImageTint = Color.White;
+            cuiButton1.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            cuiButton1.OutlineThickness = 1F;
+            cuiButton1.PressedBackground = Color.WhiteSmoke;
+            cuiButton1.PressedForeColor = Color.FromArgb(32, 32, 32);
+            cuiButton1.PressedImageTint = Color.White;
+            cuiButton1.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            cuiButton1.Rounding = new Padding(8);
+            cuiButton1.Size = new Size(110, 36);
+            cuiButton1.TabIndex = 13;
+            cuiButton1.TextAlignment = StringAlignment.Center;
+            cuiButton1.TextOffset = new Point(0, 0);
+            // 
+            // cuiButton2
+            // 
+            cuiButton2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            cuiButton2.CheckButton = false;
+            cuiButton2.Checked = false;
+            cuiButton2.CheckedBackground = Color.FromArgb(255, 106, 0);
+            cuiButton2.CheckedForeColor = Color.White;
+            cuiButton2.CheckedImageTint = Color.White;
+            cuiButton2.CheckedOutline = Color.FromArgb(255, 106, 0);
+            cuiButton2.Content = "Cancelar";
+            cuiButton2.DialogResult = DialogResult.Cancel;
+            cuiButton2.Font = new Font("Segoe UI", 9F);
+            cuiButton2.ForeColor = Color.White;
+            cuiButton2.HoverBackground = Color.White;
+            cuiButton2.HoverForeColor = Color.Black;
+            cuiButton2.HoverImageTint = Color.White;
+            cuiButton2.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            cuiButton2.Image = null;
+            cuiButton2.ImageAutoCenter = true;
+            cuiButton2.ImageExpand = new Point(0, 0);
+            cuiButton2.ImageOffset = new Point(0, 0);
+            cuiButton2.Location = new Point(212, 185);
+            cuiButton2.Name = "cuiButton2";
+            cuiButton2.NormalBackground = Color.FromArgb(70, 70, 70);
+            cuiButton2.NormalForeColor = Color.White;
+            cuiButton2.NormalImageTint = Color.White;
+            cuiButton2.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            cuiButton2.OutlineThickness = 1F;
+            cuiButton2.PressedBackground = Color.WhiteSmoke;
+            cuiButton2.PressedForeColor = Color.FromArgb(32, 32, 32);
+            cuiButton2.PressedImageTint = Color.White;
+            cuiButton2.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            cuiButton2.Rounding = new Padding(8);
+            cuiButton2.Size = new Size(110, 36);
+            cuiButton2.TabIndex = 14;
+            cuiButton2.TextAlignment = StringAlignment.Center;
+            cuiButton2.TextOffset = new Point(0, 0);
             // 
             // roundedNome
             // 
@@ -178,7 +254,7 @@
             btnSalvar.ImageAutoCenter = true;
             btnSalvar.ImageExpand = new Point(0, 0);
             btnSalvar.ImageOffset = new Point(0, 0);
-            btnSalvar.Location = new Point(557, 325);
+            btnSalvar.Location = new Point(565, 325);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.NormalBackground = Color.FromArgb(40, 120, 80);
             btnSalvar.NormalForeColor = Color.White;
@@ -216,7 +292,7 @@
             btnCancelar.ImageAutoCenter = true;
             btnCancelar.ImageExpand = new Point(0, 0);
             btnCancelar.ImageOffset = new Point(0, 0);
-            btnCancelar.Location = new Point(437, 325);
+            btnCancelar.Location = new Point(445, 325);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.NormalBackground = Color.FromArgb(70, 70, 70);
             btnCancelar.NormalForeColor = Color.White;
@@ -241,7 +317,7 @@
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Padding = new Padding(15);
-            pnlHeader.Size = new Size(447, 60);
+            pnlHeader.Size = new Size(455, 60);
             pnlHeader.TabIndex = 0;
             // 
             // lblTitulo
@@ -251,95 +327,19 @@
             lblTitulo.ForeColor = Color.White;
             lblTitulo.Location = new Point(15, 15);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(417, 30);
+            lblTitulo.Size = new Size(425, 30);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Registrar Funcionário";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // cuiButton1
-            // 
-            cuiButton1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            cuiButton1.CheckButton = false;
-            cuiButton1.Checked = false;
-            cuiButton1.CheckedBackground = Color.FromArgb(255, 106, 0);
-            cuiButton1.CheckedForeColor = Color.White;
-            cuiButton1.CheckedImageTint = Color.White;
-            cuiButton1.CheckedOutline = Color.FromArgb(255, 106, 0);
-            cuiButton1.Content = "Salvar";
-            cuiButton1.DialogResult = DialogResult.None;
-            cuiButton1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            cuiButton1.ForeColor = Color.White;
-            cuiButton1.HoverBackground = Color.White;
-            cuiButton1.HoverForeColor = Color.Black;
-            cuiButton1.HoverImageTint = Color.White;
-            cuiButton1.HoverOutline = Color.FromArgb(32, 128, 128, 128);
-            cuiButton1.Image = null;
-            cuiButton1.ImageAutoCenter = true;
-            cuiButton1.ImageExpand = new Point(0, 0);
-            cuiButton1.ImageOffset = new Point(0, 0);
-            cuiButton1.Location = new Point(320, 185);
-            cuiButton1.Name = "cuiButton1";
-            cuiButton1.NormalBackground = Color.FromArgb(40, 120, 80);
-            cuiButton1.NormalForeColor = Color.White;
-            cuiButton1.NormalImageTint = Color.White;
-            cuiButton1.NormalOutline = Color.FromArgb(64, 128, 128, 128);
-            cuiButton1.OutlineThickness = 1F;
-            cuiButton1.PressedBackground = Color.WhiteSmoke;
-            cuiButton1.PressedForeColor = Color.FromArgb(32, 32, 32);
-            cuiButton1.PressedImageTint = Color.White;
-            cuiButton1.PressedOutline = Color.FromArgb(64, 128, 128, 128);
-            cuiButton1.Rounding = new Padding(8);
-            cuiButton1.Size = new Size(110, 36);
-            cuiButton1.TabIndex = 13;
-            cuiButton1.TextAlignment = StringAlignment.Center;
-            cuiButton1.TextOffset = new Point(0, 0);
-            // 
-            // cuiButton2
-            // 
-            cuiButton2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            cuiButton2.CheckButton = false;
-            cuiButton2.Checked = false;
-            cuiButton2.CheckedBackground = Color.FromArgb(255, 106, 0);
-            cuiButton2.CheckedForeColor = Color.White;
-            cuiButton2.CheckedImageTint = Color.White;
-            cuiButton2.CheckedOutline = Color.FromArgb(255, 106, 0);
-            cuiButton2.Content = "Cancelar";
-            cuiButton2.DialogResult = DialogResult.Cancel;
-            cuiButton2.Font = new Font("Segoe UI", 9F);
-            cuiButton2.ForeColor = Color.White;
-            cuiButton2.HoverBackground = Color.White;
-            cuiButton2.HoverForeColor = Color.Black;
-            cuiButton2.HoverImageTint = Color.White;
-            cuiButton2.HoverOutline = Color.FromArgb(32, 128, 128, 128);
-            cuiButton2.Image = null;
-            cuiButton2.ImageAutoCenter = true;
-            cuiButton2.ImageExpand = new Point(0, 0);
-            cuiButton2.ImageOffset = new Point(0, 0);
-            cuiButton2.Location = new Point(204, 185);
-            cuiButton2.Name = "cuiButton2";
-            cuiButton2.NormalBackground = Color.FromArgb(70, 70, 70);
-            cuiButton2.NormalForeColor = Color.White;
-            cuiButton2.NormalImageTint = Color.White;
-            cuiButton2.NormalOutline = Color.FromArgb(64, 128, 128, 128);
-            cuiButton2.OutlineThickness = 1F;
-            cuiButton2.PressedBackground = Color.WhiteSmoke;
-            cuiButton2.PressedForeColor = Color.FromArgb(32, 32, 32);
-            cuiButton2.PressedImageTint = Color.White;
-            cuiButton2.PressedOutline = Color.FromArgb(64, 128, 128, 128);
-            cuiButton2.Rounding = new Padding(8);
-            cuiButton2.Size = new Size(110, 36);
-            cuiButton2.TabIndex = 14;
-            cuiButton2.TextAlignment = StringAlignment.Center;
-            cuiButton2.TextOffset = new Point(0, 0);
-            // 
-            // FormEditarFuncionaro
+            // FormEditarFuncionario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(453, 340);
+            ClientSize = new Size(461, 340);
             Controls.Add(pnlContainer);
             FormStyle = FormStyles.ActionBar_None;
-            Name = "FormEditarFuncionaro";
+            Name = "FormEditarFuncionario";
             Padding = new Padding(3, 24, 3, 3);
             Text = "FormEditarFuncionaro";
             pnlContainer.ResumeLayout(false);
