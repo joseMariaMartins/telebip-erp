@@ -380,7 +380,7 @@ namespace telebip_erp
 
             var (id, nome, quantidade) = produtoSelecionado.Value;
             using var formRmv = new FormRmvEstoque(id, nome, quantidade);
-            formRmv.FormClosed += (s, args) => estoque?.CarregarEstoque(limitar20: false);
+            formRmv.FormClosed += (s, args) => estoque?.CarregarEstoque();
             formRmv.ShowDialog(this);
         }
 
@@ -396,7 +396,7 @@ namespace telebip_erp
             {
                 adicionarEstoqueForm = new FormAddEstoque();
                 adicionarEstoqueForm.FormClosed += (s, args) => adicionarEstoqueForm = null;
-                adicionarEstoqueForm.AtualizarEstoqueCallback = () => estoque?.CarregarEstoque(limitar20: false);
+                adicionarEstoqueForm.AtualizarEstoqueCallback = () => estoque?.CarregarEstoque();
             }
 
             PreencherFormAddEstoque();
