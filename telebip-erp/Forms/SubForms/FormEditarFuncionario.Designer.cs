@@ -58,7 +58,7 @@
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(3, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(455, 313);
+            pnlContainer.Size = new Size(455, 305);
             pnlContainer.TabIndex = 1;
             // 
             // pnlMain
@@ -75,7 +75,7 @@
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
             pnlMain.Padding = new Padding(20);
-            pnlMain.Size = new Size(455, 253);
+            pnlMain.Size = new Size(455, 245);
             pnlMain.TabIndex = 1;
             // 
             // cuiButton1
@@ -99,7 +99,7 @@
             cuiButton1.ImageAutoCenter = true;
             cuiButton1.ImageExpand = new Point(0, 0);
             cuiButton1.ImageOffset = new Point(0, 0);
-            cuiButton1.Location = new Point(328, 185);
+            cuiButton1.Location = new Point(320, 177);
             cuiButton1.Name = "cuiButton1";
             cuiButton1.NormalBackground = Color.FromArgb(40, 120, 80);
             cuiButton1.NormalForeColor = Color.White;
@@ -137,7 +137,7 @@
             cuiButton2.ImageAutoCenter = true;
             cuiButton2.ImageExpand = new Point(0, 0);
             cuiButton2.ImageOffset = new Point(0, 0);
-            cuiButton2.Location = new Point(212, 185);
+            cuiButton2.Location = new Point(204, 177);
             cuiButton2.Name = "cuiButton2";
             cuiButton2.NormalBackground = Color.FromArgb(70, 70, 70);
             cuiButton2.NormalForeColor = Color.White;
@@ -254,7 +254,7 @@
             btnSalvar.ImageAutoCenter = true;
             btnSalvar.ImageExpand = new Point(0, 0);
             btnSalvar.ImageOffset = new Point(0, 0);
-            btnSalvar.Location = new Point(565, 325);
+            btnSalvar.Location = new Point(565, 317);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.NormalBackground = Color.FromArgb(40, 120, 80);
             btnSalvar.NormalForeColor = Color.White;
@@ -292,7 +292,7 @@
             btnCancelar.ImageAutoCenter = true;
             btnCancelar.ImageExpand = new Point(0, 0);
             btnCancelar.ImageOffset = new Point(0, 0);
-            btnCancelar.Location = new Point(445, 325);
+            btnCancelar.Location = new Point(445, 317);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.NormalBackground = Color.FromArgb(70, 70, 70);
             btnCancelar.NormalForeColor = Color.White;
@@ -336,9 +336,11 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(461, 340);
+            ClientSize = new Size(461, 332);
             Controls.Add(pnlContainer);
             FormStyle = FormStyles.ActionBar_None;
+            MaximumSize = new Size(461, 332);
+            MinimumSize = new Size(461, 332);
             Name = "FormEditarFuncionario";
             Padding = new Padding(3, 24, 3, 3);
             Text = "FormEditarFuncionaro";

@@ -86,7 +86,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             picArrowFuncionarios.BackColor = Color.Transparent;
             picArrowFuncionarios.Image = (Image)resources.GetObject("picArrowFuncionarios.Image");
-            picArrowFuncionarios.Location = new Point(371, 13);
+            picArrowFuncionarios.Location = new Point(361, 13);
             picArrowFuncionarios.Name = "picArrowFuncionarios";
             picArrowFuncionarios.Size = new Size(10, 10);
             picArrowFuncionarios.SizeMode = PictureBoxSizeMode.Zoom;
@@ -304,6 +304,8 @@ namespace telebip_erp.Forms.SubForms
             ClientSize = new Size(461, 412);
             Controls.Add(pnlContainer);
             FormStyle = FormStyles.ActionBar_None;
+            MaximumSize = new Size(461, 412);
+            MinimumSize = new Size(461, 412);
             Name = "FormRmvEstoque";
             Padding = new Padding(3, 24, 3, 3);
             StartPosition = FormStartPosition.CenterParent;

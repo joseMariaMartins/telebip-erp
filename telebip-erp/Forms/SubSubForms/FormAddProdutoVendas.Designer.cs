@@ -28,13 +28,13 @@ namespace telebip_erp.Forms.SubSubForms
             picSearch = new PictureBox();
             tbPesquisaMini = new PlaceholderTextBox();
             pnlWrapperCondicao = new RoundedPanel();
+            pictureBox2 = new PictureBox();
             cbCondicaoMini = new NeoFlatComboBox();
             pnlWrapperCampo = new RoundedPanel();
             pictureBox1 = new PictureBox();
             cbPesquisaCampoMini = new NeoFlatComboBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
-            pictureBox2 = new PictureBox();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProdutosMini).BeginInit();
@@ -42,10 +42,10 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperPesquisa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picSearch).BeginInit();
             pnlWrapperCondicao.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             pnlWrapperCampo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // pnlContainer
@@ -266,6 +266,16 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperCondicao.Size = new Size(160, 36);
             pnlWrapperCondicao.TabIndex = 18;
             // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(131, 14);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(10, 10);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 22;
+            pictureBox2.TabStop = false;
+            // 
             // cbCondicaoMini
             // 
             cbCondicaoMini.AutoSelectFirst = false;
@@ -305,7 +315,7 @@ namespace telebip_erp.Forms.SubSubForms
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(138, 12);
+            pictureBox1.Location = new Point(131, 14);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(10, 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -325,7 +335,7 @@ namespace telebip_erp.Forms.SubSubForms
             cbPesquisaCampoMini.ItemEntryHeight = 30;
             cbPesquisaCampoMini.ItemHeight = 13;
             cbPesquisaCampoMini.Items.AddRange(new object[] { "ID", "Nome", "Marca", "Preço", "Qtd do estoque", "Qtd de aviso", "Observação" });
-            cbPesquisaCampoMini.Location = new Point(8, 8);
+            cbPesquisaCampoMini.Location = new Point(8, 9);
             cbPesquisaCampoMini.Margin = new Padding(3, 0, 10, 0);
             cbPesquisaCampoMini.Name = "cbPesquisaCampoMini";
             cbPesquisaCampoMini.Placeholder = "Selecione...";
@@ -356,16 +366,6 @@ namespace telebip_erp.Forms.SubSubForms
             lblTitulo.Text = "Selecionar Produto";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(139, 12);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(10, 10);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 22;
-            pictureBox2.TabStop = false;
-            // 
             // FormAddProdutoVendas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -388,10 +388,10 @@ namespace telebip_erp.Forms.SubSubForms
             pnlWrapperPesquisa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picSearch).EndInit();
             pnlWrapperCondicao.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             pnlWrapperCampo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlHeader.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 

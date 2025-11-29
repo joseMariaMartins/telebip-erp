@@ -47,7 +47,7 @@ namespace telebip_erp.Forms.SubForms
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(3, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(524, 568);
+            pnlContainer.Size = new Size(540, 374);
             pnlContainer.TabIndex = 0;
             // 
             // pnlMain
@@ -59,7 +59,7 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
             pnlMain.Padding = new Padding(30, 20, 30, 20);
-            pnlMain.Size = new Size(524, 508);
+            pnlMain.Size = new Size(540, 314);
             pnlMain.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -83,7 +83,7 @@ namespace telebip_erp.Forms.SubForms
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(464, 388);
+            tableLayoutPanel1.Size = new Size(480, 194);
             tableLayoutPanel1.TabIndex = 13;
             // 
             // lblNome
@@ -94,7 +94,7 @@ namespace telebip_erp.Forms.SubForms
             lblNome.ForeColor = Color.White;
             lblNome.Location = new Point(3, 0);
             lblNome.Name = "lblNome";
-            lblNome.Size = new Size(458, 25);
+            lblNome.Size = new Size(474, 25);
             lblNome.TabIndex = 0;
             lblNome.Text = "Nome Completo *";
             lblNome.TextAlign = ContentAlignment.MiddleLeft;
@@ -112,7 +112,7 @@ namespace telebip_erp.Forms.SubForms
             roundedNome.Margin = new Padding(0);
             roundedNome.Name = "roundedNome";
             roundedNome.Padding = new Padding(12, 8, 12, 8);
-            roundedNome.Size = new Size(464, 40);
+            roundedNome.Size = new Size(480, 40);
             roundedNome.TabIndex = 1;
             // 
             // txtNome
@@ -125,7 +125,7 @@ namespace telebip_erp.Forms.SubForms
             txtNome.Location = new Point(12, 8);
             txtNome.Name = "txtNome";
             txtNome.PlaceholderText = "Digite o nome completo";
-            txtNome.Size = new Size(440, 18);
+            txtNome.Size = new Size(456, 18);
             txtNome.TabIndex = 0;
             // 
             // lblCargo
@@ -136,7 +136,7 @@ namespace telebip_erp.Forms.SubForms
             lblCargo.ForeColor = Color.White;
             lblCargo.Location = new Point(3, 65);
             lblCargo.Name = "lblCargo";
-            lblCargo.Size = new Size(458, 25);
+            lblCargo.Size = new Size(474, 25);
             lblCargo.TabIndex = 2;
             lblCargo.Text = "Cargo *";
             lblCargo.TextAlign = ContentAlignment.MiddleLeft;
@@ -154,7 +154,7 @@ namespace telebip_erp.Forms.SubForms
             roundedCargo.Margin = new Padding(0);
             roundedCargo.Name = "roundedCargo";
             roundedCargo.Padding = new Padding(12, 8, 12, 8);
-            roundedCargo.Size = new Size(464, 40);
+            roundedCargo.Size = new Size(480, 40);
             roundedCargo.TabIndex = 3;
             // 
             // txtCargo
@@ -167,7 +167,7 @@ namespace telebip_erp.Forms.SubForms
             txtCargo.Location = new Point(12, 8);
             txtCargo.Name = "txtCargo";
             txtCargo.PlaceholderText = "Digite o cargo";
-            txtCargo.Size = new Size(440, 18);
+            txtCargo.Size = new Size(456, 18);
             txtCargo.TabIndex = 1;
             // 
             // lblDataNascimento
@@ -178,7 +178,7 @@ namespace telebip_erp.Forms.SubForms
             lblDataNascimento.ForeColor = Color.White;
             lblDataNascimento.Location = new Point(3, 130);
             lblDataNascimento.Name = "lblDataNascimento";
-            lblDataNascimento.Size = new Size(458, 25);
+            lblDataNascimento.Size = new Size(474, 25);
             lblDataNascimento.TabIndex = 4;
             lblDataNascimento.Text = "Data de Nascimento *";
             lblDataNascimento.TextAlign = ContentAlignment.MiddleLeft;
@@ -196,7 +196,7 @@ namespace telebip_erp.Forms.SubForms
             roundedData.Margin = new Padding(0);
             roundedData.Name = "roundedData";
             roundedData.Padding = new Padding(12, 8, 12, 8);
-            roundedData.Size = new Size(464, 40);
+            roundedData.Size = new Size(480, 40);
             roundedData.TabIndex = 5;
             // 
             // mtxtDataNasc
@@ -209,7 +209,7 @@ namespace telebip_erp.Forms.SubForms
             mtxtDataNasc.Location = new Point(12, 8);
             mtxtDataNasc.Mask = "00/00/0000";
             mtxtDataNasc.Name = "mtxtDataNasc";
-            mtxtDataNasc.Size = new Size(440, 18);
+            mtxtDataNasc.Size = new Size(456, 18);
             mtxtDataNasc.TabIndex = 2;
             mtxtDataNasc.ValidatingType = typeof(DateTime);
             // 
@@ -219,9 +219,9 @@ namespace telebip_erp.Forms.SubForms
             pnlBotoes.Controls.Add(btnSalvar);
             pnlBotoes.Controls.Add(btnCancelar);
             pnlBotoes.Dock = DockStyle.Bottom;
-            pnlBotoes.Location = new Point(30, 408);
+            pnlBotoes.Location = new Point(30, 214);
             pnlBotoes.Name = "pnlBotoes";
-            pnlBotoes.Size = new Size(464, 80);
+            pnlBotoes.Size = new Size(480, 80);
             pnlBotoes.TabIndex = 14;
             // 
             // btnSalvar
@@ -245,7 +245,7 @@ namespace telebip_erp.Forms.SubForms
             btnSalvar.ImageAutoCenter = true;
             btnSalvar.ImageExpand = new Point(0, 0);
             btnSalvar.ImageOffset = new Point(0, 0);
-            btnSalvar.Location = new Point(242, 22);
+            btnSalvar.Location = new Point(258, 22);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.NormalBackground = Color.FromArgb(40, 120, 80);
             btnSalvar.NormalForeColor = Color.White;
@@ -283,7 +283,7 @@ namespace telebip_erp.Forms.SubForms
             btnCancelar.ImageAutoCenter = true;
             btnCancelar.ImageExpand = new Point(0, 0);
             btnCancelar.ImageOffset = new Point(0, 0);
-            btnCancelar.Location = new Point(354, 22);
+            btnCancelar.Location = new Point(370, 22);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.NormalBackground = Color.FromArgb(70, 70, 70);
             btnCancelar.NormalForeColor = Color.White;
@@ -308,7 +308,7 @@ namespace telebip_erp.Forms.SubForms
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Padding = new Padding(20, 15, 20, 15);
-            pnlHeader.Size = new Size(524, 60);
+            pnlHeader.Size = new Size(540, 60);
             pnlHeader.TabIndex = 0;
             // 
             // lblTitulo
@@ -318,7 +318,7 @@ namespace telebip_erp.Forms.SubForms
             lblTitulo.ForeColor = Color.White;
             lblTitulo.Location = new Point(20, 15);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(484, 30);
+            lblTitulo.Size = new Size(500, 30);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Registrar Funcionário";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
@@ -328,15 +328,17 @@ namespace telebip_erp.Forms.SubForms
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(28, 29, 40);
-            ClientSize = new Size(530, 595);
+            ClientSize = new Size(546, 401);
             Controls.Add(pnlContainer);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             FormStyle = FormStyles.ActionBar_None;
             MaximizeBox = false;
+            MaximumSize = new Size(546, 401);
             MinimizeBox = false;
+            MinimumSize = new Size(546, 401);
             Name = "FormAddFuncionario";
             Padding = new Padding(3, 24, 3, 3);
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Funcionário";
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);

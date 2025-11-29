@@ -191,7 +191,7 @@ namespace telebip_erp.Forms.SubForms
             tbPrecoProduto.BorderStyle = BorderStyle.None;
             tbPrecoProduto.Font = new Font("Segoe UI", 9F);
             tbPrecoProduto.ForeColor = Color.White;
-            tbPrecoProduto.Location = new Point(7, 11);
+            tbPrecoProduto.Location = new Point(7, 10);
             tbPrecoProduto.MaxLength = 11;
             tbPrecoProduto.Name = "tbPrecoProduto";
             tbPrecoProduto.Placeholder = "0,00";
@@ -256,7 +256,7 @@ namespace telebip_erp.Forms.SubForms
             tbDesconto.BorderStyle = BorderStyle.None;
             tbDesconto.Font = new Font("Segoe UI", 9F);
             tbDesconto.ForeColor = Color.White;
-            tbDesconto.Location = new Point(7, 11);
+            tbDesconto.Location = new Point(7, 10);
             tbDesconto.MaxLength = 11;
             tbDesconto.Name = "tbDesconto";
             tbDesconto.Placeholder = "0,00";
@@ -460,7 +460,7 @@ namespace telebip_erp.Forms.SubForms
             mkDataHora.BorderStyle = BorderStyle.None;
             mkDataHora.Font = new Font("Segoe UI", 10F);
             mkDataHora.ForeColor = Color.White;
-            mkDataHora.Location = new Point(8, 8);
+            mkDataHora.Location = new Point(8, 9);
             mkDataHora.Mask = "00-00-0000 00:00";
             mkDataHora.Name = "mkDataHora";
             mkDataHora.Size = new Size(109, 18);
@@ -495,7 +495,7 @@ namespace telebip_erp.Forms.SubForms
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(98, 12);
+            pictureBox2.Location = new Point(97, 13);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(10, 10);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -515,7 +515,7 @@ namespace telebip_erp.Forms.SubForms
             cbEstado.ItemEntryHeight = 30;
             cbEstado.ItemHeight = 13;
             cbEstado.Items.AddRange(new object[] { "PAGO ", "PENDENTE" });
-            cbEstado.Location = new Point(8, 8);
+            cbEstado.Location = new Point(8, 9);
             cbEstado.Margin = new Padding(0);
             cbEstado.Name = "cbEstado";
             cbEstado.Placeholder = "Selecione...";
@@ -551,7 +551,7 @@ namespace telebip_erp.Forms.SubForms
             // pictureBox3
             // 
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(100, 12);
+            pictureBox3.Location = new Point(100, 13);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(10, 10);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;

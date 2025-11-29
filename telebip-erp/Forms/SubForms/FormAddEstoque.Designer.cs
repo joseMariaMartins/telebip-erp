@@ -19,6 +19,7 @@ namespace telebip_erp.Forms.SubForms
             pnlContainer = new Panel();
             pnlMain = new Panel();
             pnlWrapperFuncionarios = new telebip_erp.Controls.RoundedPanel();
+            pictureBox1 = new PictureBox();
             cbFuncionarios = new telebip_erp.Controls.NeoFlatComboBox();
             lblFuncionario = new Label();
             pnlWrapperNome = new telebip_erp.Controls.RoundedPanel();
@@ -44,10 +45,10 @@ namespace telebip_erp.Forms.SubForms
             btnAdicionar = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
-            pictureBox1 = new PictureBox();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
             pnlWrapperFuncionarios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlWrapperNome.SuspendLayout();
             pnlWrapperMarca.SuspendLayout();
             pnlWrapperPreco.SuspendLayout();
@@ -55,7 +56,6 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperQAviso.SuspendLayout();
             pnlWrapperObservacao.SuspendLayout();
             pnlHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pnlContainer
@@ -111,6 +111,16 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperFuncionarios.Size = new Size(588, 36);
             pnlWrapperFuncionarios.TabIndex = 100;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(558, 13);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(10, 10);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 162;
+            pictureBox1.TabStop = false;
+            // 
             // cbFuncionarios
             // 
             cbFuncionarios.AutoSelectFirst = false;
@@ -123,7 +133,7 @@ namespace telebip_erp.Forms.SubForms
             cbFuncionarios.FormattingEnabled = true;
             cbFuncionarios.ItemEntryHeight = 30;
             cbFuncionarios.ItemHeight = 13;
-            cbFuncionarios.Location = new Point(8, 8);
+            cbFuncionarios.Location = new Point(8, 9);
             cbFuncionarios.Margin = new Padding(0);
             cbFuncionarios.Name = "cbFuncionarios";
             cbFuncionarios.Placeholder = "Selecione...";
@@ -481,16 +491,6 @@ namespace telebip_erp.Forms.SubForms
             lblTitulo.Text = "Adicionar ao Estoque";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(565, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(10, 10);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 162;
-            pictureBox1.TabStop = false;
-            // 
             // FormAddEstoque
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -508,6 +508,7 @@ namespace telebip_erp.Forms.SubForms
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);
             pnlWrapperFuncionarios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlWrapperNome.ResumeLayout(false);
             pnlWrapperNome.PerformLayout();
             pnlWrapperMarca.ResumeLayout(false);
@@ -521,7 +522,6 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperObservacao.ResumeLayout(false);
             pnlWrapperObservacao.PerformLayout();
             pnlHeader.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
