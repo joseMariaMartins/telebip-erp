@@ -15,6 +15,7 @@ namespace telebip_erp.Forms.SubForms
             InitializeComponent();
             ConfigurarEventos();
             ConfigurarPlaceholders();
+            ConfigurarLimitesCaracteres();
         }
 
         private void ConfigurarEventos()
@@ -23,19 +24,30 @@ namespace telebip_erp.Forms.SubForms
             btnCancelar.Click += BtnCancelar_Click;
             this.Load += FormAddFuncionario_Load;
 
-            // Evento para focar automaticamente no primeiro caractere da data
+            // Eventos para focar automaticamente no primeiro caractere da data
             mtxtDataNasc.Enter += MtxtDataNasc_Enter;
+            mtxtDataNasc.GotFocus += MtxtDataNasc_GotFocus; // ✅ NOVO: Evento adicional
 
             // Eventos de tecla para melhor navegação
             txtNome.KeyDown += Txt_KeyDown;
             txtCargo.KeyDown += Txt_KeyDown;
             mtxtDataNasc.KeyDown += Txt_KeyDown;
+
+            // Eventos para limitar caracteres em tempo real
+            txtNome.TextChanged += TxtNome_TextChanged;
+            txtCargo.TextChanged += TxtCargo_TextChanged;
         }
 
         private void ConfigurarPlaceholders()
         {
             lblTitulo.Text = "Registrar Funcionário";
             this.Text = "Registrar Funcionário";
+        }
+
+        private void ConfigurarLimitesCaracteres()
+        {
+            txtNome.MaxLength = 100;
+            txtCargo.MaxLength = 50;
         }
 
         private void FormAddFuncionario_Load(object sender, EventArgs e)
@@ -46,8 +58,36 @@ namespace telebip_erp.Forms.SubForms
 
         private void MtxtDataNasc_Enter(object sender, EventArgs e)
         {
-            // Focar no primeiro caractere da máscara quando o campo receber foco
+            // ✅ CORREÇÃO: Focar no PRIMEIRO caractere para digitação sequencial
             mtxtDataNasc.Select(0, 0);
+        }
+
+        // ✅ NOVO: Evento adicional para garantir que sempre que ganhar foco, selecione do início
+        private void MtxtDataNasc_GotFocus(object sender, EventArgs e)
+        {
+            // Pequeno delay para garantir que o foco está totalmente no controle
+            BeginInvoke((MethodInvoker)delegate
+            {
+                mtxtDataNasc.Select(0, 0);
+            });
+        }
+
+        private void TxtNome_TextChanged(object sender, EventArgs e)
+        {
+            if (txtNome.Text.Length > 100)
+            {
+                txtNome.Text = txtNome.Text.Substring(0, 100);
+                txtNome.Select(txtNome.Text.Length, 0);
+            }
+        }
+
+        private void TxtCargo_TextChanged(object sender, EventArgs e)
+        {
+            if (txtCargo.Text.Length > 50)
+            {
+                txtCargo.Text = txtCargo.Text.Substring(0, 50);
+                txtCargo.Select(txtCargo.Text.Length, 0);
+            }
         }
 
         private void Txt_KeyDown(object sender, KeyEventArgs e)
@@ -56,6 +96,15 @@ namespace telebip_erp.Forms.SubForms
             {
                 e.SuppressKeyPress = true;
                 SelectNextControl((Control)sender, true, true, true, true);
+
+                // ✅ CORREÇÃO: Quando navegar para o campo de data, focar no início
+                if (ActiveControl == mtxtDataNasc)
+                {
+                    BeginInvoke((MethodInvoker)delegate
+                    {
+                        mtxtDataNasc.Select(0, 0);
+                    });
+                }
             }
         }
 
@@ -80,6 +129,12 @@ namespace telebip_erp.Forms.SubForms
                 return false;
             }
 
+            if (txtNome.Text.Trim().Length > 100)
+            {
+                MostrarErroCampo("O nome deve ter no máximo 100 caracteres", txtNome);
+                return false;
+            }
+
             // Validação do Cargo
             if (string.IsNullOrWhiteSpace(txtCargo.Text))
             {
@@ -90,6 +145,12 @@ namespace telebip_erp.Forms.SubForms
             if (txtCargo.Text.Trim().Length < 2)
             {
                 MostrarErroCampo("O cargo deve ter pelo menos 2 caracteres", txtCargo);
+                return false;
+            }
+
+            if (txtCargo.Text.Trim().Length > 50)
+            {
+                MostrarErroCampo("O cargo deve ter no máximo 50 caracteres", txtCargo);
                 return false;
             }
 
@@ -137,6 +198,7 @@ namespace telebip_erp.Forms.SubForms
             }
             else if (controle is MaskedTextBox maskedTextBox)
             {
+                // ✅ CORREÇÃO: Para MaskedTextBox, focar apenas no início sem selecionar tudo
                 maskedTextBox.Select(0, 0);
             }
         }

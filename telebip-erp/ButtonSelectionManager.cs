@@ -1,74 +1,104 @@
-﻿public static class ButtonSelectionManager
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+using MaterialSkin.Controls;
+
+namespace telebip_erp
 {
-    private static List<Control> _botoesSelecionaveis = new List<Control>();
-    private static Control _botaoAtualSelecionado = null;
-
-    // Cores (ajuste conforme seu tema)
-    private static Color COR_SELECIONADO = Color.FromArgb(33, 34, 49); // Azul Material
-    private static Color COR_NORMAL = Color.FromArgb(23, 24, 29); // Cinza escuro Material
-
-    public static void RegistrarBotao(Control botao)
+    public static class ButtonSelectionManager
     {
-        if (!_botoesSelecionaveis.Contains(botao))
-        {
-            _botoesSelecionaveis.Add(botao);
-            botao.Click += OnBotaoClicado;
-        }
-    }
+        private static List<Control> _botoesSelecionaveis = new List<Control>();
+        private static Control _botaoAtualSelecionado = null;
 
-    public static void SelecionarBotao(Control botao)
-    {
-        // Remove seleção anterior
-        if (_botaoAtualSelecionado != null)
+        // Cores (ajuste conforme seu tema)
+        private static Color COR_SELECIONADO = Color.FromArgb(33, 34, 49); // Azul Material
+        private static Color COR_NORMAL = Color.FromArgb(23, 24, 29); // Cinza escuro Material
+
+        public static void RegistrarBotao(Control botao)
         {
-            ResetarBotao(_botaoAtualSelecionado);
+            if (!_botoesSelecionaveis.Contains(botao))
+            {
+                _botoesSelecionaveis.Add(botao);
+                botao.Click += OnBotaoClicado;
+            }
         }
 
-        // Aplica seleção nova
-        AplicarSelecao(botao);
-        _botaoAtualSelecionado = botao;
-    }
-
-    private static void AplicarSelecao(Control botao)
-    {
-        botao.BackColor = COR_SELECIONADO;
-
-        // Se for MaterialButton, usa a propriedade específica
-        if (botao is MaterialSkin.Controls.MaterialButton materialBtn)
+        public static void SelecionarBotao(Control botao)
         {
-            materialBtn.UseAccentColor = true;
+            // Remove seleção anterior
+            if (_botaoAtualSelecionado != null)
+            {
+                ResetarBotao(_botaoAtualSelecionado);
+            }
+
+            // Aplica seleção nova
+            AplicarSelecao(botao);
+            _botaoAtualSelecionado = botao;
         }
 
-        botao.ForeColor = Color.White;
-    }
-
-    private static void ResetarBotao(Control botao)
-    {
-        botao.BackColor = COR_NORMAL;
-
-        // Se for MaterialButton, reseta a propriedade específica
-        if (botao is MaterialSkin.Controls.MaterialButton materialBtn)
+        private static void AplicarSelecao(Control botao)
         {
-            materialBtn.UseAccentColor = false;
+            botao.BackColor = COR_SELECIONADO;
+
+            // Se for MaterialButton, usa a propriedade específica
+            if (botao is MaterialSkin.Controls.MaterialButton materialBtn)
+            {
+                materialBtn.UseAccentColor = true;
+            }
+
+            botao.ForeColor = Color.White;
         }
 
-        botao.ForeColor = Color.Silver;
-    }
-
-    private static void OnBotaoClicado(object sender, EventArgs e)
-    {
-        if (sender is Control botao)
+        private static void ResetarBotao(Control botao)
         {
-            SelecionarBotao(botao);
+            botao.BackColor = COR_NORMAL;
+
+            // Se for MaterialButton, reseta a propriedade específica
+            if (botao is MaterialSkin.Controls.MaterialButton materialBtn)
+            {
+                materialBtn.UseAccentColor = false;
+            }
+
+            botao.ForeColor = Color.Silver;
         }
-    }
 
-    public static void LimparSelecao()
-    {
-        if (_botaoAtualSelecionado != null)
+        private static void OnBotaoClicado(object sender, EventArgs e)
         {
-            ResetarBotao(_botaoAtualSelecionado);
-            _botaoAtualSelecionado = null;
+            if (sender is Control botao)
+            {
+                // ✅ VERIFICAÇÃO DE PERMISSÃO PARA BOTÃO FUNCIONÁRIOS
+                if (botao.Name == "btnFuncionarios" && Session.NivelAcesso == 0)
+                {
+                    // Não seleciona o botão se for funcionário
+                    return;
+                }
+
+                SelecionarBotao(botao);
+            }
+        }
+
+        public static void LimparSelecao()
+        {
+            if (_botaoAtualSelecionado != null)
+            {
+                ResetarBotao(_botaoAtualSelecionado);
+                _botaoAtualSelecionado = null;
+            }
+        }
+
+        // ✅ MÉTODOS NOVOS ADICIONADOS:
+        public static Control ObterBotaoSelecionadoAtual()
+        {
+            return _botaoAtualSelecionado;
+        }
+
+        public static void RestaurarSelecaoAnterior(Control botaoAnterior)
+        {
+            if (botaoAnterior != null)
+            {
+                SelecionarBotao(botaoAnterior);
+            }
         }
     }
 }

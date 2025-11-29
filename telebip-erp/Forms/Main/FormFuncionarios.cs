@@ -145,7 +145,7 @@ namespace telebip_erp.Forms.Modules
         {
             try
             {
-                // ✅ CORREÇÃO: Mudar para None e configurar manualmente
+                // ✅ CORREÇÃO: Configuração completa da DGV
                 dgvFuncionarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
                 dgvFuncionarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dgvFuncionarios.MultiSelect = false;
@@ -153,6 +153,10 @@ namespace telebip_erp.Forms.Modules
                 dgvFuncionarios.AllowUserToAddRows = false;
                 dgvFuncionarios.RowHeadersVisible = false;
                 dgvFuncionarios.AllowUserToResizeRows = false;
+
+                // ✅ NOVO: Centralização completa
+                dgvFuncionarios.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvFuncionarios.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 AplicarTemaEscuro();
                 ConfigurarCabecalhos();
@@ -203,35 +207,33 @@ namespace telebip_erp.Forms.Modules
             {
                 if (dgvFuncionarios.Columns.Count == 0) return;
 
-                // ✅ CORREÇÃO: Configurar larguras manualmente
+                // ✅ CORREÇÃO: Configurar larguras manualmente com centralização
                 foreach (DataGridViewColumn coluna in dgvFuncionarios.Columns)
                 {
                     if (coluna == null) continue;
 
-                    coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                    coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    // ✅ NOVO: Centralizar todas as colunas
+                    coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                     switch (coluna.Name.ToUpper())
                     {
                         case "ID":
-                            // ✅ ID visível com largura fixa
                             coluna.HeaderText = "ID";
                             coluna.Visible = true;
-                            coluna.Width = 60;
-                            coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                            coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            coluna.Width = 80; // ✅ Aumentado para melhor visualização
                             break;
                         case "NOME":
                             coluna.HeaderText = "Nome";
-                            coluna.Width = 250; // Largura fixa
+                            coluna.Width = 250;
                             break;
                         case "CARGO":
                             coluna.HeaderText = "Cargo";
-                            coluna.Width = 200; // Largura fixa
+                            coluna.Width = 200;
                             break;
                         case "DATA_NASCIMENTO":
                             coluna.HeaderText = "Data de Nascimento";
-                            coluna.Width = 150; // Largura fixa
+                            coluna.Width = 150;
                             break;
                         default:
                             break;
@@ -254,7 +256,18 @@ namespace telebip_erp.Forms.Modules
 
         private void AtualizarTotalFuncionarios()
         {
-            lbTotal.Text = $"Total: {dgvFuncionarios.Rows.Count} funcionário(s)";
+            // ✅ CORREÇÃO: Contagem precisa usando DataTable
+            int total = 0;
+            if (dgvFuncionarios.DataSource is DataTable dataTable)
+            {
+                total = dataTable.Rows.Count;
+            }
+            else
+            {
+                total = dgvFuncionarios.Rows.Count;
+            }
+
+            lbTotal.Text = $"Total: {total} funcionário(s)";
         }
 
         #endregion
@@ -309,6 +322,9 @@ namespace telebip_erp.Forms.Modules
 
                 btnEditar.Enabled = false;
                 btnRemover.Enabled = false;
+
+                // ✅ NOVO: Esconder a imagem quando não há seleção
+                picCardAvatar.Visible = false;
             }
             else
             {
@@ -322,7 +338,74 @@ namespace telebip_erp.Forms.Modules
 
                 btnEditar.Enabled = true;
                 btnRemover.Enabled = true;
+
+                // ✅ NOVO: Mostrar e configurar a imagem quando há seleção
+                picCardAvatar.Visible = true;
+                ConfigurarAvatar(linha.Cells["NOME"].Value?.ToString());
             }
+        }
+
+        // ✅ NOVO: Método para configurar o avatar baseado no nome
+        private void ConfigurarAvatar(string nome)
+        {
+            if (string.IsNullOrEmpty(nome))
+            {
+                picCardAvatar.Image = null;
+                return;
+            }
+
+            try
+            {
+                // Criar uma imagem de avatar com as iniciais
+                var iniciais = ObterIniciais(nome);
+                var avatarImage = CriarAvatar(iniciais, Color.FromArgb(70, 130, 180), Color.White, 76, 76);
+                picCardAvatar.Image = avatarImage;
+            }
+            catch
+            {
+                picCardAvatar.Image = null;
+            }
+        }
+
+        // ✅ NOVO: Obter iniciais do nome
+        private string ObterIniciais(string nome)
+        {
+            if (string.IsNullOrEmpty(nome)) return "?";
+
+            var partes = nome.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (partes.Length == 0) return "?";
+
+            if (partes.Length == 1)
+                return partes[0].Length >= 1 ? partes[0].Substring(0, 1).ToUpper() : "?";
+
+            return (partes[0].Substring(0, 1) + partes[partes.Length - 1].Substring(0, 1)).ToUpper();
+        }
+
+        // ✅ NOVO: Criar imagem de avatar
+        private Bitmap CriarAvatar(string texto, Color corFundo, Color corTexto, int largura, int altura)
+        {
+            var bitmap = new Bitmap(largura, altura);
+            using (var graphics = Graphics.FromImage(bitmap))
+            {
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+                // Desenhar fundo circular
+                using (var brush = new SolidBrush(corFundo))
+                {
+                    graphics.FillEllipse(brush, 0, 0, largura, altura);
+                }
+
+                // Desenhar texto
+                using (var font = new Font("Segoe UI", 18, FontStyle.Bold))
+                using (var brush = new SolidBrush(corTexto))
+                {
+                    var tamanhoTexto = graphics.MeasureString(texto, font);
+                    var x = (largura - tamanhoTexto.Width) / 2;
+                    var y = (altura - tamanhoTexto.Height) / 2;
+                    graphics.DrawString(texto, font, brush, x, y);
+                }
+            }
+            return bitmap;
         }
 
         #endregion
@@ -439,8 +522,8 @@ namespace telebip_erp.Forms.Modules
                 // Recarrega todos os funcionários
                 CarregarFuncionarios();
 
-                // Foca no campo de pesquisa para nova digitação
-                tbSearch.Focus();
+                // ✅ CORREÇÃO: Não focar em nenhum controle - remover foco de tudo
+                this.ActiveControl = null;
             }
             catch (Exception ex)
             {
@@ -471,7 +554,7 @@ namespace telebip_erp.Forms.Modules
 
             try
             {
-                // ✅ CORREÇÃO: Usar o construtor correto que recebe o ID
+                // ✅ CORREÇÃO: Remover mensagem duplicada - a mensagem será exibida apenas no FormEditarFuncionario
                 using (var formEditarFuncionario = new FormEditarFuncionario(funcionarioSelecionadoId.Value))
                 {
                     var resultado = formEditarFuncionario.ShowDialog();
@@ -479,8 +562,7 @@ namespace telebip_erp.Forms.Modules
                     if (resultado == DialogResult.OK)
                     {
                         CarregarFuncionarios();
-                        MessageBox.Show("Funcionário atualizado com sucesso!", "Sucesso",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // ✅ CORREÇÃO: Removida mensagem duplicada aqui
                     }
                 }
             }

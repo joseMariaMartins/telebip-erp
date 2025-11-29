@@ -31,8 +31,52 @@ namespace telebip_erp.Forms.SubForms
             lblTitulo.Text = funcionarioId.HasValue ? "Editar Funcionário" : "Registrar Funcionário";
             this.Text = lblTitulo.Text;
 
+            // ✅ NOVO: Configurar limites de caracteres
+            ConfigurarLimitesCaracteres();
+
             // ✅ CORREÇÃO: Carregar os dados quando o formulário for carregado
             this.Load += FormEditarFuncionario_Load;
+
+            // ✅ NOVO: Eventos para limitar caracteres em tempo real
+            txtNome.TextChanged += TxtNome_TextChanged;
+            txtCargo.TextChanged += TxtCargo_TextChanged;
+
+            // ✅ NOVO: Evento para data de nascimento
+            mtxtDataNasc.Enter += MtxtDataNasc_Enter;
+        }
+
+        // ✅ NOVO: Configurar limites de caracteres
+        private void ConfigurarLimitesCaracteres()
+        {
+            txtNome.MaxLength = 100; // ✅ Limite de 100 caracteres para Nome
+            txtCargo.MaxLength = 50; // ✅ Limite de 50 caracteres para Cargo
+        }
+
+        // ✅ NOVO: Validação em tempo real para o campo Nome
+        private void TxtNome_TextChanged(object sender, EventArgs e)
+        {
+            if (txtNome.Text.Length > 100)
+            {
+                txtNome.Text = txtNome.Text.Substring(0, 100);
+                txtNome.Select(txtNome.Text.Length, 0);
+            }
+        }
+
+        // ✅ NOVO: Validação em tempo real para o campo Cargo
+        private void TxtCargo_TextChanged(object sender, EventArgs e)
+        {
+            if (txtCargo.Text.Length > 50)
+            {
+                txtCargo.Text = txtCargo.Text.Substring(0, 50);
+                txtCargo.Select(txtCargo.Text.Length, 0);
+            }
+        }
+
+        // ✅ NOVO: Evento para data de nascimento
+        private void MtxtDataNasc_Enter(object sender, EventArgs e)
+        {
+            mtxtDataNasc.Select(0, 0);
+            mtxtDataNasc.SelectAll();
         }
 
         private void FormEditarFuncionario_Load(object sender, EventArgs e)
@@ -98,7 +142,6 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
-        // ... resto do código permanece igual
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
             if (!ValidarDados()) return;
@@ -111,9 +154,24 @@ namespace telebip_erp.Forms.SubForms
 
         private bool ValidarDados()
         {
+            // ✅ CORREÇÃO: Validações completas com limites de caracteres
             if (string.IsNullOrWhiteSpace(txtNome.Text))
             {
                 MessageBox.Show("Digite o nome do funcionário", "Campo Obrigatório", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNome.Focus();
+                return false;
+            }
+
+            if (txtNome.Text.Trim().Length < 3)
+            {
+                MessageBox.Show("O nome deve ter pelo menos 3 caracteres", "Campo Obrigatório", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNome.Focus();
+                return false;
+            }
+
+            if (txtNome.Text.Trim().Length > 100)
+            {
+                MessageBox.Show("O nome deve ter no máximo 100 caracteres", "Campo Obrigatório", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNome.Focus();
                 return false;
             }
@@ -125,6 +183,20 @@ namespace telebip_erp.Forms.SubForms
                 return false;
             }
 
+            if (txtCargo.Text.Trim().Length < 2)
+            {
+                MessageBox.Show("O cargo deve ter pelo menos 2 caracteres", "Campo Obrigatório", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCargo.Focus();
+                return false;
+            }
+
+            if (txtCargo.Text.Trim().Length > 50)
+            {
+                MessageBox.Show("O cargo deve ter no máximo 50 caracteres", "Campo Obrigatório", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCargo.Focus();
+                return false;
+            }
+
             if (!mtxtDataNasc.MaskCompleted)
             {
                 MessageBox.Show("Preencha a data de nascimento no formato dd/mm/aaaa", "Data Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -132,9 +204,24 @@ namespace telebip_erp.Forms.SubForms
                 return false;
             }
 
-            if (!DateTime.TryParseExact(mtxtDataNasc.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
+            if (!DateTime.TryParseExact(mtxtDataNasc.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dataNasc))
             {
                 MessageBox.Show("Data de nascimento inválida. Use o formato dd/mm/aaaa", "Data Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                mtxtDataNasc.Focus();
+                return false;
+            }
+
+            // Validações adicionais da data
+            if (dataNasc > DateTime.Today)
+            {
+                MessageBox.Show("A data de nascimento não pode ser futura", "Data Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                mtxtDataNasc.Focus();
+                return false;
+            }
+
+            if (dataNasc > DateTime.Today.AddYears(-14))
+            {
+                MessageBox.Show("O funcionário deve ter pelo menos 14 anos", "Data Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 mtxtDataNasc.Focus();
                 return false;
             }

@@ -343,6 +343,7 @@
             MinimumSize = new Size(461, 332);
             Name = "FormEditarFuncionario";
             Padding = new Padding(3, 24, 3, 3);
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormEditarFuncionaro";
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);

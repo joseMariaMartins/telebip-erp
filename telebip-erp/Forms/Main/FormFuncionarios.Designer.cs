@@ -1,5 +1,4 @@
-﻿// FormFuncionarios.Designer.cs
-using System;
+﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -9,11 +8,22 @@ namespace telebip_erp.Forms.Modules
     {
         private System.ComponentModel.IContainer components = null;
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         #region Windows Form Designer generated code
 
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFuncionarios));
             pnlContainer = new Panel();
             pnlDgv = new Panel();
@@ -22,12 +32,12 @@ namespace telebip_erp.Forms.Modules
             pnlDetailsCard = new Panel();
             tblCard = new TableLayoutPanel();
             pnlCardHeader = new Panel();
+            lblCardDataNascimento = new Label();
             lblCardCargo = new Label();
             lblCardNome = new Label();
             picCardAvatar = new PictureBox();
             pnlCardDivider = new Panel();
             tblInfo = new TableLayoutPanel();
-            lblCardDataNascimento = new Label();
             flowCardButtons = new FlowLayoutPanel();
             btnAdicionar = new CuoreUI.Controls.cuiButton();
             btnEditar = new CuoreUI.Controls.cuiButton();
@@ -55,7 +65,6 @@ namespace telebip_erp.Forms.Modules
             tblCard.SuspendLayout();
             pnlCardHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picCardAvatar).BeginInit();
-            tblInfo.SuspendLayout();
             flowCardButtons.SuspendLayout();
             pnlBottom.SuspendLayout();
             flowFiltros.SuspendLayout();
@@ -89,7 +98,7 @@ namespace telebip_erp.Forms.Modules
             pnlDgv.Location = new Point(0, 130);
             pnlDgv.Name = "pnlDgv";
             pnlDgv.Padding = new Padding(15);
-            pnlDgv.Size = new Size(1467, 605);
+            pnlDgv.Size = new Size(1467, 622);
             pnlDgv.TabIndex = 4;
             // 
             // dgvFuncionarios
@@ -97,19 +106,29 @@ namespace telebip_erp.Forms.Modules
             dgvFuncionarios.AllowUserToAddRows = false;
             dgvFuncionarios.AllowUserToDeleteRows = false;
             dgvFuncionarios.AllowUserToResizeRows = false;
-            dgvFuncionarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvFuncionarios.BackgroundColor = Color.FromArgb(32, 33, 39);
             dgvFuncionarios.BorderStyle = BorderStyle.None;
             dgvFuncionarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvFuncionarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             dataGridViewCellStyle1.ForeColor = Color.White;
             dataGridViewCellStyle1.Padding = new Padding(8);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dgvFuncionarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvFuncionarios.ColumnHeadersHeight = 40;
             dgvFuncionarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(32, 33, 39);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(50, 90, 130);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvFuncionarios.DefaultCellStyle = dataGridViewCellStyle2;
             dgvFuncionarios.Dock = DockStyle.Fill;
             dgvFuncionarios.EnableHeadersVisualStyles = false;
             dgvFuncionarios.GridColor = Color.FromArgb(50, 52, 67);
@@ -118,10 +137,18 @@ namespace telebip_erp.Forms.Modules
             dgvFuncionarios.Name = "dgvFuncionarios";
             dgvFuncionarios.ReadOnly = true;
             dgvFuncionarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(32, 33, 39);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(32, 33, 39);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvFuncionarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvFuncionarios.RowHeadersVisible = false;
             dgvFuncionarios.RowTemplate.Height = 36;
             dgvFuncionarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvFuncionarios.Size = new Size(1106, 575);
+            dgvFuncionarios.Size = new Size(1106, 592);
             dgvFuncionarios.TabIndex = 0;
             // 
             // pnlRight
@@ -132,7 +159,7 @@ namespace telebip_erp.Forms.Modules
             pnlRight.Location = new Point(1121, 15);
             pnlRight.Name = "pnlRight";
             pnlRight.Padding = new Padding(12);
-            pnlRight.Size = new Size(331, 575);
+            pnlRight.Size = new Size(331, 592);
             pnlRight.TabIndex = 1;
             // 
             // pnlDetailsCard
@@ -143,7 +170,7 @@ namespace telebip_erp.Forms.Modules
             pnlDetailsCard.Location = new Point(12, 12);
             pnlDetailsCard.Name = "pnlDetailsCard";
             pnlDetailsCard.Padding = new Padding(8);
-            pnlDetailsCard.Size = new Size(307, 551);
+            pnlDetailsCard.Size = new Size(307, 568);
             pnlDetailsCard.TabIndex = 0;
             // 
             // tblCard
@@ -165,12 +192,13 @@ namespace telebip_erp.Forms.Modules
             tblCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
             tblCard.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tblCard.RowStyles.Add(new RowStyle());
-            tblCard.Size = new Size(291, 535);
+            tblCard.Size = new Size(291, 552);
             tblCard.TabIndex = 0;
             // 
             // pnlCardHeader
             // 
             pnlCardHeader.AutoSize = true;
+            pnlCardHeader.Controls.Add(lblCardDataNascimento);
             pnlCardHeader.Controls.Add(lblCardCargo);
             pnlCardHeader.Controls.Add(lblCardNome);
             pnlCardHeader.Dock = DockStyle.Fill;
@@ -178,8 +206,21 @@ namespace telebip_erp.Forms.Modules
             pnlCardHeader.Margin = new Padding(0);
             pnlCardHeader.Name = "pnlCardHeader";
             pnlCardHeader.Padding = new Padding(0, 0, 8, 4);
-            pnlCardHeader.Size = new Size(207, 72);
+            pnlCardHeader.Size = new Size(207, 76);
             pnlCardHeader.TabIndex = 0;
+            // 
+            // lblCardDataNascimento
+            // 
+            lblCardDataNascimento.AutoEllipsis = true;
+            lblCardDataNascimento.AutoSize = true;
+            lblCardDataNascimento.Font = new Font("Segoe UI", 9F);
+            lblCardDataNascimento.ForeColor = Color.White;
+            lblCardDataNascimento.Location = new Point(0, 28);
+            lblCardDataNascimento.Margin = new Padding(0, 0, 0, 6);
+            lblCardDataNascimento.Name = "lblCardDataNascimento";
+            lblCardDataNascimento.Size = new Size(125, 15);
+            lblCardDataNascimento.TabIndex = 2;
+            lblCardDataNascimento.Text = "Data de Nascimento: -";
             // 
             // lblCardCargo
             // 
@@ -216,17 +257,18 @@ namespace telebip_erp.Forms.Modules
             picCardAvatar.Location = new Point(215, 0);
             picCardAvatar.Margin = new Padding(8, 0, 0, 0);
             picCardAvatar.Name = "picCardAvatar";
-            picCardAvatar.Size = new Size(76, 72);
+            picCardAvatar.Size = new Size(76, 76);
             picCardAvatar.SizeMode = PictureBoxSizeMode.Zoom;
             picCardAvatar.TabIndex = 10;
             picCardAvatar.TabStop = false;
+            picCardAvatar.Visible = false;
             // 
             // pnlCardDivider
             // 
             pnlCardDivider.BackColor = Color.FromArgb(60, 62, 80);
             tblCard.SetColumnSpan(pnlCardDivider, 2);
             pnlCardDivider.Dock = DockStyle.Fill;
-            pnlCardDivider.Location = new Point(0, 78);
+            pnlCardDivider.Location = new Point(0, 82);
             pnlCardDivider.Margin = new Padding(0, 6, 0, 6);
             pnlCardDivider.Name = "pnlCardDivider";
             pnlCardDivider.Size = new Size(291, 1);
@@ -236,28 +278,14 @@ namespace telebip_erp.Forms.Modules
             // 
             tblInfo.ColumnCount = 1;
             tblInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tblInfo.Controls.Add(lblCardDataNascimento, 0, 0);
             tblInfo.Dock = DockStyle.Fill;
-            tblInfo.Location = new Point(0, 80);
+            tblInfo.Location = new Point(0, 84);
             tblInfo.Margin = new Padding(0);
             tblInfo.Name = "tblInfo";
             tblInfo.RowCount = 1;
             tblInfo.RowStyles.Add(new RowStyle());
-            tblInfo.Size = new Size(207, 407);
+            tblInfo.Size = new Size(207, 420);
             tblInfo.TabIndex = 12;
-            // 
-            // lblCardDataNascimento
-            // 
-            lblCardDataNascimento.AutoEllipsis = true;
-            lblCardDataNascimento.AutoSize = true;
-            lblCardDataNascimento.Font = new Font("Segoe UI", 9F);
-            lblCardDataNascimento.ForeColor = Color.White;
-            lblCardDataNascimento.Location = new Point(0, 0);
-            lblCardDataNascimento.Margin = new Padding(0, 0, 0, 6);
-            lblCardDataNascimento.Name = "lblCardDataNascimento";
-            lblCardDataNascimento.Size = new Size(125, 15);
-            lblCardDataNascimento.TabIndex = 2;
-            lblCardDataNascimento.Text = "Data de Nascimento: -";
             // 
             // flowCardButtons
             // 
@@ -269,7 +297,7 @@ namespace telebip_erp.Forms.Modules
             flowCardButtons.Controls.Add(btnRemover);
             flowCardButtons.Dock = DockStyle.Fill;
             flowCardButtons.FlowDirection = FlowDirection.RightToLeft;
-            flowCardButtons.Location = new Point(0, 487);
+            flowCardButtons.Location = new Point(0, 504);
             flowCardButtons.Margin = new Padding(0);
             flowCardButtons.Name = "flowCardButtons";
             flowCardButtons.Padding = new Padding(0, 8, 0, 0);
@@ -352,7 +380,6 @@ namespace telebip_erp.Forms.Modules
             btnEditar.TabIndex = 16;
             btnEditar.TextAlignment = StringAlignment.Center;
             btnEditar.TextOffset = new Point(0, 0);
-            btnEditar.Click += btnEditar_Click;
             // 
             // btnRemover
             // 
@@ -397,10 +424,10 @@ namespace telebip_erp.Forms.Modules
             pnlBottom.BackColor = Color.FromArgb(32, 33, 39);
             pnlBottom.Controls.Add(lbTotal);
             pnlBottom.Dock = DockStyle.Bottom;
-            pnlBottom.Location = new Point(0, 735);
+            pnlBottom.Location = new Point(0, 752);
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Padding = new Padding(15);
-            pnlBottom.Size = new Size(1467, 65);
+            pnlBottom.Size = new Size(1467, 48);
             pnlBottom.TabIndex = 5;
             // 
             // lbTotal
@@ -410,7 +437,7 @@ namespace telebip_erp.Forms.Modules
             lbTotal.ForeColor = Color.White;
             lbTotal.Location = new Point(1262, 15);
             lbTotal.Name = "lbTotal";
-            lbTotal.Size = new Size(190, 35);
+            lbTotal.Size = new Size(190, 18);
             lbTotal.TabIndex = 0;
             lbTotal.Text = "Total: 0 funcionários";
             lbTotal.TextAlign = ContentAlignment.MiddleRight;
@@ -518,10 +545,9 @@ namespace telebip_erp.Forms.Modules
             // 
             // picSearch
             // 
-            picSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             picSearch.BackColor = Color.Transparent;
             picSearch.Image = (Image)resources.GetObject("picSearch.Image");
-            picSearch.Location = new Point(225, 8);
+            picSearch.Location = new Point(225, 10);
             picSearch.Name = "picSearch";
             picSearch.Size = new Size(16, 16);
             picSearch.SizeMode = PictureBoxSizeMode.Zoom;
@@ -598,8 +624,8 @@ namespace telebip_erp.Forms.Modules
             btnLimpar.ImageAutoCenter = true;
             btnLimpar.ImageExpand = new Point(0, 0);
             btnLimpar.ImageOffset = new Point(0, 0);
-            btnLimpar.Location = new Point(811, 12);
-            btnLimpar.Margin = new Padding(0, 2, 2, 2);
+            btnLimpar.Location = new Point(813, 12);
+            btnLimpar.Margin = new Padding(2);
             btnLimpar.Name = "btnLimpar";
             btnLimpar.NormalBackground = Color.FromArgb(120, 40, 40);
             btnLimpar.NormalForeColor = Color.White;
@@ -670,8 +696,6 @@ namespace telebip_erp.Forms.Modules
             pnlCardHeader.ResumeLayout(false);
             pnlCardHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picCardAvatar).EndInit();
-            tblInfo.ResumeLayout(false);
-            tblInfo.PerformLayout();
             flowCardButtons.ResumeLayout(false);
             pnlBottom.ResumeLayout(false);
             flowFiltros.ResumeLayout(false);

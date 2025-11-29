@@ -294,6 +294,19 @@ namespace telebip_erp
 
         private async void btnFuncionarios_Click(object sender, EventArgs e)
         {
+            // ✅ SALVA o botão atual ANTES de qualquer verificação
+            var botaoAnterior = ButtonSelectionManager.ObterBotaoSelecionadoAtual();
+
+            if (Session.NivelAcesso == 0)
+            {
+                MessageBox.Show("Acesso restrito ao gerente.",
+                               "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                // ✅ RESTAURA o botão anterior
+                ButtonSelectionManager.RestaurarSelecaoAnterior(botaoAnterior);
+                return;
+            }
+
             await FecharTodosDropdowns();
             CriarOuRecuperarFormFuncionarios();
             AbrirFormNoPanel(funcionarios!, false);
