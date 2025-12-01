@@ -10,172 +10,144 @@ namespace telebip_erp.Forms.SubForms
 {
     public partial class FormAlteracaoSenhaGerente : MaterialForm
     {
+        private Bitmap eyeOpenBmp;
+        private Bitmap eyeClosedBmp;
+
+        // Usaremos uma classe wrapper para armazenar os estados
+        private class CampoVisibilidade
+        {
+            public bool Visivel { get; set; }
+            public PictureBox Botao { get; set; }
+            public telebip_erp.Controls.PlaceholderTextBox TextBox { get; set; }
+
+            public CampoVisibilidade(PictureBox botao, telebip_erp.Controls.PlaceholderTextBox textBox)
+            {
+                Botao = botao;
+                TextBox = textBox;
+                Visivel = false;
+            }
+        }
+
         public FormAlteracaoSenhaGerente()
         {
             InitializeComponent();
             ThemeManager.ApplyDarkTheme();
 
-            // HABILITA todos os campos desde o início
-            tbNovaSenha.Enabled = true;
-            tbConfirmarSenha.Enabled = true;
-
             SetupEventHandlers();
+            LoadEyeImages();
             SetupEyeButtons();
         }
 
-        private void SetupEyeButtons()
+        private void LoadEyeImages()
         {
-            // Configura os botões de olho
-            ConfigureEyeButton(btnOlhoSenhaAtual, tbSenhaAtual);
-            ConfigureEyeButton(btnOlhoNovaSenha, tbNovaSenha);
-            ConfigureEyeButton(btnOlhoConfirmarSenha, tbConfirmarSenha);
+            try
+            {
+                // Fallback: desenha ícones simples (igual ao login)
+                eyeOpenBmp = DrawSimpleEye(20, 20, true);
+                eyeClosedBmp = DrawSimpleEye(20, 20, false);
+
+                // Configura imagens iniciais
+                btnOlhoSenhaAtual.Image = eyeClosedBmp;
+                btnOlhoNovaSenha.Image = eyeClosedBmp;
+                btnOlhoConfirmarSenha.Image = eyeClosedBmp;
+
+                // Configura tooltips
+                btnOlhoSenhaAtual.AccessibleDescription = "Mostrar senha";
+                btnOlhoNovaSenha.AccessibleDescription = "Mostrar senha";
+                btnOlhoConfirmarSenha.AccessibleDescription = "Mostrar senha";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar imagens: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void ConfigureEyeButton(PictureBox btn, telebip_erp.Controls.PlaceholderTextBox textBox)
+        private Bitmap DrawSimpleEye(int w, int h, bool open)
         {
-            // Certifica propriedades básicas para ser clicável
-            btn.BackColor = Color.FromArgb(60, 62, 80);
-            btn.SizeMode = PictureBoxSizeMode.CenterImage;
-            btn.Cursor = Cursors.Hand;
-            btn.Enabled = true;
-            btn.TabStop = false;
-            btn.Visible = true;
-            btn.BringToFront();
-
-            // Garante que o campo de senha esteja oculto inicialmente
-            SetPasswordHiddenState(textBox, true);
-
-            // Cria e define a imagem do olho (estado inicial = oculto)
-            btn.Image = CreateEyeBitmap(btn.Width > 0 ? btn.Width : 24, btn.Height > 0 ? btn.Height : 24, true);
-
-            // Ao clicar, alterna
-            btn.Click += (s, e) =>
-            {
-                TogglePasswordVisibility(btn, textBox);
-            };
-
-            // Também atualiza a imagem caso o tamanho mude em tempo de execução
-            btn.Resize += (s, e) =>
-            {
-                // recria a imagem com novo tamanho mantendo o estado atual
-                bool hidden = IsPasswordHidden(textBox);
-                btn.Image?.Dispose();
-                btn.Image = CreateEyeBitmap(btn.Width > 0 ? btn.Width : 24, btn.Height > 0 ? btn.Height : 24, hidden);
-            };
-        }
-
-        /// <summary>
-        /// Cria um Bitmap simples com um "ícone" de olho desenhado (persistente).
-        /// </summary>
-        private Bitmap CreateEyeBitmap(int width, int height, bool passwordHidden)
-        {
-            var bmp = new Bitmap(width, height);
+            var bmp = new Bitmap(w, h);
             using (var g = Graphics.FromImage(bmp))
             {
-                g.Clear(Color.FromArgb(60, 62, 80));
-                // Ajuste de qualidade
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-
-                // Tenta uma fonte emoji (se disponível), cai para Arial se não houver
-                Font font;
-                try
-                {
-                    font = new Font("Segoe UI Emoji", Math.Max(8, Math.Min(width, height) / 2), FontStyle.Regular);
-                }
-                catch
-                {
-                    font = new Font("Arial", Math.Max(8, Math.Min(width, height) / 2), FontStyle.Bold);
-                }
-
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.Clear(Color.Transparent);
+                using (var pen = new Pen(Color.White, 1.5f))
                 using (var brush = new SolidBrush(Color.White))
                 {
-                    // Desenha um emoji ou um olho simples (dependendo da fonte)
-                    string eyeChar = "👁"; // deve funcionar na maioria dos sistemas
-                    var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-                    g.DrawString(eyeChar, font, brush, new RectangleF(0, 0, width, height), sf);
-
-                    // Se quiser diferenciar visual quando visível vs oculto, desenha um retângulo de destaque
-                    if (!passwordHidden)
+                    // contorno do olho
+                    g.DrawEllipse(pen, 2, 6, w - 4, h - 12);
+                    if (open)
                     {
-                        // leve destaque ao redor quando estiver visível
-                        using (var pen = new Pen(Color.FromArgb(180, 200, 220)))
-                        {
-                            g.DrawRectangle(pen, 1, 1, width - 3, height - 3);
-                        }
+                        // Olho aberto: pupila
+                        g.FillEllipse(brush, w / 2 - 3, h / 2 - 3, 6, 6);
+                    }
+                    else
+                    {
+                        // Olho fechado: linha horizontal
+                        g.DrawLine(pen, 3, h / 2, w - 3, h / 2);
                     }
                 }
-                font.Dispose();
             }
             return bmp;
         }
 
-        /// <summary>
-        /// Alterna a visibilidade da senha no PlaceholderTextBox.
-        /// Lida com PasswordChar e UseSystemPasswordChar (se existir).
-        /// </summary>
-        private void TogglePasswordVisibility(PictureBox btn, telebip_erp.Controls.PlaceholderTextBox textBox)
+        private void SetupEyeButtons()
         {
-            bool currentlyHidden = IsPasswordHidden(textBox);
+            // Cria os wrappers para cada campo
+            var campoSenhaAtual = new CampoVisibilidade(btnOlhoSenhaAtual, tbSenhaAtual);
+            var campoNovaSenha = new CampoVisibilidade(btnOlhoNovaSenha, tbNovaSenha);
+            var campoConfirmarSenha = new CampoVisibilidade(btnOlhoConfirmarSenha, tbConfirmarSenha);
 
-            // Alterna o estado
-            SetPasswordHiddenState(textBox, !currentlyHidden);
-
-            // Atualiza a imagem do botão
-            btn.Image?.Dispose();
-            btn.Image = CreateEyeBitmap(btn.Width > 0 ? btn.Width : 24, btn.Height > 0 ? btn.Height : 24, !currentlyHidden);
+            // Configura os eventos
+            ConfigurarEventoOlho(campoSenhaAtual);
+            ConfigurarEventoOlho(campoNovaSenha);
+            ConfigurarEventoOlho(campoConfirmarSenha);
         }
 
-        /// <summary>
-        /// Retorna true se a senha está oculta no controle (tenta detectar via propriedades comuns).
-        /// </summary>
-        private bool IsPasswordHidden(telebip_erp.Controls.PlaceholderTextBox textBox)
+        private void ConfigurarEventoOlho(CampoVisibilidade campo)
         {
-            // Primeiro tenta UseSystemPasswordChar
-            var type = textBox.GetType();
-            var propUse = type.GetProperty("UseSystemPasswordChar");
-            if (propUse != null && propUse.PropertyType == typeof(bool))
-            {
-                return (bool)propUse.GetValue(textBox)!;
-            }
+            // Certifica propriedades básicas
+            campo.Botao.BackColor = Color.FromArgb(60, 62, 80);
+            campo.Botao.SizeMode = PictureBoxSizeMode.CenterImage;
+            campo.Botao.Cursor = Cursors.Hand;
+            campo.Botao.Enabled = true;
+            campo.Botao.TabStop = false;
+            campo.Botao.Visible = true;
+            campo.Botao.BringToFront();
 
-            // Depois tenta PasswordChar
-            var propPass = type.GetProperty("PasswordChar");
-            if (propPass != null && propPass.PropertyType == typeof(char))
+            // Configura evento click
+            campo.Botao.Click += (s, e) =>
             {
-                char c = (char)propPass.GetValue(textBox)!;
-                return c != '\0';
-            }
-
-            // Se não encontrar, assume que está oculto por padrão (mais seguro)
-            return true;
+                campo.Visivel = !campo.Visivel;
+                AtualizarVisibilidadeSenha(campo.TextBox, campo.Botao, campo.Visivel);
+            };
         }
 
-        /// <summary>
-        /// Define o estado de oculto/visível no PlaceholderTextBox.
-        /// </summary>
-        private void SetPasswordHiddenState(telebip_erp.Controls.PlaceholderTextBox textBox, bool hide)
+        private void AtualizarVisibilidadeSenha(telebip_erp.Controls.PlaceholderTextBox textBox, PictureBox btn, bool visivel)
         {
-            var type = textBox.GetType();
-
-            var propUse = type.GetProperty("UseSystemPasswordChar");
-            if (propUse != null && propUse.PropertyType == typeof(bool))
+            try
             {
-                propUse.SetValue(textBox, hide);
-                return;
+                if (visivel)
+                {
+                    textBox.UseSystemPasswordChar = false;
+                    textBox.PasswordChar = '\0';
+                    btn.Image = eyeOpenBmp;
+                    btn.AccessibleDescription = "Ocultar senha";
+                }
+                else
+                {
+                    textBox.UseSystemPasswordChar = true;
+                    textBox.PasswordChar = '●';
+                    btn.Image = eyeClosedBmp;
+                    btn.AccessibleDescription = "Mostrar senha";
+                }
+
+                // Mantém o foco no TextBox
+                textBox.Focus();
             }
-
-            var propPass = type.GetProperty("PasswordChar");
-            if (propPass != null && propPass.PropertyType == typeof(char))
+            catch (Exception ex)
             {
-                propPass.SetValue(textBox, hide ? (object)'●' : (object)'\0');
-                return;
-            }
-
-            // Caso o controle não tenha essas propriedades (raro), tenta usar reflection para campo privado:
-            var field = type.GetField("_passwordChar", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            if (field != null)
-            {
-                field.SetValue(textBox, hide ? (object)'●' : (object)'\0');
+                MessageBox.Show($"Erro ao alternar visibilidade: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

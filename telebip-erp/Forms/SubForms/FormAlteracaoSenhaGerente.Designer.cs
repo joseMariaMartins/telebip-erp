@@ -1,4 +1,10 @@
-﻿ using static MaterialSkin.Controls.MaterialForm;
+﻿using System;
+using System.Data;
+using System.Data.SQLite;
+using System.Drawing;
+using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace telebip_erp.Forms.SubForms
 {
@@ -110,7 +116,6 @@ namespace telebip_erp.Forms.SubForms
             // 
             tbConfirmarSenha.BackColor = Color.FromArgb(40, 41, 52);
             tbConfirmarSenha.BorderStyle = BorderStyle.None;
-            tbConfirmarSenha.Enabled = false;
             tbConfirmarSenha.Font = new Font("Segoe UI", 9F);
             tbConfirmarSenha.ForeColor = Color.White;
             tbConfirmarSenha.Location = new Point(8, 10);
@@ -126,7 +131,6 @@ namespace telebip_erp.Forms.SubForms
             // btnOlhoConfirmarSenha
             // 
             btnOlhoConfirmarSenha.Cursor = Cursors.Hand;
-            btnOlhoConfirmarSenha.Enabled = false;
             btnOlhoConfirmarSenha.Location = new Point(358, 8);
             btnOlhoConfirmarSenha.Name = "btnOlhoConfirmarSenha";
             btnOlhoConfirmarSenha.Size = new Size(20, 20);
@@ -163,7 +167,6 @@ namespace telebip_erp.Forms.SubForms
             // 
             tbNovaSenha.BackColor = Color.FromArgb(40, 41, 52);
             tbNovaSenha.BorderStyle = BorderStyle.None;
-            tbNovaSenha.Enabled = false;
             tbNovaSenha.Font = new Font("Segoe UI", 9F);
             tbNovaSenha.ForeColor = Color.White;
             tbNovaSenha.Location = new Point(8, 10);
@@ -179,7 +182,6 @@ namespace telebip_erp.Forms.SubForms
             // btnOlhoNovaSenha
             // 
             btnOlhoNovaSenha.Cursor = Cursors.Hand;
-            btnOlhoNovaSenha.Enabled = false;
             btnOlhoNovaSenha.Location = new Point(358, 8);
             btnOlhoNovaSenha.Name = "btnOlhoNovaSenha";
             btnOlhoNovaSenha.Size = new Size(20, 20);

@@ -416,7 +416,7 @@ namespace telebip_erp.Forms.Modules
             lnkSuporte.Size = new Size(293, 25);
             lnkSuporte.TabIndex = 10;
             lnkSuporte.TabStop = true;
-            lnkSuporte.Text = "telebip.suporte@telebip.com";
+            lnkSuporte.Text = "telebip.suporte@gmail.com";
             lnkSuporte.VisitedLinkColor = Color.LightSkyBlue;
             // 
             // lbSuporte

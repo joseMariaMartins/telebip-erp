@@ -317,9 +317,6 @@ namespace telebip_erp.Forms.Modules
                 var formTrocarUsuario = new telebip_erp.Forms.Auth.FormTrocarUsuario();
                 formTrocarUsuario.StartPosition = FormStartPosition.CenterParent;
                 formTrocarUsuario.ShowDialog();
-
-                // Fecha esta tela de configurações após a troca
-                this.Close();
             }
             catch (Exception ex)
             {
