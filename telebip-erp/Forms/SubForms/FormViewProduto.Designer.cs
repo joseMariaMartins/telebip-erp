@@ -323,7 +323,7 @@
             // lblID
             // 
             lblID.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblID.ForeColor = Color.LightBlue;
+            lblID.ForeColor = Color.LimeGreen;
             lblID.Location = new Point(70, 15);
             lblID.Name = "lblID";
             lblID.Size = new Size(100, 20);

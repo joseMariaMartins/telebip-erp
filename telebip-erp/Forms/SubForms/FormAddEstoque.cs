@@ -21,7 +21,6 @@ namespace telebip_erp.Forms.SubForms
             cbFuncionarios.SelectedIndex = -1;
             cbFuncionarios.Text = "";
 
-
             this.TopLevel = true;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -42,7 +41,142 @@ namespace telebip_erp.Forms.SubForms
             btnAdicionar.Click += BtnAdicionar_Click;
             btnCancelar.Click += BtnCancelar_Click;
 
-            this.Load += (s, e) => CarregarFuncionarios();
+            // Configurar navegação com Enter
+            ConfigurarNavegacaoEnter();
+
+            this.Load += (s, e) =>
+            {
+                CarregarFuncionarios();
+                tbNome.Focus();
+                tbNome.SelectAll();
+            };
+
+            // Adicionar evento KeyDown para o formulário
+            this.KeyPreview = true;
+            this.KeyDown += FormAddEstoque_KeyDown;
+        }
+
+        private void ConfigurarNavegacaoEnter()
+        {
+            // Configurar evento KeyDown para cada TextBox
+            tbNome.KeyDown += TextBox_KeyDown;
+            tbMarca.KeyDown += TextBox_KeyDown;
+            tbPreco.KeyDown += TextBox_KeyDown;
+            tbQEstoque.KeyDown += TextBox_KeyDown;
+            tbQAviso.KeyDown += TextBox_KeyDown;
+            tbObservacao.KeyDown += TbObservacao_KeyDown; // Última TextBox
+
+            // Para o ComboBox
+            cbFuncionarios.KeyDown += CbFuncionarios_KeyDown;
+
+            // Para os botões
+            btnAdicionar.KeyDown += BtnAdicionar_KeyDown;
+            btnCancelar.KeyDown += BtnCancelar_KeyDown;
+        }
+
+        private void FormAddEstoque_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+
+                var currentTextBox = sender as TextBox;
+                if (currentTextBox == tbObservacao)
+                {
+                    // Última TextBox: verificar se ComboBox está preenchido
+                    if (cbFuncionarios.SelectedItem != null)
+                    {
+                        // Se já tem funcionário selecionado, executar ação direto
+                        BtnAdicionar_Click(btnAdicionar, EventArgs.Empty);
+                    }
+                    else
+                    {
+                        // Se não tem funcionário, focar no ComboBox
+                        cbFuncionarios.Focus();
+                        cbFuncionarios.DroppedDown = true;
+                    }
+                }
+                else
+                {
+                    // Outras TextBoxes: ir para próxima
+                    this.SelectNextControl(currentTextBox, true, true, true, true);
+                    if (this.ActiveControl is TextBox nextTextBox)
+                    {
+                        nextTextBox.SelectAll();
+                    }
+                }
+            }
+        }
+
+        private void TbObservacao_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+
+                // Verificar se ComboBox está preenchido
+                if (cbFuncionarios.SelectedItem != null)
+                {
+                    // Se já tem funcionário selecionado, executar ação direto
+                    BtnAdicionar_Click(btnAdicionar, EventArgs.Empty);
+                }
+                else
+                {
+                    // Se não tem funcionário, focar no ComboBox
+                    cbFuncionarios.Focus();
+                    cbFuncionarios.DroppedDown = true;
+                }
+            }
+        }
+
+        private void CbFuncionarios_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+
+                if (cbFuncionarios.DroppedDown)
+                {
+                    cbFuncionarios.DroppedDown = false;
+                }
+
+                // Do ComboBox, executar ação direto
+                BtnAdicionar_Click(btnAdicionar, EventArgs.Empty);
+            }
+            else if (e.KeyCode == Keys.Escape && cbFuncionarios.DroppedDown)
+            {
+                e.SuppressKeyPress = true;
+                cbFuncionarios.DroppedDown = false;
+            }
+        }
+
+        private void BtnAdicionar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                BtnAdicionar_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
+        private void BtnCancelar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
 
         private void CarregarFuncionarios()
@@ -95,6 +229,7 @@ namespace telebip_erp.Forms.SubForms
                 {
                     MessageBox.Show("Preencha o campo Nome do produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     tbNome.Focus();
+                    tbNome.SelectAll();
                     return;
                 }
 
@@ -102,6 +237,7 @@ namespace telebip_erp.Forms.SubForms
                 {
                     MessageBox.Show("Preencha o campo Marca do produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     tbMarca.Focus();
+                    tbMarca.SelectAll();
                     return;
                 }
 
@@ -125,6 +261,7 @@ namespace telebip_erp.Forms.SubForms
                 {
                     MessageBox.Show("Preço inválido. Insira um valor válido (ex: R$ 12,34).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     tbPreco.Focus();
+                    tbPreco.SelectAll();
                     return;
                 }
 
@@ -133,6 +270,7 @@ namespace telebip_erp.Forms.SubForms
                 {
                     MessageBox.Show("Informe uma quantidade válida para adicionar (inteiro maior que 0).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     tbQEstoque.Focus();
+                    tbQEstoque.SelectAll();
                     return;
                 }
 
@@ -141,6 +279,7 @@ namespace telebip_erp.Forms.SubForms
                 {
                     MessageBox.Show("Informe uma quantidade de aviso válida (inteiro >= 0).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     tbQAviso.Focus();
+                    tbQAviso.SelectAll();
                     return;
                 }
 
@@ -149,6 +288,7 @@ namespace telebip_erp.Forms.SubForms
                 {
                     MessageBox.Show("Selecione um funcionário!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     cbFuncionarios.Focus();
+                    cbFuncionarios.DroppedDown = true;
                     return;
                 }
 
@@ -196,6 +336,8 @@ namespace telebip_erp.Forms.SubForms
                     if (existe > 0)
                     {
                         MessageBox.Show("Esse produto já está cadastrado (verifique nome/marca/preço/observação).", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        tbNome.Focus();
+                        tbNome.SelectAll();
                         return;
                     }
 
@@ -231,6 +373,10 @@ namespace telebip_erp.Forms.SubForms
 
                 AtualizarEstoqueCallback?.Invoke();
                 LimparCampos();
+
+                // Volta o foco para o primeiro campo após limpar
+                tbNome.Focus();
+                tbNome.SelectAll();
             }
             catch (Exception ex)
             {

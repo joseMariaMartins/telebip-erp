@@ -28,7 +28,67 @@ namespace telebip_erp.Forms.SubForms
             btnConfirmar.Click += btnConfirmar_Click;
             btnCancelar.Click += btnCancelar_Click;
 
+            // Configurar Enter para disparar o Confirmar em qualquer campo
+            ConfigurarEnterParaConfirmar();
+
             CarregarFuncionarios();
+
+            // Focar no primeiro campo
+            tbQuantidadeRemover.Focus();
+            tbQuantidadeRemover.SelectAll();
+        }
+
+        private void ConfigurarEnterParaConfirmar()
+        {
+            // Configurar todos os controles para Enter disparar o Confirmar
+            tbQuantidadeRemover.KeyDown += (sender, e) => {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.SuppressKeyPress = true;
+                    btnConfirmar_Click(btnConfirmar, EventArgs.Empty);
+                }
+            };
+
+            cbExcluirProduto.KeyDown += (sender, e) => {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.SuppressKeyPress = true;
+                    btnConfirmar_Click(btnConfirmar, EventArgs.Empty);
+                }
+            };
+
+            cbFuncionarios.KeyDown += (sender, e) => {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.SuppressKeyPress = true;
+                    btnConfirmar_Click(btnConfirmar, EventArgs.Empty);
+                }
+            };
+
+            btnConfirmar.KeyDown += (sender, e) => {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.SuppressKeyPress = true;
+                    btnConfirmar_Click(sender, e);
+                }
+            };
+
+            // Para o botão Cancelar
+            btnCancelar.KeyDown += (sender, e) => {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    this.Close();
+                }
+            };
+
+            // Habilitar KeyPreview para capturar ESC globalmente
+            this.KeyPreview = true;
+            this.KeyDown += (sender, e) => {
+                if (e.KeyCode == Keys.Escape)
+                {
+                    this.Close();
+                }
+            };
         }
 
         private void CarregarFuncionarios()
@@ -69,18 +129,23 @@ namespace telebip_erp.Forms.SubForms
             if (!int.TryParse(tbQuantidadeRemover.Text, out int qtdRemover) || qtdRemover <= 0)
             {
                 MessageBox.Show("Informe uma quantidade válida para remover.");
+                tbQuantidadeRemover.Focus();
+                tbQuantidadeRemover.SelectAll();
                 return;
             }
 
             if (qtdRemover > quantidadeAtual)
             {
                 MessageBox.Show("A quantidade a remover não pode ser maior que a disponível.");
+                tbQuantidadeRemover.Focus();
+                tbQuantidadeRemover.SelectAll();
                 return;
             }
 
             if (cbFuncionarios.SelectedItem == null)
             {
                 MessageBox.Show("Selecione o funcionário responsável pela saída.");
+                cbFuncionarios.Focus();
                 return;
             }
 
@@ -124,6 +189,7 @@ namespace telebip_erp.Forms.SubForms
             {
                 MessageBox.Show("Selecione o funcionário responsável pela exclusão do produto.",
                                 "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbFuncionarios.Focus();
                 return;
             }
 
