@@ -1,106 +1,244 @@
 ﻿using System;
 using System.Data;
 using System.Data.SQLite;
+using System.Drawing;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormAlteracaoSenhaGerente : Form
+    public partial class FormAlteracaoSenhaGerente : MaterialForm
     {
         public FormAlteracaoSenhaGerente()
         {
             InitializeComponent();
+            ThemeManager.ApplyDarkTheme();
 
-            // Inicialmente bloqueia os campos de nova senha
-            tbNovaSenha.Enabled = false;
-            tbNovaSenha2.Enabled = false;
+            // HABILITA todos os campos desde o início
+            tbNovaSenha.Enabled = true;
+            tbConfirmarSenha.Enabled = true;
 
-            // Eventos dos botões de olho
-            btnOlhos.MouseDown += BtnOlhos_MouseDown;
-            btnOlhos.MouseUp += BtnOlhos_MouseUp;
-
-            btnOlhos2.MouseDown += BtnOlhos2_MouseDown;
-            btnOlhos2.MouseUp += BtnOlhos2_MouseUp;
-
-            btnOlhos3.MouseDown += BtnOlhos3_MouseDown;
-            btnOlhos3.MouseUp += BtnOlhos3_MouseUp;
-
-            // Eventos de controle
-            tbSenhaAtual.KeyDown += TbSenhaAtual_KeyDown;
-            btnConfirmar.Click += BtnConfirmar_Click;
+            SetupEventHandlers();
+            SetupEyeButtons();
         }
 
-        // ==========================
-        // MÉTODO PARA VALIDAR SENHA ATUAL (HASH)
-        // ==========================
-        private bool ValidarSenhaAtual(string senhaAtual)
+        private void SetupEyeButtons()
         {
-            // Gera o hash da senha digitada
-            string senhaHash = CryptoHelper.GerarHashSHA256(senhaAtual);
+            // Configura os botões de olho
+            ConfigureEyeButton(btnOlhoSenhaAtual, tbSenhaAtual);
+            ConfigureEyeButton(btnOlhoNovaSenha, tbNovaSenha);
+            ConfigureEyeButton(btnOlhoConfirmarSenha, tbConfirmarSenha);
+        }
 
-            string sql = "SELECT COUNT(*) FROM USUARIO WHERE SENHA = @senha AND NIVEL_ACESSO = 1";
-            var param = new SQLiteParameter[]
+        private void ConfigureEyeButton(PictureBox btn, telebip_erp.Controls.PlaceholderTextBox textBox)
+        {
+            // Certifica propriedades básicas para ser clicável
+            btn.BackColor = Color.FromArgb(60, 62, 80);
+            btn.SizeMode = PictureBoxSizeMode.CenterImage;
+            btn.Cursor = Cursors.Hand;
+            btn.Enabled = true;
+            btn.TabStop = false;
+            btn.Visible = true;
+            btn.BringToFront();
+
+            // Garante que o campo de senha esteja oculto inicialmente
+            SetPasswordHiddenState(textBox, true);
+
+            // Cria e define a imagem do olho (estado inicial = oculto)
+            btn.Image = CreateEyeBitmap(btn.Width > 0 ? btn.Width : 24, btn.Height > 0 ? btn.Height : 24, true);
+
+            // Ao clicar, alterna
+            btn.Click += (s, e) =>
             {
-                new SQLiteParameter("@senha", senhaHash)
+                TogglePasswordVisibility(btn, textBox);
             };
 
-            object? resultado = DatabaseHelper.ExecuteScalar(sql, param);
-            int count = Convert.ToInt32(resultado);
-
-            return count > 0;
+            // Também atualiza a imagem caso o tamanho mude em tempo de execução
+            btn.Resize += (s, e) =>
+            {
+                // recria a imagem com novo tamanho mantendo o estado atual
+                bool hidden = IsPasswordHidden(textBox);
+                btn.Image?.Dispose();
+                btn.Image = CreateEyeBitmap(btn.Width > 0 ? btn.Width : 24, btn.Height > 0 ? btn.Height : 24, hidden);
+            };
         }
 
-        // ==========================
-        // AO PRESSIONAR ENTER NA SENHA ATUAL
-        // ==========================
-        private void TbSenhaAtual_KeyDown(object sender, KeyEventArgs e)
+        /// <summary>
+        /// Cria um Bitmap simples com um "ícone" de olho desenhado (persistente).
+        /// </summary>
+        private Bitmap CreateEyeBitmap(int width, int height, bool passwordHidden)
+        {
+            var bmp = new Bitmap(width, height);
+            using (var g = Graphics.FromImage(bmp))
+            {
+                g.Clear(Color.FromArgb(60, 62, 80));
+                // Ajuste de qualidade
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+
+                // Tenta uma fonte emoji (se disponível), cai para Arial se não houver
+                Font font;
+                try
+                {
+                    font = new Font("Segoe UI Emoji", Math.Max(8, Math.Min(width, height) / 2), FontStyle.Regular);
+                }
+                catch
+                {
+                    font = new Font("Arial", Math.Max(8, Math.Min(width, height) / 2), FontStyle.Bold);
+                }
+
+                using (var brush = new SolidBrush(Color.White))
+                {
+                    // Desenha um emoji ou um olho simples (dependendo da fonte)
+                    string eyeChar = "👁"; // deve funcionar na maioria dos sistemas
+                    var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+                    g.DrawString(eyeChar, font, brush, new RectangleF(0, 0, width, height), sf);
+
+                    // Se quiser diferenciar visual quando visível vs oculto, desenha um retângulo de destaque
+                    if (!passwordHidden)
+                    {
+                        // leve destaque ao redor quando estiver visível
+                        using (var pen = new Pen(Color.FromArgb(180, 200, 220)))
+                        {
+                            g.DrawRectangle(pen, 1, 1, width - 3, height - 3);
+                        }
+                    }
+                }
+                font.Dispose();
+            }
+            return bmp;
+        }
+
+        /// <summary>
+        /// Alterna a visibilidade da senha no PlaceholderTextBox.
+        /// Lida com PasswordChar e UseSystemPasswordChar (se existir).
+        /// </summary>
+        private void TogglePasswordVisibility(PictureBox btn, telebip_erp.Controls.PlaceholderTextBox textBox)
+        {
+            bool currentlyHidden = IsPasswordHidden(textBox);
+
+            // Alterna o estado
+            SetPasswordHiddenState(textBox, !currentlyHidden);
+
+            // Atualiza a imagem do botão
+            btn.Image?.Dispose();
+            btn.Image = CreateEyeBitmap(btn.Width > 0 ? btn.Width : 24, btn.Height > 0 ? btn.Height : 24, !currentlyHidden);
+        }
+
+        /// <summary>
+        /// Retorna true se a senha está oculta no controle (tenta detectar via propriedades comuns).
+        /// </summary>
+        private bool IsPasswordHidden(telebip_erp.Controls.PlaceholderTextBox textBox)
+        {
+            // Primeiro tenta UseSystemPasswordChar
+            var type = textBox.GetType();
+            var propUse = type.GetProperty("UseSystemPasswordChar");
+            if (propUse != null && propUse.PropertyType == typeof(bool))
+            {
+                return (bool)propUse.GetValue(textBox)!;
+            }
+
+            // Depois tenta PasswordChar
+            var propPass = type.GetProperty("PasswordChar");
+            if (propPass != null && propPass.PropertyType == typeof(char))
+            {
+                char c = (char)propPass.GetValue(textBox)!;
+                return c != '\0';
+            }
+
+            // Se não encontrar, assume que está oculto por padrão (mais seguro)
+            return true;
+        }
+
+        /// <summary>
+        /// Define o estado de oculto/visível no PlaceholderTextBox.
+        /// </summary>
+        private void SetPasswordHiddenState(telebip_erp.Controls.PlaceholderTextBox textBox, bool hide)
+        {
+            var type = textBox.GetType();
+
+            var propUse = type.GetProperty("UseSystemPasswordChar");
+            if (propUse != null && propUse.PropertyType == typeof(bool))
+            {
+                propUse.SetValue(textBox, hide);
+                return;
+            }
+
+            var propPass = type.GetProperty("PasswordChar");
+            if (propPass != null && propPass.PropertyType == typeof(char))
+            {
+                propPass.SetValue(textBox, hide ? (object)'●' : (object)'\0');
+                return;
+            }
+
+            // Caso o controle não tenha essas propriedades (raro), tenta usar reflection para campo privado:
+            var field = type.GetField("_passwordChar", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (field != null)
+            {
+                field.SetValue(textBox, hide ? (object)'●' : (object)'\0');
+            }
+        }
+
+        private void SetupEventHandlers()
+        {
+            // Eventos de tecla
+            tbSenhaAtual.KeyDown += (s, e) => HandleKeyDown(e, tbSenhaAtual, tbNovaSenha);
+            tbNovaSenha.KeyDown += (s, e) => HandleKeyDown(e, tbNovaSenha, tbConfirmarSenha);
+            tbConfirmarSenha.KeyDown += (s, e) => HandleKeyDown(e, tbConfirmarSenha, btnConfirmar);
+
+            // Eventos de botão
+            btnConfirmar.Click += BtnConfirmar_Click;
+            btnCancelar.Click += (s, e) => this.Close();
+        }
+
+        private void HandleKeyDown(KeyEventArgs e, Control currentControl, Control nextControl)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
 
-                string senhaDigitada = tbSenhaAtual.Text.Trim();
-                if (string.IsNullOrWhiteSpace(senhaDigitada))
+                if (currentControl == tbSenhaAtual)
                 {
-                    MessageBox.Show("Digite a senha atual do gerente.",
-                        "Campo vazio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                if (ValidarSenhaAtual(senhaDigitada))
-                {
-                    tbNovaSenha.Enabled = true;
-                    tbNovaSenha2.Enabled = true;
+                    // Apenas muda o foco, SEM validar
                     tbNovaSenha.Focus();
-                    MessageBox.Show("Senha atual verificada. Agora digite e confirme a nova senha.",
-                        "Verificação concluída", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (currentControl == tbNovaSenha)
+                {
+                    // Apenas muda o foco, SEM validar
+                    tbConfirmarSenha.Focus();
+                }
+                else if (currentControl == tbConfirmarSenha)
+                {
+                    // Aqui sim valida quando pressionar Enter no último campo
+                    BtnConfirmar_Click(btnConfirmar, EventArgs.Empty);
                 }
                 else
                 {
-                    tbNovaSenha.Enabled = false;
-                    tbNovaSenha2.Enabled = false;
-                    MessageBox.Show("Senha atual incorreta.",
-                        "Erro de autenticação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    nextControl.Focus();
                 }
             }
         }
 
-        // ==========================
-        // BOTÃO CONFIRMAR
-        // ==========================
         private void BtnConfirmar_Click(object sender, EventArgs e)
         {
             string senhaAtual = tbSenhaAtual.Text.Trim();
             string novaSenha = tbNovaSenha.Text.Trim();
-            string confirmarSenha = tbNovaSenha2.Text.Trim();
+            string confirmarSenha = tbConfirmarSenha.Text.Trim();
 
-            // Verifica a senha atual
-            if (!ValidarSenhaAtual(senhaAtual))
+            // Validação da senha atual (só acontece aqui no botão Confirmar)
+            if (string.IsNullOrWhiteSpace(senhaAtual))
             {
-                MessageBox.Show("A senha atual está incorreta.",
-                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                tbNovaSenha.Enabled = false;
-                tbNovaSenha2.Enabled = false;
+                MessageBox.Show("Digite a senha atual do gerente.",
+                    "Campo vazio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbSenhaAtual.Focus();
+                return;
+            }
+
+            if (!ValidarSenhaAtualNoBanco(senhaAtual))
+            {
+                MessageBox.Show("Senha atual incorreta.",
+                    "Erro de autenticação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbSenhaAtual.Focus();
                 return;
             }
 
@@ -109,6 +247,7 @@ namespace telebip_erp.Forms.SubForms
             {
                 MessageBox.Show("Preencha os dois campos de nova senha.",
                     "Campos vazios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbNovaSenha.Focus();
                 return;
             }
 
@@ -116,6 +255,7 @@ namespace telebip_erp.Forms.SubForms
             {
                 MessageBox.Show("A nova senha deve ter pelo menos 4 caracteres.",
                     "Senha muito curta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbNovaSenha.Focus();
                 return;
             }
 
@@ -123,6 +263,7 @@ namespace telebip_erp.Forms.SubForms
             {
                 MessageBox.Show("As senhas digitadas não coincidem.",
                     "Erro de confirmação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbConfirmarSenha.Focus();
                 return;
             }
 
@@ -134,13 +275,12 @@ namespace telebip_erp.Forms.SubForms
                 MessageBoxIcon.Question
             );
 
-            if (confirmacao != DialogResult.Yes)
-                return;
+            if (confirmacao != DialogResult.Yes) return;
 
-            // 🔐 Criptografa antes de salvar
+            // Atualiza no banco
             string novaSenhaHash = CryptoHelper.GerarHashSHA256(novaSenha);
-
             string sqlUpdate = "UPDATE USUARIO SET SENHA = @novaSenha WHERE NIVEL_ACESSO = 1";
+
             var parametros = new SQLiteParameter[]
             {
                 new SQLiteParameter("@novaSenha", novaSenhaHash)
@@ -154,14 +294,6 @@ namespace telebip_erp.Forms.SubForms
                 {
                     MessageBox.Show("Senha do gerente alterada com sucesso!",
                         "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    tbSenhaAtual.Clear();
-                    tbNovaSenha.Clear();
-                    tbNovaSenha2.Clear();
-
-                    tbNovaSenha.Enabled = false;
-                    tbNovaSenha2.Enabled = false;
-
                     this.Close();
                 }
                 else
@@ -177,45 +309,18 @@ namespace telebip_erp.Forms.SubForms
             }
         }
 
-        // ==========================
-        // BOTÕES DE OLHO
-        // ==========================
-        private void BtnOlhos_MouseDown(object sender, MouseEventArgs e)
+        private static bool ValidarSenhaAtualNoBanco(string senhaAtual)
         {
-            tbSenhaAtual.PasswordChar = '\0';
-        }
+            string senhaHash = CryptoHelper.GerarHashSHA256(senhaAtual);
+            string sql = "SELECT COUNT(*) FROM USUARIO WHERE SENHA = @senha AND NIVEL_ACESSO = 1";
 
-        private void BtnOlhos_MouseUp(object sender, MouseEventArgs e)
-        {
-            tbSenhaAtual.PasswordChar = '*';
-        }
+            var param = new SQLiteParameter[]
+            {
+                new SQLiteParameter("@senha", senhaHash)
+            };
 
-        private void BtnOlhos2_MouseDown(object sender, MouseEventArgs e)
-        {
-            tbNovaSenha.PasswordChar = '\0';
-        }
-
-        private void BtnOlhos2_MouseUp(object sender, MouseEventArgs e)
-        {
-            tbNovaSenha.PasswordChar = '*';
-        }
-
-        private void BtnOlhos3_MouseDown(object sender, MouseEventArgs e)
-        {
-            tbNovaSenha2.PasswordChar = '\0';
-        }
-
-        private void BtnOlhos3_MouseUp(object sender, MouseEventArgs e)
-        {
-            tbNovaSenha2.PasswordChar = '*';
-        }
-
-        // ==========================
-        // BOTÃO CANCELAR
-        // ==========================
-        private void cuiButton2_Click(object sender, EventArgs e)
-        {
-            this.Close();
+            object? resultado = DatabaseHelper.ExecuteScalar(sql, param);
+            return Convert.ToInt32(resultado) > 0;
         }
     }
 }

@@ -484,7 +484,7 @@ namespace telebip_erp.Forms.Modules
             cbCondicao.FormattingEnabled = true;
             cbCondicao.ItemEntryHeight = 24;
             cbCondicao.ItemHeight = 15;
-            cbCondicao.Items.AddRange(new object[] { "Id", "Nome", "Cargo" });
+            cbCondicao.Items.AddRange(new object[] { "ID", "Nome", "Cargo" });
             cbCondicao.Location = new Point(3, 8);
             cbCondicao.Margin = new Padding(3, 0, 10, 0);
             cbCondicao.Name = "cbCondicao";

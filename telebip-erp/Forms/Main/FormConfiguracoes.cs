@@ -53,8 +53,8 @@ namespace telebip_erp.Forms.Modules
             // Enter no campo de e-mail confirma também
             if (tbEmail != null) tbEmail.KeyDown += TbEmail_KeyDown;
 
-            // Botão de logout
-            if (btnLogout != null) btnLogout.Click += BtnLogout_Click;
+            // Botão de Trocar Usuário
+            if (btnTrocarUsuario != null) btnTrocarUsuario.Click += BtnTrocarUsuario_Click;
 
             // Ao carregar, aplicar placeholder compatível
             Load += FormConfiguracoes_Load;
@@ -87,13 +87,14 @@ namespace telebip_erp.Forms.Modules
                     lbUltimoBackup.Text = $"Último backup: {ultimoBackup}";
                 }
 
-                if (lbPastaBackup != null)
-                {
-                    string pasta = ConfigHelper.GetSetting("UltimaPastaBackup") ?? "—";
-                    if (pasta.Length > 50)
-                        pasta = "..." + pasta.Substring(pasta.Length - 47);
-                    lbPastaBackup.Text = $"Pasta padrão: {pasta}";
-                }
+                // REMOVIDO: lbPastaBackup não existe no designer
+                // if (lbPastaBackup != null)
+                // {
+                //     string pasta = ConfigHelper.GetSetting("UltimaPastaBackup") ?? "—";
+                //     if (pasta.Length > 50)
+                //         pasta = "..." + pasta.Substring(pasta.Length - 47);
+                //     lbPastaBackup.Text = $"Pasta padrão: {pasta}";
+                // }
             }
             catch (Exception ex)
             {
@@ -306,6 +307,29 @@ namespace telebip_erp.Forms.Modules
         }
 
         // ==========================
+        // TROCAR USUÁRIO
+        // ==========================
+        private void BtnTrocarUsuario_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Abre diretamente o formulário de trocar usuário
+                var formTrocarUsuario = new telebip_erp.Forms.Auth.FormTrocarUsuario();
+                formTrocarUsuario.StartPosition = FormStartPosition.CenterParent;
+                formTrocarUsuario.ShowDialog();
+
+                // Fecha esta tela de configurações após a troca
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao tentar trocar usuário:\n{ex.Message}",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        // ==========================
         // SUPORTE (ABRIR GMAIL)
         // ==========================
         private void LbSuporte_Click(object sender, EventArgs e)
@@ -366,64 +390,11 @@ namespace telebip_erp.Forms.Modules
         }
 
         // ==========================
-        // LOGOUT DO SISTEMA
+        // MÉTODOS AUXILIARES (mantidos para compatibilidade)
         // ==========================
-        private void BtnLogout_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DialogResult result = MessageBox.Show(
-                    "Tem certeza que deseja sair do sistema?\n\nVocê será redirecionado para a tela de login.",
-                    "Confirmar Saída",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2
-                );
 
-                if (result == DialogResult.Yes)
-                {
-                    FazerLogout();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao fazer logout: {ex.Message}",
-                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void FazerLogout()
-        {
-            try
-            {
-                Cursor = Cursors.WaitCursor;
-
-                // 1. Limpar a sessão atual
-                LimparSessao();
-
-                // 2. Fechar todas as forms exceto esta
-                FecharTodasFormsExcetoEsta();
-
-                // 3. Criar e mostrar o formulário de login
-                var loginForm = new telebip_erp.Forms.Auth.FormLogin();
-                loginForm.Show();
-
-                // 4. Fechar esta form de configurações
-                this.Close();
-
-            }
-            catch (Exception ex)
-            {
-                // Fallback: reiniciar a aplicação se algo der errado
-                MessageBox.Show($"Reiniciando aplicação...\n{ex.Message}",
-                    "Logout", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Application.Restart();
-            }
-            finally
-            {
-                Cursor = Cursors.Default;
-            }
-        }
+        // REMOVIDO: BtnLogout_Click não é mais usado
+        // private void BtnLogout_Click(object sender, EventArgs e) { }
 
         private void LimparSessao()
         {
@@ -431,11 +402,6 @@ namespace telebip_erp.Forms.Modules
             {
                 // Limpar os dados da sessão
                 Session.NivelAcesso = 0;
-
-                // Se você tiver outras propriedades na Session, limpe-as também
-                // Session.UsuarioLogado = null;
-                // Session.EmailUsuario = null;
-                // Session.NomeUsuario = null;
             }
             catch (Exception ex)
             {

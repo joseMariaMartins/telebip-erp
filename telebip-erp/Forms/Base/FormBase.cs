@@ -50,7 +50,7 @@ namespace telebip_erp
             SetDoubleBuffered(pnlVendas);
             SetDoubleBuffered(pnlEstoque);
 
-            this.Width = 1250;
+            this.Width = 1300;
             this.Height = 650;
             pnlSidebar.Width = 43;
             pnlVendas.Height = 50;
@@ -221,6 +221,43 @@ namespace telebip_erp
         #region Eventos da Sidebar e Botões
         private async void btnHam_Click(object sender, EventArgs e) => await ToggleSidebarAsync();
         private async void pnlHam_Click(object sender, EventArgs e) => await ToggleSidebarAsync();
+
+        private void AbrirFormConfiguracoes()
+        {
+            // Fecha outras forms, mas mantém as configurações se já estiver aberta
+            foreach (Form form in this.MdiChildren)
+            {
+                if (!(form is Forms.Modules.FormConfiguracoes))
+                {
+                    form.Close();
+                }
+            }
+
+            // Verifica se já existe uma instância aberta
+            FormConfiguracoes formConfig = null;
+            foreach (Form form in this.MdiChildren)
+            {
+                if (form is Forms.Modules.FormConfiguracoes)
+                {
+                    formConfig = form as Forms.Modules.FormConfiguracoes;
+                    break;
+                }
+            }
+
+            // Se não existe, cria nova
+            if (formConfig == null)
+            {
+                formConfig = new Forms.Modules.FormConfiguracoes();
+                formConfig.MdiParent = this;
+                formConfig.WindowState = FormWindowState.Maximized;
+                formConfig.Show();
+            }
+
+            // Traz para frente e foca
+            formConfig.BringToFront();
+            formConfig.Focus();
+        }
+
 
         private async void btnHome_Click(object sender, EventArgs e)
         {

@@ -1,81 +1,290 @@
-﻿namespace telebip_erp.Forms.SubForms
-{
-    public partial class FormAlteracaoSenhaGerente
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+﻿ using static MaterialSkin.Controls.MaterialForm;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+namespace telebip_erp.Forms.SubForms
+{
+    partial class FormAlteracaoSenhaGerente
+    {
+        private System.ComponentModel.IContainer components = null;
+        private Panel pnlContainer;
+        private Panel pnlMain;
+        private Panel pnlHeader;
+        private Label lblTitulo;
+        private telebip_erp.Controls.RoundedPanel pnlWrapperSenhaAtual;
+        private telebip_erp.Controls.PlaceholderTextBox tbSenhaAtual;
+        private PictureBox btnOlhoSenhaAtual;
+        private Label lblSenhaAtual;
+        private telebip_erp.Controls.RoundedPanel pnlWrapperNovaSenha;
+        private telebip_erp.Controls.PlaceholderTextBox tbNovaSenha;
+        private PictureBox btnOlhoNovaSenha;
+        private Label lblNovaSenha;
+        private telebip_erp.Controls.RoundedPanel pnlWrapperConfirmarSenha;
+        private telebip_erp.Controls.PlaceholderTextBox tbConfirmarSenha;
+        private PictureBox btnOlhoConfirmarSenha;
+        private Label lblConfirmarSenha;
+        private CuoreUI.Controls.cuiButton btnCancelar;
+        private CuoreUI.Controls.cuiButton btnConfirmar;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            tbSenhaAtual = new TextBox();
-            label1 = new Label();
-            tbNovaSenha = new TextBox();
-            label2 = new Label();
+            pnlContainer = new Panel();
+            pnlMain = new Panel();
+            pnlWrapperConfirmarSenha = new telebip_erp.Controls.RoundedPanel();
+            tbConfirmarSenha = new telebip_erp.Controls.PlaceholderTextBox();
+            btnOlhoConfirmarSenha = new PictureBox();
+            lblConfirmarSenha = new Label();
+            pnlWrapperNovaSenha = new telebip_erp.Controls.RoundedPanel();
+            tbNovaSenha = new telebip_erp.Controls.PlaceholderTextBox();
+            btnOlhoNovaSenha = new PictureBox();
+            lblNovaSenha = new Label();
+            pnlWrapperSenhaAtual = new telebip_erp.Controls.RoundedPanel();
+            tbSenhaAtual = new telebip_erp.Controls.PlaceholderTextBox();
+            btnOlhoSenhaAtual = new PictureBox();
+            lblSenhaAtual = new Label();
+            btnCancelar = new CuoreUI.Controls.cuiButton();
             btnConfirmar = new CuoreUI.Controls.cuiButton();
-            cuiButton2 = new CuoreUI.Controls.cuiButton();
-            btnOlhos = new Button();
-            btnOlhos2 = new Button();
-            tbNovaSenha2 = new TextBox();
-            btnOlhos3 = new Button();
-            label3 = new Label();
+            pnlHeader = new Panel();
+            lblTitulo = new Label();
+            pnlContainer.SuspendLayout();
+            pnlMain.SuspendLayout();
+            pnlWrapperConfirmarSenha.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnOlhoConfirmarSenha).BeginInit();
+            pnlWrapperNovaSenha.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnOlhoNovaSenha).BeginInit();
+            pnlWrapperSenhaAtual.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnOlhoSenhaAtual).BeginInit();
+            pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
-            // tbSenhaAtual
+            // pnlContainer
             // 
-            tbSenhaAtual.Location = new Point(12, 52);
-            tbSenhaAtual.MaxLength = 50;
-            tbSenhaAtual.Name = "tbSenhaAtual";
-            tbSenhaAtual.PasswordChar = '*';
-            tbSenhaAtual.Size = new Size(218, 23);
-            tbSenhaAtual.TabIndex = 0;
+            pnlContainer.BackColor = Color.FromArgb(28, 29, 40);
+            pnlContainer.Controls.Add(pnlMain);
+            pnlContainer.Controls.Add(pnlHeader);
+            pnlContainer.Dock = DockStyle.Fill;
+            pnlContainer.Location = new Point(3, 24);
+            pnlContainer.Name = "pnlContainer";
+            pnlContainer.Size = new Size(454, 434);
+            pnlContainer.TabIndex = 0;
             // 
-            // label1
+            // pnlMain
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 34);
-            label1.Name = "label1";
-            label1.Size = new Size(68, 15);
-            label1.TabIndex = 1;
-            label1.Text = "Senha atual";
+            pnlMain.BackColor = Color.FromArgb(28, 29, 40);
+            pnlMain.Controls.Add(pnlWrapperConfirmarSenha);
+            pnlMain.Controls.Add(lblConfirmarSenha);
+            pnlMain.Controls.Add(pnlWrapperNovaSenha);
+            pnlMain.Controls.Add(lblNovaSenha);
+            pnlMain.Controls.Add(pnlWrapperSenhaAtual);
+            pnlMain.Controls.Add(lblSenhaAtual);
+            pnlMain.Controls.Add(btnCancelar);
+            pnlMain.Controls.Add(btnConfirmar);
+            pnlMain.Dock = DockStyle.Fill;
+            pnlMain.Location = new Point(0, 60);
+            pnlMain.Name = "pnlMain";
+            pnlMain.Padding = new Padding(30);
+            pnlMain.Size = new Size(454, 374);
+            pnlMain.TabIndex = 1;
+            // 
+            // pnlWrapperConfirmarSenha
+            // 
+            pnlWrapperConfirmarSenha.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperConfirmarSenha.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperConfirmarSenha.BorderThickness = 1;
+            pnlWrapperConfirmarSenha.Controls.Add(tbConfirmarSenha);
+            pnlWrapperConfirmarSenha.Controls.Add(btnOlhoConfirmarSenha);
+            pnlWrapperConfirmarSenha.CornerRadius = 8;
+            pnlWrapperConfirmarSenha.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperConfirmarSenha.Location = new Point(33, 252);
+            pnlWrapperConfirmarSenha.Name = "pnlWrapperConfirmarSenha";
+            pnlWrapperConfirmarSenha.Padding = new Padding(8, 6, 30, 6);
+            pnlWrapperConfirmarSenha.Size = new Size(388, 36);
+            pnlWrapperConfirmarSenha.TabIndex = 2;
+            // 
+            // tbConfirmarSenha
+            // 
+            tbConfirmarSenha.BackColor = Color.FromArgb(40, 41, 52);
+            tbConfirmarSenha.BorderStyle = BorderStyle.None;
+            tbConfirmarSenha.Enabled = false;
+            tbConfirmarSenha.Font = new Font("Segoe UI", 9F);
+            tbConfirmarSenha.ForeColor = Color.White;
+            tbConfirmarSenha.Location = new Point(8, 10);
+            tbConfirmarSenha.Margin = new Padding(3, 0, 10, 0);
+            tbConfirmarSenha.Name = "tbConfirmarSenha";
+            tbConfirmarSenha.PasswordChar = '●';
+            tbConfirmarSenha.Placeholder = "Digite novamente a nova senha";
+            tbConfirmarSenha.PlaceholderColor = Color.FromArgb(160, 160, 160);
+            tbConfirmarSenha.Size = new Size(342, 16);
+            tbConfirmarSenha.TabIndex = 2;
+            tbConfirmarSenha.UseSystemPasswordChar = true;
+            // 
+            // btnOlhoConfirmarSenha
+            // 
+            btnOlhoConfirmarSenha.Cursor = Cursors.Hand;
+            btnOlhoConfirmarSenha.Enabled = false;
+            btnOlhoConfirmarSenha.Location = new Point(358, 8);
+            btnOlhoConfirmarSenha.Name = "btnOlhoConfirmarSenha";
+            btnOlhoConfirmarSenha.Size = new Size(20, 20);
+            btnOlhoConfirmarSenha.SizeMode = PictureBoxSizeMode.Zoom;
+            btnOlhoConfirmarSenha.TabIndex = 1;
+            btnOlhoConfirmarSenha.TabStop = false;
+            // 
+            // lblConfirmarSenha
+            // 
+            lblConfirmarSenha.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblConfirmarSenha.ForeColor = Color.White;
+            lblConfirmarSenha.Location = new Point(33, 227);
+            lblConfirmarSenha.Name = "lblConfirmarSenha";
+            lblConfirmarSenha.Size = new Size(200, 20);
+            lblConfirmarSenha.TabIndex = 18;
+            lblConfirmarSenha.Text = "Confirmar Nova Senha *";
+            // 
+            // pnlWrapperNovaSenha
+            // 
+            pnlWrapperNovaSenha.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperNovaSenha.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperNovaSenha.BorderThickness = 1;
+            pnlWrapperNovaSenha.Controls.Add(tbNovaSenha);
+            pnlWrapperNovaSenha.Controls.Add(btnOlhoNovaSenha);
+            pnlWrapperNovaSenha.CornerRadius = 8;
+            pnlWrapperNovaSenha.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperNovaSenha.Location = new Point(33, 172);
+            pnlWrapperNovaSenha.Name = "pnlWrapperNovaSenha";
+            pnlWrapperNovaSenha.Padding = new Padding(8, 6, 30, 6);
+            pnlWrapperNovaSenha.Size = new Size(388, 36);
+            pnlWrapperNovaSenha.TabIndex = 1;
             // 
             // tbNovaSenha
             // 
-            tbNovaSenha.Location = new Point(12, 153);
-            tbNovaSenha.MaxLength = 50;
+            tbNovaSenha.BackColor = Color.FromArgb(40, 41, 52);
+            tbNovaSenha.BorderStyle = BorderStyle.None;
+            tbNovaSenha.Enabled = false;
+            tbNovaSenha.Font = new Font("Segoe UI", 9F);
+            tbNovaSenha.ForeColor = Color.White;
+            tbNovaSenha.Location = new Point(8, 10);
+            tbNovaSenha.Margin = new Padding(3, 0, 10, 0);
             tbNovaSenha.Name = "tbNovaSenha";
-            tbNovaSenha.PasswordChar = '*';
-            tbNovaSenha.Size = new Size(218, 23);
-            tbNovaSenha.TabIndex = 2;
+            tbNovaSenha.PasswordChar = '●';
+            tbNovaSenha.Placeholder = "Digite a nova senha";
+            tbNovaSenha.PlaceholderColor = Color.FromArgb(160, 160, 160);
+            tbNovaSenha.Size = new Size(342, 16);
+            tbNovaSenha.TabIndex = 1;
+            tbNovaSenha.UseSystemPasswordChar = true;
             // 
-            // label2
+            // btnOlhoNovaSenha
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 126);
-            label2.Name = "label2";
-            label2.Size = new Size(69, 15);
-            label2.TabIndex = 3;
-            label2.Text = "Nova senha";
+            btnOlhoNovaSenha.Cursor = Cursors.Hand;
+            btnOlhoNovaSenha.Enabled = false;
+            btnOlhoNovaSenha.Location = new Point(358, 8);
+            btnOlhoNovaSenha.Name = "btnOlhoNovaSenha";
+            btnOlhoNovaSenha.Size = new Size(20, 20);
+            btnOlhoNovaSenha.SizeMode = PictureBoxSizeMode.Zoom;
+            btnOlhoNovaSenha.TabIndex = 1;
+            btnOlhoNovaSenha.TabStop = false;
+            // 
+            // lblNovaSenha
+            // 
+            lblNovaSenha.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblNovaSenha.ForeColor = Color.White;
+            lblNovaSenha.Location = new Point(33, 147);
+            lblNovaSenha.Name = "lblNovaSenha";
+            lblNovaSenha.Size = new Size(200, 20);
+            lblNovaSenha.TabIndex = 16;
+            lblNovaSenha.Text = "Nova Senha *";
+            // 
+            // pnlWrapperSenhaAtual
+            // 
+            pnlWrapperSenhaAtual.BackColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperSenhaAtual.BorderColor = Color.FromArgb(60, 62, 80);
+            pnlWrapperSenhaAtual.BorderThickness = 1;
+            pnlWrapperSenhaAtual.Controls.Add(tbSenhaAtual);
+            pnlWrapperSenhaAtual.Controls.Add(btnOlhoSenhaAtual);
+            pnlWrapperSenhaAtual.CornerRadius = 8;
+            pnlWrapperSenhaAtual.FillColor = Color.FromArgb(40, 41, 52);
+            pnlWrapperSenhaAtual.Location = new Point(33, 92);
+            pnlWrapperSenhaAtual.Name = "pnlWrapperSenhaAtual";
+            pnlWrapperSenhaAtual.Padding = new Padding(8, 6, 30, 6);
+            pnlWrapperSenhaAtual.Size = new Size(388, 36);
+            pnlWrapperSenhaAtual.TabIndex = 0;
+            // 
+            // tbSenhaAtual
+            // 
+            tbSenhaAtual.BackColor = Color.FromArgb(40, 41, 52);
+            tbSenhaAtual.BorderStyle = BorderStyle.None;
+            tbSenhaAtual.Font = new Font("Segoe UI", 9F);
+            tbSenhaAtual.ForeColor = Color.White;
+            tbSenhaAtual.Location = new Point(8, 10);
+            tbSenhaAtual.Margin = new Padding(3, 0, 10, 0);
+            tbSenhaAtual.Name = "tbSenhaAtual";
+            tbSenhaAtual.PasswordChar = '●';
+            tbSenhaAtual.Placeholder = "Digite a senha atual do gerente";
+            tbSenhaAtual.PlaceholderColor = Color.FromArgb(160, 160, 160);
+            tbSenhaAtual.Size = new Size(342, 16);
+            tbSenhaAtual.TabIndex = 0;
+            tbSenhaAtual.UseSystemPasswordChar = true;
+            // 
+            // btnOlhoSenhaAtual
+            // 
+            btnOlhoSenhaAtual.Cursor = Cursors.Hand;
+            btnOlhoSenhaAtual.Location = new Point(358, 8);
+            btnOlhoSenhaAtual.Name = "btnOlhoSenhaAtual";
+            btnOlhoSenhaAtual.Size = new Size(20, 20);
+            btnOlhoSenhaAtual.SizeMode = PictureBoxSizeMode.Zoom;
+            btnOlhoSenhaAtual.TabIndex = 1;
+            btnOlhoSenhaAtual.TabStop = false;
+            // 
+            // lblSenhaAtual
+            // 
+            lblSenhaAtual.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblSenhaAtual.ForeColor = Color.White;
+            lblSenhaAtual.Location = new Point(33, 67);
+            lblSenhaAtual.Name = "lblSenhaAtual";
+            lblSenhaAtual.Size = new Size(200, 20);
+            lblSenhaAtual.TabIndex = 14;
+            lblSenhaAtual.Text = "Senha Atual *";
+            // 
+            // btnCancelar
+            // 
+            btnCancelar.CheckButton = false;
+            btnCancelar.Checked = false;
+            btnCancelar.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnCancelar.CheckedForeColor = Color.White;
+            btnCancelar.CheckedImageTint = Color.White;
+            btnCancelar.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnCancelar.Content = "Cancelar";
+            btnCancelar.DialogResult = DialogResult.None;
+            btnCancelar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnCancelar.ForeColor = Color.White;
+            btnCancelar.HoverBackground = Color.White;
+            btnCancelar.HoverForeColor = Color.Black;
+            btnCancelar.HoverImageTint = Color.White;
+            btnCancelar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnCancelar.Image = null;
+            btnCancelar.ImageAutoCenter = true;
+            btnCancelar.ImageExpand = new Point(0, 0);
+            btnCancelar.ImageOffset = new Point(0, 0);
+            btnCancelar.Location = new Point(221, 314);
+            btnCancelar.Margin = new Padding(3, 0, 10, 0);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.NormalBackground = Color.FromArgb(120, 40, 40);
+            btnCancelar.NormalForeColor = Color.White;
+            btnCancelar.NormalImageTint = Color.White;
+            btnCancelar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnCancelar.OutlineThickness = 1F;
+            btnCancelar.PressedBackground = Color.WhiteSmoke;
+            btnCancelar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnCancelar.PressedImageTint = Color.White;
+            btnCancelar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnCancelar.Rounding = new Padding(8);
+            btnCancelar.Size = new Size(100, 40);
+            btnCancelar.TabIndex = 4;
+            btnCancelar.TextAlignment = StringAlignment.Center;
+            btnCancelar.TextOffset = new Point(0, 0);
             // 
             // btnConfirmar
             // 
@@ -87,8 +296,8 @@
             btnConfirmar.CheckedOutline = Color.FromArgb(255, 106, 0);
             btnConfirmar.Content = "Confirmar";
             btnConfirmar.DialogResult = DialogResult.None;
-            btnConfirmar.Font = new Font("Microsoft Sans Serif", 9.75F);
-            btnConfirmar.ForeColor = Color.Black;
+            btnConfirmar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnConfirmar.ForeColor = Color.White;
             btnConfirmar.HoverBackground = Color.White;
             btnConfirmar.HoverForeColor = Color.Black;
             btnConfirmar.HoverImageTint = Color.White;
@@ -97,10 +306,11 @@
             btnConfirmar.ImageAutoCenter = true;
             btnConfirmar.ImageExpand = new Point(0, 0);
             btnConfirmar.ImageOffset = new Point(0, 0);
-            btnConfirmar.Location = new Point(12, 357);
+            btnConfirmar.Location = new Point(331, 314);
+            btnConfirmar.Margin = new Padding(3, 0, 10, 0);
             btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.NormalBackground = Color.White;
-            btnConfirmar.NormalForeColor = Color.Black;
+            btnConfirmar.NormalBackground = Color.FromArgb(40, 120, 80);
+            btnConfirmar.NormalForeColor = Color.White;
             btnConfirmar.NormalImageTint = Color.White;
             btnConfirmar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnConfirmar.OutlineThickness = 1F;
@@ -109,125 +319,61 @@
             btnConfirmar.PressedImageTint = Color.White;
             btnConfirmar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnConfirmar.Rounding = new Padding(8);
-            btnConfirmar.Size = new Size(114, 45);
-            btnConfirmar.TabIndex = 5;
+            btnConfirmar.Size = new Size(100, 40);
+            btnConfirmar.TabIndex = 3;
             btnConfirmar.TextAlignment = StringAlignment.Center;
             btnConfirmar.TextOffset = new Point(0, 0);
             // 
-            // cuiButton2
+            // pnlHeader
             // 
-            cuiButton2.CheckButton = false;
-            cuiButton2.Checked = false;
-            cuiButton2.CheckedBackground = Color.FromArgb(255, 106, 0);
-            cuiButton2.CheckedForeColor = Color.White;
-            cuiButton2.CheckedImageTint = Color.White;
-            cuiButton2.CheckedOutline = Color.FromArgb(255, 106, 0);
-            cuiButton2.Content = "Cancelar";
-            cuiButton2.DialogResult = DialogResult.None;
-            cuiButton2.Font = new Font("Microsoft Sans Serif", 9.75F);
-            cuiButton2.ForeColor = Color.Black;
-            cuiButton2.HoverBackground = Color.White;
-            cuiButton2.HoverForeColor = Color.Black;
-            cuiButton2.HoverImageTint = Color.White;
-            cuiButton2.HoverOutline = Color.FromArgb(32, 128, 128, 128);
-            cuiButton2.Image = null;
-            cuiButton2.ImageAutoCenter = true;
-            cuiButton2.ImageExpand = new Point(0, 0);
-            cuiButton2.ImageOffset = new Point(0, 0);
-            cuiButton2.Location = new Point(179, 357);
-            cuiButton2.Name = "cuiButton2";
-            cuiButton2.NormalBackground = Color.White;
-            cuiButton2.NormalForeColor = Color.Black;
-            cuiButton2.NormalImageTint = Color.White;
-            cuiButton2.NormalOutline = Color.FromArgb(64, 128, 128, 128);
-            cuiButton2.OutlineThickness = 1F;
-            cuiButton2.PressedBackground = Color.WhiteSmoke;
-            cuiButton2.PressedForeColor = Color.FromArgb(32, 32, 32);
-            cuiButton2.PressedImageTint = Color.White;
-            cuiButton2.PressedOutline = Color.FromArgb(64, 128, 128, 128);
-            cuiButton2.Rounding = new Padding(8);
-            cuiButton2.Size = new Size(114, 45);
-            cuiButton2.TabIndex = 6;
-            cuiButton2.TextAlignment = StringAlignment.Center;
-            cuiButton2.TextOffset = new Point(0, 0);
-            cuiButton2.Click += cuiButton2_Click;
+            pnlHeader.BackColor = Color.FromArgb(32, 33, 39);
+            pnlHeader.Controls.Add(lblTitulo);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Padding = new Padding(15);
+            pnlHeader.Size = new Size(454, 60);
+            pnlHeader.TabIndex = 0;
             // 
-            // btnOlhos
+            // lblTitulo
             // 
-            btnOlhos.Location = new Point(236, 52);
-            btnOlhos.Name = "btnOlhos";
-            btnOlhos.Size = new Size(23, 23);
-            btnOlhos.TabIndex = 7;
-            btnOlhos.UseVisualStyleBackColor = true;
-            // 
-            // btnOlhos2
-            // 
-            btnOlhos2.Location = new Point(236, 153);
-            btnOlhos2.Name = "btnOlhos2";
-            btnOlhos2.Size = new Size(23, 23);
-            btnOlhos2.TabIndex = 8;
-            btnOlhos2.UseVisualStyleBackColor = true;
-            // 
-            // tbNovaSenha2
-            // 
-            tbNovaSenha2.Location = new Point(12, 216);
-            tbNovaSenha2.MaxLength = 50;
-            tbNovaSenha2.Name = "tbNovaSenha2";
-            tbNovaSenha2.PasswordChar = '*';
-            tbNovaSenha2.Size = new Size(218, 23);
-            tbNovaSenha2.TabIndex = 9;
-            // 
-            // btnOlhos3
-            // 
-            btnOlhos3.Location = new Point(236, 216);
-            btnOlhos3.Name = "btnOlhos3";
-            btnOlhos3.Size = new Size(23, 23);
-            btnOlhos3.TabIndex = 10;
-            btnOlhos3.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(12, 198);
-            label3.Name = "label3";
-            label3.Size = new Size(144, 15);
-            label3.TabIndex = 11;
-            label3.Text = "Digite a senha novamente";
+            lblTitulo.Dock = DockStyle.Fill;
+            lblTitulo.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTitulo.ForeColor = Color.White;
+            lblTitulo.Location = new Point(15, 15);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(424, 30);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Alterar Senha - Gerente";
+            lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FormAlteracaoSenhaGerente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(305, 450);
-            Controls.Add(label3);
-            Controls.Add(btnOlhos3);
-            Controls.Add(tbNovaSenha2);
-            Controls.Add(btnOlhos2);
-            Controls.Add(btnOlhos);
-            Controls.Add(cuiButton2);
-            Controls.Add(btnConfirmar);
-            Controls.Add(label2);
-            Controls.Add(tbNovaSenha);
-            Controls.Add(label1);
-            Controls.Add(tbSenhaAtual);
+            BackColor = Color.FromArgb(28, 29, 40);
+            ClientSize = new Size(460, 461);
+            Controls.Add(pnlContainer);
+            FormStyle = FormStyles.ActionBar_None;
+            MaximumSize = new Size(460, 461);
+            MinimumSize = new Size(460, 461);
             Name = "FormAlteracaoSenhaGerente";
-            Text = "FormalteracaoSenhaGerente";
+            Padding = new Padding(3, 24, 3, 3);
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "FormAlteracaoSenhaGerente";
+            pnlContainer.ResumeLayout(false);
+            pnlMain.ResumeLayout(false);
+            pnlWrapperConfirmarSenha.ResumeLayout(false);
+            pnlWrapperConfirmarSenha.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)btnOlhoConfirmarSenha).EndInit();
+            pnlWrapperNovaSenha.ResumeLayout(false);
+            pnlWrapperNovaSenha.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)btnOlhoNovaSenha).EndInit();
+            pnlWrapperSenhaAtual.ResumeLayout(false);
+            pnlWrapperSenhaAtual.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)btnOlhoSenhaAtual).EndInit();
+            pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
-
-        #endregion
-
-        private TextBox tbSenhaAtual;
-        private Label label1;
-        private TextBox tbNovaSenha;
-        private Label label2;
-        private CuoreUI.Controls.cuiButton btnConfirmar;
-        private CuoreUI.Controls.cuiButton cuiButton2;
-        private Button btnOlhos;
-        private Button btnOlhos2;
-        private TextBox tbNovaSenha2;
-        private Button btnOlhos3;
-        private Label label3;
     }
 }

@@ -26,7 +26,8 @@ namespace telebip_erp.Forms.SubForms
 
             // Eventos para focar automaticamente no primeiro caractere da data
             mtxtDataNasc.Enter += MtxtDataNasc_Enter;
-            mtxtDataNasc.GotFocus += MtxtDataNasc_GotFocus; // ✅ NOVO: Evento adicional
+            mtxtDataNasc.GotFocus += MtxtDataNasc_GotFocus;
+            mtxtDataNasc.MouseDown += MtxtDataNasc_MouseDown; // ✅ NOVO: Evento de mouse
 
             // Eventos de tecla para melhor navegação
             txtNome.KeyDown += Txt_KeyDown;
@@ -58,14 +59,23 @@ namespace telebip_erp.Forms.SubForms
 
         private void MtxtDataNasc_Enter(object sender, EventArgs e)
         {
-            // ✅ CORREÇÃO: Focar no PRIMEIRO caractere para digitação sequencial
+            // Focar no PRIMEIRO caractere para digitação sequencial
             mtxtDataNasc.Select(0, 0);
         }
 
-        // ✅ NOVO: Evento adicional para garantir que sempre que ganhar foco, selecione do início
         private void MtxtDataNasc_GotFocus(object sender, EventArgs e)
         {
             // Pequeno delay para garantir que o foco está totalmente no controle
+            BeginInvoke((MethodInvoker)delegate
+            {
+                mtxtDataNasc.Select(0, 0);
+            });
+        }
+
+        // ✅ NOVO: Evento MouseDown para garantir que cliques do mouse também funcionem
+        private void MtxtDataNasc_MouseDown(object sender, MouseEventArgs e)
+        {
+            // Impede o cursor de ir para onde foi clicado
             BeginInvoke((MethodInvoker)delegate
             {
                 mtxtDataNasc.Select(0, 0);
@@ -97,7 +107,7 @@ namespace telebip_erp.Forms.SubForms
                 e.SuppressKeyPress = true;
                 SelectNextControl((Control)sender, true, true, true, true);
 
-                // ✅ CORREÇÃO: Quando navegar para o campo de data, focar no início
+                // Quando navegar para o campo de data, focar no início
                 if (ActiveControl == mtxtDataNasc)
                 {
                     BeginInvoke((MethodInvoker)delegate
@@ -198,7 +208,7 @@ namespace telebip_erp.Forms.SubForms
             }
             else if (controle is MaskedTextBox maskedTextBox)
             {
-                // ✅ CORREÇÃO: Para MaskedTextBox, focar apenas no início sem selecionar tudo
+                // Para MaskedTextBox, focar apenas no início sem selecionar tudo
                 maskedTextBox.Select(0, 0);
             }
         }

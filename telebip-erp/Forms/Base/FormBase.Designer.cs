@@ -441,7 +441,7 @@
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(283, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(912, 644);
+            pnlContainer.Size = new Size(1014, 644);
             pnlContainer.TabIndex = 3;
             // 
             // panel1
@@ -467,7 +467,7 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1198, 671);
+            ClientSize = new Size(1300, 671);
             Controls.Add(pnlHam);
             Controls.Add(panel1);
             Controls.Add(pnlContainer);
@@ -476,7 +476,7 @@
             FormStyle = FormStyles.ActionBar_None;
             IsMdiContainer = true;
             MaximumSize = new Size(1920, 1080);
-            MinimumSize = new Size(1198, 671);
+            MinimumSize = new Size(1300, 671);
             Name = "FormBase";
             Padding = new Padding(3, 24, 3, 3);
             StartPosition = FormStartPosition.CenterScreen;
