@@ -524,48 +524,43 @@ namespace telebip_erp
             {
                 var itens = new List<(int idProduto, int quantidade)>();
                 string sqlItens = "SELECT ID_PRODUTO, QUANTIDADE FROM ITEM_VENDA WHERE ID_VENDA = @id;";
-                using var cmdItens = new SQLiteCommand(sqlItens, conn);
-                cmdItens.Parameters.AddWithValue("@id", idVenda);
-                using var reader = cmdItens.ExecuteReader();
-                while (reader.Read()) itens.Add((reader.GetInt32(0), reader.GetInt32(1)));
-
-                string sqlDelItens = "DELETE FROM ITEM_VENDA WHERE ID_VENDA = @id;";
-                using var cmdDelItens = new SQLiteCommand(sqlDelItens, conn);
-                cmdDelItens.Parameters.AddWithValue("@id", idVenda);
-                cmdDelItens.ExecuteNonQuery();
-
-                string sqlDelVenda = "DELETE FROM VENDA WHERE ID_VENDA = @id;";
-                using var cmdDelVenda = new SQLiteCommand(sqlDelVenda, conn);
-                cmdDelVenda.Parameters.AddWithValue("@id", idVenda);
-                cmdDelVenda.ExecuteNonQuery();
-
-                foreach (var item in itens)
+                using (var cmdItens = new SQLiteCommand(sqlItens, conn, transaction))
                 {
-                    string sqlMov = @"
-                        INSERT INTO MOVIMENTACAO_ESTOQUE
-                        (ID_PRODUTO, ID_VENDA, NOME_FUNCIONARIO, TIPO_MOVIMENTACAO, QUANTIDADE, DATA_HORA)
-                        VALUES (@idProduto, @idVenda, @nome, @tipo, @quantidade, @data);";
-
-                    using var cmdMov = new SQLiteCommand(sqlMov, conn);
-                    cmdMov.Parameters.AddWithValue("@idProduto", item.idProduto);
-                    cmdMov.Parameters.AddWithValue("@idVenda", idVenda);
-                    cmdMov.Parameters.AddWithValue("@nome", "GERENTE");
-                    cmdMov.Parameters.AddWithValue("@tipo", "SAIDA");
-                    cmdMov.Parameters.AddWithValue("@quantidade", item.quantidade);
-                    cmdMov.Parameters.AddWithValue("@data", DateTime.Now.ToString("dd-MM-yyyy HH:mm"));
-                    cmdMov.ExecuteNonQuery();
+                    cmdItens.Parameters.AddWithValue("@id", idVenda);
+                    using var reader = cmdItens.ExecuteReader();
+                    while (reader.Read()) itens.Add((reader.GetInt32(0), reader.GetInt32(1)));
                 }
 
+                // Deleta os itens — isso vai disparar a trigger AFTER DELETE ON ITEM_VENDA
+                string sqlDelItens = "DELETE FROM ITEM_VENDA WHERE ID_VENDA = @id;";
+                using (var cmdDelItens = new SQLiteCommand(sqlDelItens, conn, transaction))
+                {
+                    cmdDelItens.Parameters.AddWithValue("@id", idVenda);
+                    cmdDelItens.ExecuteNonQuery();
+                }
+
+                // Deleta a venda
+                string sqlDelVenda = "DELETE FROM VENDA WHERE ID_VENDA = @id;";
+                using (var cmdDelVenda = new SQLiteCommand(sqlDelVenda, conn, transaction))
+                {
+                    cmdDelVenda.Parameters.AddWithValue("@id", idVenda);
+                    cmdDelVenda.ExecuteNonQuery();
+                }
+
+                // ********** NÃO INSERIR MOVIMENTAÇÃO AQUI **********
+                // A trigger deve ser responsável por registrar a ENTRADA com NOME_FUNCIONARIO = 'SISTEMA'
+
                 transaction.Commit();
-                MessageBox.Show("Venda removida e movimentação registrada com sucesso!", "Sucesso");
+                MessageBox.Show("Venda removida com sucesso!", "Sucesso");
                 vendas.AtualizarTabela();
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
+                try { transaction.Rollback(); } catch { /* ignore rollback errors */ }
                 MessageBox.Show("Erro ao remover a venda: " + ex.Message, "Erro");
             }
         }
+
         #endregion
 
         #region Backup Automático
