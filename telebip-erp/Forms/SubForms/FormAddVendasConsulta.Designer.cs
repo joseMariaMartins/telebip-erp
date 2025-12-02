@@ -120,7 +120,7 @@ namespace telebip_erp.Forms.SubForms
             // lbidVendaSelecionada
             // 
             lbidVendaSelecionada.AutoSize = true;
-            lbidVendaSelecionada.ForeColor = Color.White;
+            lbidVendaSelecionada.ForeColor = Color.LimeGreen;
             lbidVendaSelecionada.Location = new Point(33, 30);
             lbidVendaSelecionada.Name = "lbidVendaSelecionada";
             lbidVendaSelecionada.Size = new Size(13, 15);

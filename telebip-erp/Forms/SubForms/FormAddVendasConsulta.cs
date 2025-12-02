@@ -53,6 +53,9 @@ namespace telebip_erp.Forms.SubForms
 
             // aplica bordas arredondadas nos panels que contenham textboxes (usando FormViewProduto como referência)
             AplicarBordasArredondadasEmWrappers();
+
+            // Adicionado: Chama o método para aplicar o tema zebrado no DataGridView
+            AplicarTemaEscuroDataGridViewProdutos();
         }
 
         /// <summary>
@@ -66,10 +69,8 @@ namespace telebip_erp.Forms.SubForms
             try
             {
                 // Labels/controles informativos — proteções caso não existam no designer
-                if (lbidVendaSelecionada != null) lbidVendaSelecionada.ForeColor = corCinza;
                 if (tbFuncionario != null) tbFuncionario.ForeColor = corCinza;
                 if (tbDesconto != null) tbDesconto.ForeColor = corCinza;
-                if (lbValorSuper != null) lbValorSuper.ForeColor = corCinza;
                 if (mkDataHora != null) mkDataHora.ForeColor = corCinza;
                 if (tbEstado != null) tbEstado.ForeColor = corCinza;
                 if (tbForma != null) tbForma.ForeColor = corCinza;
@@ -163,7 +164,7 @@ namespace telebip_erp.Forms.SubForms
             dgvProdutoTemporarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvProdutoTemporarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
 
-            // Linhas
+            // Linhas - ZEBRADO ATIVADO
             var cellStyle = new DataGridViewCellStyle()
             {
                 Alignment = DataGridViewContentAlignment.MiddleLeft,
@@ -182,7 +183,7 @@ namespace telebip_erp.Forms.SubForms
 
             dgvProdutoTemporarios.DefaultCellStyle = cellStyle;
             dgvProdutoTemporarios.RowsDefaultCellStyle = cellStyle;
-            dgvProdutoTemporarios.AlternatingRowsDefaultCellStyle = altCellStyle;
+            dgvProdutoTemporarios.AlternatingRowsDefaultCellStyle = altCellStyle; // LINHA QUE ATIVA O ZEBRADO
             dgvProdutoTemporarios.RowTemplate.Height = 35;
 
             // Alinha colunas (ID, preço e quantidade centralizados; nome à esquerda)
@@ -211,7 +212,6 @@ namespace telebip_erp.Forms.SubForms
 
             dgvProdutoTemporarios.ResumeLayout();
         }
-
 
         #region Bordas arredondadas (inspirado em FormViewProduto)
 
@@ -329,6 +329,9 @@ namespace telebip_erp.Forms.SubForms
             PreencherPagamento(); // chama método para pegar estado e forma
             PreencherProdutosVenda();
             AtualizarGridProdutos();
+
+            // Adicionado: Reaplica o tema zebrado após carregar os dados
+            AplicarTemaEscuroDataGridViewProdutos();
         }
 
         private void PreencherPagamento()
@@ -511,6 +514,9 @@ namespace telebip_erp.Forms.SubForms
                 // Seleção limpa
                 dgvProdutoTemporarios.ClearSelection();
                 dgvProdutoTemporarios.CurrentCell = null;
+
+                // Adicionado: Reaplica o tema zebrado após configurar as colunas
+                AplicarTemaEscuroDataGridViewProdutos();
             }
             catch (Exception ex)
             {

@@ -131,6 +131,14 @@ namespace telebip_erp.Forms.Modules
 
         private void ConfirmarEmail()
         {
+            // VERIFICAÇÃO DE ACESSO: Apenas gerente (login terminado em 1) pode alterar e-mail
+            if (Session.NivelAcesso != 1) // 1 = Gerente (login terminado em 1)
+            {
+                MessageBox.Show("Apenas o gerente pode alterar o e-mail de recuperação.",
+                    "Acesso negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (tbEmail == null) return;
 
             string novoEmail = tbEmail.Text.Trim();
@@ -362,8 +370,8 @@ namespace telebip_erp.Forms.Modules
         // ==========================
         private void BtnGerente_Click(object sender, EventArgs e)
         {
-            // Opcional: permitir só se for gerente logado
-            if (Session.NivelAcesso == 0)
+            // VERIFICAÇÃO DE ACESSO: Apenas gerente pode alterar senha de gerente
+            if (Session.NivelAcesso != 1) // 1 = Gerente (login terminado em 1)
             {
                 MessageBox.Show("Apenas o gerente pode alterar esta senha.",
                     "Acesso negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -379,6 +387,14 @@ namespace telebip_erp.Forms.Modules
 
         private void BtnFuncionario_Click(object sender, EventArgs e)
         {
+            // VERIFICAÇÃO DE ACESSO: Apenas gerente pode alterar senhas de funcionários
+            if (Session.NivelAcesso != 1) // 1 = Gerente (login terminado em 1)
+            {
+                MessageBox.Show("Apenas o gerente pode alterar senhas de funcionários.",
+                    "Acesso negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var formSenhaFuncionario = new FormAlteracaoSenhaFuncionario
             {
                 StartPosition = FormStartPosition.CenterParent
