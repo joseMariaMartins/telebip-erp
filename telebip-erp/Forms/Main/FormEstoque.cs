@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 using telebip_erp.Forms.SubForms;
@@ -11,24 +10,22 @@ namespace telebip_erp.Forms.Modules
 {
     public partial class FormEstoque : Form
     {
-        private string textoPesquisa = "";
-        private readonly string placeholder = "Digite para pesquisar...";
+        private string _textoPesquisa = "";
+        private readonly string _placeholder = "Digite para pesquisar...";
 
         // Variáveis para carregamento incremental
-        private int paginaAtual = 0;
-        private readonly int limitePorPagina = 30;
-        private bool carregandoMais = false;
-        private bool temMaisDados = true;
-        private string ultimoFiltroSql = "";
-        private SQLiteParameter[] ultimosParametros = null;
-        private int totalProdutosGeral = 0;
+        private int _paginaAtual = 0;
+        private readonly int _limitePorPagina = 30;
+        private bool _carregandoMais = false;
+        private bool _temMaisDados = true;
+        private string _ultimoFiltroSql = "";
+        private SQLiteParameter[]? _ultimosParametros = null;
+        private int _totalProdutosGeral = 0;
 
         public FormEstoque()
         {
             InitializeComponent();
             ConfigurarFormulario();
-            cbPesquisaCampo.SelectedIndex = -1;
-            cbPesquisaCampo.Text = "";
         }
 
         #region Configuração Inicial do Formulário
@@ -66,8 +63,8 @@ namespace telebip_erp.Forms.Modules
             tbPesquisa.TextChanged += TbPesquisa_TextChanged;
 
             // Eventos das Comboboxes
-            cbPesquisaCampo.DrawItem += Cb_DrawItem;
-            cbCondicao.DrawItem += Cb_DrawItem;
+            cbPesquisaCampo.SelectedIndexChanged += CbPesquisaCampo_SelectedIndexChanged;
+            cbCondicao.SelectedIndexChanged += CbCondicao_SelectedIndexChanged;
 
             // Eventos de clique nos wrappers e pictureboxes
             ConfigurarEventosClique();
@@ -85,26 +82,59 @@ namespace telebip_erp.Forms.Modules
 
         private void AplicarEstilosVisuais()
         {
-            // Estilo dos wrappers
-            StyleComboWrapperPanel(pnlWrapperCampo, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
-            StyleComboWrapperPanel(pnlWrapperCondicao, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
-            StyleTextboxWrapperPanel(pnlWrapperPesquisa, Color.FromArgb(40, 41, 52), Color.FromArgb(60, 62, 80), 8);
-
             // Tema da DataGridView
             AplicarTemaEscuroDataGridView();
         }
 
         private void ConfiguracoesIniciais()
         {
-            // Placeholder inicial
-            tbPesquisa.Text = placeholder;
+            // Placeholder inicial para TextBox
+            tbPesquisa.Text = _placeholder;
             tbPesquisa.ForeColor = Color.FromArgb(160, 160, 160);
 
-            // Comboboxes
-            ConfigurarComboBoxInicial();
+            // Configura comboboxes
+            ConfigurarComboBoxPesquisaCampo();
+            ConfigurarComboBoxCondicao();
 
             // Carrega dados iniciais
             CarregarEstoqueInicial();
+        }
+
+        private void ConfigurarComboBoxPesquisaCampo()
+        {
+            cbPesquisaCampo.Items.Clear();
+            cbPesquisaCampo.Items.AddRange(new object[]
+            {
+                "ID",
+                "Nome",
+                "Marca",
+                "Preço",
+                "Qtd do estoque",
+                "Qtd de aviso",
+                "Observação"
+            });
+
+            // Configura propriedades do NeoFlatComboBox
+            cbPesquisaCampo.Placeholder = "Selecione um campo...";
+            cbPesquisaCampo.ShowPlaceholder = true;
+            cbPesquisaCampo.AutoSelectFirst = true;
+        }
+
+        private void ConfigurarComboBoxCondicao()
+        {
+            cbCondicao.Items.Clear();
+            cbCondicao.Items.AddRange(new object[]
+            {
+                "Idêntico a",
+                "Inicia com",
+                "Contendo",
+                "Diferente de"
+            });
+
+            // Configura propriedades do NeoFlatComboBox
+            cbCondicao.Placeholder = "Selecione uma condição...";
+            cbCondicao.ShowPlaceholder = true;
+            cbCondicao.AutoSelectFirst = true;
         }
         #endregion
 
@@ -113,23 +143,15 @@ namespace telebip_erp.Forms.Modules
         {
             // Combobox 1 - Campo (wrapper)
             pnlWrapperCampo.Click += PnlWrapperCampo_Click;
-
-            // PictureArrow/Chevron do campo
-            if (PictureImage2 != null)
-                PictureImage2.Click += PicArrowCampo_Click;
+            PictureImage2.Click += PicArrowCampo_Click;
 
             // Combobox 2 - Condição (wrapper)
             pnlWrapperCondicao.Click += PnlWrapperCondicao_Click;
-
-            // PictureArrow/Chevron da condição
-            if (pictureBox1 != null)
-                pictureBox1.Click += PicArrowCondicao_Click;
+            pictureBox1.Click += PicArrowCondicao_Click;
 
             // Textbox - pesquisa (wrapper e ícone)
             pnlWrapperPesquisa.Click += PnlWrapperPesquisa_Click;
-
-            if (picSearch != null)
-                picSearch.Click += PicSearch_Click;
+            picSearch.Click += PicSearch_Click;
         }
 
         private void PnlWrapperCampo_Click(object sender, EventArgs e)
@@ -155,88 +177,15 @@ namespace telebip_erp.Forms.Modules
         }
         #endregion
 
-        #region Estilização de Controles
-        private void Cb_DrawItem(object sender, DrawItemEventArgs e)
+        #region Eventos dos Comboboxes
+        private void CbPesquisaCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox cb = sender as ComboBox;
-            if (cb == null) return;
-
-            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            Color back = Color.FromArgb(40, 41, 52);
-            Color fore = Color.White;
-            Color selBack = Color.FromArgb(60, 62, 80);
-
-            using (SolidBrush b = new SolidBrush(back))
-                e.Graphics.FillRectangle(b, e.Bounds);
-
-            if (e.Index >= 0)
-            {
-                string text = cb.GetItemText(cb.Items[e.Index]);
-                if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                {
-                    using (SolidBrush selBrush = new SolidBrush(selBack))
-                        e.Graphics.FillRectangle(selBrush, e.Bounds);
-                }
-
-                Rectangle textRect = new Rectangle(e.Bounds.X + 8, e.Bounds.Y, e.Bounds.Width - 8, e.Bounds.Height);
-                TextRenderer.DrawText(e.Graphics, text, cb.Font, textRect, fore, TextFormatFlags.VerticalCenter | TextFormatFlags.Left);
-            }
-
-            if ((e.State & DrawItemState.Focus) == DrawItemState.Focus)
-                e.DrawFocusRectangle();
+            // Lógica quando o campo de pesquisa muda, se necessário
         }
 
-        private GraphicsPath GetRoundedRect(Rectangle r, int radius)
+        private void CbCondicao_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var path = new GraphicsPath();
-            int d = Math.Max(0, radius * 2);
-
-            if (radius <= 0)
-            {
-                path.AddRectangle(r);
-                return path;
-            }
-
-            path.AddArc(r.X, r.Y, d, d, 180, 90);
-            path.AddArc(r.Right - d, r.Y, d, d, 270, 90);
-            path.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
-            path.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
-            path.CloseFigure();
-            return path;
-        }
-
-        private void StyleComboWrapperPanel(Panel wrapper, Color fill, Color border, int radius = 8)
-        {
-            wrapper.BackColor = fill;
-            wrapper.Paint += (s, e) =>
-            {
-                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
-                using (var path = GetRoundedRect(rect, radius))
-                using (var pen = new Pen(border, 1))
-                {
-                    e.Graphics.DrawPath(pen, path);
-                }
-            };
-
-            wrapper.Resize += (s, e) => wrapper.Invalidate();
-        }
-
-        private void StyleTextboxWrapperPanel(Panel wrapper, Color fill, Color border, int radius = 8)
-        {
-            wrapper.BackColor = fill;
-            wrapper.Paint += (s, e) =>
-            {
-                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                var rect = new Rectangle(0, 0, wrapper.Width - 1, wrapper.Height - 1);
-                using (var path = GetRoundedRect(rect, radius))
-                using (var pen = new Pen(border, 1))
-                {
-                    e.Graphics.DrawPath(pen, path);
-                }
-            };
-
-            wrapper.Resize += (s, e) => wrapper.Invalidate();
+            // Lógica quando a condição muda, se necessário
         }
         #endregion
 
@@ -260,7 +209,7 @@ namespace telebip_erp.Forms.Modules
             dgvEstoque.EnableHeadersVisualStyles = false;
 
             // Cabeçalho
-            var headerStyle = new DataGridViewCellStyle()
+            var headerStyle = new DataGridViewCellStyle
             {
                 Alignment = DataGridViewContentAlignment.MiddleCenter,
                 BackColor = headerBack,
@@ -276,7 +225,7 @@ namespace telebip_erp.Forms.Modules
             dgvEstoque.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
 
             // Linhas
-            var cellStyle = new DataGridViewCellStyle()
+            var cellStyle = new DataGridViewCellStyle
             {
                 Alignment = DataGridViewContentAlignment.MiddleLeft,
                 BackColor = background,
@@ -432,7 +381,7 @@ namespace telebip_erp.Forms.Modules
         #region Placeholder TextBox
         private void TbPesquisa_GotFocus(object sender, EventArgs e)
         {
-            if (tbPesquisa.Text == placeholder)
+            if (tbPesquisa.Text == _placeholder)
             {
                 tbPesquisa.Text = "";
                 tbPesquisa.ForeColor = Color.White;
@@ -443,14 +392,14 @@ namespace telebip_erp.Forms.Modules
         {
             if (string.IsNullOrWhiteSpace(tbPesquisa.Text))
             {
-                tbPesquisa.Text = placeholder;
+                tbPesquisa.Text = _placeholder;
                 tbPesquisa.ForeColor = Color.FromArgb(160, 160, 160);
             }
         }
 
         private void TbPesquisa_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (tbPesquisa.Text == placeholder)
+            if (tbPesquisa.Text == _placeholder)
             {
                 tbPesquisa.Text = "";
                 tbPesquisa.ForeColor = Color.White;
@@ -459,87 +408,79 @@ namespace telebip_erp.Forms.Modules
 
         private void TbPesquisa_TextChanged(object sender, EventArgs e)
         {
-            if (tbPesquisa.Text != placeholder)
+            if (tbPesquisa.Text != _placeholder)
             {
-                textoPesquisa = tbPesquisa.Text;
+                _textoPesquisa = tbPesquisa.Text;
             }
             else
             {
-                textoPesquisa = "";
+                _textoPesquisa = "";
             }
         }
 
         private string ObterTextoPesquisa()
         {
-            if (!string.IsNullOrEmpty(tbPesquisa.Text) && tbPesquisa.Text != placeholder)
+            if (!string.IsNullOrEmpty(tbPesquisa.Text) && tbPesquisa.Text != _placeholder)
                 return tbPesquisa.Text;
-            return textoPesquisa;
+            return _textoPesquisa;
         }
         #endregion
 
-        #region Comboboxes e Filtros
-        private void ConfigurarComboBoxInicial()
-        {
-            cbCondicao.Items.Clear();
-            cbCondicao.Items.AddRange(new object[] { "Idêntico a", "Inicia com", "Contendo", "Diferente de" });
-            SelecionarPrimeiroItem(cbPesquisaCampo);
-            SelecionarPrimeiroItem(cbCondicao);
-        }
-
-        private void SelecionarPrimeiroItem(ComboBox comboBox)
-        {
-            if (comboBox == null || comboBox.Items.Count == 0) return;
-            comboBox.SelectedIndex = 0;
-        }
-
-        private string ObterValorSelecionado(ComboBox comboBox)
+        #region Métodos para Obter Valores dos Comboboxes
+        private string? ObterValorSelecionado(Controls.NeoFlatComboBox comboBox)
         {
             if (comboBox.SelectedItem != null)
                 return comboBox.SelectedItem.ToString();
             return comboBox.Text;
         }
+
+        private void SelecionarPrimeiroItem(Controls.NeoFlatComboBox comboBox)
+        {
+            if (comboBox.Items.Count == 0) return;
+            comboBox.SelectedIndex = 0;
+        }
         #endregion
 
         #region Operações de Banco de Dados
-        public void CarregarEstoque(string filtroSql = "", SQLiteParameter[] parametros = null, bool carregarMais = false)
+        public void CarregarEstoque(string filtroSql = "", SQLiteParameter[]? parametros = null, bool carregarMais = false)
         {
             try
             {
                 if (!carregarMais)
                 {
                     // Reset da paginação quando é uma nova pesquisa
-                    paginaAtual = 0;
-                    carregandoMais = false;
-                    temMaisDados = true;
-                    ultimoFiltroSql = filtroSql;
-                    ultimosParametros = parametros;
+                    _paginaAtual = 0;
+                    _carregandoMais = false;
+                    _temMaisDados = true;
+                    _ultimoFiltroSql = filtroSql;
+                    _ultimosParametros = parametros;
                 }
 
-                if (!temMaisDados && carregarMais) return;
+                if (!_temMaisDados && carregarMais) return;
 
                 string sql = $@"
                     SELECT ID_PRODUTO, NOME, MARCA, PRECO, QTD_ESTOQUE, QTD_AVISO, OBSERVACAO 
                     FROM PRODUTO 
                     {(string.IsNullOrEmpty(filtroSql) ? "" : "WHERE " + filtroSql)}
                     ORDER BY ID_PRODUTO DESC 
-                    LIMIT {limitePorPagina} OFFSET {paginaAtual * limitePorPagina};";
+                    LIMIT {_limitePorPagina} OFFSET {_paginaAtual * _limitePorPagina};";
 
                 DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
 
-                if (carregandoMais && dgvEstoque.DataSource is DataTable existingDt)
+                if (_carregandoMais && dgvEstoque.DataSource is DataTable existingDt)
                 {
                     foreach (DataRow row in dt.Rows)
                     {
                         existingDt.ImportRow(row);
                     }
-                    carregandoMais = false;
+                    _carregandoMais = false;
                 }
                 else
                 {
                     dgvEstoque.DataSource = dt;
                 }
 
-                temMaisDados = dt.Rows.Count == limitePorPagina;
+                _temMaisDados = dt.Rows.Count == _limitePorPagina;
 
                 ConfigurarColunasDataGridView();
                 dgvEstoque.ClearSelection();
@@ -549,7 +490,7 @@ namespace telebip_erp.Forms.Modules
 
                 if (dt.Rows.Count > 0)
                 {
-                    paginaAtual++;
+                    _paginaAtual++;
                 }
             }
             catch (Exception ex)
@@ -584,28 +525,28 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
-        private void AtualizarTotalItens(string filtroSql = "", SQLiteParameter[] parametros = null)
+        private void AtualizarTotalItens(string filtroSql = "", SQLiteParameter[]? parametros = null)
         {
             try
             {
                 if (string.IsNullOrEmpty(filtroSql))
                 {
                     string sqlCount = "SELECT COUNT(*) FROM PRODUTO";
-                    totalProdutosGeral = Convert.ToInt32(DatabaseHelper.ExecuteScalar(sqlCount));
-                    lbTotal.Text = $"Mostrando: {dgvEstoque.Rows.Count} de {totalProdutosGeral} produtos";
+                    _totalProdutosGeral = Convert.ToInt32(DatabaseHelper.ExecuteScalar(sqlCount));
+                    lbTotal.Text = $"Mostrando: {dgvEstoque.Rows.Count} de {_totalProdutosGeral} produtos";
                 }
                 else
                 {
                     string sqlCount = $"SELECT COUNT(*) FROM PRODUTO WHERE {filtroSql}";
                     int totalComFiltro = Convert.ToInt32(DatabaseHelper.ExecuteScalar(sqlCount, parametros));
 
-                    if (totalProdutosGeral == 0)
+                    if (_totalProdutosGeral == 0)
                     {
                         string sqlGeral = "SELECT COUNT(*) FROM PRODUTO";
-                        totalProdutosGeral = Convert.ToInt32(DatabaseHelper.ExecuteScalar(sqlGeral));
+                        _totalProdutosGeral = Convert.ToInt32(DatabaseHelper.ExecuteScalar(sqlGeral));
                     }
 
-                    lbTotal.Text = $"Mostrando: {dgvEstoque.Rows.Count} de {totalComFiltro} produtos (Total: {totalProdutosGeral})";
+                    lbTotal.Text = $"Mostrando: {dgvEstoque.Rows.Count} de {totalComFiltro} produtos (Total: {_totalProdutosGeral})";
                 }
             }
             catch (Exception ex)
@@ -618,8 +559,8 @@ namespace telebip_erp.Forms.Modules
         #region Eventos dos Botões
         private void BtnPesquisar_Click(object sender, EventArgs e)
         {
-            string campoSelecionado = ObterValorSelecionado(cbPesquisaCampo);
-            string condicao = ObterValorSelecionado(cbCondicao);
+            string? campoSelecionado = ObterValorSelecionado(cbPesquisaCampo);
+            string? condicao = ObterValorSelecionado(cbCondicao);
             string valor = ObterTextoPesquisa().Trim();
 
             if (!string.IsNullOrEmpty(valor))
@@ -649,7 +590,7 @@ namespace telebip_erp.Forms.Modules
                 return;
             }
 
-            string filtroSql = "";
+            string filtroSql;
             SQLiteParameter[] parametros;
 
             switch (condicao)
@@ -660,7 +601,7 @@ namespace telebip_erp.Forms.Modules
                         if (decimal.TryParse(valor, out decimal numero))
                         {
                             filtroSql = $"{campo} = @valor";
-                            parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", numero) };
+                            parametros = new SQLiteParameter[] { new("@valor", numero) };
                         }
                         else
                         {
@@ -671,23 +612,23 @@ namespace telebip_erp.Forms.Modules
                     else
                     {
                         filtroSql = $"UPPER({campo}) = UPPER(@valor)";
-                        parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
+                        parametros = new SQLiteParameter[] { new("@valor", valor) };
                     }
                     break;
 
                 case "Inicia com":
                     filtroSql = $"UPPER({campo}) LIKE @valor";
-                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor + "%") };
+                    parametros = new SQLiteParameter[] { new("@valor", valor + "%") };
                     break;
 
                 case "Contendo":
                     filtroSql = $"UPPER({campo}) LIKE @valor";
-                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", "%" + valor + "%") };
+                    parametros = new SQLiteParameter[] { new("@valor", "%" + valor + "%") };
                     break;
 
                 case "Diferente de":
                     filtroSql = $"UPPER({campo}) <> UPPER(@valor)";
-                    parametros = new SQLiteParameter[] { new SQLiteParameter("@valor", valor) };
+                    parametros = new SQLiteParameter[] { new("@valor", valor) };
                     break;
 
                 default:
@@ -700,7 +641,7 @@ namespace telebip_erp.Forms.Modules
 
         private void BtnLimpar_Click(object sender, EventArgs e)
         {
-            textoPesquisa = "";
+            _textoPesquisa = "";
             tbPesquisa.Text = "";
             TbPesquisa_LostFocus(tbPesquisa, EventArgs.Empty);
 
@@ -709,11 +650,11 @@ namespace telebip_erp.Forms.Modules
             SelecionarPrimeiroItem(cbCondicao);
 
             // Reseta a paginação
-            paginaAtual = 0;
-            carregandoMais = false;
-            temMaisDados = true;
-            ultimoFiltroSql = "";
-            ultimosParametros = null;
+            _paginaAtual = 0;
+            _carregandoMais = false;
+            _temMaisDados = true;
+            _ultimoFiltroSql = "";
+            _ultimosParametros = null;
 
             CarregarEstoque();
             dgvEstoque.ClearSelection();
@@ -724,11 +665,8 @@ namespace telebip_erp.Forms.Modules
         #region Eventos da Interface
         private void FormEstoque_Shown(object sender, EventArgs e)
         {
-            if (cbPesquisaCampo.Items.Count > 0)
-                cbPesquisaCampo.SelectedIndex = 0;
-
-            if (cbCondicao.Items.Count > 0)
-                cbCondicao.SelectedIndex = 0;
+            SelecionarPrimeiroItem(cbPesquisaCampo);
+            SelecionarPrimeiroItem(cbCondicao);
 
             dgvEstoque.ClearSelection();
             dgvEstoque.CurrentCell = null;
@@ -759,11 +697,9 @@ namespace telebip_erp.Forms.Modules
                 int quantidadeAviso = Convert.ToInt32(linha.Cells["QTD_AVISO"].Value);
                 string observacao = linha.Cells["OBSERVACAO"].Value?.ToString() ?? "";
 
-                using (var formView = new FormViewProduto())
-                {
-                    formView.CarregarProduto(id, nome, marca, preco, quantidade, quantidadeAviso, observacao);
-                    formView.ShowDialog(this);
-                }
+                using var formView = new FormViewProduto();
+                formView.CarregarProduto(id, nome, marca, preco, quantidade, quantidadeAviso, observacao);
+                formView.ShowDialog(this);
             }
             catch (Exception ex)
             {
@@ -785,10 +721,10 @@ namespace telebip_erp.Forms.Modules
 
         private void CarregarMaisDados()
         {
-            if (carregandoMais || !temMaisDados) return;
+            if (_carregandoMais || !_temMaisDados) return;
 
-            carregandoMais = true;
-            CarregarEstoque(ultimoFiltroSql, ultimosParametros, carregarMais: true);
+            _carregandoMais = true;
+            CarregarEstoque(_ultimoFiltroSql, _ultimosParametros, carregarMais: true);
         }
         #endregion
 
@@ -810,7 +746,7 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
-        public DataGridViewRow ObterLinhaSelecionada()
+        public DataGridViewRow? ObterLinhaSelecionada()
         {
             return dgvEstoque.CurrentRow;
         }
@@ -820,7 +756,7 @@ namespace telebip_erp.Forms.Modules
             try
             {
                 string sqlVerificar = "SELECT QTD_ESTOQUE FROM PRODUTO WHERE ID_PRODUTO = @id";
-                SQLiteParameter[] parametrosVerificar = { new SQLiteParameter("@id", idProduto) };
+                SQLiteParameter[] parametrosVerificar = { new("@id", idProduto) };
                 object resultado = DatabaseHelper.ExecuteScalar(sqlVerificar, parametrosVerificar);
 
                 if (resultado == null)
@@ -838,7 +774,7 @@ namespace telebip_erp.Forms.Modules
                 }
 
                 string sqlRemover = "UPDATE PRODUTO SET QTD_ESTOQUE = QTD_ESTOQUE - @qtd WHERE ID_PRODUTO = @id";
-                SQLiteParameter[] parametrosRemover = { new SQLiteParameter("@qtd", quantidadeRemover), new SQLiteParameter("@id", idProduto) };
+                SQLiteParameter[] parametrosRemover = { new("@qtd", quantidadeRemover), new("@id", idProduto) };
 
                 int linhasAfetadas = DatabaseHelper.ExecuteNonQuery(sqlRemover, parametrosRemover);
 
@@ -863,7 +799,7 @@ namespace telebip_erp.Forms.Modules
 
         public DataTable ObterEstoqueComoDataTable()
         {
-            DataTable dtTemp = new DataTable();
+            DataTable dtTemp = new();
             foreach (DataGridViewColumn col in dgvEstoque.Columns)
                 dtTemp.Columns.Add(col.Name);
 
@@ -892,5 +828,10 @@ namespace telebip_erp.Forms.Modules
             cbCondicao.DroppedDown = true;
         }
         #endregion
+
+        private void LblTitulo_Click(object sender, EventArgs e)
+        {
+            // Implementação se necessário
+        }
     }
 }

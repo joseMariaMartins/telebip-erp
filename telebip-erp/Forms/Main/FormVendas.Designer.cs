@@ -321,7 +321,7 @@
             cbCondicao.ItemEntryHeight = 24;
             cbCondicao.ItemHeight = 15;
             cbCondicao.Items.AddRange(new object[] { "Inicia com", "Contendo", "Diferente de", "Identico a" });
-            cbCondicao.Location = new Point(8, 6);
+            cbCondicao.Location = new Point(8, 8);
             cbCondicao.Margin = new Padding(3, 0, 10, 0);
             cbCondicao.Name = "cbCondicao";
             cbCondicao.Placeholder = "Selecione...";
@@ -367,7 +367,7 @@
             cbPesquisaCampo.ItemEntryHeight = 24;
             cbPesquisaCampo.ItemHeight = 17;
             cbPesquisaCampo.Items.AddRange(new object[] { "ID", "Funcionário", "Data", "Valor total", "Desconto" });
-            cbPesquisaCampo.Location = new Point(6, 6);
+            cbPesquisaCampo.Location = new Point(6, 7);
             cbPesquisaCampo.Margin = new Padding(0);
             cbPesquisaCampo.Name = "cbPesquisaCampo";
             cbPesquisaCampo.Placeholder = "Selecione...";
