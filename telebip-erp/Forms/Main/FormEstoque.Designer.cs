@@ -262,7 +262,7 @@
             pnlWrapperPesquisa.FillColor = Color.FromArgb(40, 41, 52);
             pnlWrapperPesquisa.Location = new Point(325, 10);
             pnlWrapperPesquisa.Name = "pnlWrapperPesquisa";
-            pnlWrapperPesquisa.Size = new Size(240, 36);
+            pnlWrapperPesquisa.Size = new Size(295, 36);
             pnlWrapperPesquisa.TabIndex = 20;
             // 
             // tbPesquisa
@@ -274,7 +274,7 @@
             tbPesquisa.ForeColor = Color.White;
             tbPesquisa.Location = new Point(10, 10);
             tbPesquisa.Name = "tbPesquisa";
-            tbPesquisa.Size = new Size(205, 16);
+            tbPesquisa.Size = new Size(260, 16);
             tbPesquisa.TabIndex = 2;
             // 
             // picSearch
@@ -282,7 +282,7 @@
             picSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             picSearch.BackColor = Color.Transparent;
             picSearch.Image = (Image)resources.GetObject("picSearch.Image");
-            picSearch.Location = new Point(215, 9);
+            picSearch.Location = new Point(270, 9);
             picSearch.Name = "picSearch";
             picSearch.Size = new Size(15, 15);
             picSearch.SizeMode = PictureBoxSizeMode.Zoom;

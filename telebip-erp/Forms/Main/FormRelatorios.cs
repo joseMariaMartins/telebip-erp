@@ -102,27 +102,26 @@ namespace telebip_erp.Forms.Modules
             cbPeriodo.Items.Clear();
 
             int anoAtual = DateTime.Today.Year;
-            int anoAnterior = anoAtual - 1;
 
-            // Períodos fixos
-            var periodos = new string[]
+            // Itens conforme seu pedido
+            cbPeriodo.Items.AddRange(new object[]
             {
                 "Hoje",
-                "Ontem",
-                "Ultimos 7 dias",
-                "Este mes",
-                "Ultimos 30 dias",
-                "Este semestre",
-                "Semestre passado",
-                "Este ano",  // Ano atual em andamento
-                "Ultimos 12 meses"
-            };
+                "Esta Semana",
+                "Este mês",
+                "Este Bimestre",
+                "Este Semestre",
+                "Semestre Passado",
+                "Este Ano",
+                "Últimos anos"
+            });
 
-            foreach (var periodo in periodos)
-                cbPeriodo.Items.Add(periodo);
-
-            // Adiciona APENAS o ano anterior completo
-            cbPeriodo.Items.Add($"Ano de {anoAnterior}");
+            // Adiciona alguns anos dinâmicos (últimos 3 anos completos/exemplo)
+            for (int i = 0; i < 3; i++)
+            {
+                int ano = anoAtual - i;
+                cbPeriodo.Items.Add($"Ano de {ano}");
+            }
         }
 
         private void AplicarTemaEscuroDataGridView()
@@ -331,18 +330,43 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
-        private string BuildDateWhereClause((DateTime start, DateTime end)? dateRange, string tableName = "VENDA")
+        /// <summary>
+        /// Constrói a cláusula WHERE para comparar a parte de data (DATA_HORA).
+        /// dateColumnExpr deve ser algo como "v.DATA_HORA", "m.DATA_HORA" ou "DATA_HORA".
+        /// Se dateColumnExpr for nulo ou vazio, usa apenas "DATA_HORA".
+        /// </summary>
+        private string BuildDateWhereClause((DateTime start, DateTime end)? dateRange, string dateColumnExpr = "DATA_HORA")
         {
             if (!dateRange.HasValue) return "";
 
             try
             {
-                // Formata as datas no padrão do banco (DD-MM-YYYY)
-                string startDate = dateRange.Value.start.ToString("dd-MM-yyyy");
-                string endDate = dateRange.Value.end.ToString("dd-MM-yyyy");
+                // Usamos o formato ISO yyyy-MM-dd para comparação correta
+                string startDateIso = dateRange.Value.start.ToString("yyyy-MM-dd");
+                string endDateIso = dateRange.Value.end.ToString("yyyy-MM-dd");
 
-                // Método simples e direto: compara as strings de data no formato DD-MM-YYYY
-                return $"WHERE substr(DATA_HORA, 1, 10) BETWEEN '{startDate}' AND '{endDate}'";
+                if (string.IsNullOrWhiteSpace(dateColumnExpr))
+                    dateColumnExpr = "DATA_HORA";
+
+                // Se o usuário passou apenas o alias (ex.: "v") convertemos para "v.DATA_HORA"
+                if (!dateColumnExpr.Contains(".") && !dateColumnExpr.Equals("DATA_HORA", StringComparison.OrdinalIgnoreCase))
+                    dateColumnExpr = dateColumnExpr + ".DATA_HORA";
+
+                // Garantir que não venha com espaços
+                dateColumnExpr = dateColumnExpr.Trim();
+
+                // Monta a cláusula usando o expression correto para a coluna de data
+                string where = $@"
+                WHERE (
+                    CASE
+                        WHEN substr(substr({dateColumnExpr},1,10),5,1) = '-' THEN substr({dateColumnExpr},1,10)
+                        WHEN substr(substr({dateColumnExpr},1,10),3,1) = '-' THEN
+                            substr(substr({dateColumnExpr},1,10),7,4) || '-' || substr(substr({dateColumnExpr},1,10),4,2) || '-' || substr(substr({dateColumnExpr},1,10),1,2)
+                        ELSE substr({dateColumnExpr},1,10)
+                    END
+                ) BETWEEN '{startDateIso}' AND '{endDateIso}'";
+
+                return where;
             }
             catch (Exception ex)
             {
@@ -351,11 +375,14 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
+
+
         private DataTable ObterRelatorioVendasPeriodo((DateTime start, DateTime end)? dateRange)
         {
             try
             {
-                string whereClause = BuildDateWhereClause(dateRange, "VENDA");
+                string whereClause = BuildDateWhereClause(dateRange, "DATA_HORA");
+
 
                 string sql = $@"
                     SELECT 
@@ -382,7 +409,7 @@ namespace telebip_erp.Forms.Modules
         {
             try
             {
-                string whereClause = BuildDateWhereClause(dateRange, "VENDA");
+                string whereClause = BuildDateWhereClause(dateRange, "v");
 
                 string sql = $@"
                     SELECT 
@@ -412,7 +439,7 @@ namespace telebip_erp.Forms.Modules
         {
             try
             {
-                string whereClause = BuildDateWhereClause(dateRange, "VENDA");
+                string whereClause = BuildDateWhereClause(dateRange, "v");
 
                 string sql = $@"
                     SELECT 
@@ -442,7 +469,7 @@ namespace telebip_erp.Forms.Modules
         {
             try
             {
-                string whereClause = BuildDateWhereClause(dateRange, "VENDA");
+                string whereClause = BuildDateWhereClause(dateRange, "v");
 
                 string sql = $@"
                     SELECT 
@@ -538,7 +565,7 @@ namespace telebip_erp.Forms.Modules
         {
             try
             {
-                string whereClause = BuildDateWhereClause(dateRange, "MOVIMENTACAO_ESTOQUE");
+                string whereClause = BuildDateWhereClause(dateRange, "m");
 
                 string sql = $@"
                     SELECT 
@@ -945,14 +972,17 @@ namespace telebip_erp.Forms.Modules
             if (string.IsNullOrEmpty(periodo)) return null;
 
             var p = periodo.Trim().ToLowerInvariant();
+            // normalizações simples
+            p = p.Replace('á', 'a').Replace('é', 'e').Replace('í', 'i').Replace('ó', 'o').Replace('ú', 'u').Replace('ç', 'c');
+
             DateTime today = DateTime.Today;
             int anoAtual = today.Year;
 
-            // Filtro para "Ano de XXXX" (ano anterior completo)
+            // "Ano de YYYY"
             if (p.StartsWith("ano de "))
             {
                 string anoStr = p.Replace("ano de ", "").Trim();
-                if (int.TryParse(anoStr, out int anoEspecifico) && anoEspecifico >= 2000 && anoEspecifico <= 2100)
+                if (int.TryParse(anoStr, out int anoEspecifico) && anoEspecifico >= 1900 && anoEspecifico <= 2100)
                 {
                     DateTime start = new DateTime(anoEspecifico, 1, 1);
                     DateTime end = new DateTime(anoEspecifico, 12, 31, 23, 59, 59);
@@ -960,42 +990,48 @@ namespace telebip_erp.Forms.Modules
                 }
             }
 
-            if (p.Contains("este ano"))
+            if (p == "este ano")
             {
-                // Ano atual em andamento (1º de janeiro até hoje)
                 DateTime start = new DateTime(anoAtual, 1, 1);
-                return (start, today.AddDays(1).AddSeconds(-1));
+                DateTime end = today.AddDays(1).AddSeconds(-1);
+                return (start, end);
             }
 
-            if (p.Contains("hoje"))
+            if (p == "hoje")
                 return (today, today.AddDays(1).AddSeconds(-1));
 
-            if (p.Contains("ontem"))
+            if (p == "ontem")
             {
                 DateTime start = today.AddDays(-1);
                 return (start, start.AddDays(1).AddSeconds(-1));
             }
 
-            if (p.Contains("ultimos 7") || p.Contains("últimos 7"))
+            if (p == "esta semana")
             {
-                DateTime start = today.AddDays(-6);
-                return (start, today.AddDays(1).AddSeconds(-1));
+                // Considera semana começando na segunda-feira
+                int diff = (7 + (int)today.DayOfWeek - (int)DayOfWeek.Monday) % 7;
+                DateTime start = today.AddDays(-diff).Date;
+                DateTime end = today.AddDays(1).AddSeconds(-1);
+                return (start, end);
             }
 
-            if (p.Contains("ultimos 30") || p.Contains("últimos 30"))
-            {
-                DateTime start = today.AddDays(-29);
-                return (start, today.AddDays(1).AddSeconds(-1));
-            }
-
-            if (p.Contains("este mes") || p.Contains("este mês"))
+            if (p == "este mes" || p == "este mês")
             {
                 DateTime start = new DateTime(anoAtual, today.Month, 1);
                 DateTime end = start.AddMonths(1).AddSeconds(-1);
                 return (start, end);
             }
 
-            if (p.Contains("este semestre"))
+            if (p == "este bimestre")
+            {
+                // Bimestres: Jan-Feb, Mar-Apr, May-Jun, Jul-Aug, Sep-Oct, Nov-Dec (2 meses)
+                int bimestreIndex = ((today.Month - 1) / 2); // 0..5
+                DateTime start = new DateTime(anoAtual, bimestreIndex * 2 + 1, 1);
+                DateTime end = start.AddMonths(2).AddSeconds(-1);
+                return (start, end);
+            }
+
+            if (p == "este semestre")
             {
                 int semestre = today.Month <= 6 ? 1 : 2;
                 DateTime start = new DateTime(anoAtual, (semestre - 1) * 6 + 1, 1);
@@ -1003,23 +1039,37 @@ namespace telebip_erp.Forms.Modules
                 return (start, end);
             }
 
-            if (p.Contains("semestre passado"))
+            if (p == "semestre passado")
             {
-                int semestrePassado = today.Month <= 6 ? 2 : 1;
-                int ano = semestrePassado == 2 ? anoAtual - 1 : anoAtual;
-                DateTime start = new DateTime(ano, (semestrePassado - 1) * 6 + 1, 1);
+                // se estamos no 1º semestre, semestre passado = 2º semestre do ano anterior
+                bool estamosPrimeiroSemestre = today.Month <= 6;
+                int ano = estamosPrimeiroSemestre ? anoAtual - 1 : anoAtual;
+                int semestre = estamosPrimeiroSemestre ? 2 : 1;
+                DateTime start = new DateTime(ano, (semestre - 1) * 6 + 1, 1);
                 DateTime end = start.AddMonths(6).AddSeconds(-1);
                 return (start, end);
             }
 
-            if (p.Contains("ultimos 12") || p.Contains("últimos 12"))
+            if (p == "ultimos anos" || p == "ultimos anos" /* sem acento */)
             {
-                DateTime start = today.AddDays(-364);
+                // Interpretação: pegar o ano anterior completo até hoje.
+                // Se quiser outro comportamento (ex.: últimos N anos), me fala.
+                int anoAnterior = anoAtual - 1;
+                DateTime start = new DateTime(anoAnterior, 1, 1);
+                DateTime end = today.AddDays(1).AddSeconds(-1);
+                return (start, end);
+            }
+
+            if (p == "ultimos 12 meses" || p == "ultimos 12 meses" || p == "ultimos 12 mes")
+            {
+                DateTime start = today.AddMonths(-12).AddDays(1); // aproximadamente 12 meses atrás
                 return (start, today.AddDays(1).AddSeconds(-1));
             }
 
+            // Se não reconheceu, retorna null para não filtrar por data
             return null;
         }
+
 
         private void btnExportarExcel_Click(object sender, EventArgs e)
         {

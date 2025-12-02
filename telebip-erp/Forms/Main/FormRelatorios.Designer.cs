@@ -49,6 +49,7 @@ namespace telebip_erp.Forms.Modules
             lblValor4 = new Label();
             lblTitulo4 = new Label();
             pnlFiltros = new Panel();
+            btnLimpar = new CuoreUI.Controls.cuiButton();
             lblRelatorio = new Label();
             pnlWrapperTipoRelatorio = new telebip_erp.Controls.RoundedPanel();
             picTipoArrow = new PictureBox();
@@ -59,7 +60,6 @@ namespace telebip_erp.Forms.Modules
             btnGerarRelatorio = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
             lblTitulo = new Label();
-            btnLimpar = new CuoreUI.Controls.cuiButton();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
             pnlTabela.SuspendLayout();
@@ -438,6 +438,45 @@ namespace telebip_erp.Forms.Modules
             pnlFiltros.Size = new Size(1362, 57);
             pnlFiltros.TabIndex = 0;
             // 
+            // btnLimpar
+            // 
+            btnLimpar.CheckButton = false;
+            btnLimpar.Checked = false;
+            btnLimpar.CheckedBackground = Color.FromArgb(255, 106, 0);
+            btnLimpar.CheckedForeColor = Color.White;
+            btnLimpar.CheckedImageTint = Color.White;
+            btnLimpar.CheckedOutline = Color.FromArgb(255, 106, 0);
+            btnLimpar.Content = "Limpar";
+            btnLimpar.DialogResult = DialogResult.None;
+            btnLimpar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnLimpar.ForeColor = Color.White;
+            btnLimpar.HoverBackground = Color.White;
+            btnLimpar.HoverForeColor = Color.Black;
+            btnLimpar.HoverImageTint = Color.White;
+            btnLimpar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
+            btnLimpar.Image = null;
+            btnLimpar.ImageAutoCenter = true;
+            btnLimpar.ImageExpand = new Point(0, 0);
+            btnLimpar.ImageOffset = new Point(0, 0);
+            btnLimpar.Location = new Point(808, 10);
+            btnLimpar.Margin = new Padding(3, 0, 10, 0);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.NormalBackground = Color.FromArgb(120, 40, 40);
+            btnLimpar.NormalForeColor = Color.White;
+            btnLimpar.NormalImageTint = Color.White;
+            btnLimpar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
+            btnLimpar.OutlineThickness = 1F;
+            btnLimpar.PressedBackground = Color.WhiteSmoke;
+            btnLimpar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnLimpar.PressedImageTint = Color.White;
+            btnLimpar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
+            btnLimpar.Rounding = new Padding(8);
+            btnLimpar.Size = new Size(120, 36);
+            btnLimpar.TabIndex = 15;
+            btnLimpar.TextAlignment = StringAlignment.Center;
+            btnLimpar.TextOffset = new Point(0, 0);
+            btnLimpar.Click += btnLimpar_Click;
+            // 
             // lblRelatorio
             // 
             lblRelatorio.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
@@ -486,7 +525,7 @@ namespace telebip_erp.Forms.Modules
             cbTipoRelatorio.FormattingEnabled = true;
             cbTipoRelatorio.ItemEntryHeight = 24;
             cbTipoRelatorio.ItemHeight = 17;
-            cbTipoRelatorio.Items.AddRange(new object[] { "Vendas do período", "Produtos mais vendidos", "Vendas por funcionário", "Produtos com baixo estoque", "Formas de pagamento", "Vendas por categoria", "Movimentação de estoque", "Lucro bruto por produto", "Tendência de vendas" });
+            cbTipoRelatorio.Items.AddRange(new object[] { "Vendas do período", "Produtos mais vendidos", "Vendas por funcionário", "Produtos com baixo estoque", "Formas de pagamento", "Vendas por Marca", "Movimentação de estoque" });
             cbTipoRelatorio.Location = new Point(6, 6);
             cbTipoRelatorio.Margin = new Padding(0);
             cbTipoRelatorio.Name = "cbTipoRelatorio";
@@ -532,7 +571,7 @@ namespace telebip_erp.Forms.Modules
             cbPeriodo.FormattingEnabled = true;
             cbPeriodo.ItemEntryHeight = 24;
             cbPeriodo.ItemHeight = 17;
-            cbPeriodo.Items.AddRange(new object[] { "Hoje", "Ontem", "Últimos 7 dias", "Últimos 30 dias", "Este mês", "Mês passado", "Ano atual" });
+            cbPeriodo.Items.AddRange(new object[] { "Hoje", "Esta Semana", "Este mês", "Este Bimestre", "Este Semestre", "Semestre Passado", "Este Ano", "Ultimos anos" });
             cbPeriodo.Location = new Point(8, 6);
             cbPeriodo.Margin = new Padding(3, 0, 10, 0);
             cbPeriodo.Name = "cbPeriodo";
@@ -600,45 +639,6 @@ namespace telebip_erp.Forms.Modules
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Relatórios e Análises";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // btnLimpar
-            // 
-            btnLimpar.CheckButton = false;
-            btnLimpar.Checked = false;
-            btnLimpar.CheckedBackground = Color.FromArgb(255, 106, 0);
-            btnLimpar.CheckedForeColor = Color.White;
-            btnLimpar.CheckedImageTint = Color.White;
-            btnLimpar.CheckedOutline = Color.FromArgb(255, 106, 0);
-            btnLimpar.Content = "Limpar";
-            btnLimpar.DialogResult = DialogResult.None;
-            btnLimpar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnLimpar.ForeColor = Color.White;
-            btnLimpar.HoverBackground = Color.White;
-            btnLimpar.HoverForeColor = Color.Black;
-            btnLimpar.HoverImageTint = Color.White;
-            btnLimpar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
-            btnLimpar.Image = null;
-            btnLimpar.ImageAutoCenter = true;
-            btnLimpar.ImageExpand = new Point(0, 0);
-            btnLimpar.ImageOffset = new Point(0, 0);
-            btnLimpar.Location = new Point(808, 10);
-            btnLimpar.Margin = new Padding(3, 0, 10, 0);
-            btnLimpar.Name = "btnLimpar";
-            btnLimpar.NormalBackground = Color.FromArgb(120, 40, 40);
-            btnLimpar.NormalForeColor = Color.White;
-            btnLimpar.NormalImageTint = Color.White;
-            btnLimpar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
-            btnLimpar.OutlineThickness = 1F;
-            btnLimpar.PressedBackground = Color.WhiteSmoke;
-            btnLimpar.PressedForeColor = Color.FromArgb(32, 32, 32);
-            btnLimpar.PressedImageTint = Color.White;
-            btnLimpar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
-            btnLimpar.Rounding = new Padding(8);
-            btnLimpar.Size = new Size(120, 36);
-            btnLimpar.TabIndex = 15;
-            btnLimpar.TextAlignment = StringAlignment.Center;
-            btnLimpar.TextOffset = new Point(0, 0);
-            btnLimpar.Click += btnLimpar_Click;
             // 
             // FormRelatorios
             // 

@@ -75,9 +75,7 @@ namespace telebip_erp.Forms.Modules
             // Evento de scroll para carregamento incremental
             dgvEstoque.Scroll += DgvEstoque_Scroll;
 
-            // Ajuste de tamanho quando redimensionar
-            this.Resize += DgvEstoque_Resize;
-            dgvEstoque.Resize += DgvEstoque_Resize;
+
         }
 
         private void AplicarEstilosVisuais()
@@ -224,10 +222,10 @@ namespace telebip_erp.Forms.Modules
             dgvEstoque.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvEstoque.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
 
-            // Linhas
+            // Linhas (agora centralizadas)
             var cellStyle = new DataGridViewCellStyle
             {
-                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                Alignment = DataGridViewContentAlignment.MiddleCenter, // <-- centraliza o conteúdo das células
                 BackColor = background,
                 Font = new Font("Segoe UI", 9F),
                 ForeColor = fore,
@@ -242,10 +240,10 @@ namespace telebip_erp.Forms.Modules
             dgvEstoque.AlternatingRowsDefaultCellStyle = altCellStyle;
             dgvEstoque.RowTemplate.Height = 35;
 
-            // Garante alinhamento das colunas à esquerda
+            // Garante alinhamento central das colunas e dos cabeçalhos
             foreach (DataGridViewColumn coluna in dgvEstoque.Columns)
             {
-                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
@@ -275,9 +273,9 @@ namespace telebip_erp.Forms.Modules
             {
                 var coluna = dgvEstoque.Columns[i];
 
-                // Define propriedades comuns
-                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                // Define propriedades comuns - centralizadas
+                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 // Se for a última coluna, configura como fill
                 if (i == dgvEstoque.Columns.Count - 1)
@@ -296,85 +294,70 @@ namespace telebip_erp.Forms.Modules
             // Configura cabeçalhos específicos
             ConfigurarCabecalhosColunas();
 
-            // Aplica o redimensionamento após carregar os dados
-            dgvEstoque.DataBindingComplete += (s, e) => AjustarLarguraColunasFixas();
         }
 
         private void ConfigurarCabecalhosColunas()
         {
-            // Configura os textos dos cabeçalhos
+            // Configura os textos dos cabeçalhos e garante alinhamento central
             if (dgvEstoque.Columns.Contains("ID_PRODUTO"))
             {
-                dgvEstoque.Columns["ID_PRODUTO"].HeaderText = "ID";
-                dgvEstoque.Columns["ID_PRODUTO"].Width = 60;
+                var c = dgvEstoque.Columns["ID_PRODUTO"];
+                c.HeaderText = "ID";
+                c.Width = 60;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             if (dgvEstoque.Columns.Contains("NOME"))
             {
-                dgvEstoque.Columns["NOME"].HeaderText = "Nome do Produto";
-                dgvEstoque.Columns["NOME"].MinimumWidth = 150;
+                var c = dgvEstoque.Columns["NOME"];
+                c.HeaderText = "Nome do Produto";
+                c.MinimumWidth = 150;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             if (dgvEstoque.Columns.Contains("MARCA"))
             {
-                dgvEstoque.Columns["MARCA"].HeaderText = "Marca";
-                dgvEstoque.Columns["MARCA"].MinimumWidth = 120;
+                var c = dgvEstoque.Columns["MARCA"];
+                c.HeaderText = "Marca";
+                c.MinimumWidth = 120;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             if (dgvEstoque.Columns.Contains("PRECO"))
             {
-                dgvEstoque.Columns["PRECO"].HeaderText = "Preço";
-                dgvEstoque.Columns["PRECO"].DefaultCellStyle.Format = "C2";
-                dgvEstoque.Columns["PRECO"].Width = 90;
+                var c = dgvEstoque.Columns["PRECO"];
+                c.HeaderText = "Preço";
+                c.DefaultCellStyle.Format = "C2";
+                c.Width = 90;
+                c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             if (dgvEstoque.Columns.Contains("QTD_ESTOQUE"))
             {
-                dgvEstoque.Columns["QTD_ESTOQUE"].HeaderText = "Estoque Atual";
-                dgvEstoque.Columns["QTD_ESTOQUE"].Width = 100;
+                var c = dgvEstoque.Columns["QTD_ESTOQUE"];
+                c.HeaderText = "Estoque Atual";
+                c.Width = 100;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             if (dgvEstoque.Columns.Contains("QTD_AVISO"))
             {
-                dgvEstoque.Columns["QTD_AVISO"].HeaderText = "Estoque Mínimo";
-                dgvEstoque.Columns["QTD_AVISO"].Width = 110;
+                var c = dgvEstoque.Columns["QTD_AVISO"];
+                c.HeaderText = "Estoque Mínimo";
+                c.Width = 110;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             if (dgvEstoque.Columns.Contains("OBSERVACAO"))
             {
-                dgvEstoque.Columns["OBSERVACAO"].HeaderText = "Observações";
+                var c = dgvEstoque.Columns["OBSERVACAO"];
+                c.HeaderText = "Observações";
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
-        }
-
-        private void AjustarLarguraColunasFixas()
-        {
-            if (dgvEstoque.Columns.Count == 0) return;
-
-            int larguraTotalFixas = 0;
-            for (int i = 0; i < dgvEstoque.Columns.Count - 1; i++)
-            {
-                larguraTotalFixas += dgvEstoque.Columns[i].Width;
-            }
-
-            int margem = SystemInformation.VerticalScrollBarWidth + 2;
-
-            if (larguraTotalFixas + margem > dgvEstoque.ClientSize.Width)
-            {
-                dgvEstoque.Columns[dgvEstoque.Columns.Count - 1].Width = 100;
-            }
-            else
-            {
-                int restante = dgvEstoque.ClientSize.Width - larguraTotalFixas - margem;
-                if (restante > 100)
-                    dgvEstoque.Columns[dgvEstoque.Columns.Count - 1].Width = restante;
-                else
-                    dgvEstoque.Columns[dgvEstoque.Columns.Count - 1].Width = 100;
-            }
-        }
-
-        private void DgvEstoque_Resize(object sender, EventArgs e)
-        {
-            AjustarLarguraColunasFixas();
         }
         #endregion
 
