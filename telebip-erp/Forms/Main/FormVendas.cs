@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
-using System.Collections.Generic;
+using telebip_erp.Forms.Auth;
 using telebip_erp.Forms.SubForms;
+using System.ComponentModel;
 
 namespace telebip_erp.Forms.Modules
 {
-    public partial class FormVendas : Form
+    public partial class FormVendas : FormLoadForm
     {
         private string textoPesquisa = "";
         private readonly string placeholder = "Digite para pesquisar...";

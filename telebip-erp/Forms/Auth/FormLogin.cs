@@ -12,7 +12,7 @@ using MaterialSkin.Controls;
 
 namespace telebip_erp.Forms.Auth
 {
-    public partial class FormLogin : MaterialForm
+    public partial class FormLogin : FormLoad
     {
         private bool senhaVisivel = false;
         private Bitmap eyeOpenBmp;

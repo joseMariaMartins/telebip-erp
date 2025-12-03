@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
+using telebip_erp.Forms.Auth;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormAlteracaoSenhaFuncionario : MaterialForm
+    public partial class FormAlteracaoSenhaFuncionario : FormLoad
     {
         private Bitmap eyeOpenBmp;
         private Bitmap eyeClosedBmp;

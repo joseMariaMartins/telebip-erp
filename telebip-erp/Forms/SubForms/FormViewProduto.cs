@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
+using telebip_erp.Forms.Auth;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormViewProduto : MaterialForm
+    public partial class FormViewProduto : FormLoad
     {
         public FormViewProduto()
         {

@@ -158,7 +158,7 @@ namespace telebip_erp.Forms.Modules
             grpEmail.Margin = new Padding(0, 0, 0, 20);
             grpEmail.Name = "grpEmail";
             grpEmail.Padding = new Padding(20);
-            grpEmail.Size = new Size(801, 245);
+            grpEmail.Size = new Size(784, 245);
             grpEmail.TabIndex = 0;
             grpEmail.TabStop = false;
             grpEmail.Text = "📧 CONFIGURAÇÃO DE E-MAIL";
@@ -197,7 +197,7 @@ namespace telebip_erp.Forms.Modules
             btnAlterarEmail.PressedImageTint = Color.White;
             btnAlterarEmail.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnAlterarEmail.Rounding = new Padding(10);
-            btnAlterarEmail.Size = new Size(750, 45);
+            btnAlterarEmail.Size = new Size(733, 45);
             btnAlterarEmail.TabIndex = 5;
             btnAlterarEmail.TextAlignment = StringAlignment.Center;
             btnAlterarEmail.TextOffset = new Point(0, 0);
@@ -214,7 +214,7 @@ namespace telebip_erp.Forms.Modules
             roundedPanel1.Location = new Point(25, 75);
             roundedPanel1.Name = "roundedPanel1";
             roundedPanel1.Padding = new Padding(15, 10, 15, 10);
-            roundedPanel1.Size = new Size(750, 44);
+            roundedPanel1.Size = new Size(733, 44);
             roundedPanel1.TabIndex = 4;
             // 
             // tbEmail
@@ -227,7 +227,7 @@ namespace telebip_erp.Forms.Modules
             tbEmail.Location = new Point(15, 10);
             tbEmail.Margin = new Padding(0);
             tbEmail.Name = "tbEmail";
-            tbEmail.Size = new Size(720, 20);
+            tbEmail.Size = new Size(703, 20);
             tbEmail.TabIndex = 1;
             // 
             // lblEmail
@@ -237,7 +237,7 @@ namespace telebip_erp.Forms.Modules
             lblEmail.ForeColor = Color.WhiteSmoke;
             lblEmail.Location = new Point(25, 45);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(750, 25);
+            lblEmail.Size = new Size(733, 25);
             lblEmail.TabIndex = 0;
             lblEmail.Text = "E-mail de envio (SMTP)";
             lblEmail.TextAlign = ContentAlignment.MiddleLeft;
@@ -249,7 +249,7 @@ namespace telebip_erp.Forms.Modules
             lblEmailHelp.ForeColor = Color.LightGray;
             lblEmailHelp.Location = new Point(25, 180);
             lblEmailHelp.Name = "lblEmailHelp";
-            lblEmailHelp.Size = new Size(750, 20);
+            lblEmailHelp.Size = new Size(733, 20);
             lblEmailHelp.TabIndex = 6;
             lblEmailHelp.Text = "E-mail usado para notificações e recuperação. Use um e-mail dedicado para envio automático do sistema.";
             // 
@@ -265,7 +265,7 @@ namespace telebip_erp.Forms.Modules
             grpSenha.Margin = new Padding(0, 0, 0, 20);
             grpSenha.Name = "grpSenha";
             grpSenha.Padding = new Padding(20);
-            grpSenha.Size = new Size(801, 180);
+            grpSenha.Size = new Size(784, 180);
             grpSenha.TabIndex = 1;
             grpSenha.TabStop = false;
             grpSenha.Text = "🔐 ALTERAÇÃO DE SENHA";
@@ -283,7 +283,7 @@ namespace telebip_erp.Forms.Modules
             tableLayoutPanel1.Padding = new Padding(5, 15, 5, 15);
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(761, 100);
+            tableLayoutPanel1.Size = new Size(744, 100);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // btnGerente
@@ -320,7 +320,7 @@ namespace telebip_erp.Forms.Modules
             btnGerente.PressedImageTint = Color.White;
             btnGerente.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnGerente.Rounding = new Padding(12);
-            btnGerente.Size = new Size(362, 64);
+            btnGerente.Size = new Size(354, 64);
             btnGerente.TabIndex = 10;
             btnGerente.TextAlignment = StringAlignment.Center;
             btnGerente.TextOffset = new Point(0, 0);
@@ -346,7 +346,7 @@ namespace telebip_erp.Forms.Modules
             btnFuncionario.ImageAutoCenter = true;
             btnFuncionario.ImageExpand = new Point(0, 0);
             btnFuncionario.ImageOffset = new Point(0, 0);
-            btnFuncionario.Location = new Point(390, 18);
+            btnFuncionario.Location = new Point(382, 18);
             btnFuncionario.Margin = new Padding(10, 3, 3, 3);
             btnFuncionario.Name = "btnFuncionario";
             btnFuncionario.NormalBackground = Color.FromArgb(50, 52, 70);
@@ -359,7 +359,7 @@ namespace telebip_erp.Forms.Modules
             btnFuncionario.PressedImageTint = Color.White;
             btnFuncionario.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnFuncionario.Rounding = new Padding(12);
-            btnFuncionario.Size = new Size(363, 64);
+            btnFuncionario.Size = new Size(354, 64);
             btnFuncionario.TabIndex = 11;
             btnFuncionario.TextAlignment = StringAlignment.Center;
             btnFuncionario.TextOffset = new Point(0, 0);
@@ -642,7 +642,6 @@ namespace telebip_erp.Forms.Modules
             Controls.Add(pnlContainer);
             Font = new Font("Segoe UI", 9F);
             ForeColor = Color.White;
-            FormBorderStyle = FormBorderStyle.None;
             MinimumSize = new Size(1000, 644);
             Name = "FormConfiguracoes";
             StartPosition = FormStartPosition.CenterScreen;

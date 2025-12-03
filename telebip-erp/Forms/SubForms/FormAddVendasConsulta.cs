@@ -1,18 +1,19 @@
-﻿using System;
-using System.Data.SQLite;
-using System.Globalization;
-using System.Windows.Forms;
-using System.Xml.Linq;
-using MaterialSkin;
+﻿using MaterialSkin;
 using MaterialSkin.Controls;
-using telebip_erp.Forms.SubSubForms;
+using System;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.Linq;
+using System.Windows.Forms;
+using System.Xml.Linq;
+using telebip_erp.Forms.Auth;
+using telebip_erp.Forms.SubSubForms;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormAddVendasConsulta : MaterialForm
+    public partial class FormAddVendasConsulta : FormLoad
     {
         // Flags de controle
         private bool _ignorarEventoPrecoProduto = false;

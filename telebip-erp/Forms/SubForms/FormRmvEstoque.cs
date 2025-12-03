@@ -3,10 +3,11 @@ using System.Data.SQLite;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
 using CuoreUI.Controls;
+using telebip_erp.Forms.Auth;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormRmvEstoque : MaterialForm
+    public partial class FormRmvEstoque : FormLoad
     {
         private readonly int idProduto;
         private readonly string nomeProduto;
@@ -49,13 +50,6 @@ namespace telebip_erp.Forms.SubForms
                 }
             };
 
-            cbExcluirProduto.KeyDown += (sender, e) => {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    e.SuppressKeyPress = true;
-                    btnConfirmar_Click(btnConfirmar, EventArgs.Empty);
-                }
-            };
 
             cbFuncionarios.KeyDown += (sender, e) => {
                 if (e.KeyCode == Keys.Enter)
@@ -118,9 +112,6 @@ namespace telebip_erp.Forms.SubForms
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (cbExcluirProduto.Checked)
-                ExcluirProduto();
-            else
                 RemoverQuantidade();
         }
 
@@ -180,58 +171,6 @@ namespace telebip_erp.Forms.SubForms
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao remover quantidade: " + ex.Message);
-            }
-        }
-
-        private void ExcluirProduto()
-        {
-            if (cbFuncionarios.SelectedItem == null)
-            {
-                MessageBox.Show("Selecione o funcionário responsável pela exclusão do produto.",
-                                "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cbFuncionarios.Focus();
-                return;
-            }
-
-            string nomeFuncionario = cbFuncionarios.SelectedItem.ToString();
-
-            var confirm = MessageBox.Show(
-                "Tem certeza que deseja excluir este produto do sistema? Essa ação não pode ser desfeita.",
-                "Confirmação de exclusão",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
-            );
-
-            if (confirm != DialogResult.Yes) return;
-
-            try
-            {
-                string sqlMov = @"
-                    INSERT INTO MOVIMENTACAO_ESTOQUE 
-                    (ID_PRODUTO, NOME_FUNCIONARIO, TIPO_MOVIMENTACAO, QUANTIDADE, DATA_HORA)
-                    VALUES (@idProd, @func, 'SAIDA', @qtd, strftime('%d-%m-%Y %H:%M','now','localtime'));
-                ";
-
-                DatabaseHelper.ExecuteNonQuery(sqlMov, new SQLiteParameter[]
-                {
-                    new SQLiteParameter("@idProd", idProduto),
-                    new SQLiteParameter("@func", nomeFuncionario),
-                    new SQLiteParameter("@qtd", quantidadeAtual)
-                });
-
-                string sql = "DELETE FROM PRODUTO WHERE ID_PRODUTO = @id";
-                DatabaseHelper.ExecuteNonQuery(sql, new SQLiteParameter[]
-                {
-                    new SQLiteParameter("@id", idProduto)
-                });
-
-                AtualizarEstoqueCallback?.Invoke();
-                MessageBox.Show("Produto excluído com sucesso!");
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao excluir produto: " + ex.Message);
             }
         }
 

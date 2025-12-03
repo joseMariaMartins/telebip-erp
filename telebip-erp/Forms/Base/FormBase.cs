@@ -1,20 +1,21 @@
 ﻿using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using telebip_erp.Forms.Auth;
 using telebip_erp.Forms.Main;
 using telebip_erp.Forms.Modules;
 using telebip_erp.Forms.SubForms;
-using System.IO;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace telebip_erp
 {
-    public partial class FormBase : MaterialForm
+    public partial class FormBase : FormLoad
     {
         #region Variáveis
         private FormInicial? inicial = null;

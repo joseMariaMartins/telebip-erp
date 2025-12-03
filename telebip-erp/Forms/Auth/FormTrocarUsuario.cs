@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace telebip_erp.Forms.Auth
 {
-    public partial class FormTrocarUsuario : MaterialForm
+    public partial class FormTrocarUsuario : FormLoad
     {
         private bool senhaVisivel = false;
         private Bitmap eyeOpenBmp;

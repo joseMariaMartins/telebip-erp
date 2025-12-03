@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MaterialSkin;
+using System;
 using System.Data.SQLite;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
-using MaterialSkin;
-using System.Drawing;
+using telebip_erp.Forms.Auth;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormAddEstoque : MaterialSkin.Controls.MaterialForm
+    public partial class FormAddEstoque : FormLoad
     {
         private bool _ignorarEventoPreco = false;
         public (int Id, string Nome, int Quantidade)? ProdutoSelecionado { get; set; }

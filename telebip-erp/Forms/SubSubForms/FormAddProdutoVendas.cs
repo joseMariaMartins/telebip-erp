@@ -1,17 +1,18 @@
-﻿using System;
+﻿using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
-using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
-using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
+using telebip_erp.Forms.Auth;
 using telebip_erp.Forms.SubForms;
 
 namespace telebip_erp.Forms.SubSubForms
 {
-    public partial class FormAddProdutoVendas : MaterialForm
+    public partial class FormAddProdutoVendas : FormLoad
     {
         private readonly Dictionary<string, string> campoMap = new Dictionary<string, string>
         {

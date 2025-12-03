@@ -8,10 +8,11 @@ using System.Drawing.Printing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using telebip_erp.Forms.Auth;
 
 namespace telebip_erp.Forms.Modules
 {
-    public partial class FormRelatorios : Form
+    public partial class FormRelatorios : FormLoadForm
     {
         private FormVendas vendas;
         private FormEstoque estoque;

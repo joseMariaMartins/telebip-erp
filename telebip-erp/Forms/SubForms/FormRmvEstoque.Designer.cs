@@ -20,7 +20,6 @@ namespace telebip_erp.Forms.SubForms
             cbFuncionarios = new telebip_erp.Controls.NeoFlatComboBox();
             lblFuncionario = new Label();
             lbQuantidadeAtual = new Label();
-            cbExcluirProduto = new CheckBox();
             btnCancelar = new CuoreUI.Controls.cuiButton();
             btnConfirmar = new CuoreUI.Controls.cuiButton();
             pnlBgQuantidade = new telebip_erp.Controls.RoundedPanel();
@@ -45,7 +44,7 @@ namespace telebip_erp.Forms.SubForms
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(3, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(455, 385);
+            pnlContainer.Size = new Size(449, 373);
             pnlContainer.TabIndex = 0;
             // 
             // pnlMain
@@ -54,7 +53,6 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.Controls.Add(pnlWrapperFuncionarios);
             pnlMain.Controls.Add(lblFuncionario);
             pnlMain.Controls.Add(lbQuantidadeAtual);
-            pnlMain.Controls.Add(cbExcluirProduto);
             pnlMain.Controls.Add(btnCancelar);
             pnlMain.Controls.Add(btnConfirmar);
             pnlMain.Controls.Add(pnlBgQuantidade);
@@ -64,7 +62,7 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
             pnlMain.Padding = new Padding(30);
-            pnlMain.Size = new Size(455, 325);
+            pnlMain.Size = new Size(449, 313);
             pnlMain.TabIndex = 1;
             // 
             // pnlWrapperFuncionarios
@@ -134,19 +132,6 @@ namespace telebip_erp.Forms.SubForms
             lbQuantidadeAtual.Text = "Estoque atual: 0 unidades";
             lbQuantidadeAtual.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // cbExcluirProduto
-            // 
-            cbExcluirProduto.AutoSize = true;
-            cbExcluirProduto.BackColor = Color.Transparent;
-            cbExcluirProduto.Font = new Font("Segoe UI", 9F);
-            cbExcluirProduto.ForeColor = Color.White;
-            cbExcluirProduto.Location = new Point(33, 230);
-            cbExcluirProduto.Name = "cbExcluirProduto";
-            cbExcluirProduto.Size = new Size(171, 19);
-            cbExcluirProduto.TabIndex = 5;
-            cbExcluirProduto.Text = "Excluir produto do sistema?";
-            cbExcluirProduto.UseVisualStyleBackColor = false;
-            // 
             // btnCancelar
             // 
             btnCancelar.CheckButton = false;
@@ -167,7 +152,7 @@ namespace telebip_erp.Forms.SubForms
             btnCancelar.ImageAutoCenter = true;
             btnCancelar.ImageExpand = new Point(0, 0);
             btnCancelar.ImageOffset = new Point(0, 0);
-            btnCancelar.Location = new Point(33, 265);
+            btnCancelar.Location = new Point(33, 246);
             btnCancelar.Margin = new Padding(3, 0, 10, 0);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.NormalBackground = Color.FromArgb(120, 40, 40);
@@ -205,7 +190,7 @@ namespace telebip_erp.Forms.SubForms
             btnConfirmar.ImageAutoCenter = true;
             btnConfirmar.ImageExpand = new Point(0, 0);
             btnConfirmar.ImageOffset = new Point(0, 0);
-            btnConfirmar.Location = new Point(239, 265);
+            btnConfirmar.Location = new Point(239, 246);
             btnConfirmar.Margin = new Padding(3, 0, 10, 0);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.NormalBackground = Color.FromArgb(40, 120, 80);
@@ -281,7 +266,7 @@ namespace telebip_erp.Forms.SubForms
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Padding = new Padding(15);
-            pnlHeader.Size = new Size(455, 60);
+            pnlHeader.Size = new Size(449, 60);
             pnlHeader.TabIndex = 0;
             // 
             // lblTitulo
@@ -291,7 +276,7 @@ namespace telebip_erp.Forms.SubForms
             lblTitulo.ForeColor = Color.White;
             lblTitulo.Location = new Point(15, 15);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(425, 30);
+            lblTitulo.Size = new Size(419, 30);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Remover Produto";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
@@ -301,18 +286,17 @@ namespace telebip_erp.Forms.SubForms
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(28, 29, 40);
-            ClientSize = new Size(461, 412);
+            ClientSize = new Size(455, 400);
             Controls.Add(pnlContainer);
             FormStyle = FormStyles.ActionBar_None;
-            MaximumSize = new Size(461, 412);
-            MinimumSize = new Size(461, 412);
+            MaximumSize = new Size(455, 400);
+            MinimumSize = new Size(455, 400);
             Name = "FormRmvEstoque";
             Padding = new Padding(3, 24, 3, 3);
             StartPosition = FormStartPosition.CenterParent;
             Text = "FormRmvEstoque";
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);
-            pnlMain.PerformLayout();
             pnlWrapperFuncionarios.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picArrowFuncionarios).EndInit();
             pnlBgQuantidade.ResumeLayout(false);
@@ -337,9 +321,6 @@ namespace telebip_erp.Forms.SubForms
         // background (rounded) para TextBox
         private telebip_erp.Controls.RoundedPanel pnlBgQuantidade;
         public telebip_erp.Controls.PlaceholderTextBox tbQuantidadeRemover;
-
-        // CheckBox WinForms (leve)
-        public CheckBox cbExcluirProduto;
 
         // Labels
         public Label lbQuantidadeAtual;

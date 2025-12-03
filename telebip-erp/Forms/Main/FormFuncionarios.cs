@@ -3,12 +3,13 @@ using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
+using telebip_erp.Forms.Auth;
 using telebip_erp.Forms.SubForms;
 using telebip_erp.Forms.SubSubForms;
 
 namespace telebip_erp.Forms.Modules
 {
-    public partial class FormFuncionarios : Form
+    public partial class FormFuncionarios : FormLoadForm
     {
         private int? funcionarioSelecionadoId = null;
 

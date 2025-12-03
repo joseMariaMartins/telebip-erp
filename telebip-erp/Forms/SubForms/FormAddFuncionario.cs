@@ -1,15 +1,16 @@
-﻿using System;
-using System.Data;
-using System.Globalization;
-using System.Windows.Forms;
-using MaterialSkin;
+﻿using MaterialSkin;
 using MaterialSkin.Controls;
+using System;
+using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
+using System.Globalization;
+using System.Windows.Forms;
+using telebip_erp.Forms.Auth;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormAddFuncionario : MaterialForm
+    public partial class FormAddFuncionario : FormLoad
     {
         public FormAddFuncionario()
         {

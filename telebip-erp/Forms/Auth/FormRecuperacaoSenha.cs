@@ -12,7 +12,7 @@ using MaterialSkin.Controls;
 
 namespace telebip_erp.Forms.Auth
 {
-    public partial class FormRecuperacaoSenha : MaterialForm
+    public partial class FormRecuperacaoSenha : FormLoad
     {
         private const string RemetenteSuporte = "telebip.suporte@gmail.com";
 

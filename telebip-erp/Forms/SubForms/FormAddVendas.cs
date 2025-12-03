@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
 using System.Data;
 using System.Data.SQLite;
 using System.Globalization;
@@ -6,13 +8,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using MaterialSkin;
-using MaterialSkin.Controls;
+using telebip_erp.Forms.Auth;
 using telebip_erp.Forms.SubSubForms;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormAddVendas : MaterialForm
+    public partial class FormAddVendas : FormLoad
     {
         // Flags de controle
         private bool _ignorarEventoPrecoProduto = false;

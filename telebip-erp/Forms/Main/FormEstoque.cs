@@ -4,11 +4,12 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using telebip_erp.Forms.Auth;
 using telebip_erp.Forms.SubForms;
 
 namespace telebip_erp.Forms.Modules
 {
-    public partial class FormEstoque : Form
+    public partial class FormEstoque : FormLoadForm
     {
         private string _textoPesquisa = "";
         private readonly string _placeholder = "Digite para pesquisar...";

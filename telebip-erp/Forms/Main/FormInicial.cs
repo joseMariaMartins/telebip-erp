@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using telebip_erp.Forms.Auth;
 
 namespace telebip_erp.Forms.Main
 {
-    public partial class FormInicial : Form
+    public partial class FormInicial : FormLoadForm
     {
         public FormInicial()
         {

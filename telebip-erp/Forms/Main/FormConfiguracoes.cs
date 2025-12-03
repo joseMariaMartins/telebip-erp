@@ -1,18 +1,19 @@
-﻿using System;
+﻿using MaterialSkin.Controls;
+using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using MaterialSkin.Controls;
-using telebip_erp.Forms.SubForms;
+using telebip_erp.Forms.Auth;
 using telebip_erp.Forms.Main;
-using System.Collections.Generic;
-using System.Data.SQLite;
+using telebip_erp.Forms.SubForms;
 
 namespace telebip_erp.Forms.Modules
 {
-    public partial class FormConfiguracoes : Form
+    public partial class FormConfiguracoes : FormLoadForm
     {
         private readonly string caminhoBanco = Path.Combine(Application.StartupPath, "Database", "TeleBipDB.db");
 
@@ -98,7 +99,7 @@ namespace telebip_erp.Forms.Modules
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Erro ao atualizar info backup: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Erro ao atualizar info backup: {ex.Message}");
             }
         }
 
@@ -418,7 +419,7 @@ namespace telebip_erp.Forms.Modules
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Erro ao limpar sessão: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Erro ao limpar sessão: {ex.Message}");
             }
         }
 
@@ -450,13 +451,13 @@ namespace telebip_erp.Forms.Modules
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine($"Erro ao fechar form {form.Name}: {ex.Message}");
+                      
                     }
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Erro ao fechar forms: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Erro ao fechar forms: {ex.Message}");
             }
         }
     }
