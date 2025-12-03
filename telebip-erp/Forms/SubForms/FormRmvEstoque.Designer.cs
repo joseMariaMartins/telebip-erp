@@ -293,7 +293,7 @@ namespace telebip_erp.Forms.SubForms
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(425, 30);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Remover do Estoque";
+            lblTitulo.Text = "Remover Produto";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FormRmvEstoque

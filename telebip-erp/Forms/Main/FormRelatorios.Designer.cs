@@ -23,9 +23,9 @@ namespace telebip_erp.Forms.Modules
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRelatorios));
             pnlContainer = new Panel();
             pnlMain = new Panel();
@@ -124,26 +124,26 @@ namespace telebip_erp.Forms.Modules
             dgvRelatorios.BorderStyle = BorderStyle.None;
             dgvRelatorios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvRelatorios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.Padding = new Padding(8);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvRelatorios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.Padding = new Padding(8);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvRelatorios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvRelatorios.ColumnHeadersHeight = 40;
             dgvRelatorios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = Color.White;
-            dataGridViewCellStyle5.Padding = new Padding(8, 0, 8, 0);
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(80, 88, 255);
-            dataGridViewCellStyle5.SelectionForeColor = Color.White;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvRelatorios.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(8, 0, 8, 0);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvRelatorios.DefaultCellStyle = dataGridViewCellStyle2;
             dgvRelatorios.Dock = DockStyle.Fill;
             dgvRelatorios.EnableHeadersVisualStyles = false;
             dgvRelatorios.GridColor = Color.FromArgb(50, 52, 67);
@@ -154,12 +154,12 @@ namespace telebip_erp.Forms.Modules
             dgvRelatorios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvRelatorios.RowHeadersVisible = false;
             dgvRelatorios.RowHeadersWidth = 62;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(80, 88, 255);
-            dataGridViewCellStyle6.SelectionForeColor = Color.White;
-            dgvRelatorios.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dgvRelatorios.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvRelatorios.RowTemplate.Height = 36;
             dgvRelatorios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRelatorios.Size = new Size(1332, 327);
@@ -485,7 +485,7 @@ namespace telebip_erp.Forms.Modules
             lblRelatorio.Name = "lblRelatorio";
             lblRelatorio.Size = new Size(75, 36);
             lblRelatorio.TabIndex = 0;
-            lblRelatorio.Text = "Relatório:";
+            lblRelatorio.Text = "Filtros:";
             lblRelatorio.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // pnlWrapperTipoRelatorio

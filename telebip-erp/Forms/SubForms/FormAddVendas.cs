@@ -179,6 +179,12 @@ namespace telebip_erp.Forms.SubForms
 
         private void ConfigurarColunasDataGridView()
         {
+            // Oculta ID_TEMP, caso exista
+            if (dgvProdutoTemporarios.Columns.Contains("ID_TEMP"))
+            {
+                dgvProdutoTemporarios.Columns["ID_TEMP"].Visible = false;
+            }
+
             if (dgvProdutoTemporarios.Columns.Count == 0) return;
 
             // Remove o auto-size das colunas

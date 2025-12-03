@@ -127,47 +127,11 @@ namespace telebip_erp.Forms.SubSubForms
                 DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
                 dgvProdutosMini.DataSource = dt;
 
-                // Aparência: tornar igual ao dgvVendas
-                dgvProdutosMini.AllowUserToAddRows = false;
-                dgvProdutosMini.AllowUserToResizeColumns = false;
-                dgvProdutosMini.RowHeadersVisible = false;
+                // Aplica o tema zebrado igual ao dgvEstoque de referência
+                AplicarTemaZebradoDataGridView();
 
-                // Proteções caso colunas não existam
-                if (dgvProdutosMini.Columns.Contains("ID_PRODUTO")) dgvProdutosMini.Columns["ID_PRODUTO"].HeaderText = "ID";
-                if (dgvProdutosMini.Columns.Contains("NOME")) dgvProdutosMini.Columns["NOME"].HeaderText = "Nome";
-                if (dgvProdutosMini.Columns.Contains("MARCA")) dgvProdutosMini.Columns["MARCA"].HeaderText = "Marca";
-                if (dgvProdutosMini.Columns.Contains("PRECO")) dgvProdutosMini.Columns["PRECO"].HeaderText = "Preço";
-                if (dgvProdutosMini.Columns.Contains("QTD_ESTOQUE")) dgvProdutosMini.Columns["QTD_ESTOQUE"].HeaderText = "Qtd do estoque";
-                if (dgvProdutosMini.Columns.Contains("QTD_AVISO")) dgvProdutosMini.Columns["QTD_AVISO"].HeaderText = "Qtd de aviso";
-                if (dgvProdutosMini.Columns.Contains("OBSERVACAO")) dgvProdutosMini.Columns["OBSERVACAO"].HeaderText = "Observação";
-
-                // Centraliza cabeçalhos
-                foreach (DataGridViewColumn coluna in dgvProdutosMini.Columns)
-                    coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                // Ajustes: usar Fill e definir FillWeight (como em FormVendas)
-                dgvProdutosMini.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-                if (dgvProdutosMini.Columns.Contains("ID_PRODUTO")) dgvProdutosMini.Columns["ID_PRODUTO"].FillWeight = 12;
-                if (dgvProdutosMini.Columns.Contains("NOME")) dgvProdutosMini.Columns["NOME"].FillWeight = 30;
-                if (dgvProdutosMini.Columns.Contains("MARCA")) dgvProdutosMini.Columns["MARCA"].FillWeight = 18;
-                if (dgvProdutosMini.Columns.Contains("PRECO")) dgvProdutosMini.Columns["PRECO"].FillWeight = 12;
-                if (dgvProdutosMini.Columns.Contains("QTD_ESTOQUE")) dgvProdutosMini.Columns["QTD_ESTOQUE"].FillWeight = 8;
-                if (dgvProdutosMini.Columns.Contains("QTD_AVISO")) dgvProdutosMini.Columns["QTD_AVISO"].FillWeight = 8;
-                if (dgvProdutosMini.Columns.Contains("OBSERVACAO")) dgvProdutosMini.Columns["OBSERVACAO"].FillWeight = 20;
-
-                // Alinhamento de conteúdo
-                if (dgvProdutosMini.Columns.Contains("ID_PRODUTO")) dgvProdutosMini.Columns["ID_PRODUTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                if (dgvProdutosMini.Columns.Contains("NOME")) dgvProdutosMini.Columns["NOME"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                if (dgvProdutosMini.Columns.Contains("MARCA")) dgvProdutosMini.Columns["MARCA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                if (dgvProdutosMini.Columns.Contains("PRECO")) dgvProdutosMini.Columns["PRECO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                if (dgvProdutosMini.Columns.Contains("QTD_ESTOQUE")) dgvProdutosMini.Columns["QTD_ESTOQUE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                if (dgvProdutosMini.Columns.Contains("QTD_AVISO")) dgvProdutosMini.Columns["QTD_AVISO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                if (dgvProdutosMini.Columns.Contains("OBSERVACAO")) dgvProdutosMini.Columns["OBSERVACAO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-
-                // Formatação monetária
-                if (dgvProdutosMini.Columns.Contains("PRECO"))
-                    dgvProdutosMini.Columns["PRECO"].DefaultCellStyle.Format = "C2";
+                // Ajusta as colunas
+                ConfigurarColunasDataGridViewMini();
 
                 dgvProdutosMini.ClearSelection();
                 dgvProdutosMini.CurrentCell = null;
@@ -177,6 +141,177 @@ namespace telebip_erp.Forms.SubSubForms
                 MessageBox.Show("Erro ao carregar produtos: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        #region Configuração e Estilo do DataGridView (Tema Zebrado)
+        private void AplicarTemaZebradoDataGridView()
+        {
+            dgvProdutosMini.SuspendLayout();
+
+            // Cores idênticas ao tema de referência
+            Color background = Color.FromArgb(32, 33, 39);
+            Color backgroundAlt = Color.FromArgb(38, 39, 46);
+            Color headerBack = Color.FromArgb(40, 41, 52);
+            Color gridColor = Color.FromArgb(50, 52, 67);
+            Color selectionBack = Color.FromArgb(50, 90, 130);
+            Color fore = Color.White;
+
+            // Configurações gerais
+            dgvProdutosMini.BackgroundColor = background;
+            dgvProdutosMini.BorderStyle = BorderStyle.None;
+            dgvProdutosMini.GridColor = gridColor;
+            dgvProdutosMini.EnableHeadersVisualStyles = false;
+
+            // Cabeçalho
+            var headerStyle = new DataGridViewCellStyle
+            {
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                BackColor = headerBack,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = fore,
+                SelectionBackColor = headerBack,
+                SelectionForeColor = fore,
+                WrapMode = DataGridViewTriState.True
+            };
+            dgvProdutosMini.ColumnHeadersDefaultCellStyle = headerStyle;
+            dgvProdutosMini.ColumnHeadersHeight = 40;
+            dgvProdutosMini.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvProdutosMini.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+
+            // Linhas (agora centralizadas)
+            var cellStyle = new DataGridViewCellStyle
+            {
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                BackColor = background,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = fore,
+                SelectionBackColor = selectionBack,
+                SelectionForeColor = fore,
+                WrapMode = DataGridViewTriState.False
+            };
+            var altCellStyle = new DataGridViewCellStyle(cellStyle) { BackColor = backgroundAlt };
+
+            dgvProdutosMini.DefaultCellStyle = cellStyle;
+            dgvProdutosMini.RowsDefaultCellStyle = cellStyle;
+            dgvProdutosMini.AlternatingRowsDefaultCellStyle = altCellStyle; // Isso cria o efeito zebrado
+            dgvProdutosMini.RowTemplate.Height = 35;
+
+            // Garante alinhamento central das colunas e dos cabeçalhos
+            foreach (DataGridViewColumn coluna in dgvProdutosMini.Columns)
+            {
+                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            dgvProdutosMini.AllowUserToAddRows = false;
+            dgvProdutosMini.AllowUserToDeleteRows = false;
+            dgvProdutosMini.AllowUserToResizeRows = false;
+            dgvProdutosMini.MultiSelect = false;
+            dgvProdutosMini.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProdutosMini.ReadOnly = true;
+            dgvProdutosMini.RowHeadersVisible = false;
+            dgvProdutosMini.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvProdutosMini.ResumeLayout();
+        }
+
+        private void ConfigurarColunasDataGridViewMini()
+        {
+            if (dgvProdutosMini.Columns.Count == 0) return;
+
+            // Remove o auto-size das colunas
+            dgvProdutosMini.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // Configura todas as colunas como fixas, exceto a última
+            for (int i = 0; i < dgvProdutosMini.Columns.Count; i++)
+            {
+                var coluna = dgvProdutosMini.Columns[i];
+
+                // Define propriedades comuns - centralizadas
+                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                // Se for a última coluna, configura como fill
+                if (i == dgvProdutosMini.Columns.Count - 1)
+                {
+                    coluna.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    coluna.MinimumWidth = 100;
+                }
+                else
+                {
+                    // Colunas fixas
+                    coluna.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    coluna.Resizable = DataGridViewTriState.False;
+                }
+            }
+
+            // Configura cabeçalhos específicos
+            ConfigurarCabecalhosColunasMini();
+        }
+
+        private void ConfigurarCabecalhosColunasMini()
+        {
+            // Configura os textos dos cabeçalhos e garante alinhamento central
+            if (dgvProdutosMini.Columns.Contains("ID_PRODUTO"))
+            {
+                var c = dgvProdutosMini.Columns["ID_PRODUTO"];
+                c.HeaderText = "ID";
+                c.Width = 60;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgvProdutosMini.Columns.Contains("NOME"))
+            {
+                var c = dgvProdutosMini.Columns["NOME"];
+                c.HeaderText = "Nome do Produto";
+                c.MinimumWidth = 150;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgvProdutosMini.Columns.Contains("MARCA"))
+            {
+                var c = dgvProdutosMini.Columns["MARCA"];
+                c.HeaderText = "Marca";
+                c.MinimumWidth = 120;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgvProdutosMini.Columns.Contains("PRECO"))
+            {
+                var c = dgvProdutosMini.Columns["PRECO"];
+                c.HeaderText = "Preço";
+                c.DefaultCellStyle.Format = "C2";
+                c.Width = 90;
+                c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgvProdutosMini.Columns.Contains("QTD_ESTOQUE"))
+            {
+                var c = dgvProdutosMini.Columns["QTD_ESTOQUE"];
+                c.HeaderText = "Estoque Atual";
+                c.Width = 100;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgvProdutosMini.Columns.Contains("QTD_AVISO"))
+            {
+                var c = dgvProdutosMini.Columns["QTD_AVISO"];
+                c.HeaderText = "Estoque Mínimo";
+                c.Width = 110;
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgvProdutosMini.Columns.Contains("OBSERVACAO"))
+            {
+                var c = dgvProdutosMini.Columns["OBSERVACAO"];
+                c.HeaderText = "Observações";
+                c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+        }
+        #endregion
 
         private void CarregarProdutosInicial()
         {
@@ -221,34 +356,9 @@ namespace telebip_erp.Forms.SubSubForms
                 {
                     dgvProdutosMini.DataSource = dt;
 
-                    // aplica o mesmo visual que CarregarProdutos faria
-                    dgvProdutosMini.AllowUserToAddRows = false;
-                    dgvProdutosMini.AllowUserToResizeColumns = false;
-                    dgvProdutosMini.RowHeadersVisible = false;
-
-                    foreach (DataGridViewColumn coluna in dgvProdutosMini.Columns)
-                        coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                    dgvProdutosMini.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-                    if (dgvProdutosMini.Columns.Contains("ID_PRODUTO")) dgvProdutosMini.Columns["ID_PRODUTO"].FillWeight = 12;
-                    if (dgvProdutosMini.Columns.Contains("NOME")) dgvProdutosMini.Columns["NOME"].FillWeight = 30;
-                    if (dgvProdutosMini.Columns.Contains("MARCA")) dgvProdutosMini.Columns["MARCA"].FillWeight = 18;
-                    if (dgvProdutosMini.Columns.Contains("PRECO")) dgvProdutosMini.Columns["PRECO"].FillWeight = 12;
-                    if (dgvProdutosMini.Columns.Contains("QTD_ESTOQUE")) dgvProdutosMini.Columns["QTD_ESTOQUE"].FillWeight = 8;
-                    if (dgvProdutosMini.Columns.Contains("QTD_AVISO")) dgvProdutosMini.Columns["QTD_AVISO"].FillWeight = 8;
-                    if (dgvProdutosMini.Columns.Contains("OBSERVACAO")) dgvProdutosMini.Columns["OBSERVACAO"].FillWeight = 20;
-
-                    if (dgvProdutosMini.Columns.Contains("ID_PRODUTO")) dgvProdutosMini.Columns["ID_PRODUTO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    if (dgvProdutosMini.Columns.Contains("NOME")) dgvProdutosMini.Columns["NOME"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                    if (dgvProdutosMini.Columns.Contains("MARCA")) dgvProdutosMini.Columns["MARCA"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    if (dgvProdutosMini.Columns.Contains("PRECO")) dgvProdutosMini.Columns["PRECO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    if (dgvProdutosMini.Columns.Contains("QTD_ESTOQUE")) dgvProdutosMini.Columns["QTD_ESTOQUE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    if (dgvProdutosMini.Columns.Contains("QTD_AVISO")) dgvProdutosMini.Columns["QTD_AVISO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    if (dgvProdutosMini.Columns.Contains("OBSERVACAO")) dgvProdutosMini.Columns["OBSERVACAO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-
-                    if (dgvProdutosMini.Columns.Contains("PRECO"))
-                        dgvProdutosMini.Columns["PRECO"].DefaultCellStyle.Format = "C2";
+                    // Aplica o tema zebrado novamente após trocar o DataSource
+                    AplicarTemaZebradoDataGridView();
+                    ConfigurarColunasDataGridViewMini();
 
                     dgvProdutosMini.ClearSelection();
                     dgvProdutosMini.CurrentCell = null;

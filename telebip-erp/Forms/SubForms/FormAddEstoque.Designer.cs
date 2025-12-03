@@ -488,7 +488,7 @@ namespace telebip_erp.Forms.SubForms
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(622, 30);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Adicionar ao Estoque";
+            lblTitulo.Text = "Adicionar Produto";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FormAddEstoque

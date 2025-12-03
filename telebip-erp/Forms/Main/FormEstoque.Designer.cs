@@ -11,9 +11,9 @@
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormEstoque));
             pnlContainer = new Panel();
             pnlDgv = new Panel();
@@ -22,8 +22,8 @@
             lbTotal = new Label();
             pnlFiltros = new Panel();
             pnlWrapperCampo = new telebip_erp.Controls.RoundedPanel();
-            cbPesquisaCampo = new telebip_erp.Controls.NeoFlatComboBox();
             PictureImage2 = new PictureBox();
+            cbPesquisaCampo = new telebip_erp.Controls.NeoFlatComboBox();
             pnlWrapperCondicao = new telebip_erp.Controls.RoundedPanel();
             cbCondicao = new telebip_erp.Controls.NeoFlatComboBox();
             pictureBox1 = new PictureBox();
@@ -82,26 +82,26 @@
             dgvEstoque.BorderStyle = BorderStyle.None;
             dgvEstoque.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvEstoque.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.Padding = new Padding(8);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvEstoque.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.Padding = new Padding(8);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvEstoque.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvEstoque.ColumnHeadersHeight = 40;
             dgvEstoque.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.Padding = new Padding(8, 0, 8, 0);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(80, 88, 255);
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvEstoque.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.Padding = new Padding(8, 0, 8, 0);
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle5.SelectionForeColor = Color.White;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvEstoque.DefaultCellStyle = dataGridViewCellStyle5;
             dgvEstoque.Dock = DockStyle.Fill;
             dgvEstoque.EnableHeadersVisualStyles = false;
             dgvEstoque.GridColor = Color.FromArgb(50, 52, 67);
@@ -112,12 +112,12 @@
             dgvEstoque.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvEstoque.RowHeadersVisible = false;
             dgvEstoque.RowHeadersWidth = 62;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(80, 88, 255);
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
-            dgvEstoque.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle6.SelectionForeColor = Color.White;
+            dgvEstoque.RowsDefaultCellStyle = dataGridViewCellStyle6;
             dgvEstoque.RowTemplate.Height = 36;
             dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEstoque.Size = new Size(1328, 455);
@@ -166,14 +166,25 @@
             pnlWrapperCampo.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCampo.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperCampo.BorderThickness = 1;
-            pnlWrapperCampo.Controls.Add(cbPesquisaCampo);
             pnlWrapperCampo.Controls.Add(PictureImage2);
+            pnlWrapperCampo.Controls.Add(cbPesquisaCampo);
             pnlWrapperCampo.CornerRadius = 8;
             pnlWrapperCampo.FillColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCampo.Location = new Point(13, 10);
             pnlWrapperCampo.Name = "pnlWrapperCampo";
-            pnlWrapperCampo.Size = new Size(150, 36);
+            pnlWrapperCampo.Size = new Size(200, 36);
             pnlWrapperCampo.TabIndex = 18;
+            // 
+            // PictureImage2
+            // 
+            PictureImage2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PictureImage2.Image = (Image)resources.GetObject("PictureImage2.Image");
+            PictureImage2.Location = new Point(172, 14);
+            PictureImage2.Name = "PictureImage2";
+            PictureImage2.Size = new Size(10, 10);
+            PictureImage2.SizeMode = PictureBoxSizeMode.Zoom;
+            PictureImage2.TabIndex = 17;
+            PictureImage2.TabStop = false;
             // 
             // cbPesquisaCampo
             // 
@@ -185,39 +196,28 @@
             cbPesquisaCampo.Font = new Font("Segoe UI", 9F);
             cbPesquisaCampo.ForeColor = Color.White;
             cbPesquisaCampo.FormattingEnabled = true;
-            cbPesquisaCampo.ItemEntryHeight = 24;
-            cbPesquisaCampo.ItemHeight = 24;
-            cbPesquisaCampo.Location = new Point(8, 6);
+            cbPesquisaCampo.ItemEntryHeight = 19;
+            cbPesquisaCampo.ItemHeight = 19;
+            cbPesquisaCampo.Location = new Point(6, 6);
             cbPesquisaCampo.Margin = new Padding(0);
             cbPesquisaCampo.Name = "cbPesquisaCampo";
             cbPesquisaCampo.Placeholder = "Selecione...";
             cbPesquisaCampo.ShowPlaceholder = true;
-            cbPesquisaCampo.Size = new Size(120, 30);
+            cbPesquisaCampo.Size = new Size(187, 25);
             cbPesquisaCampo.TabIndex = 0;
-            // 
-            // PictureImage2
-            // 
-            PictureImage2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            PictureImage2.Image = (Image)resources.GetObject("PictureImage2.Image");
-            PictureImage2.Location = new Point(128, 11);
-            PictureImage2.Name = "PictureImage2";
-            PictureImage2.Size = new Size(15, 15);
-            PictureImage2.SizeMode = PictureBoxSizeMode.Zoom;
-            PictureImage2.TabIndex = 17;
-            PictureImage2.TabStop = false;
             // 
             // pnlWrapperCondicao
             // 
             pnlWrapperCondicao.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperCondicao.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperCondicao.BorderThickness = 1;
-            pnlWrapperCondicao.Controls.Add(cbCondicao);
             pnlWrapperCondicao.Controls.Add(pictureBox1);
+            pnlWrapperCondicao.Controls.Add(cbCondicao);
             pnlWrapperCondicao.CornerRadius = 8;
             pnlWrapperCondicao.FillColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperCondicao.Location = new Point(169, 10);
+            pnlWrapperCondicao.Location = new Point(219, 10);
             pnlWrapperCondicao.Name = "pnlWrapperCondicao";
-            pnlWrapperCondicao.Size = new Size(150, 36);
+            pnlWrapperCondicao.Size = new Size(200, 36);
             pnlWrapperCondicao.TabIndex = 19;
             // 
             // cbCondicao
@@ -231,22 +231,22 @@
             cbCondicao.ForeColor = Color.White;
             cbCondicao.FormattingEnabled = true;
             cbCondicao.ItemEntryHeight = 24;
-            cbCondicao.ItemHeight = 24;
-            cbCondicao.Location = new Point(8, 3);
+            cbCondicao.ItemHeight = 19;
+            cbCondicao.Location = new Point(8, 6);
             cbCondicao.Margin = new Padding(0);
             cbCondicao.Name = "cbCondicao";
             cbCondicao.Placeholder = "Selecione...";
             cbCondicao.ShowPlaceholder = true;
-            cbCondicao.Size = new Size(120, 30);
+            cbCondicao.Size = new Size(187, 25);
             cbCondicao.TabIndex = 1;
             // 
             // pictureBox1
             // 
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(128, 11);
+            pictureBox1.Location = new Point(174, 13);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(15, 15);
+            pictureBox1.Size = new Size(10, 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 15;
             pictureBox1.TabStop = false;
@@ -256,13 +256,13 @@
             pnlWrapperPesquisa.BackColor = Color.FromArgb(40, 41, 52);
             pnlWrapperPesquisa.BorderColor = Color.FromArgb(60, 62, 80);
             pnlWrapperPesquisa.BorderThickness = 1;
-            pnlWrapperPesquisa.Controls.Add(tbPesquisa);
             pnlWrapperPesquisa.Controls.Add(picSearch);
+            pnlWrapperPesquisa.Controls.Add(tbPesquisa);
             pnlWrapperPesquisa.CornerRadius = 8;
             pnlWrapperPesquisa.FillColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperPesquisa.Location = new Point(325, 10);
+            pnlWrapperPesquisa.Location = new Point(425, 10);
             pnlWrapperPesquisa.Name = "pnlWrapperPesquisa";
-            pnlWrapperPesquisa.Size = new Size(295, 36);
+            pnlWrapperPesquisa.Size = new Size(250, 36);
             pnlWrapperPesquisa.TabIndex = 20;
             // 
             // tbPesquisa
@@ -274,7 +274,7 @@
             tbPesquisa.ForeColor = Color.White;
             tbPesquisa.Location = new Point(10, 10);
             tbPesquisa.Name = "tbPesquisa";
-            tbPesquisa.Size = new Size(260, 16);
+            tbPesquisa.Size = new Size(225, 16);
             tbPesquisa.TabIndex = 2;
             // 
             // picSearch
@@ -282,7 +282,7 @@
             picSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             picSearch.BackColor = Color.Transparent;
             picSearch.Image = (Image)resources.GetObject("picSearch.Image");
-            picSearch.Location = new Point(270, 9);
+            picSearch.Location = new Point(225, 10);
             picSearch.Name = "picSearch";
             picSearch.Size = new Size(15, 15);
             picSearch.SizeMode = PictureBoxSizeMode.Zoom;
@@ -309,7 +309,7 @@
             btnLimpar.ImageAutoCenter = true;
             btnLimpar.ImageExpand = new Point(0, 0);
             btnLimpar.ImageOffset = new Point(0, 0);
-            btnLimpar.Location = new Point(759, 10);
+            btnLimpar.Location = new Point(810, 10);
             btnLimpar.Margin = new Padding(3, 0, 10, 0);
             btnLimpar.Name = "btnLimpar";
             btnLimpar.NormalBackground = Color.FromArgb(120, 40, 40);
@@ -347,7 +347,7 @@
             btnPesquisar.ImageAutoCenter = true;
             btnPesquisar.ImageExpand = new Point(0, 0);
             btnPesquisar.ImageOffset = new Point(0, 0);
-            btnPesquisar.Location = new Point(626, 10);
+            btnPesquisar.Location = new Point(686, 10);
             btnPesquisar.Margin = new Padding(3, 0, 10, 0);
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.NormalBackground = Color.FromArgb(40, 120, 80);

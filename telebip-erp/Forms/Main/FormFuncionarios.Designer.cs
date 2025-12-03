@@ -21,9 +21,9 @@ namespace telebip_erp.Forms.Modules
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFuncionarios));
             pnlContainer = new Panel();
             pnlDgv = new Panel();
@@ -110,25 +110,25 @@ namespace telebip_erp.Forms.Modules
             dgvFuncionarios.BorderStyle = BorderStyle.None;
             dgvFuncionarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvFuncionarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.Padding = new Padding(8);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvFuncionarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.Padding = new Padding(8);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvFuncionarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvFuncionarios.ColumnHeadersHeight = 40;
             dgvFuncionarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(32, 33, 39);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(50, 90, 130);
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvFuncionarios.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(32, 33, 39);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(50, 90, 130);
+            dataGridViewCellStyle5.SelectionForeColor = Color.White;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvFuncionarios.DefaultCellStyle = dataGridViewCellStyle5;
             dgvFuncionarios.Dock = DockStyle.Fill;
             dgvFuncionarios.EnableHeadersVisualStyles = false;
             dgvFuncionarios.GridColor = Color.FromArgb(50, 52, 67);
@@ -137,14 +137,14 @@ namespace telebip_erp.Forms.Modules
             dgvFuncionarios.Name = "dgvFuncionarios";
             dgvFuncionarios.ReadOnly = true;
             dgvFuncionarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(32, 33, 39);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(32, 33, 39);
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvFuncionarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(32, 33, 39);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(32, 33, 39);
+            dataGridViewCellStyle6.SelectionForeColor = Color.White;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvFuncionarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgvFuncionarios.RowHeadersVisible = false;
             dgvFuncionarios.RowTemplate.Height = 36;
             dgvFuncionarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -490,7 +490,7 @@ namespace telebip_erp.Forms.Modules
             cbCondicao.Name = "cbCondicao";
             cbCondicao.Placeholder = "Selecione...";
             cbCondicao.ShowPlaceholder = true;
-            cbCondicao.Size = new Size(195, 21);
+            cbCondicao.Size = new Size(187, 21);
             cbCondicao.TabIndex = 12;
             // 
             // roundedPanel1
