@@ -56,7 +56,7 @@ namespace telebip_erp.Forms.SubSubForms
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(3, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(829, 405);
+            pnlContainer.Size = new Size(894, 473);
             pnlContainer.TabIndex = 0;
             // 
             // pnlMain
@@ -68,7 +68,7 @@ namespace telebip_erp.Forms.SubSubForms
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
             pnlMain.Padding = new Padding(20);
-            pnlMain.Size = new Size(829, 345);
+            pnlMain.Size = new Size(894, 413);
             pnlMain.TabIndex = 1;
             // 
             // dgvProdutosMini
@@ -116,7 +116,7 @@ namespace telebip_erp.Forms.SubSubForms
             dgvProdutosMini.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dgvProdutosMini.RowTemplate.Height = 30;
             dgvProdutosMini.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProdutosMini.Size = new Size(789, 244);
+            dgvProdutosMini.Size = new Size(854, 312);
             dgvProdutosMini.TabIndex = 20;
             // 
             // pnlPesquisa
@@ -131,7 +131,7 @@ namespace telebip_erp.Forms.SubSubForms
             pnlPesquisa.Location = new Point(20, 20);
             pnlPesquisa.Name = "pnlPesquisa";
             pnlPesquisa.Padding = new Padding(10);
-            pnlPesquisa.Size = new Size(789, 61);
+            pnlPesquisa.Size = new Size(854, 61);
             pnlPesquisa.TabIndex = 19;
             // 
             // btnLimparMini
@@ -154,7 +154,7 @@ namespace telebip_erp.Forms.SubSubForms
             btnLimparMini.ImageAutoCenter = true;
             btnLimparMini.ImageExpand = new Point(0, 0);
             btnLimparMini.ImageOffset = new Point(0, 0);
-            btnLimparMini.Location = new Point(700, 12);
+            btnLimparMini.Location = new Point(727, 12);
             btnLimparMini.Margin = new Padding(3, 0, 10, 0);
             btnLimparMini.Name = "btnLimparMini";
             btnLimparMini.NormalBackground = Color.FromArgb(120, 40, 40);
@@ -167,7 +167,7 @@ namespace telebip_erp.Forms.SubSubForms
             btnLimparMini.PressedImageTint = Color.White;
             btnLimparMini.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnLimparMini.Rounding = new Padding(8);
-            btnLimparMini.Size = new Size(79, 36);
+            btnLimparMini.Size = new Size(100, 36);
             btnLimparMini.TabIndex = 21;
             btnLimparMini.TextAlignment = StringAlignment.Center;
             btnLimparMini.TextOffset = new Point(0, 0);
@@ -205,7 +205,7 @@ namespace telebip_erp.Forms.SubSubForms
             btnPesquisarMini.PressedImageTint = Color.White;
             btnPesquisarMini.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnPesquisarMini.Rounding = new Padding(8);
-            btnPesquisarMini.Size = new Size(79, 36);
+            btnPesquisarMini.Size = new Size(100, 36);
             btnPesquisarMini.TabIndex = 20;
             btnPesquisarMini.TextAlignment = StringAlignment.Center;
             btnPesquisarMini.TextOffset = new Point(0, 0);
@@ -351,7 +351,7 @@ namespace telebip_erp.Forms.SubSubForms
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Padding = new Padding(15);
-            pnlHeader.Size = new Size(829, 60);
+            pnlHeader.Size = new Size(894, 60);
             pnlHeader.TabIndex = 0;
             // 
             // lblTitulo
@@ -361,7 +361,7 @@ namespace telebip_erp.Forms.SubSubForms
             lblTitulo.ForeColor = Color.White;
             lblTitulo.Location = new Point(15, 15);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(799, 30);
+            lblTitulo.Size = new Size(864, 30);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Selecionar Produto";
             lblTitulo.TextAlign = ContentAlignment.MiddleLeft;
@@ -371,11 +371,11 @@ namespace telebip_erp.Forms.SubSubForms
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(28, 29, 40);
-            ClientSize = new Size(835, 432);
+            ClientSize = new Size(900, 500);
             Controls.Add(pnlContainer);
             FormStyle = FormStyles.ActionBar_None;
-            MaximumSize = new Size(835, 432);
-            MinimumSize = new Size(835, 432);
+            MaximumSize = new Size(900, 500);
+            MinimumSize = new Size(900, 500);
             Name = "FormAddProdutoVendas";
             Padding = new Padding(3, 24, 3, 3);
             StartPosition = FormStartPosition.CenterParent;

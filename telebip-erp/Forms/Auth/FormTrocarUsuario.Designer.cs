@@ -68,7 +68,7 @@
             btnLogin.ImageAutoCenter = true;
             btnLogin.ImageExpand = new Point(0, 0);
             btnLogin.ImageOffset = new Point(0, 0);
-            btnLogin.Location = new Point(220, 237);
+            btnLogin.Location = new Point(263, 237);
             btnLogin.Margin = new Padding(3, 0, 10, 0);
             btnLogin.Name = "btnLogin";
             btnLogin.NormalBackground = Color.FromArgb(40, 120, 80);
@@ -245,7 +245,7 @@
             cuiButton1.ImageAutoCenter = true;
             cuiButton1.ImageExpand = new Point(0, 0);
             cuiButton1.ImageOffset = new Point(0, 0);
-            cuiButton1.Location = new Point(75, 237);
+            cuiButton1.Location = new Point(118, 237);
             cuiButton1.Margin = new Padding(3, 0, 10, 0);
             cuiButton1.Name = "cuiButton1";
             cuiButton1.NormalBackground = Color.FromArgb(180, 60, 60);

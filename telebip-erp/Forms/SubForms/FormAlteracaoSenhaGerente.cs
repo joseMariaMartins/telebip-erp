@@ -34,7 +34,6 @@ namespace telebip_erp.Forms.SubForms
             InitializeComponent();
             ThemeManager.ApplyDarkTheme();
 
-            SetupEventHandlers();
             LoadEyeImages();
             SetupEyeButtons();
         }
@@ -43,53 +42,45 @@ namespace telebip_erp.Forms.SubForms
         {
             try
             {
-                // Fallback: desenha ícones simples (igual ao login)
-                eyeOpenBmp = DrawSimpleEye(20, 20, true);
-                eyeClosedBmp = DrawSimpleEye(20, 20, false);
+                // Carrega direto dos Resources
+                eyeOpenBmp = Properties.Resources.view != null
+                    ? new Bitmap(Properties.Resources.view)
+                    : null;
 
-                // Configura imagens iniciais
-                btnOlhoSenhaAtual.Image = eyeClosedBmp;
-                btnOlhoNovaSenha.Image = eyeClosedBmp;
-                btnOlhoConfirmarSenha.Image = eyeClosedBmp;
-
-                // Configura tooltips
-                btnOlhoSenhaAtual.AccessibleDescription = "Mostrar senha";
-                btnOlhoNovaSenha.AccessibleDescription = "Mostrar senha";
-                btnOlhoConfirmarSenha.AccessibleDescription = "Mostrar senha";
+                eyeClosedBmp = Properties.Resources.hide != null
+                    ? new Bitmap(Properties.Resources.hide)
+                    : null;
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show($"Erro ao carregar imagens: {ex.Message}", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                eyeOpenBmp = null;
+                eyeClosedBmp = null;
             }
+
+            // Se algo der errado, NÃO desenha nada — apenas evita crash
+            if (eyeOpenBmp == null) eyeOpenBmp = new Bitmap(20, 20);
+            if (eyeClosedBmp == null) eyeClosedBmp = new Bitmap(20, 20);
+
+            // Configura imagens iniciais (sempre iniciam "fechadas")
+            btnOlhoSenhaAtual.Image = eyeClosedBmp;
+            btnOlhoNovaSenha.Image = eyeClosedBmp;
+            btnOlhoConfirmarSenha.Image = eyeClosedBmp;
+
+            // Configura acessibilidade
+            btnOlhoSenhaAtual.AccessibleDescription = "Mostrar senha";
+            btnOlhoNovaSenha.AccessibleDescription = "Mostrar senha";
+            btnOlhoConfirmarSenha.AccessibleDescription = "Mostrar senha";
+
+            // Configura propriedades visuais básicas
+            btnOlhoSenhaAtual.SizeMode = PictureBoxSizeMode.CenterImage;
+            btnOlhoNovaSenha.SizeMode = PictureBoxSizeMode.CenterImage;
+            btnOlhoConfirmarSenha.SizeMode = PictureBoxSizeMode.CenterImage;
+
+            btnOlhoSenhaAtual.Cursor = Cursors.Hand;
+            btnOlhoNovaSenha.Cursor = Cursors.Hand;
+            btnOlhoConfirmarSenha.Cursor = Cursors.Hand;
         }
 
-        private Bitmap DrawSimpleEye(int w, int h, bool open)
-        {
-            var bmp = new Bitmap(w, h);
-            using (var g = Graphics.FromImage(bmp))
-            {
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                g.Clear(Color.Transparent);
-                using (var pen = new Pen(Color.White, 1.5f))
-                using (var brush = new SolidBrush(Color.White))
-                {
-                    // contorno do olho
-                    g.DrawEllipse(pen, 2, 6, w - 4, h - 12);
-                    if (open)
-                    {
-                        // Olho aberto: pupila
-                        g.FillEllipse(brush, w / 2 - 3, h / 2 - 3, 6, 6);
-                    }
-                    else
-                    {
-                        // Olho fechado: linha horizontal
-                        g.DrawLine(pen, 3, h / 2, w - 3, h / 2);
-                    }
-                }
-            }
-            return bmp;
-        }
 
         private void SetupEyeButtons()
         {
@@ -123,7 +114,10 @@ namespace telebip_erp.Forms.SubForms
             };
         }
 
-        private void AtualizarVisibilidadeSenha(telebip_erp.Controls.PlaceholderTextBox textBox, PictureBox btn, bool visivel)
+        private void AtualizarVisibilidadeSenha(
+            telebip_erp.Controls.PlaceholderTextBox textBox,
+            PictureBox btn,
+            bool visivel)
         {
             try
             {
@@ -142,27 +136,15 @@ namespace telebip_erp.Forms.SubForms
                     btn.AccessibleDescription = "Mostrar senha";
                 }
 
-                // Mantém o foco no TextBox
                 textBox.Focus();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao alternar visibilidade: {ex.Message}", "Erro",
+                MessageBox.Show($"Erro: {ex.Message}", "Erro",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void SetupEventHandlers()
-        {
-            // Eventos de tecla
-            tbSenhaAtual.KeyDown += (s, e) => HandleKeyDown(e, tbSenhaAtual, tbNovaSenha);
-            tbNovaSenha.KeyDown += (s, e) => HandleKeyDown(e, tbNovaSenha, tbConfirmarSenha);
-            tbConfirmarSenha.KeyDown += (s, e) => HandleKeyDown(e, tbConfirmarSenha, btnConfirmar);
-
-            // Eventos de botão
-            btnConfirmar.Click += BtnConfirmar_Click;
-            btnCancelar.Click += (s, e) => this.Close();
-        }
 
         private void HandleKeyDown(KeyEventArgs e, Control currentControl, Control nextControl)
         {

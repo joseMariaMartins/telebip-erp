@@ -176,44 +176,43 @@ namespace telebip_erp.Forms.Auth
         #region Toggle Visibilidade da Senha
         private void LoadEyeImages()
         {
-            // Tenta carregar do Resources
             try
             {
-                var resType = typeof(Properties.Resources);
+                // Carrega direto dos Resources
+                eyeOpenBmp = Properties.Resources.view != null
+                    ? new Bitmap(Properties.Resources.view)
+                    : null;
 
-                var tryNames = new[] { "eye_open", "eyeopen", "eyeOpen", "eye_open_white", "view", "show" };
-                foreach (var name in tryNames)
-                {
-                    var prop = resType.GetProperty(name,
-                        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.IgnoreCase);
-                    if (prop != null && prop.GetValue(null) is Image im)
-                    {
-                        eyeOpenBmp = new Bitmap(im);
-                        break;
-                    }
-                }
-
-                var tryNamesClosed = new[] { "eye_closed", "eyeclose", "eye_closed_white", "hide", "hide_eye" };
-                foreach (var name in tryNamesClosed)
-                {
-                    var prop = resType.GetProperty(name,
-                        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.IgnoreCase);
-                    if (prop != null && prop.GetValue(null) is Image im)
-                    {
-                        eyeClosedBmp = new Bitmap(im);
-                        break;
-                    }
-                }
+                eyeClosedBmp = Properties.Resources.hide != null
+                    ? new Bitmap(Properties.Resources.hide)
+                    : null;
             }
-            catch { /* ignore */ }
+            catch
+            {
+                eyeOpenBmp = null;
+                eyeClosedBmp = null;
+            }
 
-            // Fallback: desenha ícones simples
-            if (eyeOpenBmp == null) eyeOpenBmp = DrawSimpleEye(20, 20, true);
-            if (eyeClosedBmp == null) eyeClosedBmp = DrawSimpleEye(20, 20, false);
+            // Fallback: se der erro / não tiver nos Resources, desenha os olhos simples
+            if (eyeOpenBmp == null)
+                eyeOpenBmp = DrawSimpleEye(20, 20, true);
 
-            if (picToggleSenha != null && picToggleSenha.Image == null)
+            if (eyeClosedBmp == null)
+                eyeClosedBmp = DrawSimpleEye(20, 20, false);
+
+            // Começa sempre com o olho "fechado" (senha escondida)
+            if (picToggleSenha != null)
+            {
                 picToggleSenha.Image = eyeClosedBmp;
+                picToggleSenha.SizeMode = PictureBoxSizeMode.CenterImage; // ou Zoom, se preferir
+                picToggleSenha.Cursor = Cursors.Hand;
+            }
+
+            // Garante que começa como campo de senha
+            txtSenha.UseSystemPasswordChar = true;
+            senhaVisivel = false;
         }
+
 
         private Bitmap DrawSimpleEye(int w, int h, bool open)
         {

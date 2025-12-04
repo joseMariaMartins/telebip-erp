@@ -266,35 +266,67 @@ namespace telebip_erp.Forms.Modules
         {
             if (dgvEstoque.Columns.Count == 0) return;
 
-            // Remove o auto-size das colunas
-            dgvEstoque.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            // MESMO COMPORTAMENTO DO FORMVENDAS: preenche o grid e centraliza tudo
+            dgvEstoque.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // Configura todas as colunas como fixas, exceto a última
-            for (int i = 0; i < dgvEstoque.Columns.Count; i++)
+            foreach (DataGridViewColumn coluna in dgvEstoque.Columns)
             {
-                var coluna = dgvEstoque.Columns[i];
-
-                // Define propriedades comuns - centralizadas
-                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 coluna.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                // Se for a última coluna, configura como fill
-                if (i == dgvEstoque.Columns.Count - 1)
-                {
-                    coluna.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    coluna.MinimumWidth = 100;
-                }
-                else
-                {
-                    // Colunas fixas
-                    coluna.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    coluna.Resizable = DataGridViewTriState.False;
-                }
+                coluna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                coluna.Resizable = DataGridViewTriState.True;
+                coluna.MinimumWidth = 80;
             }
 
-            // Configura cabeçalhos específicos
-            ConfigurarCabecalhosColunas();
+            // Cabeçalhos e formatos específicos
+            if (dgvEstoque.Columns.Contains("ID_PRODUTO"))
+            {
+                var c = dgvEstoque.Columns["ID_PRODUTO"];
+                c.HeaderText = "ID";
+                c.FillWeight = 10;
+            }
 
+            if (dgvEstoque.Columns.Contains("NOME"))
+            {
+                var c = dgvEstoque.Columns["NOME"];
+                c.HeaderText = "Nome do Produto";
+                c.FillWeight = 30;
+            }
+
+            if (dgvEstoque.Columns.Contains("MARCA"))
+            {
+                var c = dgvEstoque.Columns["MARCA"];
+                c.HeaderText = "Marca";
+                c.FillWeight = 20;
+            }
+
+            if (dgvEstoque.Columns.Contains("PRECO"))
+            {
+                var c = dgvEstoque.Columns["PRECO"];
+                c.HeaderText = "Preço";
+                c.DefaultCellStyle.Format = "C2";
+                c.FillWeight = 15;
+            }
+
+            if (dgvEstoque.Columns.Contains("QTD_ESTOQUE"))
+            {
+                var c = dgvEstoque.Columns["QTD_ESTOQUE"];
+                c.HeaderText = "Estoque Atual";
+                c.FillWeight = 12;
+            }
+
+            if (dgvEstoque.Columns.Contains("QTD_AVISO"))
+            {
+                var c = dgvEstoque.Columns["QTD_AVISO"];
+                c.HeaderText = "Estoque Mínimo";
+                c.FillWeight = 12;
+            }
+
+            if (dgvEstoque.Columns.Contains("OBSERVACAO"))
+            {
+                var c = dgvEstoque.Columns["OBSERVACAO"];
+                c.HeaderText = "Observações";
+                c.FillWeight = 25;
+            }
         }
 
         private void ConfigurarCabecalhosColunas()

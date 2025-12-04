@@ -232,6 +232,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             // btnOlhoSenhaAtual
             // 
+            btnOlhoSenhaAtual.BackColor = Color.Transparent;
             btnOlhoSenhaAtual.Cursor = Cursors.Hand;
             btnOlhoSenhaAtual.Location = new Point(358, 8);
             btnOlhoSenhaAtual.Name = "btnOlhoSenhaAtual";

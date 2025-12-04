@@ -198,79 +198,43 @@ namespace telebip_erp.Forms.Auth
         #region Toggle Visibilidade da Senha / Eye images
         private void LoadEyeImages()
         {
-            // tenta carregar eye images explicitamente via Properties.Resources (nomes comuns)
             try
             {
-                // tenta nomes explícitos (se existirem no Resources)
-                // (substitua pelos nomes reais se quiser forçar)
-                var resType = typeof(Properties.Resources);
+                // Carrega direto dos Resources
+                eyeOpenBmp = Properties.Resources.view != null
+                    ? new Bitmap(Properties.Resources.view)
+                    : null;
 
-                // Tentativa direta por nomes conhecidos
-                var tryNames = new[] { "eye_open", "eyeopen", "eyeOpen", "eye_open_white", "view", "show" };
-                foreach (var name in tryNames)
-                {
-                    var prop = resType.GetProperty(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.IgnoreCase);
-                    if (prop != null && prop.GetValue(null) is Image im)
-                    {
-                        eyeOpenBmp = new Bitmap(im);
-                        break;
-                    }
-                }
-
-                var tryNamesClosed = new[] { "eye_closed", "eyeclose", "eye_closed_white", "hide", "hide_eye" };
-                foreach (var name in tryNamesClosed)
-                {
-                    var prop = resType.GetProperty(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.IgnoreCase);
-                    if (prop != null && prop.GetValue(null) is Image im)
-                    {
-                        eyeClosedBmp = new Bitmap(im);
-                        break;
-                    }
-                }
+                eyeClosedBmp = Properties.Resources.hide != null
+                    ? new Bitmap(Properties.Resources.hide)
+                    : null;
             }
-            catch { /* ignore */ }
-
-            // Se não encontrou, tenta varrer Resources por imagens candidatas
-            if (eyeOpenBmp == null || eyeClosedBmp == null)
+            catch
             {
-                try
-                {
-                    var props = typeof(Properties.Resources).GetProperties(BindingFlags.Static | BindingFlags.Public);
-                    foreach (var p in props)
-                    {
-                        if (!typeof(Image).IsAssignableFrom(p.PropertyType)) continue;
-                        var img = p.GetValue(null) as Image;
-                        if (img == null) continue;
-                        var name = p.Name.ToLowerInvariant();
-
-                        if (eyeOpenBmp == null && (name.Contains("eye") && (name.Contains("open") || name.Contains("view") || name.Contains("show"))))
-                            eyeOpenBmp = new Bitmap(img);
-
-                        if (eyeClosedBmp == null && (name.Contains("eye") && (name.Contains("close") || name.Contains("closed") || name.Contains("hide") || name.Contains("ocultar"))))
-                            eyeClosedBmp = new Bitmap(img);
-
-                        if (eyeOpenBmp != null && eyeClosedBmp != null) break;
-                    }
-                }
-                catch { /* ignore */ }
+                eyeOpenBmp = null;
+                eyeClosedBmp = null;
             }
 
-            // Se ainda não encontrou, usa a imagem que já está no PictureBox (designer) como closed
-            try
+            // Fallback: se der erro / não tiver nos Resources, desenha os olhos simples
+            if (eyeOpenBmp == null)
+                eyeOpenBmp = DrawSimpleEye(20, 20, true);
+
+            if (eyeClosedBmp == null)
+                eyeClosedBmp = DrawSimpleEye(20, 20, false);
+
+            // Configura o PictureBox pra começar com o olho “fechado”
+            if (picToggleSenha != null)
             {
-                if (eyeClosedBmp == null && picToggleSenha?.Image is Bitmap bmpFromDesigner)
-                    eyeClosedBmp = new Bitmap(bmpFromDesigner);
-            }
-            catch { /* ignore */ }
-
-            // fallback: desenha ícones simples
-            if (eyeOpenBmp == null) eyeOpenBmp = DrawSimpleEye(20, 20, true);
-            if (eyeClosedBmp == null) eyeClosedBmp = DrawSimpleEye(20, 20, false);
-
-            // garante que picturebox comece com closed
-            if (picToggleSenha != null && picToggleSenha.Image == null)
                 picToggleSenha.Image = eyeClosedBmp;
+                picToggleSenha.SizeMode = PictureBoxSizeMode.CenterImage; // ou Zoom se preferir
+                picToggleSenha.Cursor = Cursors.Hand;
+            }
+
+            // Garante que a senha começa como campo de senha
+            txtSenha.UseSystemPasswordChar = true;
+            senhaVisivel = false;
         }
+
 
         private Bitmap DrawSimpleEye(int w, int h, bool open)
         {

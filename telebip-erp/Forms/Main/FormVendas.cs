@@ -17,6 +17,15 @@ namespace telebip_erp.Forms.Modules
         private string textoPesquisa = "";
         private readonly string placeholder = "Digite para pesquisar...";
 
+        // Variáveis para carregamento incremental (igual estoque)
+        private int _paginaAtual = 0;
+        private readonly int _limitePorPagina = 30;
+        private bool _carregandoMais = false;
+        private bool _temMaisDados = true;
+        private string _ultimoFiltroSql = "";
+        private SQLiteParameter[]? _ultimosParametros = null;
+        private int _totalVendasGeral = 0;
+
         // Mapeamento entre os nomes exibidos e os nomes no banco
         private readonly Dictionary<string, string> campoMap = new Dictionary<string, string>
         {
@@ -90,6 +99,9 @@ namespace telebip_erp.Forms.Modules
             // Evento de double click
             dgvVendas.CellDoubleClick -= dgvVendas_CellDoubleClick;
             dgvVendas.CellDoubleClick += dgvVendas_CellDoubleClick;
+
+            // Evento de scroll para carregamento incremental
+            dgvVendas.Scroll += DgvVendas_Scroll;
 
             // Ajuste de tamanho quando redimensionar
             this.Resize -= DgvVendas_Resize;
@@ -561,11 +573,44 @@ namespace telebip_erp.Forms.Modules
         }
         #endregion
 
+        #region Métodos de Carregamento Incremental
+        private void DgvVendas_Scroll(object sender, ScrollEventArgs e)
+        {
+            if (e.ScrollOrientation == ScrollOrientation.VerticalScroll &&
+                dgvVendas.FirstDisplayedScrollingRowIndex >= 0 &&
+                dgvVendas.FirstDisplayedScrollingRowIndex + dgvVendas.DisplayedRowCount(true) >= dgvVendas.Rows.Count - 5)
+            {
+                CarregarMaisDados();
+            }
+        }
+
+        private void CarregarMaisDados()
+        {
+            if (_carregandoMais || !_temMaisDados) return;
+
+            _carregandoMais = true;
+            CarregarVendas(_ultimoFiltroSql, _ultimosParametros, carregarMais: true);
+        }
+        #endregion
+
         #region Operações de Banco de Dados
-        public void CarregarVendas(string filtroSql = "", SQLiteParameter[] parametros = null, bool limitar20 = false)
+        public void CarregarVendas(string filtroSql = "", SQLiteParameter[] parametros = null, bool carregarMais = false)
         {
             try
             {
+                if (!carregarMais)
+                {
+                    // Reset da paginação em nova pesquisa
+                    _paginaAtual = 0;
+                    _carregandoMais = false;
+                    _temMaisDados = true;
+                    _ultimoFiltroSql = filtroSql;
+                    _ultimosParametros = parametros;
+                }
+
+                if (!_temMaisDados && carregarMais)
+                    return;
+
                 string sql = $@"
                     SELECT 
                         ID_VENDA,
@@ -576,22 +621,36 @@ namespace telebip_erp.Forms.Modules
                     FROM VENDA
                     {(string.IsNullOrEmpty(filtroSql) ? "" : "WHERE " + filtroSql)}
                     ORDER BY ID_VENDA DESC
-                    {(limitar20 ? "LIMIT 20" : "")};
+                    LIMIT {_limitePorPagina} OFFSET {_paginaAtual * _limitePorPagina};
                 ";
 
                 DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
 
-                // Aplica o tema escuro antes de carregar os dados
-                AplicarTemaEscuroDataGridView();
+                if (_carregandoMais && dgvVendas.DataSource is DataTable existingDt)
+                {
+                    foreach (DataRow row in dt.Rows)
+                        existingDt.ImportRow(row);
 
-                dgvVendas.DataSource = dt;
+                    _carregandoMais = false;
+                }
+                else
+                {
+                    // Aplica o tema escuro antes na primeira carga
+                    AplicarTemaEscuroDataGridView();
+                    dgvVendas.DataSource = dt;
+                }
+
+                _temMaisDados = dt.Rows.Count == _limitePorPagina;
 
                 ConfigurarColunasDataGridView();
 
                 dgvVendas.ClearSelection();
                 dgvVendas.CurrentCell = null;
 
-                AtualizarTotalItens();
+                AtualizarTotalItens(filtroSql, parametros);
+
+                if (dt.Rows.Count > 0)
+                    _paginaAtual++;
             }
             catch (Exception ex)
             {
@@ -601,7 +660,7 @@ namespace telebip_erp.Forms.Modules
 
         private void CarregarVendasInicial()
         {
-            CarregarVendas(limitar20: true);
+            CarregarVendas();
         }
 
         public void AtualizarTabela()
@@ -623,6 +682,36 @@ namespace telebip_erp.Forms.Modules
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao atualizar tabela: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AtualizarTotalItens(string filtroSql = "", SQLiteParameter[]? parametros = null)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(filtroSql))
+                {
+                    string sqlCount = "SELECT COUNT(*) FROM VENDA";
+                    _totalVendasGeral = Convert.ToInt32(DatabaseHelper.ExecuteScalar(sqlCount));
+                    lbTotal.Text = $"Mostrando: {dgvVendas.Rows.Count} de {_totalVendasGeral} vendas";
+                }
+                else
+                {
+                    string sqlCount = $"SELECT COUNT(*) FROM VENDA WHERE {filtroSql}";
+                    int totalComFiltro = Convert.ToInt32(DatabaseHelper.ExecuteScalar(sqlCount, parametros));
+
+                    if (_totalVendasGeral == 0)
+                    {
+                        string sqlGeral = "SELECT COUNT(*) FROM VENDA";
+                        _totalVendasGeral = Convert.ToInt32(DatabaseHelper.ExecuteScalar(sqlGeral));
+                    }
+
+                    lbTotal.Text = $"Mostrando: {dgvVendas.Rows.Count} de {totalComFiltro} vendas (Total: {_totalVendasGeral})";
+                }
+            }
+            catch (Exception ex)
+            {
+                lbTotal.Text = $"Total de vendas: {dgvVendas.Rows.Count}";
             }
         }
         #endregion
@@ -705,7 +794,7 @@ namespace telebip_erp.Forms.Modules
                     return;
             }
 
-            CarregarVendas(filtroSql, parametros, limitar20: false);
+            CarregarVendas(filtroSql, parametros, carregarMais: false);
         }
 
         private void BtnLimpar_Click(object sender, EventArgs e)
@@ -728,7 +817,15 @@ namespace telebip_erp.Forms.Modules
                 SelecionarPrimeiroItem(cbPesquisaCampo);
                 SelecionarPrimeiroItem(cbCondicao);
 
-                CarregarVendas(limitar20: true);
+                // Reseta paginação
+                _paginaAtual = 0;
+                _carregandoMais = false;
+                _temMaisDados = true;
+                _ultimoFiltroSql = "";
+                _ultimosParametros = null;
+
+                // E carrega a primeira página
+                CarregarVendas();
 
                 dgvVendas.ClearSelection();
                 dgvVendas.CurrentCell = null;
@@ -800,11 +897,6 @@ namespace telebip_erp.Forms.Modules
                 MessageBox.Show("Erro ao carregar dados da venda: " + ex.Message,
                               "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void AtualizarTotalItens()
-        {
-            lbTotal.Text = $"Total de vendas: {dgvVendas.Rows.Count}";
         }
         #endregion
 
