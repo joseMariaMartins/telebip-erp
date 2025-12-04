@@ -146,8 +146,8 @@ namespace telebip_erp.Forms.SubSubForms
             btnLimparMini.DialogResult = DialogResult.None;
             btnLimparMini.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnLimparMini.ForeColor = Color.White;
-            btnLimparMini.HoverBackground = Color.White;
-            btnLimparMini.HoverForeColor = Color.Black;
+            btnLimparMini.HoverBackground = Color.FromArgb(150, 60, 60);
+            btnLimparMini.HoverForeColor = Color.White;
             btnLimparMini.HoverImageTint = Color.White;
             btnLimparMini.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnLimparMini.Image = null;
@@ -162,8 +162,8 @@ namespace telebip_erp.Forms.SubSubForms
             btnLimparMini.NormalImageTint = Color.White;
             btnLimparMini.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnLimparMini.OutlineThickness = 1F;
-            btnLimparMini.PressedBackground = Color.WhiteSmoke;
-            btnLimparMini.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnLimparMini.PressedBackground = Color.FromArgb(90, 30, 30);
+            btnLimparMini.PressedForeColor = Color.White;
             btnLimparMini.PressedImageTint = Color.White;
             btnLimparMini.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnLimparMini.Rounding = new Padding(8);
@@ -184,8 +184,8 @@ namespace telebip_erp.Forms.SubSubForms
             btnPesquisarMini.DialogResult = DialogResult.None;
             btnPesquisarMini.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnPesquisarMini.ForeColor = Color.White;
-            btnPesquisarMini.HoverBackground = Color.White;
-            btnPesquisarMini.HoverForeColor = Color.Black;
+            btnPesquisarMini.HoverBackground = Color.FromArgb(50, 150, 100);
+            btnPesquisarMini.HoverForeColor = Color.White;
             btnPesquisarMini.HoverImageTint = Color.White;
             btnPesquisarMini.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnPesquisarMini.Image = null;
@@ -200,8 +200,8 @@ namespace telebip_erp.Forms.SubSubForms
             btnPesquisarMini.NormalImageTint = Color.White;
             btnPesquisarMini.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnPesquisarMini.OutlineThickness = 1F;
-            btnPesquisarMini.PressedBackground = Color.WhiteSmoke;
-            btnPesquisarMini.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnPesquisarMini.PressedBackground = Color.FromArgb(30, 100, 70);
+            btnPesquisarMini.PressedForeColor = Color.White;
             btnPesquisarMini.PressedImageTint = Color.White;
             btnPesquisarMini.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnPesquisarMini.Rounding = new Padding(8);

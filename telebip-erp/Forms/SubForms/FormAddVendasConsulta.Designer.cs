@@ -251,8 +251,8 @@ namespace telebip_erp.Forms.SubForms
             btnCancelarVendas.DialogResult = DialogResult.None;
             btnCancelarVendas.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnCancelarVendas.ForeColor = Color.White;
-            btnCancelarVendas.HoverBackground = Color.White;
-            btnCancelarVendas.HoverForeColor = Color.Black;
+            btnCancelarVendas.HoverBackground = Color.FromArgb(150, 60, 60);
+            btnCancelarVendas.HoverForeColor = Color.White;
             btnCancelarVendas.HoverImageTint = Color.White;
             btnCancelarVendas.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnCancelarVendas.Image = null;
@@ -267,8 +267,8 @@ namespace telebip_erp.Forms.SubForms
             btnCancelarVendas.NormalImageTint = Color.White;
             btnCancelarVendas.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnCancelarVendas.OutlineThickness = 1F;
-            btnCancelarVendas.PressedBackground = Color.WhiteSmoke;
-            btnCancelarVendas.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnCancelarVendas.PressedBackground = Color.FromArgb(90, 30, 30);
+            btnCancelarVendas.PressedForeColor = Color.White;
             btnCancelarVendas.PressedImageTint = Color.White;
             btnCancelarVendas.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnCancelarVendas.Rounding = new Padding(8);

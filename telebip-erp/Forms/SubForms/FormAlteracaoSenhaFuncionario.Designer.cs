@@ -31,6 +31,8 @@ namespace telebip_erp.Forms.SubForms
         {
             pnlContainer = new Panel();
             pnlMain = new Panel();
+            lblSenha = new Label();
+            cboxMostrarSenha = new CheckBox();
             pnlWrapperConfirmarSenha = new telebip_erp.Controls.RoundedPanel();
             tbConfirmarSenha = new telebip_erp.Controls.PlaceholderTextBox();
             btnOlhoConfirmarSenha = new PictureBox();
@@ -60,12 +62,14 @@ namespace telebip_erp.Forms.SubForms
             pnlContainer.Dock = DockStyle.Fill;
             pnlContainer.Location = new Point(3, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(454, 318);
+            pnlContainer.Size = new Size(454, 333);
             pnlContainer.TabIndex = 0;
             // 
             // pnlMain
             // 
             pnlMain.BackColor = Color.FromArgb(28, 29, 40);
+            pnlMain.Controls.Add(lblSenha);
+            pnlMain.Controls.Add(cboxMostrarSenha);
             pnlMain.Controls.Add(pnlWrapperConfirmarSenha);
             pnlMain.Controls.Add(lblConfirmarSenha);
             pnlMain.Controls.Add(pnlWrapperNovaSenha);
@@ -76,8 +80,27 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
             pnlMain.Padding = new Padding(30);
-            pnlMain.Size = new Size(454, 258);
+            pnlMain.Size = new Size(454, 273);
             pnlMain.TabIndex = 1;
+            // 
+            // lblSenha
+            // 
+            lblSenha.AutoSize = true;
+            lblSenha.ForeColor = Color.White;
+            lblSenha.Location = new Point(319, 181);
+            lblSenha.Name = "lblSenha";
+            lblSenha.Size = new Size(83, 15);
+            lblSenha.TabIndex = 22;
+            lblSenha.Text = "Mostrar Senha";
+            // 
+            // cboxMostrarSenha
+            // 
+            cboxMostrarSenha.AutoSize = true;
+            cboxMostrarSenha.Location = new Point(405, 182);
+            cboxMostrarSenha.Name = "cboxMostrarSenha";
+            cboxMostrarSenha.Size = new Size(15, 14);
+            cboxMostrarSenha.TabIndex = 21;
+            cboxMostrarSenha.UseVisualStyleBackColor = true;
             // 
             // pnlWrapperConfirmarSenha
             // 
@@ -193,15 +216,15 @@ namespace telebip_erp.Forms.SubForms
             btnCancelar.DialogResult = DialogResult.None;
             btnCancelar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnCancelar.ForeColor = Color.White;
-            btnCancelar.HoverBackground = Color.White;
-            btnCancelar.HoverForeColor = Color.Black;
+            btnCancelar.HoverBackground = Color.FromArgb(150, 60, 60);
+            btnCancelar.HoverForeColor = Color.White;
             btnCancelar.HoverImageTint = Color.White;
             btnCancelar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnCancelar.Image = null;
             btnCancelar.ImageAutoCenter = true;
             btnCancelar.ImageExpand = new Point(0, 0);
             btnCancelar.ImageOffset = new Point(0, 0);
-            btnCancelar.Location = new Point(206, 195);
+            btnCancelar.Location = new Point(214, 204);
             btnCancelar.Margin = new Padding(3, 0, 10, 0);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.NormalBackground = Color.FromArgb(120, 40, 40);
@@ -209,8 +232,8 @@ namespace telebip_erp.Forms.SubForms
             btnCancelar.NormalImageTint = Color.White;
             btnCancelar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnCancelar.OutlineThickness = 1F;
-            btnCancelar.PressedBackground = Color.WhiteSmoke;
-            btnCancelar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnCancelar.PressedBackground = Color.FromArgb(90, 30, 30);
+            btnCancelar.PressedForeColor = Color.White;
             btnCancelar.PressedImageTint = Color.White;
             btnCancelar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnCancelar.Rounding = new Padding(8);
@@ -231,15 +254,15 @@ namespace telebip_erp.Forms.SubForms
             btnConfirmar.DialogResult = DialogResult.None;
             btnConfirmar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnConfirmar.ForeColor = Color.White;
-            btnConfirmar.HoverBackground = Color.White;
-            btnConfirmar.HoverForeColor = Color.Black;
+            btnConfirmar.HoverBackground = Color.FromArgb(50, 150, 100);
+            btnConfirmar.HoverForeColor = Color.White;
             btnConfirmar.HoverImageTint = Color.White;
             btnConfirmar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnConfirmar.Image = null;
             btnConfirmar.ImageAutoCenter = true;
             btnConfirmar.ImageExpand = new Point(0, 0);
             btnConfirmar.ImageOffset = new Point(0, 0);
-            btnConfirmar.Location = new Point(321, 195);
+            btnConfirmar.Location = new Point(321, 204);
             btnConfirmar.Margin = new Padding(3, 0, 10, 0);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.NormalBackground = Color.FromArgb(40, 120, 80);
@@ -247,8 +270,8 @@ namespace telebip_erp.Forms.SubForms
             btnConfirmar.NormalImageTint = Color.White;
             btnConfirmar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnConfirmar.OutlineThickness = 1F;
-            btnConfirmar.PressedBackground = Color.WhiteSmoke;
-            btnConfirmar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnConfirmar.PressedBackground = Color.FromArgb(30, 100, 70);
+            btnConfirmar.PressedForeColor = Color.White;
             btnConfirmar.PressedImageTint = Color.White;
             btnConfirmar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnConfirmar.Rounding = new Padding(8);
@@ -285,17 +308,18 @@ namespace telebip_erp.Forms.SubForms
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(28, 29, 40);
-            ClientSize = new Size(460, 345);
+            ClientSize = new Size(460, 360);
             Controls.Add(pnlContainer);
             FormStyle = FormStyles.ActionBar_None;
-            MaximumSize = new Size(460, 345);
-            MinimumSize = new Size(460, 345);
+            MaximumSize = new Size(460, 360);
+            MinimumSize = new Size(460, 360);
             Name = "FormAlteracaoSenhaFuncionario";
             Padding = new Padding(3, 24, 3, 3);
             StartPosition = FormStartPosition.CenterParent;
             Text = "FormAlteracaoSenhaFuncionario";
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);
+            pnlMain.PerformLayout();
             pnlWrapperConfirmarSenha.ResumeLayout(false);
             pnlWrapperConfirmarSenha.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)btnOlhoConfirmarSenha).EndInit();
@@ -305,5 +329,7 @@ namespace telebip_erp.Forms.SubForms
             pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
+        private Label lblSenha;
+        private CheckBox cboxMostrarSenha;
     }
 }

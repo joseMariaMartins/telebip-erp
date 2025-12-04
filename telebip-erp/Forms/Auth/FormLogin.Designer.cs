@@ -217,8 +217,8 @@ namespace telebip_erp.Forms.Auth
             btnLogin.DialogResult = DialogResult.None;
             btnLogin.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnLogin.ForeColor = Color.White;
-            btnLogin.HoverBackground = Color.White;
-            btnLogin.HoverForeColor = Color.Black;
+            btnLogin.HoverBackground = Color.FromArgb(50, 150, 100);
+            btnLogin.HoverForeColor = Color.White;
             btnLogin.HoverImageTint = Color.White;
             btnLogin.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnLogin.Image = null;
@@ -233,8 +233,8 @@ namespace telebip_erp.Forms.Auth
             btnLogin.NormalImageTint = Color.White;
             btnLogin.NormalOutline = Color.Transparent;
             btnLogin.OutlineThickness = 1F;
-            btnLogin.PressedBackground = Color.WhiteSmoke;
-            btnLogin.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnLogin.PressedBackground = Color.FromArgb(30, 100, 70);
+            btnLogin.PressedForeColor = Color.White;
             btnLogin.PressedImageTint = Color.White;
             btnLogin.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnLogin.Rounding = new Padding(8);

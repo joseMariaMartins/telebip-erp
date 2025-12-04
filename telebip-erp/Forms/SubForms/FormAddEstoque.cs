@@ -1,4 +1,5 @@
 ﻿using MaterialSkin;
+using MaterialSkin.Controls;
 using System;
 using System.Data.SQLite;
 using System.Drawing;
@@ -8,7 +9,7 @@ using telebip_erp.Forms.Auth;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormAddEstoque : FormLoad
+    public partial class FormAddEstoque : MaterialForm
     {
         private bool _ignorarEventoPreco = false;
         public (int Id, string Nome, int Quantidade)? ProdutoSelecionado { get; set; }

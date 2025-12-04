@@ -13,7 +13,7 @@ using telebip_erp.Forms.SubSubForms;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormAddVendas : FormLoad
+    public partial class FormAddVendas : MaterialForm
     {
         // Flags de controle
         private bool _ignorarEventoPrecoProduto = false;
@@ -33,6 +33,22 @@ namespace telebip_erp.Forms.SubForms
             InitializeComponent();
             ThemeManager.ApplyDarkTheme();
             InicializarComponentes();
+
+            // Combos: popular primeiro, depois vincular eventos
+            PopularCombosPagamento();
+            ConfigurarVinculoCombos();
+
+            // --- chama configuração dos monetários (preço e desconto)
+            ConfigurarMonetarios();
+
+            // Handlers de teclado para busca rápida
+            tbNomeProduto.KeyDown += tbNomeProduto_KeyDown;
+
+            // Configurar DataGridView
+            ConfigurarDataGridViewProdutos();
+
+            // Load do form
+            this.Load += FormAddVendas_Load_1;
         }
 
         #region Inicialização
@@ -716,18 +732,27 @@ namespace telebip_erp.Forms.SubForms
         {
             if (tb == null) return;
 
+            // Extrai somente dígitos
             string numeros = "";
             foreach (char c in tb.Text)
                 if (char.IsDigit(c)) numeros += c;
 
-            if (numeros == "") numeros = "0";
+            if (string.IsNullOrEmpty(numeros)) numeros = "0";
 
-            decimal valor = decimal.Parse(numeros) / 100m;
+            // interpreta como centavos
+            if (!decimal.TryParse(numeros, out decimal inteiro))
+                inteiro = 0m;
+
+            decimal valor = inteiro / 100m;
+
+            // Limite de segurança igual ao FormAddEstoque
             if (valor > 1000000m) valor = 1000000m;
 
+            // Formata e coloca caret no fim (comportamento do estoque)
             tb.Text = "R$ " + valor.ToString("N2", CultureInfo.GetCultureInfo("pt-BR"));
             tb.SelectionStart = tb.Text.Length;
         }
+
 
         private void TbPreco_KeyPress(object sender, KeyPressEventArgs e)
         {

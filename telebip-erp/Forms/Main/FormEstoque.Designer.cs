@@ -11,9 +11,9 @@
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormEstoque));
             pnlContainer = new Panel();
             pnlDgv = new Panel();
@@ -25,11 +25,11 @@
             PictureImage2 = new PictureBox();
             cbPesquisaCampo = new telebip_erp.Controls.NeoFlatComboBox();
             pnlWrapperCondicao = new telebip_erp.Controls.RoundedPanel();
-            cbCondicao = new telebip_erp.Controls.NeoFlatComboBox();
             pictureBox1 = new PictureBox();
+            cbCondicao = new telebip_erp.Controls.NeoFlatComboBox();
             pnlWrapperPesquisa = new telebip_erp.Controls.RoundedPanel();
-            tbPesquisa = new TextBox();
             picSearch = new PictureBox();
+            tbPesquisa = new TextBox();
             btnLimpar = new CuoreUI.Controls.cuiButton();
             btnPesquisar = new CuoreUI.Controls.cuiButton();
             pnlHeader = new Panel();
@@ -82,26 +82,26 @@
             dgvEstoque.BorderStyle = BorderStyle.None;
             dgvEstoque.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvEstoque.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.Padding = new Padding(8);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvEstoque.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.Padding = new Padding(8);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvEstoque.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvEstoque.ColumnHeadersHeight = 40;
             dgvEstoque.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = Color.White;
-            dataGridViewCellStyle5.Padding = new Padding(8, 0, 8, 0);
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(80, 88, 255);
-            dataGridViewCellStyle5.SelectionForeColor = Color.White;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvEstoque.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(8, 0, 8, 0);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvEstoque.DefaultCellStyle = dataGridViewCellStyle2;
             dgvEstoque.Dock = DockStyle.Fill;
             dgvEstoque.EnableHeadersVisualStyles = false;
             dgvEstoque.GridColor = Color.FromArgb(50, 52, 67);
@@ -112,12 +112,12 @@
             dgvEstoque.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvEstoque.RowHeadersVisible = false;
             dgvEstoque.RowHeadersWidth = 62;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(40, 41, 52);
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(80, 88, 255);
-            dataGridViewCellStyle6.SelectionForeColor = Color.White;
-            dgvEstoque.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(40, 41, 52);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(80, 88, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dgvEstoque.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvEstoque.RowTemplate.Height = 36;
             dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEstoque.Size = new Size(1328, 455);
@@ -220,6 +220,17 @@
             pnlWrapperCondicao.Size = new Size(200, 36);
             pnlWrapperCondicao.TabIndex = 19;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(174, 13);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(10, 10);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 15;
+            pictureBox1.TabStop = false;
+            // 
             // cbCondicao
             // 
             cbCondicao.AutoSelectFirst = false;
@@ -240,17 +251,6 @@
             cbCondicao.Size = new Size(187, 25);
             cbCondicao.TabIndex = 1;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(174, 13);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(10, 10);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 15;
-            pictureBox1.TabStop = false;
-            // 
             // pnlWrapperPesquisa
             // 
             pnlWrapperPesquisa.BackColor = Color.FromArgb(40, 41, 52);
@@ -265,18 +265,6 @@
             pnlWrapperPesquisa.Size = new Size(250, 36);
             pnlWrapperPesquisa.TabIndex = 20;
             // 
-            // tbPesquisa
-            // 
-            tbPesquisa.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            tbPesquisa.BackColor = Color.FromArgb(40, 41, 52);
-            tbPesquisa.BorderStyle = BorderStyle.None;
-            tbPesquisa.Font = new Font("Segoe UI", 9F);
-            tbPesquisa.ForeColor = Color.White;
-            tbPesquisa.Location = new Point(10, 10);
-            tbPesquisa.Name = "tbPesquisa";
-            tbPesquisa.Size = new Size(225, 16);
-            tbPesquisa.TabIndex = 2;
-            // 
             // picSearch
             // 
             picSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -288,6 +276,18 @@
             picSearch.SizeMode = PictureBoxSizeMode.Zoom;
             picSearch.TabIndex = 1;
             picSearch.TabStop = false;
+            // 
+            // tbPesquisa
+            // 
+            tbPesquisa.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbPesquisa.BackColor = Color.FromArgb(40, 41, 52);
+            tbPesquisa.BorderStyle = BorderStyle.None;
+            tbPesquisa.Font = new Font("Segoe UI", 9F);
+            tbPesquisa.ForeColor = Color.White;
+            tbPesquisa.Location = new Point(10, 10);
+            tbPesquisa.Name = "tbPesquisa";
+            tbPesquisa.Size = new Size(225, 16);
+            tbPesquisa.TabIndex = 2;
             // 
             // btnLimpar
             // 
@@ -301,8 +301,8 @@
             btnLimpar.DialogResult = DialogResult.None;
             btnLimpar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnLimpar.ForeColor = Color.White;
-            btnLimpar.HoverBackground = Color.White;
-            btnLimpar.HoverForeColor = Color.Black;
+            btnLimpar.HoverBackground = Color.FromArgb(150, 60, 60);
+            btnLimpar.HoverForeColor = Color.White;
             btnLimpar.HoverImageTint = Color.White;
             btnLimpar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnLimpar.Image = null;
@@ -317,8 +317,8 @@
             btnLimpar.NormalImageTint = Color.White;
             btnLimpar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnLimpar.OutlineThickness = 1F;
-            btnLimpar.PressedBackground = Color.WhiteSmoke;
-            btnLimpar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnLimpar.PressedBackground = Color.FromArgb(90, 30, 30);
+            btnLimpar.PressedForeColor = Color.White;
             btnLimpar.PressedImageTint = Color.White;
             btnLimpar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnLimpar.Rounding = new Padding(8);
@@ -339,8 +339,8 @@
             btnPesquisar.DialogResult = DialogResult.None;
             btnPesquisar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnPesquisar.ForeColor = Color.White;
-            btnPesquisar.HoverBackground = Color.White;
-            btnPesquisar.HoverForeColor = Color.Black;
+            btnPesquisar.HoverBackground = Color.FromArgb(50, 150, 100);
+            btnPesquisar.HoverForeColor = Color.White;
             btnPesquisar.HoverImageTint = Color.White;
             btnPesquisar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnPesquisar.Image = null;
@@ -355,8 +355,8 @@
             btnPesquisar.NormalImageTint = Color.White;
             btnPesquisar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnPesquisar.OutlineThickness = 1F;
-            btnPesquisar.PressedBackground = Color.WhiteSmoke;
-            btnPesquisar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnPesquisar.PressedBackground = Color.FromArgb(30, 100, 70);
+            btnPesquisar.PressedForeColor = Color.White;
             btnPesquisar.PressedImageTint = Color.White;
             btnPesquisar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnPesquisar.Rounding = new Padding(8);

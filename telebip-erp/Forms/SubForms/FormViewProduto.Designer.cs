@@ -101,8 +101,8 @@
             btnFechar.DialogResult = DialogResult.None;
             btnFechar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnFechar.ForeColor = Color.White;
-            btnFechar.HoverBackground = Color.White;
-            btnFechar.HoverForeColor = Color.Black;
+            btnFechar.HoverBackground = Color.FromArgb(150, 60, 60);
+            btnFechar.HoverForeColor = Color.White;
             btnFechar.HoverImageTint = Color.White;
             btnFechar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnFechar.Image = null;
@@ -116,8 +116,8 @@
             btnFechar.NormalImageTint = Color.White;
             btnFechar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnFechar.OutlineThickness = 1F;
-            btnFechar.PressedBackground = Color.WhiteSmoke;
-            btnFechar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnFechar.PressedBackground = Color.FromArgb(90, 30, 30);
+            btnFechar.PressedForeColor = Color.White;
             btnFechar.PressedImageTint = Color.White;
             btnFechar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnFechar.Rounding = new Padding(8);

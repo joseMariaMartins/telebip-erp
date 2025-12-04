@@ -404,8 +404,8 @@ namespace telebip_erp.Forms.SubForms
             btnCancelar.DialogResult = DialogResult.None;
             btnCancelar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnCancelar.ForeColor = Color.White;
-            btnCancelar.HoverBackground = Color.White;
-            btnCancelar.HoverForeColor = Color.Black;
+            btnCancelar.HoverBackground = Color.FromArgb(150, 60, 60);
+            btnCancelar.HoverForeColor = Color.White;
             btnCancelar.HoverImageTint = Color.White;
             btnCancelar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnCancelar.Image = null;
@@ -420,8 +420,8 @@ namespace telebip_erp.Forms.SubForms
             btnCancelar.NormalImageTint = Color.White;
             btnCancelar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnCancelar.OutlineThickness = 1F;
-            btnCancelar.PressedBackground = Color.WhiteSmoke;
-            btnCancelar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnCancelar.PressedBackground = Color.FromArgb(90, 30, 30);
+            btnCancelar.PressedForeColor = Color.White;
             btnCancelar.PressedImageTint = Color.White;
             btnCancelar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnCancelar.Rounding = new Padding(8);
@@ -442,8 +442,8 @@ namespace telebip_erp.Forms.SubForms
             btnAdicionar.DialogResult = DialogResult.None;
             btnAdicionar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnAdicionar.ForeColor = Color.White;
-            btnAdicionar.HoverBackground = Color.White;
-            btnAdicionar.HoverForeColor = Color.Black;
+            btnAdicionar.HoverBackground = Color.FromArgb(50, 150, 100);
+            btnAdicionar.HoverForeColor = Color.White;
             btnAdicionar.HoverImageTint = Color.White;
             btnAdicionar.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnAdicionar.Image = null;
@@ -458,8 +458,8 @@ namespace telebip_erp.Forms.SubForms
             btnAdicionar.NormalImageTint = Color.White;
             btnAdicionar.NormalOutline = Color.FromArgb(64, 128, 128, 128);
             btnAdicionar.OutlineThickness = 1F;
-            btnAdicionar.PressedBackground = Color.WhiteSmoke;
-            btnAdicionar.PressedForeColor = Color.FromArgb(32, 32, 32);
+            btnAdicionar.PressedBackground = Color.FromArgb(30, 100, 70);
+            btnAdicionar.PressedForeColor = Color.White;
             btnAdicionar.PressedImageTint = Color.White;
             btnAdicionar.PressedOutline = Color.FromArgb(64, 128, 128, 128);
             btnAdicionar.Rounding = new Padding(8);

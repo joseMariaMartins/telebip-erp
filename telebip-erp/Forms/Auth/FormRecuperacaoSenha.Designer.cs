@@ -67,7 +67,7 @@ namespace telebip_erp.Forms.Auth
             btnCancelar.DialogResult = DialogResult.Cancel;
             btnCancelar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnCancelar.ForeColor = Color.White;
-            btnCancelar.HoverBackground = Color.FromArgb(70, 70, 70);
+            btnCancelar.HoverBackground = Color.FromArgb(150, 60, 60);
             btnCancelar.HoverForeColor = Color.White;
             btnCancelar.HoverImageTint = Color.White;
             btnCancelar.HoverOutline = Color.FromArgb(30, 255, 255, 255);
@@ -77,12 +77,12 @@ namespace telebip_erp.Forms.Auth
             btnCancelar.ImageOffset = new Point(0, 0);
             btnCancelar.Location = new Point(192, 121);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.NormalBackground = Color.FromArgb(60, 60, 66);
+            btnCancelar.NormalBackground = Color.FromArgb(120, 40, 40);
             btnCancelar.NormalForeColor = Color.White;
             btnCancelar.NormalImageTint = Color.White;
             btnCancelar.NormalOutline = Color.FromArgb(30, 255, 255, 255);
             btnCancelar.OutlineThickness = 0.75F;
-            btnCancelar.PressedBackground = Color.FromArgb(48, 48, 54);
+            btnCancelar.PressedBackground = Color.FromArgb(90, 30, 30);
             btnCancelar.PressedForeColor = Color.White;
             btnCancelar.PressedImageTint = Color.White;
             btnCancelar.PressedOutline = Color.FromArgb(20, 255, 255, 255);

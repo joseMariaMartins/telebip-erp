@@ -1196,74 +1196,172 @@ namespace telebip_erp.Forms.Modules
 
         private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
-            int rowsPerPage;
             float y = e.MarginBounds.Top;
             float left = e.MarginBounds.Left;
+            Graphics g = e.Graphics;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+
             Font titleFont = new Font("Arial", 16, FontStyle.Bold);
             Font headerFont = new Font("Arial", 10, FontStyle.Bold);
             Font cellFont = new Font("Arial", 9);
+            StringFormat sfCenter = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
-            // Título
-            e.Graphics.DrawString("RELATÓRIO", titleFont, Brushes.Black, left, y);
-            y += titleFont.GetHeight(e.Graphics) + 10;
+            // Cores / pode ajustar
+            Color headerBackColor = Color.FromArgb(40, 41, 52);
+            Color headerForeColor = Color.White;
+            Color gridLineColor = Color.FromArgb(90, 90, 100);
+            Color cellForeColor = Color.Black;
 
-            // Informações do relatório
-            string tipoRelatorio = ObterValorSelecionado(cbTipoRelatorio);
-            string periodo = ObterValorSelecionado(cbPeriodo);
-
-            Font infoFont = new Font("Arial", 9);
-            e.Graphics.DrawString($"Tipo: {tipoRelatorio}", infoFont, Brushes.Black, left, y);
-            y += infoFont.GetHeight(e.Graphics) + 2;
-            e.Graphics.DrawString($"Período: {periodo}", infoFont, Brushes.Black, left, y);
-            y += infoFont.GetHeight(e.Graphics) + 10;
-
-            // Cabeçalhos
-            float x = left;
-            int[] colWidths = new int[dgvRelatorios.Columns.Count];
-
-            // Calcular larguras das colunas
-            for (int i = 0; i < dgvRelatorios.Columns.Count; i++)
+            using (Brush titleBrush = new SolidBrush(Color.Black))
+            using (Brush headerBackBrush = new SolidBrush(headerBackColor))
+            using (Brush headerForeBrush = new SolidBrush(headerForeColor))
+            using (Brush cellBrush = new SolidBrush(cellForeColor))
+            using (Pen gridPen = new Pen(gridLineColor))
             {
-                colWidths[i] = Math.Max(100, (int)e.Graphics.MeasureString(dgvRelatorios.Columns[i].HeaderText, headerFont).Width + 20);
-            }
+                // --- Título ---
+                g.DrawString("RELATÓRIO TELEBIP", titleFont, titleBrush, left, y);
+                y += titleFont.GetHeight(g) + 10;
 
-            for (int i = 0; i < dgvRelatorios.Columns.Count; i++)
-            {
-                e.Graphics.DrawString(dgvRelatorios.Columns[i].HeaderText, headerFont, Brushes.Black, x, y);
-                x += colWidths[i];
-            }
-            y += headerFont.GetHeight(e.Graphics) + 5;
+                // Informações do relatório
+                string tipoRelatorio = ObterValorSelecionado(cbTipoRelatorio);
+                string periodo = ObterValorSelecionado(cbPeriodo);
+                Font infoFont = new Font("Arial", 9);
+                g.DrawString($"Tipo: {tipoRelatorio}", infoFont, titleBrush, left, y);
+                y += infoFont.GetHeight(g) + 2;
+                g.DrawString($"Período: {periodo}", infoFont, titleBrush, left, y);
+                y += infoFont.GetHeight(g) + 10;
 
-            // Quantas linhas cabem na página?
-            rowsPerPage = (int)((e.MarginBounds.Bottom - y) / (cellFont.GetHeight(e.Graphics) + 4));
-
-            int rowsPrinted = 0;
-            while (_currentPrintRow < dgvRelatorios.Rows.Count && rowsPrinted < rowsPerPage)
-            {
-                var row = dgvRelatorios.Rows[_currentPrintRow];
-                x = left;
-                if (!row.IsNewRow)
+                int colCount = dgvRelatorios.Columns.Count;
+                if (colCount == 0)
                 {
-                    for (int c = 0; c < dgvRelatorios.Columns.Count; c++)
-                    {
-                        string text = row.Cells[c].Value?.ToString() ?? "";
-                        // Truncar texto muito longo
-                        if (text.Length > 30) text = text.Substring(0, 27) + "...";
-                        e.Graphics.DrawString(text, cellFont, Brushes.Black, x, y);
-                        x += colWidths[c];
-                    }
-                    y += cellFont.GetHeight(e.Graphics) + 4;
-                    rowsPrinted++;
+                    e.HasMorePages = false;
+                    return;
                 }
-                _currentPrintRow++;
-            }
 
-            e.HasMorePages = _currentPrintRow < dgvRelatorios.Rows.Count;
-            if (!e.HasMorePages)
-            {
-                _currentPrintRow = 0; // resetar para próxima impressão
+                float[] colWidths = new float[colCount];
+                float totalWidth = 0f;
+                float printableWidth = e.MarginBounds.Width;
+                const int minColumnWidth = 140; // aumentado para evitar quebras
+
+                // Calcula largura baseada no header e no conteúdo (amostra até 200 linhas)
+                int maxRowsToSample = Math.Min(200, dgvRelatorios.Rows.Count);
+                for (int i = 0; i < colCount; i++)
+                {
+                    string hdr = dgvRelatorios.Columns[i].HeaderText;
+                    float headerW = g.MeasureString(hdr, headerFont).Width + 20f;
+
+                    float maxContentW = headerW;
+                    for (int r = 0; r < maxRowsToSample; r++)
+                    {
+                        var row = dgvRelatorios.Rows[r];
+                        if (row.IsNewRow) continue;
+                        var val = row.Cells[i].Value;
+                        string s = val?.ToString() ?? "";
+                        if (s.Length == 0) continue;
+                        float w = g.MeasureString(s, cellFont).Width + 20f;
+                        if (w > maxContentW) maxContentW = w;
+                    }
+
+                    // aplica mínimo maior
+                    colWidths[i] = Math.Max(minColumnWidth, maxContentW);
+                    totalWidth += colWidths[i];
+                }
+
+                // Se total for menor que área imprimível, expandir colunas para preencher (deixa visual maior)
+                if (totalWidth < printableWidth)
+                {
+                    float extra = printableWidth - totalWidth;
+                    float extraPerCol = extra / colCount;
+                    for (int i = 0; i < colCount; i++)
+                    {
+                        colWidths[i] += extraPerCol;
+                    }
+                    totalWidth = printableWidth;
+                }
+                else if (totalWidth > printableWidth)
+                {
+                    // Se exceder, aplica scale proporcional (ainda maior que antes, mas cabe)
+                    float scale = printableWidth / totalWidth;
+                    totalWidth = 0f;
+                    for (int i = 0; i < colCount; i++)
+                    {
+                        colWidths[i] = (float)Math.Floor(colWidths[i] * scale);
+                        totalWidth += colWidths[i];
+                    }
+                    // preenche eventuais pixels restantes na última coluna
+                    float diff = printableWidth - totalWidth;
+                    if (diff > 0) colWidths[colCount - 1] += diff;
+                }
+
+                // --- Desenhar cabeçalho com fundo pintado ---
+                float headerHeight = headerFont.GetHeight(g) + 10;
+                float x = left;
+                RectangleF headerRect = new RectangleF(left, y, totalWidth, headerHeight);
+
+                g.FillRectangle(headerBackBrush, headerRect);
+                g.DrawRectangle(gridPen, left, y, totalWidth, headerHeight);
+
+                x = left;
+                for (int i = 0; i < colCount; i++)
+                {
+                    RectangleF cellRect = new RectangleF(x, y, colWidths[i], headerHeight);
+                    g.DrawString(dgvRelatorios.Columns[i].HeaderText, headerFont, headerForeBrush, cellRect, sfCenter);
+                    g.DrawLine(gridPen, x + colWidths[i], y, x + colWidths[i], y + headerHeight);
+                    x += colWidths[i];
+                }
+
+                y += headerHeight + 6;
+
+                // altura de cada linha
+                float rowHeight = cellFont.GetHeight(g) + 10;
+                int rowsPerPage = (int)((e.MarginBounds.Bottom - y) / rowHeight);
+                int rowsPrinted = 0;
+
+                if (rowsPerPage <= 0)
+                {
+                    e.HasMorePages = true;
+                    return;
+                }
+
+                while (_currentPrintRow < dgvRelatorios.Rows.Count && rowsPrinted < rowsPerPage)
+                {
+                    DataGridViewRow gridRow = dgvRelatorios.Rows[_currentPrintRow];
+                    if (!gridRow.IsNewRow)
+                    {
+                        x = left;
+                        for (int c = 0; c < colCount; c++)
+                        {
+                            string text = gridRow.Cells[c].Value?.ToString() ?? "";
+                            // truncamento somente se necessário (muito longa)
+                            if (text.Length > 300) text = text.Substring(0, 297) + "...";
+
+                            RectangleF cellRect = new RectangleF(x, y, colWidths[c], rowHeight);
+                            // alinhamento central por padrão; se quiser alinhar números à direita, ajuste aqui
+                            g.DrawString(text, cellFont, cellBrush, cellRect, sfCenter);
+
+                            // linha vertical
+                            g.DrawLine(gridPen, x + colWidths[c], y, x + colWidths[c], y + rowHeight);
+                            x += colWidths[c];
+                        }
+
+                        // linha horizontal (grid)
+                        g.DrawLine(gridPen, left, y + rowHeight, left + totalWidth, y + rowHeight);
+
+                        y += rowHeight;
+                        rowsPrinted++;
+                    }
+
+                    _currentPrintRow++;
+                }
+
+                e.HasMorePages = _currentPrintRow < dgvRelatorios.Rows.Count;
+                if (!e.HasMorePages)
+                {
+                    _currentPrintRow = 0;
+                }
             }
         }
+
 
         public void AtualizarDados()
         {

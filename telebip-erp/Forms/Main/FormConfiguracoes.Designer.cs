@@ -515,7 +515,7 @@ namespace telebip_erp.Forms.Modules
             btnRestaurarBackup.Dock = DockStyle.Fill;
             btnRestaurarBackup.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnRestaurarBackup.ForeColor = Color.White;
-            btnRestaurarBackup.HoverBackground = Color.FromArgb(180, 80, 60);
+            btnRestaurarBackup.HoverBackground = Color.FromArgb(60, 130, 190);
             btnRestaurarBackup.HoverForeColor = Color.White;
             btnRestaurarBackup.HoverImageTint = Color.White;
             btnRestaurarBackup.HoverOutline = Color.FromArgb(32, 128, 128, 128);
@@ -525,12 +525,12 @@ namespace telebip_erp.Forms.Modules
             btnRestaurarBackup.ImageOffset = new Point(0, 0);
             btnRestaurarBackup.Location = new Point(254, 3);
             btnRestaurarBackup.Name = "btnRestaurarBackup";
-            btnRestaurarBackup.NormalBackground = Color.FromArgb(200, 80, 50);
+            btnRestaurarBackup.NormalBackground = Color.FromArgb(45, 105, 160);
             btnRestaurarBackup.NormalForeColor = Color.White;
             btnRestaurarBackup.NormalImageTint = Color.White;
             btnRestaurarBackup.NormalOutline = Color.FromArgb(70, 72, 90);
             btnRestaurarBackup.OutlineThickness = 2F;
-            btnRestaurarBackup.PressedBackground = Color.FromArgb(170, 60, 40);
+            btnRestaurarBackup.PressedBackground = Color.FromArgb(35, 85, 130);
             btnRestaurarBackup.PressedForeColor = Color.White;
             btnRestaurarBackup.PressedImageTint = Color.White;
             btnRestaurarBackup.PressedOutline = Color.FromArgb(64, 128, 128, 128);

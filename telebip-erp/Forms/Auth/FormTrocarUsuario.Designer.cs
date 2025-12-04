@@ -60,8 +60,8 @@
             btnLogin.DialogResult = DialogResult.None;
             btnLogin.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnLogin.ForeColor = Color.White;
-            btnLogin.HoverBackground = Color.White;
-            btnLogin.HoverForeColor = Color.Black;
+            btnLogin.HoverBackground = Color.FromArgb(50, 150, 100);
+            btnLogin.HoverForeColor = Color.White;
             btnLogin.HoverImageTint = Color.White;
             btnLogin.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             btnLogin.Image = null;
@@ -76,7 +76,7 @@
             btnLogin.NormalImageTint = Color.White;
             btnLogin.NormalOutline = Color.Transparent;
             btnLogin.OutlineThickness = 1F;
-            btnLogin.PressedBackground = Color.WhiteSmoke;
+            btnLogin.PressedBackground = Color.FromArgb(30, 100, 70);
             btnLogin.PressedForeColor = Color.FromArgb(32, 32, 32);
             btnLogin.PressedImageTint = Color.White;
             btnLogin.PressedOutline = Color.FromArgb(64, 128, 128, 128);
@@ -237,8 +237,8 @@
             cuiButton1.DialogResult = DialogResult.None;
             cuiButton1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             cuiButton1.ForeColor = Color.White;
-            cuiButton1.HoverBackground = Color.White;
-            cuiButton1.HoverForeColor = Color.Black;
+            cuiButton1.HoverBackground = Color.FromArgb(150, 60, 60);
+            cuiButton1.HoverForeColor = Color.White;
             cuiButton1.HoverImageTint = Color.White;
             cuiButton1.HoverOutline = Color.FromArgb(32, 128, 128, 128);
             cuiButton1.Image = null;
@@ -253,7 +253,7 @@
             cuiButton1.NormalImageTint = Color.White;
             cuiButton1.NormalOutline = Color.Transparent;
             cuiButton1.OutlineThickness = 1F;
-            cuiButton1.PressedBackground = Color.WhiteSmoke;
+            cuiButton1.PressedBackground = Color.FromArgb(90, 30, 30);
             cuiButton1.PressedForeColor = Color.FromArgb(32, 32, 32);
             cuiButton1.PressedImageTint = Color.White;
             cuiButton1.PressedOutline = Color.FromArgb(64, 128, 128, 128);
