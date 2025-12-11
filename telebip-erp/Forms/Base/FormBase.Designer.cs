@@ -62,6 +62,8 @@
             pnlContainer = new Panel();
             panel1 = new Panel();
             pnlHam = new Panel();
+            panel4 = new Panel();
+            lblUser = new Label();
             ((System.ComponentModel.ISupportInitialize)btnHam).BeginInit();
             pnlSidebar.SuspendLayout();
             pnlHome.SuspendLayout();
@@ -80,6 +82,7 @@
             pnlConfiguracoes.SuspendLayout();
             panel8.SuspendLayout();
             pnlHam.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // btnHam
@@ -439,9 +442,9 @@
             // 
             pnlContainer.BackColor = Color.FromArgb(28, 29, 40);
             pnlContainer.Dock = DockStyle.Fill;
-            pnlContainer.Location = new Point(283, 24);
+            pnlContainer.Location = new Point(286, 24);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(1014, 644);
+            pnlContainer.Size = new Size(1011, 644);
             pnlContainer.TabIndex = 3;
             // 
             // panel1
@@ -463,14 +466,34 @@
             pnlHam.TabIndex = 7;
             pnlHam.Click += btnHam_Click;
             // 
+            // panel4
+            // 
+            panel4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            panel4.BackColor = Color.FromArgb(28, 29, 40);
+            panel4.Controls.Add(lblUser);
+            panel4.Location = new Point(286, 638);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(400, 28);
+            panel4.TabIndex = 9;
+            // 
+            // lblUser
+            // 
+            lblUser.ForeColor = Color.White;
+            lblUser.Location = new Point(6, 8);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(391, 15);
+            lblUser.TabIndex = 0;
+            lblUser.Text = "Usúario:";
+            // 
             // FormBase
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(1300, 671);
+            Controls.Add(panel4);
+            Controls.Add(pnlContainer);
             Controls.Add(pnlHam);
             Controls.Add(panel1);
-            Controls.Add(pnlContainer);
             Controls.Add(pnlSidebar);
             Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             FormStyle = FormStyles.ActionBar_None;
@@ -498,6 +521,7 @@
             pnlConfiguracoes.ResumeLayout(false);
             panel8.ResumeLayout(false);
             pnlHam.ResumeLayout(false);
+            panel4.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -536,5 +560,7 @@
         private Panel pnlContainer;
         private Panel panel1;
         private Panel pnlHam;
+        private Panel panel4;
+        private Label lblUser;
     }
 }

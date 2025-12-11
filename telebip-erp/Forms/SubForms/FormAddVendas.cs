@@ -320,6 +320,7 @@ namespace telebip_erp.Forms.SubForms
                 cbForma.Items.AddRange(new object[] {
                     "Dinheiro",
                     "Credito",
+                    "Debito",
                     "Pix QR",
                     "Pix",
                     "Ausente"
