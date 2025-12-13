@@ -19,6 +19,8 @@ namespace telebip_erp.Forms.SubForms
         private bool _ignorarEventoPrecoProduto = false;
         private bool _ignorarEventoDesconto = false;
         private bool _ignorarEventoCombo = false;
+        private bool _preenchendoProdutoAutomaticamente = false;
+
 
         // Hora "confiável" obtida no load (NTP ou fallback)
         private DateTime _trustedNow = default;
@@ -41,14 +43,9 @@ namespace telebip_erp.Forms.SubForms
             // --- chama configuração dos monetários (preço e desconto)
             ConfigurarMonetarios();
 
-            // Handlers de teclado para busca rápida
-            tbNomeProduto.KeyDown += tbNomeProduto_KeyDown;
-
             // Configurar DataGridView
             ConfigurarDataGridViewProdutos();
 
-            // Load do form
-            this.Load += FormAddVendas_Load_1;
         }
 
         #region Inicialização
@@ -76,6 +73,11 @@ namespace telebip_erp.Forms.SubForms
 
             // Load do form
             this.Load += FormAddVendas_Load_1;
+
+            cbMetodoPesquisa.SelectedIndex = 0;
+
+            tbNomeProduto.Enter += tbNomeProduto_Enter;
+
         }
 
         private void FormAddVendas_Load_1(object sender, EventArgs e)
@@ -459,60 +461,106 @@ namespace telebip_erp.Forms.SubForms
         {
             if (e.KeyCode != Keys.Enter) return;
 
+
+            if (_preenchendoProdutoAutomaticamente)
+                return;
+
             e.SuppressKeyPress = true;
-            BuscarProduto(tbNomeProduto.Text.ToUpper());
+
+            if (tbNomeProduto.ForeColor == Color.Gray)
+                return;
+
+            BuscarProdutoPorMetodo(tbNomeProduto.Text.Trim());
         }
 
-        private void BuscarProduto(string nome)
+        private void tbNomeProduto_Enter(object sender, EventArgs e)
         {
-            tbNomeProduto.Text = nome;
-            tbNomeProduto.SelectionStart = nome.Length;
+            if (tbNomeProduto.ForeColor == Color.Gray)
+            {
+                tbNomeProduto.Text = "";
+                tbNomeProduto.ForeColor = Color.White;
+            }
+        }
 
-            if (string.IsNullOrWhiteSpace(nome)) return;
+
+        private void BuscarProdutoPorMetodo(string valor)
+        {
+
+
+            if (string.IsNullOrWhiteSpace(valor))
+                return;
 
             try
             {
                 using var conn = DatabaseHelper.GetConnection();
                 conn.Open();
 
-                string sqlExato = "SELECT ID_PRODUTO, NOME, MARCA, PRECO, QTD_ESTOQUE FROM PRODUTO WHERE UPPER(NOME) = UPPER(@nome) LIMIT 1;";
-                using (var cmd = new SQLiteCommand(sqlExato, conn))
+                string metodo = cbMetodoPesquisa.SelectedItem?.ToString() ?? "ID";
+                SQLiteCommand cmd;
+
+                switch (metodo)
                 {
-                    cmd.Parameters.AddWithValue("@nome", nome.Trim());
-                    using var reader = cmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        PreencherCamposProduto(reader);
-                        this.SelectNextControl(tbNomeProduto, true, true, true, true);
-                        return;
-                    }
+                    case "ID":
+
+                        // Se já existe um produto carregado, só bloqueia se for o MESMO ID
+                        if (int.TryParse(lbIdProduto.Text, out int idAtual) &&
+                            int.TryParse(valor, out int idDigitado) &&
+                            idAtual == idDigitado)
+                        {
+                            return;
+                        }
+
+                        if (!int.TryParse(valor, out int id))
+                            return;
+
+                        cmd = new SQLiteCommand(
+                            "SELECT ID_PRODUTO, NOME, MARCA, PRECO, QTD_ESTOQUE " +
+                            "FROM PRODUTO WHERE ID_PRODUTO = @valor LIMIT 1;", conn);
+
+                        cmd.Parameters.AddWithValue("@valor", id);
+                        break;
+
+                    default: // Nome do Produto
+                        cmd = new SQLiteCommand(
+                            "SELECT ID_PRODUTO, NOME, MARCA, PRECO, QTD_ESTOQUE " +
+                            "FROM PRODUTO WHERE NOME LIKE @valor LIMIT 1;", conn);
+
+                        cmd.Parameters.AddWithValue("@valor", valor + "%");
+                        break;
                 }
 
-                string sqlLike = "SELECT ID_PRODUTO, NOME, MARCA, PRECO, QTD_ESTOQUE FROM PRODUTO WHERE NOME LIKE @nome LIMIT 1;";
-                using (var cmd2 = new SQLiteCommand(sqlLike, conn))
-                {
-                    cmd2.Parameters.AddWithValue("@nome", nome + "%");
-                    using var reader2 = cmd2.ExecuteReader();
-                    if (reader2.Read())
-                    {
-                        PreencherCamposProduto(reader2);
-                        this.SelectNextControl(tbNomeProduto, true, true, true, true);
-                        return;
-                    }
-                }
+                using var reader = cmd.ExecuteReader();
 
-                MessageBox.Show("Produto não encontrado no sistema!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (reader.Read())
+                {
+                    _preenchendoProdutoAutomaticamente = true;
+
+                    PreencherCamposProduto(reader);
+
+                    _preenchendoProdutoAutomaticamente = false;
+
+                    this.SelectNextControl(tbNomeProduto, true, true, true, true);
+                }
+                else
+                {
+                    MessageBox.Show("Produto não encontrado.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao buscar produto: " + ex.Message);
+                MessageBox.Show("Erro ao buscar produto: " + ex.Message,
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void PreencherCamposProduto(SQLiteDataReader reader)
         {
             lbIdProduto.Text = reader["ID_PRODUTO"].ToString();
             tbNomeProduto.Text = reader["NOME"].ToString();
+            tbNomeProduto.ForeColor = Color.White;
+
             lbMarcaProduto.Text = reader["MARCA"].ToString();
 
             decimal preco = Convert.ToDecimal(reader["PRECO"]);
@@ -521,6 +569,7 @@ namespace telebip_erp.Forms.SubForms
             int quantidade = Convert.ToInt32(reader["QTD_ESTOQUE"]);
             lbQuantidadeAtual.Text = $"Quantidade atual: {quantidade}";
         }
+
 
         public void PreencherProduto(string nomeProduto, int idProduto)
         {
@@ -1221,5 +1270,27 @@ namespace telebip_erp.Forms.SubForms
         }
 
         #endregion
+
+        private void cbMetodoPesquisa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AtualizarPlaceholderMetodoPesquisa();
+        }
+
+        private void AtualizarPlaceholderMetodoPesquisa()
+        {
+            tbNomeProduto.ForeColor = Color.Gray;
+
+            switch (cbMetodoPesquisa.SelectedItem?.ToString())
+            {
+                case "ID":
+                    tbNomeProduto.Text = "Ex: 31";
+                    break;
+
+                case "Nome do Produto":
+                    tbNomeProduto.Text = "Ex: Capinha";
+                    break;
+            }
+        }
+
     }
 }

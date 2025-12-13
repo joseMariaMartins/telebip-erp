@@ -15,6 +15,8 @@ namespace telebip_erp.Forms.SubForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddVendas));
             pnlContainer = new Panel();
             pnlMain = new Panel();
+            pictureBox4 = new PictureBox();
+            label2 = new Label();
             label1 = new Label();
             btnAdicionarItem = new CuoreUI.Controls.cuiButton();
             roundedPanel4 = new telebip_erp.Controls.RoundedPanel();
@@ -55,10 +57,13 @@ namespace telebip_erp.Forms.SubForms
             lblPreco = new Label();
             lblQuantidadeVendida = new Label();
             lblDesconto = new Label();
+            roundedPanel5 = new telebip_erp.Controls.RoundedPanel();
+            cbMetodoPesquisa = new telebip_erp.Controls.NeoFlatComboBox();
             pnlHeader = new Panel();
             lblTitulo = new Label();
             pnlContainer.SuspendLayout();
             pnlMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             roundedPanel4.SuspendLayout();
             roundedPanel3.SuspendLayout();
             roundedPanel2.SuspendLayout();
@@ -73,6 +78,7 @@ namespace telebip_erp.Forms.SubForms
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             roundedPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnMaisInformacao).BeginInit();
+            roundedPanel5.SuspendLayout();
             pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
@@ -90,6 +96,8 @@ namespace telebip_erp.Forms.SubForms
             // pnlMain
             // 
             pnlMain.BackColor = Color.FromArgb(28, 29, 40);
+            pnlMain.Controls.Add(pictureBox4);
+            pnlMain.Controls.Add(label2);
             pnlMain.Controls.Add(label1);
             pnlMain.Controls.Add(btnAdicionarItem);
             pnlMain.Controls.Add(roundedPanel4);
@@ -117,12 +125,33 @@ namespace telebip_erp.Forms.SubForms
             pnlMain.Controls.Add(lblPreco);
             pnlMain.Controls.Add(lblQuantidadeVendida);
             pnlMain.Controls.Add(lblDesconto);
+            pnlMain.Controls.Add(roundedPanel5);
             pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
             pnlMain.Padding = new Padding(30);
             pnlMain.Size = new Size(922, 683);
             pnlMain.TabIndex = 1;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(147, 104);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(10, 10);
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox4.TabIndex = 225;
+            pictureBox4.TabStop = false;
+            // 
+            // label2
+            // 
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(31, 70);
+            label2.Name = "label2";
+            label2.Size = new Size(127, 20);
+            label2.TabIndex = 228;
+            label2.Text = "Método de pesquisa";
             // 
             // label1
             // 
@@ -414,7 +443,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             // lbMarcaProduto
             // 
-            lbMarcaProduto.Location = new Point(855, 32);
+            lbMarcaProduto.Location = new Point(854, 3);
             lbMarcaProduto.Name = "lbMarcaProduto";
             lbMarcaProduto.Size = new Size(100, 23);
             lbMarcaProduto.TabIndex = 57;
@@ -423,7 +452,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             // lbIdProduto
             // 
-            lbIdProduto.Location = new Point(855, 6);
+            lbIdProduto.Location = new Point(746, 3);
             lbIdProduto.Name = "lbIdProduto";
             lbIdProduto.Size = new Size(100, 23);
             lbIdProduto.TabIndex = 58;
@@ -598,7 +627,7 @@ namespace telebip_erp.Forms.SubForms
             pnlWrapperFuncionarios.Controls.Add(cbFuncionariosVenda);
             pnlWrapperFuncionarios.CornerRadius = 8;
             pnlWrapperFuncionarios.FillColor = Color.FromArgb(40, 41, 52);
-            pnlWrapperFuncionarios.Location = new Point(33, 55);
+            pnlWrapperFuncionarios.Location = new Point(33, 28);
             pnlWrapperFuncionarios.Name = "pnlWrapperFuncionarios";
             pnlWrapperFuncionarios.Padding = new Padding(8, 6, 30, 6);
             pnlWrapperFuncionarios.Size = new Size(854, 36);
@@ -638,7 +667,7 @@ namespace telebip_erp.Forms.SubForms
             // 
             lblFuncionario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblFuncionario.ForeColor = Color.White;
-            lblFuncionario.Location = new Point(33, 32);
+            lblFuncionario.Location = new Point(31, 6);
             lblFuncionario.Name = "lblFuncionario";
             lblFuncionario.Size = new Size(142, 20);
             lblFuncionario.TabIndex = 1;
@@ -668,7 +697,7 @@ namespace telebip_erp.Forms.SubForms
             tbNomeProduto.Location = new Point(8, 10);
             tbNomeProduto.MaxLength = 100;
             tbNomeProduto.Name = "tbNomeProduto";
-            tbNomeProduto.Placeholder = "Ex: Capinha";
+            tbNomeProduto.Placeholder = "Ex: 31";
             tbNomeProduto.PlaceholderColor = Color.FromArgb(160, 160, 160);
             tbNomeProduto.Size = new Size(426, 16);
             tbNomeProduto.TabIndex = 21;
@@ -724,6 +753,42 @@ namespace telebip_erp.Forms.SubForms
             lblDesconto.TabIndex = 29;
             lblDesconto.Text = "Desconto sobre o Total";
             // 
+            // roundedPanel5
+            // 
+            roundedPanel5.BackColor = Color.FromArgb(40, 41, 52);
+            roundedPanel5.BorderColor = Color.FromArgb(60, 62, 80);
+            roundedPanel5.BorderThickness = 1;
+            roundedPanel5.Controls.Add(cbMetodoPesquisa);
+            roundedPanel5.CornerRadius = 8;
+            roundedPanel5.FillColor = Color.FromArgb(40, 41, 52);
+            roundedPanel5.Location = new Point(33, 93);
+            roundedPanel5.Name = "roundedPanel5";
+            roundedPanel5.Padding = new Padding(8, 6, 30, 6);
+            roundedPanel5.Size = new Size(140, 36);
+            roundedPanel5.TabIndex = 227;
+            // 
+            // cbMetodoPesquisa
+            // 
+            cbMetodoPesquisa.AutoSelectFirst = false;
+            cbMetodoPesquisa.BackColor = Color.FromArgb(40, 41, 52);
+            cbMetodoPesquisa.DrawMode = DrawMode.OwnerDrawFixed;
+            cbMetodoPesquisa.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbMetodoPesquisa.FlatStyle = FlatStyle.Flat;
+            cbMetodoPesquisa.Font = new Font("Segoe UI", 8F);
+            cbMetodoPesquisa.ForeColor = Color.White;
+            cbMetodoPesquisa.FormattingEnabled = true;
+            cbMetodoPesquisa.ItemEntryHeight = 30;
+            cbMetodoPesquisa.ItemHeight = 13;
+            cbMetodoPesquisa.Items.AddRange(new object[] { "ID", "Nome do Produto" });
+            cbMetodoPesquisa.Location = new Point(4, 8);
+            cbMetodoPesquisa.Margin = new Padding(0);
+            cbMetodoPesquisa.Name = "cbMetodoPesquisa";
+            cbMetodoPesquisa.Placeholder = "";
+            cbMetodoPesquisa.ShowPlaceholder = true;
+            cbMetodoPesquisa.Size = new Size(132, 19);
+            cbMetodoPesquisa.TabIndex = 221;
+            cbMetodoPesquisa.SelectedIndexChanged += cbMetodoPesquisa_SelectedIndexChanged;
+            // 
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.FromArgb(32, 33, 39);
@@ -761,6 +826,7 @@ namespace telebip_erp.Forms.SubForms
             Text = "FormAddVendas";
             pnlContainer.ResumeLayout(false);
             pnlMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             roundedPanel4.ResumeLayout(false);
             roundedPanel4.PerformLayout();
             roundedPanel3.ResumeLayout(false);
@@ -780,6 +846,7 @@ namespace telebip_erp.Forms.SubForms
             roundedPanel1.ResumeLayout(false);
             roundedPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)btnMaisInformacao).EndInit();
+            roundedPanel5.ResumeLayout(false);
             pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -844,5 +911,9 @@ namespace telebip_erp.Forms.SubForms
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private Label label1;
+        private Controls.RoundedPanel roundedPanel5;
+        private PictureBox pictureBox4;
+        public Controls.NeoFlatComboBox cbMetodoPesquisa;
+        private Label label2;
     }
 }
