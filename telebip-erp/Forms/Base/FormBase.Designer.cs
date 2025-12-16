@@ -42,6 +42,8 @@
             panel2 = new Panel();
             addVenda = new Button();
             pnlEstoque = new Panel();
+            pnlEditEstoque = new Panel();
+            btnEditEstoque = new Button();
             panel10 = new Panel();
             btnEstoque = new Button();
             panel11 = new Panel();
@@ -62,8 +64,6 @@
             pnlContainer = new Panel();
             panel1 = new Panel();
             pnlHam = new Panel();
-            panel4 = new Panel();
-            lblUser = new Label();
             ((System.ComponentModel.ISupportInitialize)btnHam).BeginInit();
             pnlSidebar.SuspendLayout();
             pnlHome.SuspendLayout();
@@ -72,6 +72,7 @@
             panel5.SuspendLayout();
             panel2.SuspendLayout();
             pnlEstoque.SuspendLayout();
+            pnlEditEstoque.SuspendLayout();
             panel10.SuspendLayout();
             panel11.SuspendLayout();
             panel12.SuspendLayout();
@@ -82,7 +83,6 @@
             pnlConfiguracoes.SuspendLayout();
             panel8.SuspendLayout();
             pnlHam.SuspendLayout();
-            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // btnHam
@@ -129,10 +129,10 @@
             btnHome.ForeColor = SystemColors.ControlLight;
             btnHome.Image = (Image)resources.GetObject("btnHome.Image");
             btnHome.ImageAlign = ContentAlignment.MiddleLeft;
-            btnHome.Location = new Point(-4, -8);
+            btnHome.Location = new Point(-4, -12);
             btnHome.Name = "btnHome";
             btnHome.Padding = new Padding(9, 0, 0, 0);
-            btnHome.Size = new Size(405, 63);
+            btnHome.Size = new Size(405, 70);
             btnHome.TabIndex = 3;
             btnHome.Text = "                    Home";
             btnHome.TextAlign = ContentAlignment.MiddleLeft;
@@ -167,11 +167,11 @@
             btnVendas.ForeColor = SystemColors.ControlLight;
             btnVendas.Image = (Image)resources.GetObject("btnVendas.Image");
             btnVendas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnVendas.Location = new Point(-4, -4);
+            btnVendas.Location = new Point(-4, -13);
             btnVendas.Margin = new Padding(0);
             btnVendas.Name = "btnVendas";
             btnVendas.Padding = new Padding(9, 0, 0, 0);
-            btnVendas.Size = new Size(405, 55);
+            btnVendas.Size = new Size(405, 75);
             btnVendas.TabIndex = 4;
             btnVendas.Text = "                    Vendas";
             btnVendas.TextAlign = ContentAlignment.MiddleLeft;
@@ -235,6 +235,7 @@
             // pnlEstoque
             // 
             pnlEstoque.BackColor = Color.FromArgb(23, 24, 29);
+            pnlEstoque.Controls.Add(pnlEditEstoque);
             pnlEstoque.Controls.Add(panel10);
             pnlEstoque.Controls.Add(panel11);
             pnlEstoque.Controls.Add(panel12);
@@ -242,8 +243,33 @@
             pnlEstoque.Location = new Point(0, 248);
             pnlEstoque.Margin = new Padding(0, 10, 0, 0);
             pnlEstoque.Name = "pnlEstoque";
-            pnlEstoque.Size = new Size(306, 152);
+            pnlEstoque.Size = new Size(306, 200);
             pnlEstoque.TabIndex = 8;
+            // 
+            // pnlEditEstoque
+            // 
+            pnlEditEstoque.Controls.Add(btnEditEstoque);
+            pnlEditEstoque.Location = new Point(3, 103);
+            pnlEditEstoque.Name = "pnlEditEstoque";
+            pnlEditEstoque.Size = new Size(398, 50);
+            pnlEditEstoque.TabIndex = 7;
+            // 
+            // btnEditEstoque
+            // 
+            btnEditEstoque.BackColor = Color.FromArgb(32, 33, 36);
+            btnEditEstoque.FlatStyle = FlatStyle.Popup;
+            btnEditEstoque.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            btnEditEstoque.ForeColor = SystemColors.ControlLight;
+            btnEditEstoque.Image = (Image)resources.GetObject("btnEditEstoque.Image");
+            btnEditEstoque.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEditEstoque.Location = new Point(0, -8);
+            btnEditEstoque.Name = "btnEditEstoque";
+            btnEditEstoque.Padding = new Padding(13, 0, 0, 0);
+            btnEditEstoque.Size = new Size(374, 67);
+            btnEditEstoque.TabIndex = 4;
+            btnEditEstoque.Text = "                    Editar";
+            btnEditEstoque.TextAlign = ContentAlignment.MiddleLeft;
+            btnEditEstoque.UseVisualStyleBackColor = false;
             // 
             // panel10
             // 
@@ -273,9 +299,9 @@
             // panel11
             // 
             panel11.Controls.Add(rmvEstoque);
-            panel11.Location = new Point(2, 101);
+            panel11.Location = new Point(3, 150);
             panel11.Name = "panel11";
-            panel11.Size = new Size(375, 50);
+            panel11.Size = new Size(401, 50);
             panel11.TabIndex = 6;
             // 
             // rmvEstoque
@@ -289,7 +315,7 @@
             rmvEstoque.Location = new Point(0, -7);
             rmvEstoque.Name = "rmvEstoque";
             rmvEstoque.Padding = new Padding(13, 0, 0, 0);
-            rmvEstoque.Size = new Size(402, 62);
+            rmvEstoque.Size = new Size(378, 62);
             rmvEstoque.TabIndex = 4;
             rmvEstoque.Text = "                    Remover";
             rmvEstoque.TextAlign = ContentAlignment.MiddleLeft;
@@ -312,7 +338,7 @@
             addEstoque.ForeColor = SystemColors.ControlLight;
             addEstoque.Image = (Image)resources.GetObject("addEstoque.Image");
             addEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            addEstoque.Location = new Point(0, -11);
+            addEstoque.Location = new Point(1, -3);
             addEstoque.Name = "addEstoque";
             addEstoque.Padding = new Padding(13, 0, 0, 0);
             addEstoque.Size = new Size(375, 69);
@@ -327,7 +353,7 @@
             pnlRelatorios.BackColor = Color.FromArgb(23, 24, 29);
             pnlRelatorios.Controls.Add(panel6);
             pnlRelatorios.ForeColor = Color.Transparent;
-            pnlRelatorios.Location = new Point(0, 410);
+            pnlRelatorios.Location = new Point(0, 458);
             pnlRelatorios.Margin = new Padding(0, 10, 0, 0);
             pnlRelatorios.Name = "pnlRelatorios";
             pnlRelatorios.Size = new Size(286, 51);
@@ -348,7 +374,7 @@
             btnRelatorios.ForeColor = SystemColors.ControlLight;
             btnRelatorios.Image = (Image)resources.GetObject("btnRelatorios.Image");
             btnRelatorios.ImageAlign = ContentAlignment.MiddleLeft;
-            btnRelatorios.Location = new Point(-4, -11);
+            btnRelatorios.Location = new Point(-4, -12);
             btnRelatorios.Name = "btnRelatorios";
             btnRelatorios.Padding = new Padding(9, 0, 0, 0);
             btnRelatorios.Size = new Size(405, 69);
@@ -363,7 +389,7 @@
             pnlFuncionarios.BackColor = Color.FromArgb(23, 24, 29);
             pnlFuncionarios.Controls.Add(panel9);
             pnlFuncionarios.ForeColor = Color.Transparent;
-            pnlFuncionarios.Location = new Point(0, 471);
+            pnlFuncionarios.Location = new Point(0, 519);
             pnlFuncionarios.Margin = new Padding(0, 10, 0, 0);
             pnlFuncionarios.Name = "pnlFuncionarios";
             pnlFuncionarios.Size = new Size(306, 51);
@@ -399,7 +425,7 @@
             pnlConfiguracoes.BackColor = Color.FromArgb(23, 24, 29);
             pnlConfiguracoes.Controls.Add(panel8);
             pnlConfiguracoes.ForeColor = Color.Transparent;
-            pnlConfiguracoes.Location = new Point(0, 532);
+            pnlConfiguracoes.Location = new Point(0, 580);
             pnlConfiguracoes.Margin = new Padding(0, 10, 0, 0);
             pnlConfiguracoes.Name = "pnlConfiguracoes";
             pnlConfiguracoes.Size = new Size(286, 51);
@@ -466,31 +492,11 @@
             pnlHam.TabIndex = 7;
             pnlHam.Click += btnHam_Click;
             // 
-            // panel4
-            // 
-            panel4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            panel4.BackColor = Color.FromArgb(28, 29, 40);
-            panel4.Controls.Add(lblUser);
-            panel4.Location = new Point(286, 638);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(400, 28);
-            panel4.TabIndex = 9;
-            // 
-            // lblUser
-            // 
-            lblUser.ForeColor = Color.White;
-            lblUser.Location = new Point(6, 8);
-            lblUser.Name = "lblUser";
-            lblUser.Size = new Size(391, 15);
-            lblUser.TabIndex = 0;
-            lblUser.Text = "Usúario:";
-            // 
             // FormBase
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(1300, 671);
-            Controls.Add(panel4);
             Controls.Add(pnlContainer);
             Controls.Add(pnlHam);
             Controls.Add(panel1);
@@ -511,6 +517,7 @@
             panel5.ResumeLayout(false);
             panel2.ResumeLayout(false);
             pnlEstoque.ResumeLayout(false);
+            pnlEditEstoque.ResumeLayout(false);
             panel10.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel12.ResumeLayout(false);
@@ -521,7 +528,6 @@
             pnlConfiguracoes.ResumeLayout(false);
             panel8.ResumeLayout(false);
             pnlHam.ResumeLayout(false);
-            panel4.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -538,7 +544,6 @@
         private Panel pnlEstoque;
         private Button btnEstoque;
         private Button rmvEstoque;
-        private Button addEstoque;
         private Panel pnlRelatorios;
         private Button btnRelatorios;
         private Panel pnlFuncionarios;
@@ -560,7 +565,8 @@
         private Panel pnlContainer;
         private Panel panel1;
         private Panel pnlHam;
-        private Panel panel4;
-        private Label lblUser;
+        protected Panel pnlEditEstoque;
+        private Button btnEditEstoque;
+        private Button addEstoque;
     }
 }
