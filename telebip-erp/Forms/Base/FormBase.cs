@@ -110,7 +110,7 @@ namespace telebip_erp
 
         private void AbrirDropdownEstoque()
         {
-            pnlEstoque.Height = 200;
+            pnlEstoque.Height = 150;
             menuExpandEstoque = true;
         }
 
@@ -585,10 +585,5 @@ namespace telebip_erp
             }
         }
         #endregion
-
-        private void btnEditEstoque_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

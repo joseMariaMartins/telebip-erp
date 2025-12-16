@@ -64,8 +64,6 @@
             pnlHam = new Panel();
             panel4 = new Panel();
             lblUser = new Label();
-            btnEditEstoque = new Button();
-            panel7 = new Panel();
             ((System.ComponentModel.ISupportInitialize)btnHam).BeginInit();
             pnlSidebar.SuspendLayout();
             pnlHome.SuspendLayout();
@@ -85,7 +83,6 @@
             panel8.SuspendLayout();
             pnlHam.SuspendLayout();
             panel4.SuspendLayout();
-            panel7.SuspendLayout();
             SuspendLayout();
             // 
             // btnHam
@@ -238,7 +235,6 @@
             // pnlEstoque
             // 
             pnlEstoque.BackColor = Color.FromArgb(23, 24, 29);
-            pnlEstoque.Controls.Add(panel7);
             pnlEstoque.Controls.Add(panel10);
             pnlEstoque.Controls.Add(panel11);
             pnlEstoque.Controls.Add(panel12);
@@ -246,7 +242,7 @@
             pnlEstoque.Location = new Point(0, 248);
             pnlEstoque.Margin = new Padding(0, 10, 0, 0);
             pnlEstoque.Name = "pnlEstoque";
-            pnlEstoque.Size = new Size(306, 200);
+            pnlEstoque.Size = new Size(306, 152);
             pnlEstoque.TabIndex = 8;
             // 
             // panel10
@@ -276,7 +272,7 @@
             // 
             // panel11
             // 
-            panel11.Controls.Add(btnEditEstoque);
+            panel11.Controls.Add(rmvEstoque);
             panel11.Location = new Point(2, 101);
             panel11.Name = "panel11";
             panel11.Size = new Size(375, 50);
@@ -290,7 +286,7 @@
             rmvEstoque.ForeColor = SystemColors.ControlLight;
             rmvEstoque.Image = (Image)resources.GetObject("rmvEstoque.Image");
             rmvEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            rmvEstoque.Location = new Point(-4, -6);
+            rmvEstoque.Location = new Point(0, -7);
             rmvEstoque.Name = "rmvEstoque";
             rmvEstoque.Padding = new Padding(13, 0, 0, 0);
             rmvEstoque.Size = new Size(402, 62);
@@ -331,7 +327,7 @@
             pnlRelatorios.BackColor = Color.FromArgb(23, 24, 29);
             pnlRelatorios.Controls.Add(panel6);
             pnlRelatorios.ForeColor = Color.Transparent;
-            pnlRelatorios.Location = new Point(0, 458);
+            pnlRelatorios.Location = new Point(0, 410);
             pnlRelatorios.Margin = new Padding(0, 10, 0, 0);
             pnlRelatorios.Name = "pnlRelatorios";
             pnlRelatorios.Size = new Size(286, 51);
@@ -367,7 +363,7 @@
             pnlFuncionarios.BackColor = Color.FromArgb(23, 24, 29);
             pnlFuncionarios.Controls.Add(panel9);
             pnlFuncionarios.ForeColor = Color.Transparent;
-            pnlFuncionarios.Location = new Point(0, 519);
+            pnlFuncionarios.Location = new Point(0, 471);
             pnlFuncionarios.Margin = new Padding(0, 10, 0, 0);
             pnlFuncionarios.Name = "pnlFuncionarios";
             pnlFuncionarios.Size = new Size(306, 51);
@@ -403,7 +399,7 @@
             pnlConfiguracoes.BackColor = Color.FromArgb(23, 24, 29);
             pnlConfiguracoes.Controls.Add(panel8);
             pnlConfiguracoes.ForeColor = Color.Transparent;
-            pnlConfiguracoes.Location = new Point(0, 580);
+            pnlConfiguracoes.Location = new Point(0, 532);
             pnlConfiguracoes.Margin = new Padding(0, 10, 0, 0);
             pnlConfiguracoes.Name = "pnlConfiguracoes";
             pnlConfiguracoes.Size = new Size(286, 51);
@@ -489,32 +485,6 @@
             lblUser.TabIndex = 0;
             lblUser.Text = "Usúario:";
             // 
-            // btnEditEstoque
-            // 
-            btnEditEstoque.BackColor = Color.FromArgb(32, 33, 36);
-            btnEditEstoque.FlatStyle = FlatStyle.Popup;
-            btnEditEstoque.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            btnEditEstoque.ForeColor = SystemColors.ControlLight;
-            btnEditEstoque.Image = (Image)resources.GetObject("btnEditEstoque.Image");
-            btnEditEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEditEstoque.Location = new Point(2, -13);
-            btnEditEstoque.Name = "btnEditEstoque";
-            btnEditEstoque.Padding = new Padding(13, 0, 0, 0);
-            btnEditEstoque.Size = new Size(373, 69);
-            btnEditEstoque.TabIndex = 3;
-            btnEditEstoque.Text = "                    Editar";
-            btnEditEstoque.TextAlign = ContentAlignment.MiddleLeft;
-            btnEditEstoque.UseVisualStyleBackColor = false;
-            btnEditEstoque.Click += btnEditEstoque_Click;
-            // 
-            // panel7
-            // 
-            panel7.Controls.Add(rmvEstoque);
-            panel7.Location = new Point(4, 150);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(402, 50);
-            panel7.TabIndex = 4;
-            // 
             // FormBase
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -552,7 +522,6 @@
             panel8.ResumeLayout(false);
             pnlHam.ResumeLayout(false);
             panel4.ResumeLayout(false);
-            panel7.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -593,7 +562,5 @@
         private Panel pnlHam;
         private Panel panel4;
         private Label lblUser;
-        protected Panel panel7;
-        private Button btnEditEstoque;
     }
 }
