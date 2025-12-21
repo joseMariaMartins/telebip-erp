@@ -87,6 +87,7 @@ namespace telebip_erp.Forms.Modules
             cbTipoRelatorio.Items.AddRange(new object[] {
                 "Vendas do período",
                 "Produtos mais vendidos",
+                "Produtos menos vendidos",
                 "Vendas por funcionário",
                 "Produtos com baixo estoque",
                 "Formas de pagamento",
@@ -316,6 +317,8 @@ namespace telebip_erp.Forms.Modules
                     return ObterRelatorioVendasPeriodo(dateRange);
                 case "produtos mais vendidos":
                     return ObterRelatorioProdutosMaisVendidos(dateRange);
+                case "produtos menos vendidos":
+                    return ObterRelatorioProdutosMenosVendidos(dateRange);
                 case "vendas por categoria":
                     return ObterRelatorioVendasPorCategoria(dateRange);
                 case "formas de pagamento":
@@ -376,14 +379,51 @@ namespace telebip_erp.Forms.Modules
             }
         }
 
+        private DataTable ObterRelatorioProdutosMenosVendidos((DateTime start, DateTime end)? dateRange)
+        {
+            try
+            {
+                string whereClause = BuildDateWhereClause(dateRange, "v");
 
+                string sql = $@"
+            SELECT 
+                p.NOME AS 'Produto',
+                p.MARCA AS 'Marca',
+                COALESCE(SUM(iv.QUANTIDADE), 0) AS 'Quantidade Vendida',
+                COALESCE(SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE), 0) AS 'Faturamento Total',
+                CASE 
+                    WHEN COALESCE(SUM(iv.QUANTIDADE), 0) > 0 
+                    THEN ROUND(COALESCE(SUM(iv.PRECO_UNITARIO * iv.QUANTIDADE), 0) / COALESCE(SUM(iv.QUANTIDADE), 1), 2)
+                    ELSE 0
+                END AS 'Preço Médio'
+            FROM PRODUTO p
+            LEFT JOIN ITEM_VENDA iv ON iv.ID_PRODUTO = p.ID_PRODUTO
+            LEFT JOIN VENDA v ON iv.ID_VENDA = v.ID_VENDA
+            {whereClause}
+            GROUP BY p.ID_PRODUTO, p.NOME, p.MARCA
+            HAVING COALESCE(SUM(iv.QUANTIDADE), 0) > 0
+            ORDER BY COALESCE(SUM(iv.QUANTIDADE), 0) ASC, p.NOME ASC
+            LIMIT 50";
+
+                return DatabaseHelper.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Erro ao gerar relatório de produtos menos vendidos: {ex.Message}",
+                    "Erro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return new DataTable();
+            }
+        }
 
         private DataTable ObterRelatorioVendasPeriodo((DateTime start, DateTime end)? dateRange)
         {
             try
             {
                 string whereClause = BuildDateWhereClause(dateRange, "DATA_HORA");
-
 
                 string sql = $@"
                     SELECT 
@@ -637,6 +677,7 @@ namespace telebip_erp.Forms.Modules
                     CalcularMetricasVendas(dt, periodo);
                     break;
                 case "produtos mais vendidos":
+                case "produtos menos vendidos":
                 case "vendas por categoria":
                     CalcularMetricasProdutos(dt, periodo);
                     break;
@@ -720,8 +761,12 @@ namespace telebip_erp.Forms.Modules
 
             decimal faturamentoTotal = 0;
             int quantidadeTotal = 0;
-            string produtoMaisVendido = "";
-            int maxVendido = 0;
+            string produtoDestaque = "";
+            int quantidadeDestaque = 0;
+
+            // Determina se é mais ou menos vendidos pelo contexto
+            string tipoRelatorio = ObterValorSelecionado(cbTipoRelatorio).ToLower();
+            bool isMenosVendidos = tipoRelatorio.Contains("menos");
 
             foreach (DataRow row in dt.Rows)
             {
@@ -747,10 +792,13 @@ namespace telebip_erp.Forms.Modules
                         int qtd = Convert.ToInt32(row["Quantidade Vendida"]);
                         quantidadeTotal += qtd;
 
-                        if (qtd > maxVendido)
+                        // Para menos vendidos, queremos o MENOR valor (ou o primeiro da lista)
+                        // Para mais vendidos, queremos o MAIOR valor
+                        if ((isMenosVendidos && (quantidadeDestaque == 0 || qtd < quantidadeDestaque)) ||
+                            (!isMenosVendidos && qtd > quantidadeDestaque))
                         {
-                            maxVendido = qtd;
-                            produtoMaisVendido = row["Produto"].ToString();
+                            quantidadeDestaque = qtd;
+                            produtoDestaque = row["Produto"].ToString();
                         }
                     }
                 }
@@ -763,9 +811,9 @@ namespace telebip_erp.Forms.Modules
             lblTitulo2.Text = "Quantidade Total";
             lblValor2.Text = quantidadeTotal.ToString();
 
-            lblTitulo3.Text = "Produto Mais Vendido";
-            lblValor3.Text = produtoMaisVendido.Length > 15 ?
-                produtoMaisVendido.Substring(0, 15) + "..." : produtoMaisVendido;
+            lblTitulo3.Text = isMenosVendidos ? "Produto Menos Vendido" : "Produto Mais Vendido";
+            lblValor3.Text = produtoDestaque.Length > 15 ?
+                produtoDestaque.Substring(0, 15) + "..." : produtoDestaque;
 
             lblTitulo4.Text = "Período";
             lblValor4.Text = periodo;
@@ -1071,7 +1119,6 @@ namespace telebip_erp.Forms.Modules
             return null;
         }
 
-
         private void btnExportarExcel_Click(object sender, EventArgs e)
         {
             if (dgvRelatorios.Rows.Count == 0)
@@ -1361,7 +1408,6 @@ namespace telebip_erp.Forms.Modules
                 }
             }
         }
-
 
         public void AtualizarDados()
         {

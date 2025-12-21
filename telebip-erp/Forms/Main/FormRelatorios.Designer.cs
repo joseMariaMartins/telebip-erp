@@ -525,7 +525,7 @@ namespace telebip_erp.Forms.Modules
             cbTipoRelatorio.FormattingEnabled = true;
             cbTipoRelatorio.ItemEntryHeight = 24;
             cbTipoRelatorio.ItemHeight = 17;
-            cbTipoRelatorio.Items.AddRange(new object[] { "Vendas do período", "Produtos mais vendidos", "Vendas por funcionário", "Produtos com baixo estoque", "Formas de pagamento", "Vendas por Marca", "Movimentação de estoque" });
+            cbTipoRelatorio.Items.AddRange(new object[] { "Vendas do período", "Produtos mais vendidos", "Produtos menos vendidos", "Vendas por funcionário", "Produtos com baixo estoque", "Formas de pagamento", "Vendas por Marca", "Movimentação de estoque" });
             cbTipoRelatorio.Location = new Point(6, 6);
             cbTipoRelatorio.Margin = new Padding(0);
             cbTipoRelatorio.Name = "cbTipoRelatorio";
