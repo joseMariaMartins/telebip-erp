@@ -270,6 +270,7 @@
             btnEditEstoque.Text = "                    Editar";
             btnEditEstoque.TextAlign = ContentAlignment.MiddleLeft;
             btnEditEstoque.UseVisualStyleBackColor = false;
+            btnEditEstoque.Click += btnEditEstoque_Click;
             // 
             // panel10
             // 

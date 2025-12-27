@@ -437,12 +437,6 @@ namespace telebip_erp
 
         private void AbrirFormAddEstoque()
         {
-            if (estoque == null)
-            {
-                MessageBox.Show("Abra primeiro a tela de Estoque.");
-                return;
-            }
-
             if (adicionarEstoqueForm == null || adicionarEstoqueForm.IsDisposed)
             {
                 adicionarEstoqueForm = new FormAddEstoque();
@@ -450,44 +444,55 @@ namespace telebip_erp
                 adicionarEstoqueForm.AtualizarEstoqueCallback = () => estoque?.CarregarEstoque();
             }
 
-            PreencherFormAddEstoque();
+            // 🔴 IMPORTANTE: NÃO preencher nada com base no DataGridView
+            adicionarEstoqueForm.LimparCampos();
+
             adicionarEstoqueForm.ShowDialog(this);
         }
 
-        private void PreencherFormAddEstoque()
+        private void btnEditEstoque_Click(object sender, EventArgs e)
         {
-            adicionarEstoqueForm!.LimparCampos();
-            var linhaSelecionada = estoque!.ObterLinhaSelecionada();
-
-            if (linhaSelecionada != null)
+            if (estoque == null || estoque.IsDisposed)
             {
-                adicionarEstoqueForm.ProdutoSelecionado = (
-                    Convert.ToInt32(linhaSelecionada.Cells["ID_PRODUTO"].Value),
-                    linhaSelecionada.Cells["NOME"].Value?.ToString() ?? "",
-                    Convert.ToInt32(linhaSelecionada.Cells["QTD_ESTOQUE"].Value)
+                MessageBox.Show(
+                    "Abra a tela de estoque para editar um produto.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
                 );
-
-                adicionarEstoqueForm.tbNome.Text = linhaSelecionada.Cells["NOME"].Value?.ToString() ?? "";
-                adicionarEstoqueForm.tbMarca.Text = linhaSelecionada.Cells["MARCA"].Value?.ToString() ?? "";
-                adicionarEstoqueForm.tbPreco.Text = "R$ " + Convert.ToDecimal(linhaSelecionada.Cells["PRECO"].Value).ToString("N2");
-                adicionarEstoqueForm.tbQEstoque.Text = "";
-                adicionarEstoqueForm.tbQAviso.Text = linhaSelecionada.Cells["QTD_AVISO"].Value?.ToString() ?? "";
-                adicionarEstoqueForm.tbObservacao.Text = linhaSelecionada.Cells["OBSERVACAO"].Value?.ToString() ?? "";
-
-                adicionarEstoqueForm.tbNome.ReadOnly = true;
-                adicionarEstoqueForm.tbMarca.ReadOnly = true;
-                adicionarEstoqueForm.tbPreco.ReadOnly = true;
-                adicionarEstoqueForm.tbQAviso.ReadOnly = true;
-                adicionarEstoqueForm.tbObservacao.ReadOnly = true;
-
-                adicionarEstoqueForm.lbQuantidadeAtual.Text = $"Quantidade atual: {linhaSelecionada.Cells["QTD_ESTOQUE"].Value}";
-                adicionarEstoqueForm.lbQuantidadeAtual.Visible = true;
+                return;
             }
-            else
+
+            var linha = estoque.ObterLinhaSelecionada();
+
+            if (linha == null)
             {
-                adicionarEstoqueForm.ProdutoSelecionado = null;
+                MessageBox.Show(
+                    "Selecione um produto para editar.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
             }
+
+            int id = Convert.ToInt32(linha.Cells["ID_PRODUTO"].Value);
+            string nome = linha.Cells["NOME"].Value?.ToString() ?? "";
+            string marca = linha.Cells["MARCA"].Value?.ToString() ?? "";
+            decimal preco = Convert.ToDecimal(linha.Cells["PRECO"].Value);
+            int qtdAtual = Convert.ToInt32(linha.Cells["QTD_ESTOQUE"].Value);
+            int qtdAviso = Convert.ToInt32(linha.Cells["QTD_AVISO"].Value);
+            string observacao = linha.Cells["OBSERVACAO"].Value?.ToString() ?? "";
+
+            using var form = new FormEditarProduto();
+            form.CarregarProduto(id, nome, marca, preco, qtdAtual, qtdAviso, observacao);
+
+            // 🔹 callback correto
+            form.AtualizarEstoqueCallback = () => estoque.AtualizarTabela();
+
+            form.ShowDialog(this);
         }
+
         #endregion
 
         #region Remover Venda / Banco
@@ -585,5 +590,7 @@ namespace telebip_erp
             }
         }
         #endregion
+
+
     }
 }

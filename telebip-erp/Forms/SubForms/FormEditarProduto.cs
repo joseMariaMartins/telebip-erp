@@ -9,12 +9,15 @@ using telebip_erp.Forms.Auth;
 
 namespace telebip_erp.Forms.SubForms
 {
-    public partial class FormAddEstoque : MaterialForm
+    public partial class FormEditarProduto : MaterialForm
     {
         private bool _ignorarEventoPreco = false;
+
+        private int _idProduto;
+        private int _quantidadeAtual;
         public Action? AtualizarEstoqueCallback { get; set; }
 
-        public FormAddEstoque()
+        public FormEditarProduto()
         {
             InitializeComponent();
             ThemeManager.ApplyDarkTheme();
@@ -217,149 +220,104 @@ namespace telebip_erp.Forms.SubForms
         {
             try
             {
-                // VALIDAÇÕES: todos os campos obrigatórios e tipos corretos
-                string nomeRaw = tbNome.Text ?? "";
-                string marcaRaw = tbMarca.Text ?? "";
-                string observacaoRaw = tbObservacao.Text ?? "";
-
-                string nome = nomeRaw.Trim().ToUpper();
-                string marca = marcaRaw.Trim().ToUpper();
-                string observacao = observacaoRaw.Trim().ToUpper();
-
-                if (string.IsNullOrWhiteSpace(nome))
+                if (cbFuncionarios.SelectedItem == null)
                 {
-                    MessageBox.Show("Preencha o campo Nome do produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    tbNome.Focus();
-                    tbNome.SelectAll();
+                    MessageBox.Show("Selecione o funcionário responsável pela edição.");
+                    cbFuncionarios.Focus();
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(marca))
-                {
-                    MessageBox.Show("Preencha o campo Marca do produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    tbMarca.Focus();
-                    tbMarca.SelectAll();
-                    return;
-                }
+                string nome = tbNome.Text.Trim().ToUpper();
+                string marca = tbMarca.Text.Trim().ToUpper();
+                string observacao = tbObservacao.Text.Trim().ToUpper();
+                string funcionario = cbFuncionarios.SelectedItem.ToString()!;
 
-                // Tenta parse do preço usando o formato brasileiro (aceita "R$ 1.234,56" ou "1234,56")
-                decimal preco;
-                bool precoParseOk = decimal.TryParse(
+                if (!decimal.TryParse(
                     tbPreco.Text,
                     NumberStyles.Currency,
                     CultureInfo.GetCultureInfo("pt-BR"),
-                    out preco
-                );
-
-                if (!precoParseOk)
+                    out decimal preco
+                ))
                 {
-                    // Tenta um fallback removendo "R$" e usando invariant (caso o usuário tenha digitado com . e , trocados)
-                    string precoFallback = tbPreco.Text.Replace("R$", "").Replace(" ", "").Replace(".", "").Replace(",", ".");
-                    precoParseOk = decimal.TryParse(precoFallback, NumberStyles.Any, CultureInfo.InvariantCulture, out preco);
-                }
-
-                if (!precoParseOk || preco < 0m)
-                {
-                    MessageBox.Show("Preço inválido. Insira um valor válido (ex: R$ 12,34).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    tbPreco.Focus();
-                    tbPreco.SelectAll();
+                    MessageBox.Show("Preço inválido.");
                     return;
                 }
 
-                // Quantidade a adicionar (obrigatória e > 0)
-                if (!int.TryParse(tbQEstoque.Text.Trim(), out int qtdAdicional) || qtdAdicional <= 0)
+                if (!int.TryParse(tbQAviso.Text, out int qtdAviso) || qtdAviso < 0)
                 {
-                    MessageBox.Show("Informe uma quantidade válida para adicionar (inteiro maior que 0).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    tbQEstoque.Focus();
-                    tbQEstoque.SelectAll();
+                    MessageBox.Show("Quantidade de aviso inválida.");
                     return;
                 }
 
-                // Quantidade de aviso (obrigatória; pode ser zero)
-                if (!int.TryParse(tbQAviso.Text.Trim(), out int qtdAviso) || qtdAviso < 0)
+                int qtdAdicionar = 0;
+                if (!string.IsNullOrWhiteSpace(tbQEstoque.Text))
                 {
-                    MessageBox.Show("Informe uma quantidade de aviso válida (inteiro >= 0).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    tbQAviso.Focus();
-                    tbQAviso.SelectAll();
-                    return;
+                    if (!int.TryParse(tbQEstoque.Text, out qtdAdicionar) || qtdAdicionar < 0)
+                    {
+                        MessageBox.Show("Quantidade inválida.");
+                        return;
+                    }
                 }
 
-                // Funcionário selecionado
-                if (cbFuncionarios.SelectedItem == null)
-                {
-                    MessageBox.Show("Selecione um funcionário!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    cbFuncionarios.Focus();
-                    cbFuncionarios.DroppedDown = true;
-                    return;
-                }
+                int novaQuantidade = _quantidadeAtual + qtdAdicionar;
 
                 using var conn = DatabaseHelper.GetConnection();
                 conn.Open();
-                string nomeFuncionario = cbFuncionarios.SelectedItem!.ToString()!;
-                int idProdutoAfetado;
 
-                    // Antes de inserir, checar duplicado similar (comparação com igualdade simples)
-                    string sqlCheck = @"
-                        SELECT COUNT(*) FROM PRODUTO
-                        WHERE UPPER(NOME) = @NOME AND UPPER(MARCA) = @MARCA
-                          AND PRECO = @PRECO AND UPPER(COALESCE(OBSERVACAO, '')) = UPPER(COALESCE(@OBSERVACAO, ''))
-                    ";
-                    using var cmdCheck = new SQLiteCommand(sqlCheck, conn);
-                    cmdCheck.Parameters.AddWithValue("@NOME", nome);
-                    cmdCheck.Parameters.AddWithValue("@MARCA", marca);
-                    cmdCheck.Parameters.AddWithValue("@PRECO", preco);
-                    cmdCheck.Parameters.AddWithValue("@OBSERVACAO", observacao);
-                    long existe = (long)cmdCheck.ExecuteScalar();
-                    if (existe > 0)
-                    {
-                        MessageBox.Show("Esse produto já está cadastrado (verifique nome/marca/preço/observação).", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        tbNome.Focus();
-                        tbNome.SelectAll();
-                        return;
-                    }
+                // 🔹 Atualiza o produto
+                string sqlUpdate = @"
+            UPDATE PRODUTO
+            SET 
+                NOME = @NOME,
+                MARCA = @MARCA,
+                PRECO = @PRECO,
+                QTD_ESTOQUE = @QTD_ESTOQUE,
+                QTD_AVISO = @QTD_AVISO,
+                OBSERVACAO = @OBS
+            WHERE ID_PRODUTO = @ID;
+        ";
 
-                    string sqlInsert = @"
-                        INSERT INTO PRODUTO (NOME, MARCA, PRECO, QTD_ESTOQUE, QTD_AVISO, OBSERVACAO)
-                        VALUES (@NOME, @MARCA, @PRECO, @QTD_ESTOQUE, @QTD_AVISO, @OBSERVACAO);
-                    ";
-                    using var cmd = new SQLiteCommand(sqlInsert, conn);
+                using (var cmd = new SQLiteCommand(sqlUpdate, conn))
+                {
                     cmd.Parameters.AddWithValue("@NOME", nome);
                     cmd.Parameters.AddWithValue("@MARCA", marca);
                     cmd.Parameters.AddWithValue("@PRECO", preco);
-                    cmd.Parameters.AddWithValue("@QTD_ESTOQUE", qtdAdicional);
+                    cmd.Parameters.AddWithValue("@QTD_ESTOQUE", novaQuantidade);
                     cmd.Parameters.AddWithValue("@QTD_AVISO", qtdAviso);
-                    cmd.Parameters.AddWithValue("@OBSERVACAO", observacao);
+                    cmd.Parameters.AddWithValue("@OBS", observacao);
+                    cmd.Parameters.AddWithValue("@ID", _idProduto);
                     cmd.ExecuteNonQuery();
+                }
 
-                    idProdutoAfetado = (int)conn.LastInsertRowId;
-                
-
-                string sqlMov = @"
-                    INSERT INTO MOVIMENTACAO_ESTOQUE 
-                    (ID_PRODUTO, NOME_FUNCIONARIO, TIPO_MOVIMENTACAO, QUANTIDADE, DATA_HORA)
-                    VALUES (@idProd, @func, 'ENTRADA', @qtd, strftime('%d-%m-%Y %H:%M','now','localtime'));
-                ";
-                DatabaseHelper.ExecuteNonQuery(sqlMov, new SQLiteParameter[]
+                // 🔹 Registra movimentação MANUAL (com funcionário)
+                if (qtdAdicionar > 0)
                 {
-                    new SQLiteParameter("@idProd", idProdutoAfetado),
-                    new SQLiteParameter("@func", nomeFuncionario),
-                    new SQLiteParameter("@qtd", qtdAdicional)
-                });
+                    string sqlMov = @"
+                INSERT INTO MOVIMENTACAO_ESTOQUE
+                (ID_PRODUTO, ID_VENDA, NOME_FUNCIONARIO, TIPO_MOVIMENTACAO, QUANTIDADE, DATA_HORA)
+                VALUES
+                (@idProd, NULL, @func, 'ENTRADA', @qtd, strftime('%d-%m-%Y %H:%M','now','localtime'));
+            ";
 
-                MessageBox.Show("Produto adicionado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DatabaseHelper.ExecuteNonQuery(sqlMov, new SQLiteParameter[]
+                    {
+                new("@idProd", _idProduto),
+                new("@func", funcionario),
+                new("@qtd", qtdAdicionar)
+                    });
+                }
+
+                MessageBox.Show("Produto editado com sucesso!", "Sucesso");
 
                 AtualizarEstoqueCallback?.Invoke();
-                LimparCampos();
-
-                // Volta o foco para o primeiro campo após limpar
-                tbNome.Focus();
-                tbNome.SelectAll();
+                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao adicionar produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao editar produto: " + ex.Message);
             }
         }
+
 
         private void TbPreco_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -422,5 +380,31 @@ namespace telebip_erp.Forms.SubForms
                 e.Graphics.DrawString(texto, e.Font, brush, e.Bounds);
             e.DrawFocusRectangle();
         }
+
+        public void CarregarProduto(
+    int id,
+    string nome,
+    string marca,
+    decimal preco,
+    int quantidadeAtual,
+    int qtdAviso,
+    string observacao
+)
+        {
+            _idProduto = id;
+            _quantidadeAtual = quantidadeAtual;
+
+            tbNome.Text = nome;
+            tbMarca.Text = marca;
+            tbPreco.Text = "R$ " + preco.ToString("N2");
+            tbQAviso.Text = qtdAviso.ToString();
+            tbObservacao.Text = observacao;
+
+            tbQEstoque.Text = ""; // quantidade a SOMAR
+
+            lbQuantidadeAtual.Text = $"Quantidade atual: {quantidadeAtual}";
+            lbQuantidadeAtual.Visible = true;
+        }
+
     }
 }
